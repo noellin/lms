@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import courselist from '../views/courselist'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -19,7 +20,12 @@ Vue.use(VueRouter)
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/About.vue')
     }
-  }
+  },
+  {
+    path: '/course',
+    name: 'course',
+    component: courselist
+  },
 ]
 
 const router = new VueRouter({
