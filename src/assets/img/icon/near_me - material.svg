@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/near_me - material</title>
+    <defs>
+        <polygon id="path-1" points="9.22 15.5 15.5 0.5 0.5 6.78 0.5 7.6 6.2 9.8 8.4 15.5"></polygon>
+    </defs>
+    <g id="icon/near_me---material" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <text id="near_me---material" font-family="material" font-size="20" font-weight="normal" fill="#999999">
+            <tspan x="0" y="17"></tspan>
+        </text>
+        <g id="color/gray-copy-3" transform="translate(2.000000, 2.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#999999" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group" mask="url(#mask-2)">
+                <g transform="translate(-2.000000, -2.000000)">
+                    <rect id="Rectangle-Copy" fill="#788DB4" x="0" y="0" width="20" height="20"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

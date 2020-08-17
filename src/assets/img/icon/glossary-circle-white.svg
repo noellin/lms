@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/glossary-circle-white</title>
+    <defs>
+        <path d="M10,0 C4.477,0 0,4.477 0,10 C0,15.523 4.477,20 10,20 C15.523,20 20,15.523 20,10 C20,4.477 15.523,0 10,0 M10,1 C14.9625,1 19,5.0375 19,10 C19,14.9625 14.9625,19 10,19 C5.0375,19 1,14.9625 1,10 C1,5.0375 5.0375,1 10,1 M7.3968254,14 L6,14 L9.38095238,5 L10.6190476,5 L14,14 L12.6031746,14 L11.8571429,11.9281768 L8.14285714,11.9281768 L7.3968254,14 Z M11,10 L10,7 L9,10 L11,10 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/glossary-circle-white" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Mask" fill="#999999" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="Group" mask="url(#mask-2)" fill="#FFFFFF">
+            <g id="Rectangle">
+                <rect x="0" y="0" width="20" height="20"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

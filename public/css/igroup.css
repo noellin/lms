@@ -5,14 +5,16 @@ h4 i.la {
     font-size: 1.2em;
 }
 
-a i {
-    color: #32C1DB;
-}
 
+.fa, .fab, .fad, .fal, .far, .fas{
+    font-size: .75rem;
+}
 ul {
     padding-inline-start: 0px;
 }
-
+li {
+    list-style: none;
+}
 .nav.metismenu .nav-sub>li>a.active span {
     color: #32C1DB;
 }
@@ -42,7 +44,9 @@ ul {
 .border.border-danger {
     border-color: #ff5c75 !important;
 }
-
+.mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+        background-color: rgba(0,0,0,.4);
+}
 /*alert*/
 .alert {
     font-size: 1rem;
@@ -53,7 +57,7 @@ ul {
 }
 
 /*btn*/
-.btn {
+.btn, a:link.btn {
     font-weight: 400;
 }
 
@@ -74,24 +78,42 @@ ul {
 }
 
 .btn i.la,
-.btn i.zmdi {
+.btn i.zmdi,
+ a:link.btn i.zmdi,
+ a:link.btn i.la {
     font-size: 1.5em;
     margin-left: -3px
 }
 
-.btn.btn-sm {
+.btn.btn-sm{
     padding: 0.4rem .75rem 0.35rem .75rem;
 }
+a:link.btn.btn-sm{
+    padding: 0.5rem .75rem 0.35rem .75rem;
 
+}
 .btn .badge {
     top: -2px;
 }
-
+.btn-rounded-icon{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% !important;
+    line-height: 30px;
+    text-align: center;
+}
+.btn-rounded-icon i{
+    color: #fff;
+}
 .btn.btn-icon.btn-secondary:hover i.text-secondary,
 .btn.btn-icon.btn-secondary:focus i.text-secondary,
 .btn.btn-secondary:hover i,
-.btn.btn-secondary:link i,
-.btn-primary.btn-outline:hover i {
+/*.btn.btn-secondary:link i,*/
+.btn-primary.btn-outline:hover i,
+a.btn-primary.btn-outline:hover i,
+a.btn-primary:hover i,
+a:visited.btn-primary a:link.btn-primary{
     color: #fff !important;
 }
 
@@ -107,7 +129,16 @@ ul {
 .btn.btn-primary:hover .badge.badge-primary {
     background-color: #788db4
 }
-
+.badge.badge-primary,.badge.badge-primary i,
+.badge.badge-secondary,.badge.badge-secondary i,
+.badge.badge-danger,.badge.badge-danger i,
+.badge.badge-success,.badge.badge-success i,
+.badge.badge-warning,.badge.badge-warning i {
+    color: #fff !important;
+}
+.btn-danger, a:link.btn-danger{
+    color:rgba(255,255,255,.9) !important;
+}
 .badge.badge-pill {
     width: auto;
     padding-left: 0.5rem;
@@ -179,7 +210,7 @@ ul {
 }
 
 .btn.btn-nostyle:hover i {
-    opacity: 0.6;
+    /*opacity: 0.6;*/
 }
 
 .btn-move {
@@ -261,11 +292,13 @@ ul {
 
 
 /*form*/
-select {
+.form-control{
+    height: 38px;
+}
+select.form-control {
     min-width: 200px;
     height: 38px;
 }
-
 .form-rounded .form-control,
 .form-rounded .select2-container--default .select2-selection--single {
     border-radius: 1rem;
@@ -274,6 +307,7 @@ select {
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     padding: .58rem 2rem .58rem 1rem;
     font-size: 0.875rem;
+    height: 38px;
 }
 
 .select2-container--default .select2-selection--multiple,
@@ -281,7 +315,11 @@ select {
     min-height: 38px;
     height: 38px;
 }
-
+.select2{
+    width: 100% !important;
+    min-width: 200px;
+    height: 38px;
+}
 .input-group-append,
 .btn.btn-icon.btn-secondary:hover {
     box-shadow: none !important;
@@ -486,8 +524,28 @@ footer {
 /*other*/
 .overlay-wrap {
     border-radius: 6px;
+    position: relative;
+}
+.overlay-wrap .overlay-icon{
+    display: block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    background-color: rgba(0,0,0,0.2);
+    line-height: 24px;
+    text-align: center;
+    border-radius: 50%;
 }
 
+.overlay-wrap a:hover,
+.overlay-wrap a:hover i{
+    opacity: 1;
+}
+.overlay-wrap .overlay-icon i{
+    color: #fff;
+}
 .overlay-wrap .overlay-img {
     display: block;
     width: 100%;
@@ -505,19 +563,24 @@ footer {
 
 .sequence {
     padding-inline-start: 0;
-    padding: 12px 4px 12px 20px;
+    padding: 12px 20px 12px 20px;
 }
 
 .sequence li {
     list-style: none;
     padding-left: 0;
-    border: 1px solid #32C1DB;
     padding: 8px 8px 8px 12px;
     margin-top: 0.5rem;
     border-radius: .25rem;
     color: #32C1DB;
 }
-
+.number-block{
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.2rem;
+}
 .addstudent .btn {
     padding: 30px 20px;
     border-radius: 1rem;
@@ -630,7 +693,19 @@ footer {
     line-height: 40px;
     text-align: center;
 }
-
+.ig-notice{
+    content: "";
+    display: inline-block;
+    width: 8px !important;
+    height: 8px !important;
+    vertical-align: middle !important;
+    border-radius: 50%;
+    background-color: #ff5c75;
+    margin:-2px 5px 0 -13px !important;
+}
+.mCSB_inside>.mCSB_container{
+    margin-right: 10px;
+}
 body:not(.device-touch):not(.device-sm):not(.device-xs) .img-cover-overlay {
     /*transition: opacity .4s ease-in-out;*/
 }

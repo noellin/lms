@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/exclamation-triangle - LineAwesome</title>
+    <defs>
+        <path d="M17.5742188,15.375 L17.046875,14.4375 L9.546875,1.44921875 L9,0.51171875 L8.453125,1.44921875 L0.953125,14.4375 L0.42578125,15.375 L17.5742188,15.375 Z M15.40625,14.125 L2.59375,14.125 L9,3.01171875 L15.40625,14.125 Z M9.625,11 L9.625,7.25 L8.375,7.25 L8.375,11 L9.625,11 Z M9.625,12.875 L9.625,11.625 L8.375,11.625 L8.375,12.875 L9.625,12.875 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/exclamation-triangle---LineAwesome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="color/text-i" transform="translate(1.000000, 2.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#999999" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group" mask="url(#mask-2)">
+                <g transform="translate(-1.000000, -2.000000)">
+                    <rect id="Rectangle-Copy" fill="#788DB4" x="0" y="0" width="20" height="20"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

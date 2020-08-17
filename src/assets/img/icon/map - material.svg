@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/map - material</title>
+    <defs>
+        <path d="M10.5,15.5 L15.18,13.9 C15.26,13.8733333 15.3333333,13.8233333 15.4,13.75 C15.4666667,13.6766667 15.5,13.5933333 15.5,13.5 L15.5,13.5 L15.5,0.92 C15.5,0.813333333 15.4566667,0.716666667 15.37,0.63 C15.2833333,0.543333333 15.1866667,0.5 15.08,0.5 L15.08,0.5 L14.96,0.54 L10.5,2.26 L5.5,0.5 L0.82,2.1 C0.74,2.12666667 0.666666667,2.17666667 0.6,2.25 C0.533333333,2.32333333 0.5,2.40666667 0.5,2.5 L0.5,2.5 L0.5,15.08 C0.5,15.1866667 0.543333333,15.2833333 0.63,15.37 C0.716666667,15.4566667 0.82,15.5 0.94,15.5 L0.94,15.5 L5.5,13.74 L10.5,15.5 Z M10.5,13.82 L5.5,12.06 L5.5,2.18 L10.5,3.94 L10.5,13.82 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/map---material" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="color/gray-copy-3" transform="translate(2.000000, 2.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#999999" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group" mask="url(#mask-2)">
+                <g transform="translate(-2.000000, -2.000000)">
+                    <rect id="Rectangle-Copy" fill="#788DB4" x="0" y="0" width="20" height="20"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

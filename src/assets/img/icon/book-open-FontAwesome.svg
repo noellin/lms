@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/book-open-FontAwesome</title>
+    <defs>
+        <path d="M16.944375,0.0015625 C15.231875,0.09875 11.828125,0.4525 9.726875,1.73875 C9.581875,1.8275 9.4996875,1.9853125 9.4996875,2.1503125 L9.4996875,13.52125 C9.4996875,13.8821875 9.894375,14.1103125 10.2271875,13.9428125 C12.3890625,12.8546875 15.515625,12.5578125 17.0615625,12.4765625 C17.589375,12.44875 17.9996875,12.025625 17.9996875,11.5184375 L17.9996875,0.9609375 C18,0.4075 17.52,-0.0309375 16.944375,0.0015625 Z M8.2728125,1.73875 C6.171875,0.4525 2.768125,0.0990625 1.055625,0.0015625 C0.48,-0.0309375 0,0.4075 0,0.9609375 L0,11.51875 C0,12.02625 0.4103125,12.449375 0.938125,12.476875 C2.4846875,12.558125 5.6128125,12.8553125 7.7746875,13.9440625 C8.1065625,14.11125 8.5,13.8834375 8.5,13.5234375 L8.5,2.1446875 C8.5,1.979375 8.418125,1.8278125 8.2728125,1.73875 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/book-open-FontAwesome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="color/gray-copy-3" transform="translate(1.000000, 3.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group" mask="url(#mask-2)">
+                <g transform="translate(0.000000, -1.800000)" id="color/gray-copy-3">
+                    <rect id="Rectangle-Copy" fill="#788DB4" x="0" y="0" width="18" height="18"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

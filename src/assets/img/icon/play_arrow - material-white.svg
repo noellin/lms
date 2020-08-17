@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/play_arrow - material-white</title>
+    <defs>
+        <path d="M10,0 C15.523,0 20,4.477 20,10 C20,15.523 15.523,20 10,20 C4.477,20 0,15.523 0,10 C0,4.477 4.477,0 10,0 Z M10,1 C5.0375,1 1,5.0375 1,10 C1,14.9625 5.0375,19 10,19 C14.9625,19 19,14.9625 19,10 C19,5.0375 14.9625,1 10,1 Z M8.34,7.09 L12.91,10 L8.34,12.91 L8.34,7.09 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/play_arrow---material-white" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Mask" fill="#3DA1D7" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="Group" mask="url(#mask-2)" fill="#FFFFFF">
+            <g id="Rectangle">
+                <rect x="0" y="0" width="20" height="20"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

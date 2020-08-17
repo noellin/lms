@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300px" height="45px" viewBox="0 0 300 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>img/ribbon</title>
+    <g id="img/ribbon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Fill-1" fill="#1794AB" points="0 7 13.9226534 26.003707 0 45 55 45 55 7"></polygon>
+        <polygon id="Fill-2" fill="#1794AB" points="245 7 245 45 300 45 286.082567 26.003707 300 7"></polygon>
+        <g id="Group" transform="translate(31.000000, 0.000000)" fill="#32C1DB">
+            <polygon id="Fill-3" points="0 38 239 38 239 0 0 0"></polygon>
+        </g>
+    </g>
+</svg>

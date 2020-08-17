@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/bookmark_border - material</title>
+    <defs>
+        <path d="M11.82,15.5 L11.82,2.18 C11.82,1.72666667 11.66,1.33333333 11.34,1 C11.02,0.666666667 10.6333333,0.5 10.18,0.5 L10.18,0.5 L1.82,0.5 C1.36666667,0.5 0.98,0.666666667 0.66,1 C0.34,1.33333333 0.18,1.72666667 0.18,2.18 L0.18,2.18 L0.18,15.5 L6,13 L11.82,15.5 Z M10.18,13 L6,11.16 L1.82,13 L1.82,2.18 L10.18,2.18 L10.18,13 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/bookmark_border---material" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="color/gray-copy-3" transform="translate(4.000000, 2.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#999999" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group" mask="url(#mask-2)">
+                <g transform="translate(-4.000000, -2.000000)">
+                    <rect id="Rectangle-Copy" fill="#788DB4" x="0" y="0" width="20" height="20"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

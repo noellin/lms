@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/flag - material</title>
+    <defs>
+        <polygon id="path-1" points="1.82 14.5 1.82 8.68 6.5 8.68 6.82 10.32 12.68 10.32 12.68 2 8 2 7.68 0.32 0.18 0.32 0.18 14.5"></polygon>
+    </defs>
+    <g id="icon/flag---material" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="color/gray-copy-3" transform="translate(4.000000, 3.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#999999" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group" mask="url(#mask-2)">
+                <g transform="translate(-4.000000, -3.000000)">
+                    <rect id="Rectangle-Copy" fill="#788DB4" x="0" y="0" width="20" height="20"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

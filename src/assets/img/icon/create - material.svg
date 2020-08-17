@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/create - material</title>
+    <defs>
+        <path d="M13.74,5.38 L15.26,3.86 C15.42,3.7 15.5,3.50333333 15.5,3.27 C15.5,3.03666667 15.42,2.84 15.26,2.68 L15.26,2.68 L13.32,0.74 C13.16,0.58 12.9633333,0.5 12.73,0.5 C12.4966667,0.5 12.3,0.58 12.14,0.74 L12.14,0.74 L10.62,2.26 L13.74,5.38 Z M3.62,15.5 L12.84,6.28 L9.72,3.16 L0.5,12.38 L0.5,15.5 L3.62,15.5 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/create---material" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="color/gray-copy-3" transform="translate(2.000000, 2.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#999999" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group" mask="url(#mask-2)">
+                <g transform="translate(-2.000000, -2.000000)">
+                    <rect id="Rectangle-Copy" fill="#788DB4" x="0" y="0" width="20" height="20"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

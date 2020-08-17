@@ -8,15 +8,18 @@
   },
   "dependencies": {
     "register-service-worker": "^1.7.1",
+    "vee-validate": "^3.3.9",
     "vue": "^2.6.11",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-pwa": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
+    "node-sass": "^4.14.1",
     "sass": "^1.26.10",
-    "sass-loader": "^9.0.2",
+    "sass-loader": "^9.0.3",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0"
   }

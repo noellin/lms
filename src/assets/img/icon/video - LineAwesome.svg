@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/video - LineAwesome</title>
+    <defs>
+        <path d="M9.964299,12.85716 C11.5613993,12.85716 12.85716,11.5613993 12.85716,9.964299 L12.85716,8.29688606 L16.9051565,12.3448825 C17.0256923,12.4754631 17.1864068,12.535731 17.357166,12.535731 C17.4375232,12.535731 17.5279252,12.5156417 17.6082824,12.4855077 C17.8393095,12.3850612 18.000024,12.1540341 18.000024,11.892873 L18.000024,0.964287 C18.000024,0.703125938 17.8393095,0.472098844 17.6082824,0.371652281 C17.5279252,0.341518312 17.4375232,0.321429 17.357166,0.321429 C17.1864068,0.321429 17.0256923,0.381696937 16.9051565,0.512277469 L12.85716,4.55022928 L12.85716,2.892861 C12.85716,1.29576066 11.5613993,0 9.964299,0 L2.892861,0 C1.29576066,0 0,1.29576066 0,2.892861 L0,9.964299 C0,11.5613993 1.29576066,12.85716 2.892861,12.85716 L9.964299,12.85716 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/video---LineAwesome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="color/gray-copy-3" transform="translate(1.000000, 4.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#999999" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group" mask="url(#mask-2)">
+                <g transform="translate(-1.000000, -4.000000)">
+                    <rect id="Rectangle-Copy" fill="#788DB4" x="0" y="0" width="20" height="20"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
