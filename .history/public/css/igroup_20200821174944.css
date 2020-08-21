@@ -1,31 +1,7 @@
 /* custom */
-/* a:link, h4 i.zmdi, h4 i.la {
-    font-size: 1.2em;
-}
-a:link, a:visited {
-    color: #32C1DB;
-}
-a, a:link, a:visited {
-    text-decoration: none;
-    outline: 0;
-    transition: all .3s ease;
-} */
+a:link,
 
-a:not([href]):not([tabindex]) {
-    text-decoration: none;
-    outline: 0;
-    transition: all .3s ease;
-    cursor: pointer;
-}
 
-a.text-link {
-    color: #32C1DB !important;
-}
-
-a.btn-link {
-    padding: 0.5rem .75rem 0.35rem .75rem !important;
-    color: #fff !important;
-}
 
 /*all*/
 

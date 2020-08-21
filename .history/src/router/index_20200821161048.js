@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import CourseList from "../views/CourseList";
 import CourseMaterial from "../views/CourseMaterial.vue"
-import CourseAssignment from "../views/CourseAssignment.vue"
 import Login from "../views/Login.vue";
 import Collection from "../views/Collection.vue"
 import Account from "../views/Account.vue"
@@ -26,11 +25,6 @@ const routes = [{
     path: "/course_material",
     name: "course_material",
     component: CourseMaterial,
-  },
-  {
-    path: "/course_assignment",
-    name: "course_assignment",
-    component: CourseAssignment,
   },
   {
     path: "/collection",

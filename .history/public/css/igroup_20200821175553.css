@@ -11,20 +11,12 @@ a, a:link, a:visited {
     transition: all .3s ease;
 } */
 
-a:not([href]):not([tabindex]) {
+text-link {
     text-decoration: none;
     outline: 0;
     transition: all .3s ease;
+    color: #32C1DB;
     cursor: pointer;
-}
-
-a.text-link {
-    color: #32C1DB !important;
-}
-
-a.btn-link {
-    padding: 0.5rem .75rem 0.35rem .75rem !important;
-    color: #fff !important;
 }
 
 /*all*/

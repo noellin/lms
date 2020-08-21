@@ -18,18 +18,8 @@
             <div class="col-12">
               <div class="form-row">
                 <div class="form-group form-rounded mb-0 mr-3">
-                  <select
-                    class="form-control"
-                    id="s2_demo1"
-                    v-model="selectedTeacher"
-                  >
-                    <option
-                      v-for="teacher in teacherList"
-                      :key="teacher.name"
-                      :value="teacher.value"
-                    >
-                      {{ teacher.name }}</option
-                    >
+                  <select class="form-control" id="s2_demo1" v-model="selectedTeacher">
+                    <option v-for="teacher in teacherList" :key="teacher">{{teacher}</option>
                   </select>
                 </div>
                 <div class="form-group form-rounded mb-0">
@@ -153,36 +143,7 @@
                               >
                             </td>
                           </tr>
-                          <tr v-for="course in courseList" :key="course.id">
-                            <td>
-                              <a
-                                @click="gotoCourseMaterial"
-                                class="text-link"
-                                >{{ course.name }}</a
-                              >
-                            </td>
-                            <td>{{ course.teacher }}</td>
-                            <td>{{ course.student }}／{{ course.limit }}</td>
-                            <td>{{ course.package }}</td>
-                            <td>{{ course.expiryDate }}</td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <a
-                                @click="gotoCourseAssignment()"
-                                class="btn btn-primary btn-rounded btn-sm btn-message btn-link"
-                                >Checking</a
-                              >
-                            </td>
-                          </tr>
-                          <!-- <tr>
+                          <tr>
                             <td>
                               <a href="course-material-list.html">301 中文課</a>
                             </td>
@@ -206,7 +167,7 @@
                                 >Checking</a
                               >
                             </td>
-                          </tr> -->
+                          </tr>
                           <tr>
                             <td>
                               <a href="course-material-list.html"
@@ -1086,37 +1047,10 @@ export default {
         name: "Amanda",
         email: "support@authenticgoods.co",
       },
-      teacherList: [
-        { name: "All teacher", value: "A" },
-        { name: "Amanda", value: "B" },
-        { name: "Diana", value: "C" },
-        { name: "Jim", value: "D" },
-        { name: "Mark", value: "E" },
-        { name: "王小明", value: "F" },
-      ],
-      selectedTeacher: "A",
-      courseList: [
-        {
-          id: "1223555",
-          name: "300 體育課",
-          teacher: "林書豪",
-          student: "40",
-          limit: "50",
-          package: "second part",
-          expiryDate: "	2020/10/30",
-        },
-      ],
     };
   },
 
-  methods: {
-    gotoCourseMaterial() {
-      this.$router.push({ path: "/course_material/" });
-    },
-  },
-  gotoCourseAssignment() {
-    this.$router.push({ path: "/course_assignment/" });
-  },
+  methods: {},
 };
 </script>
 

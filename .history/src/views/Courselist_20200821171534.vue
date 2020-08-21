@@ -153,13 +153,11 @@
                               >
                             </td>
                           </tr>
-                          <tr v-for="course in courseList" :key="course.id">
+                          <tr v-for="course in courseList" :key="course">
                             <td>
-                              <a
-                                @click="gotoCourseMaterial"
-                                class="text-link"
-                                >{{ course.name }}</a
-                              >
+                              <a @click="gotoCourseMaterial">{{
+                                course.name
+                              }}</a>
                             </td>
                             <td>{{ course.teacher }}</td>
                             <td>{{ course.student }}／{{ course.limit }}</td>
@@ -176,8 +174,8 @@
                             </td>
                             <td>
                               <a
-                                @click="gotoCourseAssignment()"
-                                class="btn btn-primary btn-rounded btn-sm btn-message btn-link"
+                                href="assignments-progress.html"
+                                class="btn btn-primary btn-rounded btn-sm btn-message"
                                 >Checking</a
                               >
                             </td>
@@ -1095,28 +1093,13 @@ export default {
         { name: "王小明", value: "F" },
       ],
       selectedTeacher: "A",
-      courseList: [
-        {
-          id: "1223555",
-          name: "300 體育課",
-          teacher: "林書豪",
-          student: "40",
-          limit: "50",
-          package: "second part",
-          expiryDate: "	2020/10/30",
-        },
-      ],
     };
   },
 
   methods: {
-    gotoCourseMaterial() {
-      this.$router.push({ path: "/course_material/" });
-    },
+    gotoCourseMaterial() {},
   },
-  gotoCourseAssignment() {
-    this.$router.push({ path: "/course_assignment/" });
-  },
+  gotoCourseAssignment() {},
 };
 </script>
 
