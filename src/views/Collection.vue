@@ -3,7 +3,7 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <Header></Header>
+      <custom-header></custom-header>
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content">
         <header class="page-header">
@@ -243,11 +243,11 @@
   </div>
 </template>
 <script>
-import Header from "../components/Header";
+import CustomHeader from "../components/CustomHeader";
 export default {
   name: "Collection",
   components: {
-    Header,
+    CustomHeader,
   },
   data() {
     return {};

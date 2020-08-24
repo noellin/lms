@@ -24,12 +24,12 @@ const routes = [{
   },
   {
     path: "/course_material",
-    name: "course_material",
+    name: "CourseMaterial",
     component: CourseMaterial,
   },
   {
     path: "/course_assignment",
-    name: "course_assignment",
+    name: "CourseAssignment",
     component: CourseAssignment,
   },
   {

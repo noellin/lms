@@ -3,7 +3,7 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <Header></Header>
+      <custom-header></custom-header>
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content">
         <header class="page-header">
@@ -1074,11 +1074,11 @@
 </template>
 
 <script>
-import Header from "../components/Header";
+import CustomHeader from "../components/CustomHeader";
 export default {
   name: "Course",
   components: {
-    Header,
+    CustomHeader,
   },
   data() {
     return {
@@ -1113,9 +1113,9 @@ export default {
     gotoCourseMaterial() {
       this.$router.push({ path: "/course_material/" });
     },
-  },
-  gotoCourseAssignment() {
-    this.$router.push({ path: "/course_assignment/" });
+    gotoCourseAssignment() {
+      this.$router.push({ path: "/course_assignment/" });
+    },
   },
 };
 </script>
