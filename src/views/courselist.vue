@@ -38,9 +38,11 @@
                       type="text"
                       class="form-control"
                       placeholder="Search..."
+                      @keyup.enter="searchCourse()"
                     />
                     <div class="input-group-append">
                       <button
+                        @click="searchCourse()"
                         class="btn btn-secondary btn-outline btn-icon btn-rounded"
                         type="button"
                       >
@@ -161,7 +163,17 @@
                                 >{{ course.name }}</a
                               >
                             </td>
-                            <td>{{ course.teacher }}</td>
+                            <td>
+                              <span
+                                v-for="(teacher, index) in course.teacher"
+                                :key="teacher"
+                                class="mr-1"
+                                >{{ teacher
+                                }}<span v-if="index + 1 < course.teacher.length"
+                                  >,</span
+                                ></span
+                              >
+                            </td>
                             <td>{{ course.student }}／{{ course.limit }}</td>
                             <td>{{ course.package }}</td>
                             <td>{{ course.expiryDate }}</td>
@@ -337,6 +349,7 @@
                         </div>
                       </div>
                     </div>
+                    <!-- expired的table -->
                     <div class="tab-pane fadeIn" id="tab-2">
                       <table
                         id="bs4-table"
@@ -442,6 +455,7 @@
                         </div>
                       </div>
                     </div>
+                    <!-- expired的table -->
                   </div>
                 </div>
               </div>
@@ -500,6 +514,7 @@
                     class="form-control"
                     id="s2_demo3"
                     multiple="multiple"
+                    v-model="courseList.teacher"
                   >
                     <optgroup label="title">
                       <option>Amanda</option>
@@ -1095,11 +1110,12 @@ export default {
         { name: "王小明", value: "F" },
       ],
       selectedTeacher: "A",
+
       courseList: [
         {
           id: "1223555",
           name: "300 體育課",
-          teacher: "林書豪",
+          teacher: [],
           student: "40",
           limit: "50",
           package: "second part",
@@ -1110,6 +1126,7 @@ export default {
   },
 
   methods: {
+    searchCourse() {},
     gotoCourseMaterial() {
       this.$router.push({ path: "/course_material/" });
     },
@@ -1121,5 +1138,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#s2_demo3 {
+  height: 90px;
+}
 //@import '../assets/css/igroup.css';
 </style>

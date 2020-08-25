@@ -18,6 +18,11 @@ const routes = [{
     component: Login,
   },
   {
+    path: "/resetpassword?id=:id",
+    name: "ResetPassword",
+    component: Login,
+  },
+  {
     path: "/course",
     name: "Course",
     component: CourseList,

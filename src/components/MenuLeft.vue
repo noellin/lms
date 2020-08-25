@@ -4,10 +4,16 @@
       <ul class="nav metismenu">
         <li class="sidebar-header"><span>Active</span></li>
         <li class="nav-dropdown">
-          <a class="has-arrow" href="#" aria-expanded="false"
+          <a
+            class="has-arrow"
+            aria-expanded="false"
+            href="#tt"
+            @click.prevent=""
+            data-toggle="collapse"
+            aria-controls="tt"
             ><span>301 ENGLISH</span></a
           >
-          <ul class="collapse nav-sub" aria-expanded="true">
+          <ul class="nav-sub" id="tt">
             <li>
               <a href="course-material-list.html"><span>Material</span></a>
             </li>
@@ -22,8 +28,9 @@
             </li>
           </ul>
         </li>
-        <li class="nav-dropdown active">
-          <a class="has-arrow" href="#" aria-expanded="false"
+
+        <!-- <li class="nav-dropdown active">
+          <a class="has-arrow" href="#" @click.prevent="" aria-expanded="false"
             ><span>201 ENGLISH</span></a
           >
           <ul class="collapse nav-sub" aria-expanded="false">
@@ -44,7 +51,7 @@
           </ul>
         </li>
         <li class="nav-dropdown">
-          <a class="has-arrow" href="#" aria-expanded="false"
+          <a class="has-arrow" href="#" @click.prevent="" aria-expanded="false"
             ><span>202 ENGLISH</span></a
           >
           <ul class="collapse nav-sub" aria-expanded="false">
@@ -63,7 +70,7 @@
           </ul>
         </li>
         <li class="nav-dropdown">
-          <a class="has-arrow" href="#" aria-expanded="false"
+          <a class="has-arrow" href="#" @click.prevent="" aria-expanded="false"
             ><span>101 ENGLISH</span></a
           >
           <ul class="collapse nav-sub" aria-expanded="false">
@@ -80,7 +87,7 @@
               <a href="dashboard.html"><span>Dashboard</span></a>
             </li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </nav>
   </aside>

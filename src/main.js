@@ -3,9 +3,15 @@ import Vue from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
-import { ValidationProvider, extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
+import {
+  ValidationProvider,
+  extend
+} from "vee-validate";
+import {
+  required
+} from "vee-validate/dist/rules";
 import Vuex from "vuex";
+import 'bootstrap';
 
 Vue.use(Vuex);
 // import 'bootstrap/dist/css/bootstrap.css'
@@ -29,7 +35,7 @@ new Vue({
   data: () => ({
     value: "",
   }),
-  render: function(h) {
+  render: function (h) {
     return h(App);
   },
 }).$mount("#vueapp");

@@ -126,6 +126,7 @@
             <button
               class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
               type="submit"
+              @click="resetPassword()"
             >
               Confirm password
             </button>
@@ -258,6 +259,9 @@ export default {
     },
     login() {
       this.$router.push({ path: "/course/" });
+    },
+    resetPassword() {
+      this.loginShow = "resetPasswordSuccess";
     },
   },
 };
