@@ -49,11 +49,8 @@
                                              No courses
                                         </div> -->
                   <!-- end No courses -->
-                  <table
-                    id="bs4-table"
-                    class="table table-striped"
-                    style="width: 100%;"
-                  >
+                  <!-- id="bs4-table" -->
+                  <table class="table table-striped" style="width: 100%;">
                     <thead>
                       <tr>
                         <th style="width: 20%;">Collection name</th>

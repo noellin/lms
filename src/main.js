@@ -3,16 +3,12 @@ import Vue from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
-import {
-  ValidationProvider,
-  extend
-} from "vee-validate";
-import {
-  required
-} from "vee-validate/dist/rules";
+import { ValidationProvider, extend } from "vee-validate";
+import { required } from "vee-validate/dist/rules";
 import Vuex from "vuex";
-import 'bootstrap';
-
+import "bootstrap";
+import Select2 from "v-select2-component";
+Vue.component("Select2", Select2);
 Vue.use(Vuex);
 // import 'bootstrap/dist/css/bootstrap.css'
 // import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -35,7 +31,7 @@ new Vue({
   data: () => ({
     value: "",
   }),
-  render: function (h) {
+  render: function(h) {
     return h(App);
   },
 }).$mount("#vueapp");

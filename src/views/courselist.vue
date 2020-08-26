@@ -18,11 +18,7 @@
             <div class="col-12">
               <div class="form-row">
                 <div class="form-group form-rounded mb-0 mr-3">
-                  <select
-                    class="form-control"
-                    id="s2_demo1"
-                    v-model="selectedTeacher"
-                  >
+                  <select class="form-control" v-model="selectedTeacher">
                     <option
                       v-for="teacher in teacherList"
                       :key="teacher.name"
@@ -85,11 +81,8 @@
                                              No courses
                                         </div> -->
                       <!-- end No courses -->
-                      <table
-                        id="bs4-table"
-                        class="table table-striped"
-                        style="width: 100%;"
-                      >
+                      <!-- id="bs4-table" -->
+                      <table class="table table-striped" style="width: 100%;">
                         <thead>
                           <tr>
                             <th>Course name</th>
@@ -351,8 +344,8 @@
                     </div>
                     <!-- expired的table -->
                     <div class="tab-pane fadeIn" id="tab-2">
+                      <!-- id="bs4-table" -->
                       <table
-                        id="bs4-table"
                         class="table table-striped table-bordered"
                         style="width: 100%;"
                       >
@@ -510,20 +503,23 @@
                   >Multi Select</label
                 >
                 <div class="col-sm-8">
-                  <select
+                  <Select2
                     class="form-control"
-                    id="s2_demo3"
-                    multiple="multiple"
-                    v-model="courseList.teacher"
+                    multiple
+                    v-model="tempCourse.teacher"
+                    :options="selectTeacherList"
+                    @change="myChangeEvent($event)"
+                    @select="mySelectEvent($event)"
+                    :settings="{ multiple: true }"
                   >
-                    <optgroup label="title">
-                      <option>Amanda</option>
-                      <option>Brandon</option>
-                      <option>Claude</option>
-                      <option selected>Diana</option>
-                      <option selected>Edward</option>
-                    </optgroup>
-                  </select>
+                    <!-- <option
+                      :value="seteacher.value"
+                      v-for="seteacher in selectTeacherList"
+                      :key="seteacher.value"
+                      >{{ seteacher.name }}</option
+                    > -->
+                  </Select2>
+                  <!-- <span>{{ tempCourse.teacher }}</span> -->
                 </div>
               </div>
             </form>
@@ -1089,12 +1085,16 @@
 </template>
 
 <script>
+import $ from "jquery";
 import CustomHeader from "../components/CustomHeader";
+import Select2 from "v-select2-component";
 export default {
   name: "Course",
   components: {
     CustomHeader,
+    Select2,
   },
+  mounted() {},
   data() {
     return {
       userInfo: {
@@ -1109,26 +1109,44 @@ export default {
         { name: "Mark", value: "E" },
         { name: "王小明", value: "F" },
       ],
+      selectTeacherList: ["Amanda", "Diana", "Jim", "Mark"],
       selectedTeacher: "A",
 
       courseList: [
         {
           id: "1223555",
           name: "300 體育課",
-          teacher: [],
+          teacher: ["王小明", "Diana"],
           student: "40",
           limit: "50",
           package: "second part",
           expiryDate: "	2020/10/30",
         },
       ],
+      tempCourse: {
+        id: "1223555",
+        name: "300 體育課",
+        teacher: ["Amanda", "Diana"],
+        student: "40",
+        limit: "50",
+        package: "second part",
+        expiryDate: "	2020/10/30",
+      },
     };
   },
 
   methods: {
+    myChangeEvent(val) {
+      console.log(val);
+    },
+    mySelectEvent({ id, text }) {
+      console.log({ id, text });
+    },
     searchCourse() {},
     gotoCourseMaterial() {
-      this.$router.push({ path: "/course_material/" });
+      this.$router.push({
+        path: "/course_material/course=201English/type=Material/",
+      });
     },
     gotoCourseAssignment() {
       this.$router.push({ path: "/course_assignment/" });
@@ -1138,8 +1156,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// @import "../../public/css/common/main.bundle.css";
 #s2_demo3 {
   height: 90px;
 }
+
+// .select2-container--default
+//   .select2-selection--multiple
+//   .select2-selection__choice,
+// .select2-container--default.select2-container--disabled
+//   .select2-selection--single {
+//   border: 1px solid #dfe7f3;
+//   background-color: #f0f6ff;
+// }
 //@import '../assets/css/igroup.css';
 </style>

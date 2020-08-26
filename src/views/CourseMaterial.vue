@@ -109,7 +109,7 @@
               <div class="pb-3">
                 <div class="form-row">
                   <div class="form-group form-rounded mb-0 mr-3">
-                    <select class="form-control" id="s2_demo3">
+                    <select class="form-control">
                       <option>All type</option>
                       <option>Picture Book</option>
                       <option>Video</option>
@@ -502,7 +502,7 @@
                   >Collection</label
                 >
                 <div class="col-sm-9">
-                  <select class="form-control" id="s2_demo1">
+                  <select class="form-control">
                     <optgroup label="title">
                       <option>First grade</option>
                       <option>Elementary</option>
@@ -784,7 +784,9 @@
           <div class="modal-body">
             <p>Unit9 MY FAMILY</p>
             <div>
-              <a class="btn btn-primary btn-outline btn-block"
+              <a
+                class="btn btn-primary btn-outline btn-block"
+                @click="gotoSpeakingQuiz()"
                 >Lesson 1 CONVERSATION</a
               >
               <a class="btn btn-primary btn-outline btn-block"
@@ -909,7 +911,7 @@
               <div class="form-group row">
                 <label class="control-label text-right col-sm-3">For</label>
                 <div class="col-sm-9">
-                  <select class="form-control" id="s2_demo2">
+                  <select class="form-control">
                     <option>All students</option>
                     <option>Allen</option>
                     <option>Ben</option>
@@ -1061,7 +1063,9 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    gotoSpeakingQuiz() {},
+  },
 };
 </script>
 

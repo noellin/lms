@@ -1,14 +1,16 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import CourseList from "../views/CourseList";
-import CourseMaterial from "../views/CourseMaterial.vue"
-import CourseAssignment from "../views/CourseAssignment.vue"
+import CourseMaterial from "../views/CourseMaterial.vue";
+import CourseAssignment from "../views/CourseAssignment.vue";
 import Login from "../views/Login.vue";
-import Collection from "../views/Collection.vue"
-import Account from "../views/Account.vue"
+import Collection from "../views/Collection.vue";
+import Account from "../views/Account.vue";
+import SpeakingQuiz from "../views/SpeakingQuiz.vue";
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     path: "*",
     redirect: "/",
   },
@@ -18,7 +20,7 @@ const routes = [{
     component: Login,
   },
   {
-    path: "/resetpassword?id=:id",
+    path: "/resetpassword/id=:id",
     name: "ResetPassword",
     component: Login,
   },
@@ -28,7 +30,7 @@ const routes = [{
     component: CourseList,
   },
   {
-    path: "/course_material",
+    path: "/course_material/course=:course/type=:type",
     name: "CourseMaterial",
     component: CourseMaterial,
   },
@@ -36,6 +38,11 @@ const routes = [{
     path: "/course_assignment",
     name: "CourseAssignment",
     component: CourseAssignment,
+  },
+  {
+    path: "/speaking_quiz",
+    name: "SpeakingQuiz",
+    component: SpeakingQuiz,
   },
   {
     path: "/collection",
@@ -53,8 +60,8 @@ const routes = [{
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import( /* webpackChunkName: "about" */ "../views/About.vue");
+    component: function() {
+      return import(/* webpackChunkName: "about" */ "../views/About.vue");
     },
   },
 ];

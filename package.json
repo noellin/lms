@@ -11,6 +11,7 @@
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "register-service-worker": "^1.7.1",
+    "v-select2-component": "^0.4.3",
     "vee-validate": "^3.3.9",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

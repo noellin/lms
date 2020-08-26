@@ -1,9 +1,11 @@
 <template>
   <aside class="aside-left">
     <nav class="main-menu">
+      <!-- class="metismenu" -->
       <ul class="nav metismenu">
         <li class="sidebar-header"><span>Active</span></li>
         <li class="nav-dropdown">
+          <!-- class="has-arrow" -->
           <a
             class="has-arrow"
             aria-expanded="false"
@@ -13,7 +15,7 @@
             aria-controls="tt"
             ><span>301 ENGLISH</span></a
           >
-          <ul class="nav-sub" id="tt">
+          <ul class="nav-sub collapse" id="tt">
             <li>
               <a href="course-material-list.html"><span>Material</span></a>
             </li>
@@ -28,7 +30,6 @@
             </li>
           </ul>
         </li>
-
         <!-- <li class="nav-dropdown active">
           <a class="has-arrow" href="#" @click.prevent="" aria-expanded="false"
             ><span>201 ENGLISH</span></a
@@ -102,6 +103,9 @@ export default {
         email: "support@authenticgoods.co",
       },
     };
+  },
+  mounted() {
+    // document.getElementById("tt").setAttribute("aria-expanded", false);
   },
   computed: {
     showPage() {
