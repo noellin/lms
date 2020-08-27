@@ -9,8 +9,7 @@ import Account from "../views/Account.vue";
 import SpeakingQuiz from "../views/SpeakingQuiz.vue";
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "*",
     redirect: "/",
   },
@@ -35,12 +34,12 @@ const routes = [
     component: CourseMaterial,
   },
   {
-    path: "/course_assignment",
+    path: "/course_assignment/course=:course/type=:type",
     name: "CourseAssignment",
     component: CourseAssignment,
   },
   {
-    path: "/speaking_quiz",
+    path: "/speaking_quiz/course=:course/type=:type",
     name: "SpeakingQuiz",
     component: SpeakingQuiz,
   },
@@ -60,8 +59,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: function() {
-      return import(/* webpackChunkName: "about" */ "../views/About.vue");
+    component: function () {
+      return import( /* webpackChunkName: "about" */ "../views/About.vue");
     },
   },
 ];

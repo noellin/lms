@@ -1064,7 +1064,12 @@ export default {
   },
 
   methods: {
-    gotoSpeakingQuiz() {},
+    gotoSpeakingQuiz() {
+      $("#addSpeakingquiz").modal("hide");
+      this.$router.push({
+        path: "/speaking_quiz/course=301 English/type=Material",
+      });
+    },
   },
 };
 </script>

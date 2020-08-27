@@ -1145,11 +1145,13 @@ export default {
     searchCourse() {},
     gotoCourseMaterial() {
       this.$router.push({
-        path: "/course_material/course=201English/type=Material/",
+        path: "/course_material/course=301 English/type=Material/",
       });
     },
     gotoCourseAssignment() {
-      this.$router.push({ path: "/course_assignment/" });
+      this.$router.push({
+        path: "/course_assignment/course=301 English/type=Assignment",
+      });
     },
   },
 };

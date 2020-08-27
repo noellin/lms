@@ -4,22 +4,38 @@
       <!-- class="metismenu" -->
       <ul class="nav metismenu">
         <li class="sidebar-header"><span>Active</span></li>
-        <li class="nav-dropdown">
+        <li
+          class="nav-dropdown"
+          v-for="(course, coursename, index) in classList"
+          :key="index"
+        >
           <!-- class="has-arrow" -->
           <a
             class="has-arrow"
             aria-expanded="false"
-            href="#tt"
+            :href="'#course' + index"
             @click.prevent=""
             data-toggle="collapse"
-            aria-controls="tt"
-            ><span>301 ENGLISH</span></a
+            ><span>{{ coursename }}</span></a
           >
-          <ul class="nav-sub collapse" id="tt">
-            <li>
-              <a href="course-material-list.html"><span>Material</span></a>
+          <ul
+            class="nav-sub collapse"
+            :id="'course' + index"
+            :class="coursePage === coursename ? 'show' : ''"
+          >
+            <li v-for="type in course" :key="type + index">
+              <a href="course-material-list.html"
+                ><span
+                  :class="
+                    courseType === type && coursePage === coursename
+                      ? 'color-lightblue'
+                      : ''
+                  "
+                  >{{ type }}</span
+                ></a
+              >
             </li>
-            <li>
+            <!-- <li>
               <a href="assignments-list.html"><span>Assignment</span></a>
             </li>
             <li>
@@ -27,7 +43,7 @@
             </li>
             <li>
               <a href="dashboard.html"><span>Dashboard</span></a>
-            </li>
+            </li> -->
           </ul>
         </li>
         <!-- <li class="nav-dropdown active">
@@ -102,9 +118,16 @@ export default {
         name: "Amanda",
         email: "support@authenticgoods.co",
       },
+      classList: {
+        "301 English": ["Material", "Assignment", "Student", "Dashboard"],
+        "302 English": ["Material", "Assignment", "Student", "Dashboard"],
+      },
+      coursePage: this.$route.params.course,
+      courseType: this.$route.params.type,
     };
   },
   mounted() {
+    console.log(this.$route.params.course);
     // document.getElementById("tt").setAttribute("aria-expanded", false);
   },
   computed: {

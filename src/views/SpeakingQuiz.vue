@@ -3,189 +3,10 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <nav class="top-toolbar navbar navbar-mobile navbar-tablet">
-        <ul class="navbar-nav nav-left">
-          <li class="nav-item">
-            <a href="javascript:void(0)" data-toggle-state="aside-left-open">
-              <i class="icon dripicons-align-left"></i>
-            </a>
-          </li>
-        </ul>
-        <ul class="navbar-nav nav-center site-logo">
-          <li>
-            <a href="course-list.html">
-              <span class="brand-text">School Name</span>
-            </a>
-          </li>
-        </ul>
-        <ul class="navbar-nav nav-right">
-          <li class="nav-item">
-            <a
-              href="javascript:void(0)"
-              data-toggle-state="mobile-topbar-toggle"
-            >
-              <i class="icon dripicons-dots-3 rotate-90"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <nav class="top-toolbar navbar navbar-desktop flex-nowrap">
-        <ul class="navbar-nav nav-left">
-          <div class="">
-            <ul class="site-logo">
-              <!-- <li class="nav-item">
-                                <a href="course-list.html">
-                                    <div class="logo">
-                                        <img src="../assets/img/avatars/logo_light.png" alt="" style="max-height:35px; max-width: 190px;">
-                                    </div>
-                                </a>
-                            </li> -->
-              <li class="nav-item">
-                <span class="brand-text">School Name</span>
-              </li>
-            </ul>
-            <ul class="navbar-nav nav-left">
-              <li class="nav-item nav-text active">
-                <a href="course-list.html">
-                  Course
-                </a>
-              </li>
-              <li class="nav-item nav-text">
-                <a href="collection-list.html">
-                  Collection
-                </a>
-              </li>
-              <li class="nav-item nav-text">
-                <a href="teacher-account-list.html">
-                  Account
-                </a>
-              </li>
-            </ul>
-          </div>
-        </ul>
-        <ul class="navbar-nav nav-right">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link nav-pill user-avatar"
-              data-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img
-                src="../assets/img/avatars/user.png"
-                class="w-40 rounded-circle"
-                alt="Albert Einstein"
-              />
-              <!-- <span class="text-white">Amanda</span> -->
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-accout">
-              <div class="dropdown-header pb-3">
-                <h5 class="mt-0 mb-0">Amanda</h5>
-                <span>support@authenticgoods.co</span>
-              </div>
-              <a class="dropdown-item" href="teacher-account-personal.html"
-                ><i class="icon dripicons-user"></i> My account</a
-              >
-              <a class="dropdown-item" href="#"
-                ><i class="icon dripicons-lock-open"></i> Log Out</a
-              >
-            </div>
-          </li>
-        </ul>
-      </nav>
+      <custom-header></custom-header>
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
-        <aside class="aside-left">
-          <nav class="main-menu">
-            <ul class="nav metismenu">
-              <li class="sidebar-header"><span>Active</span></li>
-              <li class="nav-dropdown active">
-                <a class="has-arrow" href="#" aria-expanded="false"
-                  ><span>301 ENGLISH</span></a
-                >
-                <ul class="collapse nav-sub" aria-expanded="true">
-                  <li>
-                    <a href="#" class="active"><span>Material</span></a>
-                  </li>
-                  <li>
-                    <a href="assignments-list.html"><span>Assignment</span></a>
-                  </li>
-                  <li>
-                    <a href="course-student-list.html"><span>Student</span></a>
-                  </li>
-                  <li>
-                    <a href="dashboard.html"><span>Dashboard</span></a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-dropdown">
-                <a class="has-arrow" href="#" aria-expanded="false"
-                  ><span>201 ENGLISH</span></a
-                >
-                <ul class="collapse nav-sub" aria-expanded="false">
-                  <li>
-                    <a href="course-material-list.html"
-                      ><span>Material</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="assignments-list.html"><span>Assignment</span></a>
-                  </li>
-                  <li>
-                    <a href="course-student-list.html"><span>Student</span></a>
-                  </li>
-                  <li>
-                    <a href="dashboard.html"><span>Dashboard</span></a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-dropdown">
-                <a class="has-arrow" href="#" aria-expanded="false"
-                  ><span>202 ENGLISH</span></a
-                >
-                <ul class="collapse nav-sub" aria-expanded="false">
-                  <li>
-                    <a href="course-material-list.html"
-                      ><span>Material</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="assignments-list.html"><span>Assignment</span></a>
-                  </li>
-                  <li>
-                    <a href="course-student-list.html"><span>Student</span></a>
-                  </li>
-                  <li>
-                    <a href="dashboard.html"><span>Dashboard</span></a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-dropdown">
-                <a class="has-arrow" href="#" aria-expanded="false"
-                  ><span>101 ENGLISH</span></a
-                >
-                <ul class="collapse nav-sub" aria-expanded="false">
-                  <li>
-                    <a href="course-material-list.html"
-                      ><span>Material</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="assignments-list.html"><span>Assignment</span></a>
-                  </li>
-                  <li>
-                    <a href="course-student-list.html"><span>Student</span></a>
-                  </li>
-                  <li>
-                    <a href="dashboard.html"><span>Dashboard</span></a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-        </aside>
+        <menu-left></menu-left>
         <div class="main-content">
           <header class="page-header">
             <div class="d-flex align-items-start">
@@ -507,3 +328,24 @@
     </div>
   </div>
 </template>
+<script>
+import CustomHeader from "../components/CustomHeader";
+import MenuLeft from "../components/MenuLeft";
+// import Menu
+export default {
+  name: "SpeakingQuiz",
+  components: {
+    CustomHeader,
+    MenuLeft,
+  },
+  data() {
+    return {};
+  },
+
+  methods: {},
+};
+</script>
+
+<style scoped lang="scss">
+//@import '../assets/css/igroup.css';
+</style>
