@@ -64,7 +64,7 @@
                     <tbody>
                       <tr>
                         <td>
-                          <a href="teacher-account-admin.html"
+                          <a @click="gotoAccountDetail()"
                             ><img
                               src="../assets/img/avatars/user.png"
                               class="w-40 rounded-circle mr-3"
@@ -387,10 +387,18 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    gotoAccountDetail() {
+      this.$router.push({ path: "/account/123456" });
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+a:not([href]):not([tabindex]) {
+  text-decoration: none;
+  color: #32c1db !important;
+}
 //@import '../assets/css/igroup.css';
 </style>

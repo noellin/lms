@@ -7,9 +7,19 @@
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content">
         <header class="page-header">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-start">
+            <!-- <div class="mt-2 mr-3" v-if="collectionShow !== 'home'">
+              <a
+                href="javascript:history.back()"
+                class="btn-rounded-icon btn-primary ml-2"
+                ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
+              ></a>
+            </div> -->
             <div class="mr-auto">
               <h1>Collection</h1>
+              <!-- <p class="second-title" v-if="collectionShow === 'detail'">
+                First grage
+              </p> -->
             </div>
           </div>
         </header>
@@ -60,7 +70,9 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td><a href="collection.html">Elementary</a></td>
+                        <td @click="gotoCollectionDeatail()">
+                          <a>Elementary</a>
+                        </td>
                         <td>Picture book 100</td>
                         <td>103 English</td>
                       </tr>
@@ -250,10 +262,19 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    gotoCollectionDeatail() {
+      this.$router.push({
+        path: "/collection/collection=First grage/",
+      });
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+a:not([href]):not([tabindex]) {
+  color: #32c1db !important;
+}
 //@import '../assets/css/igroup.css';
 </style>

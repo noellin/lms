@@ -6,7 +6,10 @@ import CourseAssignment from "../views/CourseAssignment.vue";
 import Login from "../views/Login.vue";
 import Collection from "../views/Collection.vue";
 import Account from "../views/Account.vue";
+import AccountDetail from "../views/AccountDetail.vue"
 import SpeakingQuiz from "../views/SpeakingQuiz.vue";
+import CollectionDetail from "../views/CollectionDetail.vue"
+import CollectionEdit from "../views/CollectionEdit.vue"
 Vue.use(VueRouter);
 
 const routes = [{
@@ -49,9 +52,24 @@ const routes = [{
     component: Collection,
   },
   {
+    path: "/collection/collection=:collection",
+    name: "CollectionDetail",
+    component: CollectionDetail,
+  },
+  {
+    path: "/collection/collection=:collection/edit",
+    name: "CollectionEdit",
+    component: CollectionEdit,
+  },
+  {
     path: "/account",
     name: "Account",
     component: Account,
+  },
+  {
+    path: "/account/:id",
+    name: "AccountDetail",
+    component: AccountDetail,
   },
   {
     path: "/about",
