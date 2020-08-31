@@ -5,6 +5,11 @@ const webpack = require("webpack");
 
 module.exports = {
   configureWebpack: {
+    // devServer: {
+    //   headers: {
+    //     "Access-Control-Allow-Origin": "*"
+    //   }
+    // },
     plugins: [
       new webpack.ProvidePlugin({
         $: "jquery",

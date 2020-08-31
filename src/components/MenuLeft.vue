@@ -24,13 +24,15 @@
             :class="coursePage === coursename ? 'show' : ''"
           >
             <li v-for="type in course" :key="type + index">
-              <a href="course-material-list.html"
+              <a
                 ><span
                   :class="
                     courseType === type && coursePage === coursename
                       ? 'color-lightblue'
                       : ''
                   "
+                  class="pointer"
+                  @click="changePage(coursename, type)"
                   >{{ type }}</span
                 ></a
               >
@@ -46,65 +48,6 @@
             </li> -->
           </ul>
         </li>
-        <!-- <li class="nav-dropdown active">
-          <a class="has-arrow" href="#" @click.prevent="" aria-expanded="false"
-            ><span>201 ENGLISH</span></a
-          >
-          <ul class="collapse nav-sub" aria-expanded="false">
-            <li>
-              <a href="course-material-list.html" class="active"
-                ><span>Material</span></a
-              >
-            </li>
-            <li>
-              <a href="assignments-list.html"><span>Assignment</span></a>
-            </li>
-            <li>
-              <a href="course-student-list.html"><span>Student</span></a>
-            </li>
-            <li>
-              <a href="dashboard.html"><span>Dashboard</span></a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-dropdown">
-          <a class="has-arrow" href="#" @click.prevent="" aria-expanded="false"
-            ><span>202 ENGLISH</span></a
-          >
-          <ul class="collapse nav-sub" aria-expanded="false">
-            <li>
-              <a href="course-material-list.html"><span>Material</span></a>
-            </li>
-            <li>
-              <a href="assignments-list.html"><span>Assignment</span></a>
-            </li>
-            <li>
-              <a href="course-student-list.html"><span>Student</span></a>
-            </li>
-            <li>
-              <a href="dashboard.html"><span>Dashboard</span></a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-dropdown">
-          <a class="has-arrow" href="#" @click.prevent="" aria-expanded="false"
-            ><span>101 ENGLISH</span></a
-          >
-          <ul class="collapse nav-sub" aria-expanded="false">
-            <li>
-              <a href="course-material-list.html"><span>Material</span></a>
-            </li>
-            <li>
-              <a href="assignments-list.html"><span>Assignment</span></a>
-            </li>
-            <li>
-              <a href="course-student-list.html"><span>Student</span></a>
-            </li>
-            <li>
-              <a href="dashboard.html"><span>Dashboard</span></a>
-            </li>
-          </ul>
-        </li> -->
       </ul>
     </nav>
   </aside>
@@ -135,7 +78,43 @@ export default {
       return this.$route.name;
     },
   },
-  methods: {},
+  methods: {
+    changePage(course, type) {
+      switch (type) {
+        case "Material":
+          this.$router
+            .push({
+              path: `/course_material/course=${course}/type=${type}`,
+            })
+            .catch((err) => err);
+          break;
+        case "Assignment":
+          this.$router
+            .push({
+              path: `/course_assignment/course=${course}/type=${type}`,
+            })
+            .catch((err) => err);
+          break;
+        case "Student":
+          this.$router
+            .push({
+              path: `/course_student/course=${course}/type=${type}`,
+            })
+            .catch((err) => err);
+          break;
+        case "Dashboard":
+          this.$router
+            .push({
+              path: `/course_dashboard/course=${course}/type=${type}`,
+            })
+            .catch((err) => err);
+          break;
+
+        default:
+          break;
+      }
+    },
+  },
 };
 </script>
 

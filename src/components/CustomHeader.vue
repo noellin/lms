@@ -10,7 +10,7 @@
       </ul>
       <ul class="navbar-nav nav-center site-logo">
         <li>
-          <a href="course-list.html">
+          <a @click="gotoLogin()">
             <span class="brand-text">School Name</span>
           </a>
         </li>
@@ -28,7 +28,7 @@
         <div class="">
           <ul class="site-logo">
             <li class="nav-item">
-              <a href="course-list.html">
+              <a @click="gotoLogin()" class="pointer">
                 <div class="logo">
                   <img
                     src="../assets/img/avatars/logo_light.png"
@@ -124,7 +124,11 @@ export default {
       return this.$route.name;
     },
   },
-  methods: {},
+  methods: {
+    gotoLogin() {
+      this.$router.push({ path: "/" });
+    },
+  },
 };
 </script>
 

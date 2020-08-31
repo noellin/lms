@@ -3,16 +3,20 @@ import VueRouter from "vue-router";
 import CourseList from "../views/CourseList";
 import CourseMaterial from "../views/CourseMaterial.vue";
 import CourseAssignment from "../views/CourseAssignment.vue";
+import CourseDashboard from "../views/CourseDashboard.vue";
+import CourseStudent from "../views/CourseStudent.vue";
 import Login from "../views/Login.vue";
 import Collection from "../views/Collection.vue";
 import Account from "../views/Account.vue";
-import AccountDetail from "../views/AccountDetail.vue"
+import AccountDetail from "../views/AccountDetail.vue";
 import SpeakingQuiz from "../views/SpeakingQuiz.vue";
-import CollectionDetail from "../views/CollectionDetail.vue"
-import CollectionEdit from "../views/CollectionEdit.vue"
+import CollectionDetail from "../views/CollectionDetail.vue";
+import CollectionEdit from "../views/CollectionEdit.vue";
+import ErrorPage from "../views/error.vue";
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     path: "*",
     redirect: "/",
   },
@@ -40,6 +44,16 @@ const routes = [{
     path: "/course_assignment/course=:course/type=:type",
     name: "CourseAssignment",
     component: CourseAssignment,
+  },
+  {
+    path: "/course_student/course=:course/type=:type",
+    name: "CourseStudent",
+    component: CourseStudent,
+  },
+  {
+    path: "/course_dashboard/course=:course/type=:type",
+    name: "CourseDashboard",
+    component: CourseDashboard,
   },
   {
     path: "/speaking_quiz/course=:course/type=:type",
@@ -72,13 +86,15 @@ const routes = [{
     component: AccountDetail,
   },
   {
+    path: "/404",
+    name: "404",
+    component: ErrorPage,
+  },
+  {
     path: "/about",
     name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import( /* webpackChunkName: "about" */ "../views/About.vue");
+    component: function() {
+      return import(/* webpackChunkName: "about" */ "../views/About.vue");
     },
   },
 ];

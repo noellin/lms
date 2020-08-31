@@ -16,13 +16,10 @@
       </button>
     </div>
     <div class="container" v-if="(loginShow === 'forgetPassword')">
-      <form class="sign-in-form" action="index.html">
+      <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
-            <a
-              href="index.html"
-              class="brand text-center d-block m-b-20 m-t-20"
-            >
+            <a class="brand text-center d-block m-b-20 m-t-20">
               <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
               <!-- <span class="display-4">School Name</span> -->
             </a>
@@ -40,13 +37,12 @@
                   class="form-control form-control-lg"
                   placeholder="Enter your Email address"
                   required=""
-                  v-model="loginform.email"
+                  v-model="loginForm.email"
                 />
               </div>
 
               <button
                 class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-                type="submit"
                 @click="sendEmailResetPWD"
               >
                 Send
@@ -57,13 +53,10 @@
       </form>
     </div>
     <div class="container" v-if="(loginShow === 'resetPasswordSuccess')">
-      <form class="sign-in-form" action="index.html">
+      <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
-            <a
-              href="course-list.html"
-              class="brand text-center d-block m-b-20 m-t-20"
-            >
+            <a class="brand text-center d-block m-b-20 m-t-20">
               <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
               <!-- <span class="display-4">School Name</span> -->
             </a>
@@ -80,7 +73,6 @@
             </p>
             <button
               class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-              type="submit"
             >
               Log in
             </button>
@@ -89,13 +81,10 @@
       </form>
     </div>
     <div class="container" v-if="(loginShow === 'resetPassword')">
-      <form class="sign-in-form" action="index.html">
+      <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
-            <a
-              href="course-list.html"
-              class="brand text-center d-block m-b-20 m-t-20"
-            >
+            <a class="brand text-center d-block m-b-20 m-t-20">
               <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
               <!-- <span class="display-4">School Name</span> -->
             </a>
@@ -125,7 +114,6 @@
             </div>
             <button
               class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-              type="submit"
               @click="resetPassword()"
             >
               Confirm password
@@ -135,13 +123,10 @@
       </form>
     </div>
     <div class="container" v-if="(loginShow === 'sendEmail')">
-      <form class="sign-in-form" action="index.html">
+      <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
-            <a
-              href="course-list.html"
-              class="brand text-center d-block m-b-20 m-t-20"
-            >
+            <a class="brand text-center d-block m-b-20 m-t-20">
               <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
               <!-- <span class="display-4">School Name</span> -->
             </a>
@@ -158,7 +143,6 @@
             </p>
             <button
               class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-              type="submit"
             >
               OK
             </button>
@@ -167,13 +151,10 @@
       </form>
     </div>
     <div class="container" v-if="(loginShow === 'login')">
-      <form class="sign-in-form" action="index.html">
+      <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
-            <a
-              href="index.html"
-              class="brand text-center d-block m-b-20 m-t-20"
-            >
+            <a class="brand text-center d-block m-b-20 m-t-20">
               <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
               <!-- <span class="display-4">School Name</span> -->
             </a>
@@ -190,7 +171,7 @@
                   class="form-control form-control-lg"
                   placeholder="Enter your Email address"
                   required=""
-                  v-model="loginform.email"
+                  v-model="loginForm.email"
                 />
               </div>
               <div class="form-group">
@@ -201,7 +182,7 @@
                   class="form-control form-control-lg"
                   placeholder="Enter your password"
                   required=""
-                  v-model="loginform.pwd"
+                  v-model="loginForm.password"
                 />
               </div>
               <div class="checkbox m-t-20">
@@ -224,7 +205,6 @@
               </div>
               <button
                 class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-                type="submit"
                 @click="login()"
               >
                 Log In
@@ -244,7 +224,10 @@ export default {
     return {
       showErrorMessage: false,
       loginShow: "login",
-      loginform: {},
+      loginForm: {
+        email: "goldmfive@gmail.com",
+        password: "666666",
+      },
       userEmail: "jolin123@gmail.com",
       ErrorMessage: "Your email or password is incorrect. please try again.",
     };
@@ -258,7 +241,26 @@ export default {
       this.loginShow = "sendEmail";
     },
     login() {
-      this.$router.push({ path: "/course/" });
+      let api = `${process.env.VUE_APP_DOMAIN}/info/login`;
+
+      this.axios
+        .post(api, this.loginForm, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          },
+        })
+        .then((Response) => {
+          console.log(console.log(Response.data));
+          // window.localStorage.setItem("token", Response.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.$router.push({
+              path: "/404",
+            });
+          }
+          console.error(error);
+        });
     },
     resetPassword() {
       this.loginShow = "resetPasswordSuccess";
