@@ -16,10 +16,10 @@ import ErrorPage from "../views/error.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "*",
-    redirect: "/",
-  },
+  // {
+  //   path: "*",
+  //   redirect: "/",
+  // },
   {
     path: "/",
     name: "login",
@@ -93,14 +93,13 @@ const routes = [
   {
     path: "/about",
     name: "About",
-    component: function() {
-      return import(/* webpackChunkName: "about" */ "../views/About.vue");
+    component: function () {
+      return import( /* webpackChunkName: "about" */ "../views/About.vue");
     },
   },
 ];
 
 const router = new VueRouter({
-  base: process.env.BASE_URL,
   routes,
 });
 

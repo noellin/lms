@@ -151,7 +151,7 @@
       </form>
     </div>
     <div class="container" v-if="(loginShow === 'login')">
-      <form class="sign-in-form">
+      <div class="sign-in-form">
         <div class="card">
           <div class="card-body">
             <a class="brand text-center d-block m-b-20 m-t-20">
@@ -186,9 +186,7 @@
                 />
               </div>
               <div class="checkbox m-t-20">
-                <div
-                  class="custom-control custom-checkbox checkbox-primary form-check"
-                >
+                <div class="custom-control custom-checkbox checkbox-primary">
                   <input
                     type="checkbox"
                     class="custom-control-input"
@@ -212,12 +210,13 @@
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { myaxios, tokenaxios } from "../apis/api";
 export default {
   name: "Login",
   data() {
@@ -242,7 +241,6 @@ export default {
     },
     login() {
       let api = `${process.env.VUE_APP_DOMAIN}/info/login`;
-
       this.axios
         .post(api, this.loginForm, {
           headers: {
@@ -250,8 +248,7 @@ export default {
           },
         })
         .then((Response) => {
-          console.log(console.log(Response.data));
-          // window.localStorage.setItem("token", Response.data);
+          console.log(Response.data);
         })
         .catch((error) => {
           if (error.response.status === 404) {
@@ -259,7 +256,7 @@ export default {
               path: "/404",
             });
           }
-          console.error(error);
+          // console.error(error);
         });
     },
     resetPassword() {
