@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div
+    <!-- <div
       class="alert alert-danger alert-dismissible fade show"
       role="alert"
       v-if="showErrorMessage"
@@ -14,7 +14,8 @@
       >
         <span aria-hidden="true" class="la la-close"></span>
       </button>
-    </div>
+    </div> -->
+    <alert></alert>
     <div class="container" v-if="(loginShow === 'forgetPassword')">
       <form class="sign-in-form">
         <div class="card">
@@ -43,7 +44,7 @@
 
               <button
                 class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-                @click="sendEmailResetPWD"
+                @click="forgotPassword()"
               >
                 Send
               </button>
@@ -197,7 +198,9 @@
                     Remember me</label
                   >
                 </div>
-                <a class="float-right blue pointer" @click="forgotPassword()"
+                <a
+                  class="float-right blue pointer"
+                  @click="loginShow = 'forgetPassword'"
                   >Forgot Password?</a
                 >
               </div>
@@ -216,16 +219,20 @@
 </template>
 
 <script>
-import { myaxios, tokenaxios } from "../apis/api";
+import { Login, ForgotPassword } from "../http/https";
+import Alert from "../components/AlertMessage";
 export default {
   name: "Login",
+  components: {
+    Alert,
+  },
   data() {
     return {
       showErrorMessage: false,
       loginShow: "login",
       loginForm: {
         email: "goldmfive@gmail.com",
-        password: "666666",
+        password: "66666",
       },
       userEmail: "jolin123@gmail.com",
       ErrorMessage: "Your email or password is incorrect. please try again.",
@@ -234,30 +241,51 @@ export default {
 
   methods: {
     forgotPassword() {
-      this.loginShow = "forgetPassword";
+      ForgotPassword.get(this.loginForm.email).then((response) => {
+        console.log(response);
+      });
     },
     sendEmailResetPWD() {
       this.loginShow = "sendEmail";
     },
-    login() {
-      let api = `${process.env.VUE_APP_DOMAIN}/info/login`;
-      this.axios
-        .post(api, this.loginForm, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-          },
-        })
-        .then((Response) => {
-          console.log(Response.data);
-        })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.$router.push({
-              path: "/404",
-            });
-          }
-          // console.error(error);
-        });
+    login(data) {
+      Login.post(this.loginForm).then((response) => {
+        console.log(response);
+        if (response.status === "success") {
+          this.$router.push({
+            path: "/course",
+          });
+        } else {
+          this.$bus.$emit(
+            "messsage:push",
+            "Oh snap ! Your email or password is incorrect. please try again.",
+            "info"
+          );
+          // this.showErrorMessage = true;
+          // this.ErrorMessage =
+          //   "Oh snap ! Your email or password is incorrect. please try again.";
+          // setTimeout(() => {
+          //   this.showErrorMessage = false;
+          // }, 5000);
+        }
+      });
+      // let api = `${process.env.VUE_APP_DOMAIN}/info/login`;
+      // this.axios
+      //   .post(api, this.loginForm, {
+      //     headers: {
+      //       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      //     },
+      //   })
+      //   .then((Response) => {
+      //     console.log(Response.data);
+      //   })
+      //   .catch((error) => {
+      //     if (error.response.status === 404) {
+      //       this.$router.push({
+      //         path: "/404",
+      //       });
+      //     }
+      //   });
     },
     resetPassword() {
       this.loginShow = "resetPasswordSuccess";
