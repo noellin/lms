@@ -2,23 +2,24 @@
   <div class="message-alert">
     <transition-group name="fade">
       <div
-        class="alert justify-content-center align-items-center d-flex"
+        class="alert justify-content-between align-items-center d-flex my-auto"
         :class="'alert-' + item.status"
         v-for="(item, i) in messages"
         :key="item + i"
       >
-        <font-awesome-icon
+        <!-- <font-awesome-icon
           class="mr-1 alert-text"
           :icon="['far', 'check-circle']"
-        />
+        /> -->
         <span class="alert-text">{{ item.message }}</span>
+
         <button
           type="button"
-          class="close alert"
+          class="close alert my-0"
           @click="removeMessage(i)"
           aria-label="Close"
         >
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" class="close-icon">&times;</span>
         </button>
       </div>
     </transition-group>
@@ -83,6 +84,7 @@ export default {
 }
 .alert {
   height: 50px;
+  font-size: 1rem;
 }
 .fade-enter-active,
 .fade-leave-active {
@@ -97,6 +99,16 @@ export default {
 .fade-leave-to {
   transform: translateY(-50px);
   opacity: 0;
+}
+.close-icon {
+  font-size: 30px;
+  border: 0px;
+}
+.close-icon:hover {
+  color: azure;
+}
+.close.alert {
+  border: 0px;
 }
 .alert-primary {
 }

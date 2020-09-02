@@ -259,7 +259,7 @@ export default {
           this.$bus.$emit(
             "messsage:push",
             "Oh snap ! Your email or password is incorrect. please try again.",
-            "info"
+            "danger"
           );
           // this.showErrorMessage = true;
           // this.ErrorMessage =
