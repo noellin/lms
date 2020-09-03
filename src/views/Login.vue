@@ -210,6 +210,12 @@
               >
                 Log In
               </button>
+              <button
+                class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                @click="loginverify()"
+              >
+                Log In
+              </button>
             </div>
           </div>
         </div>
@@ -219,7 +225,7 @@
 </template>
 
 <script>
-import { Login, ForgotPassword } from "../http/https";
+import { Login, ForgotPassword, Loginverify } from "../http/https";
 import Alert from "../components/AlertMessage";
 export default {
   name: "Login",
@@ -232,13 +238,18 @@ export default {
       loginShow: "login",
       loginForm: {
         email: "goldmfive@gmail.com",
-        password: "66666",
+        password: "666666",
       },
       userEmail: "jolin123@gmail.com",
       ErrorMessage: "Your email or password is incorrect. please try again.",
     };
   },
-
+  created() {
+    window.localStorage.setItem("token", "");
+    // this.$store.dispatch("setAuth", {
+    //   isLogin: false,
+    // });
+  },
   methods: {
     forgotPassword() {
       ForgotPassword.get(this.loginForm.email).then((response) => {
@@ -248,9 +259,14 @@ export default {
     sendEmailResetPWD() {
       this.loginShow = "sendEmail";
     },
+    // async logintest() {
+    //   await this.login();
+    //   await this.loginverify();
+    // },
     login(data) {
       Login.post(this.loginForm).then((response) => {
-        console.log(response);
+        window.localStorage.setItem("token", response.record);
+        console.log("login success");
         if (response.status === "success") {
           this.$router.push({
             path: "/course",
@@ -261,37 +277,37 @@ export default {
             "Oh snap ! Your email or password is incorrect. please try again.",
             "danger"
           );
-          // this.showErrorMessage = true;
-          // this.ErrorMessage =
-          //   "Oh snap ! Your email or password is incorrect. please try again.";
-          // setTimeout(() => {
-          //   this.showErrorMessage = false;
-          // }, 5000);
         }
       });
-      // let api = `${process.env.VUE_APP_DOMAIN}/info/login`;
-      // this.axios
-      //   .post(api, this.loginForm, {
-      //     headers: {
-      //       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-      //     },
-      //   })
-      //   .then((Response) => {
-      //     console.log(Response.data);
-      //   })
-      //   .catch((error) => {
-      //     if (error.response.status === 404) {
-      //       this.$router.push({
-      //         path: "/404",
-      //       });
-      //     }
-      //   });
+    },
+    loginverify() {
+      return Loginverify.get("").then((response) => {
+        console.log(response.status);
+      });
     },
     resetPassword() {
       this.loginShow = "resetPasswordSuccess";
     },
   },
 };
+
+// let api = `${process.env.VUE_APP_DOMAIN}/info/login`;
+// this.axios
+//   .post(api, this.loginForm, {
+//     headers: {
+//       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+//     },
+//   })
+//   .then((Response) => {
+//     console.log(Response.data);
+//   })
+//   .catch((error) => {
+//     if (error.response.status === 404) {
+//       this.$router.push({
+//         path: "/404",
+//       });
+//     }
+//   });
 </script>
 <style scoped lang="scss">
 </style>

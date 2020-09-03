@@ -7,13 +7,14 @@ axios.defaults.baseURL = process.env.VUE_APP_DOMAIN; // 域名
 axios.defaults.headers.post["Content-Type"] =
     "application/x-www-form-urlencoded; charset=UTF-8";
 // http request 欄截
-const token = store.state.token;
+
 axios.interceptors.request.use(
     (config) => {
         // config.data = JSON.stringify(config.data);
 
+        let token = window.localStorage.getItem("token");
+        console.log(token)
         // token && (config.headers.Authorization = 'Bearer' + token)
-
         config.headers = {
             // 如果沒有cors的問題則可以都不加
             "Authorization": "Bearer " + token,
@@ -127,21 +128,29 @@ export function put(url, data = {}) {
 // 將封裝的方法打包起來
 //LOGIN PAGE
 export const Login = {
-    get: function (paramObj) {
-        return get("/info/login", paramObj);
-    },
+    // get: function (paramObj) {
+    //     return get("/info/login", paramObj);
+    // },
     post: function (paramObj) {
+        // const result = await post("/info/login", paramObj);
+        // console.log(result)
         return post("/info/login", paramObj);
+        // return post("/info/login", paramObj);
     },
-    put: function (paramObj) {
-        return put("api/users", paramObj);
-    },
-    delete: function (paramObj) {
-        return remove("api/users", paramObj);
-    },
+    // put: function (paramObj) {
+    //     return put("api/users", paramObj);
+    // },
+    // delete: function (paramObj) {
+    //     return remove("api/users", paramObj);
+    // },
 };
 export const ForgotPassword = {
     get: (paramObj) => {
         return get(`info/forgotpw/${paramObj}`);
     },
 };
+export const Loginverify = {
+    get: (paramObj) => {
+        return get(`verify`);
+    }
+}

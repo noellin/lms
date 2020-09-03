@@ -18,6 +18,7 @@ export default new Vuex.Store({
         SET_AUTH(state, data) {
             state.token = data.token;
             state.isLogin = data.isLogin
+            console.log('log save')
         }
     },
     actions: {
