@@ -9,9 +9,7 @@
         <header class="page-header">
           <div class="d-flex align-items-center">
             <div class="mt-2 mr-3">
-              <a
-                href="javascript:history.back()"
-                class="btn-rounded-icon btn-primary ml-2"
+              <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
                 ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
               ></a>
             </div>
@@ -191,9 +189,7 @@
                     value=""
                   />
                 </div>
-                <div class="invalid-feedback">
-                  Passwords are inconsistent.
-                </div>
+                <div class="invalid-feedback">Passwords are inconsistent.</div>
               </div>
               <div class="form-group row">
                 <label class="control-label text-right col-4"

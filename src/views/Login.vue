@@ -16,7 +16,7 @@
       </button>
     </div> -->
     <alert></alert>
-    <div class="container" v-if="(loginShow === 'forgetPassword')">
+    <div class="container" v-if="loginShow === 'forgetPassword'">
       <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
@@ -27,9 +27,7 @@
             <p class="text-center m-b-40">iGroup LMS</p>
             <div id="forget-password-page">
               <h5 class="sign-in-heading">Forgotten Password?</h5>
-              <p>
-                We'll send you an email with link to reset your password.
-              </p>
+              <p>We'll send you an email with link to reset your password.</p>
               <div class="form-group">
                 <label for="inputEmail" class="sr-only">Email address</label>
                 <input
@@ -53,7 +51,7 @@
         </div>
       </form>
     </div>
-    <div class="container" v-if="(loginShow === 'resetPasswordSuccess')">
+    <div class="container" v-if="loginShow === 'resetPasswordSuccess'">
       <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
@@ -81,7 +79,7 @@
         </div>
       </form>
     </div>
-    <div class="container" v-if="(loginShow === 'resetPassword')">
+    <div class="container" v-if="loginShow === 'resetPassword'">
       <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
@@ -123,7 +121,7 @@
         </div>
       </form>
     </div>
-    <div class="container" v-if="(loginShow === 'sendEmail')">
+    <div class="container" v-if="loginShow === 'sendEmail'">
       <form class="sign-in-form">
         <div class="card">
           <div class="card-body">
@@ -151,7 +149,7 @@
         </div>
       </form>
     </div>
-    <div class="container" v-if="(loginShow === 'login')">
+    <div class="container" v-if="loginShow === 'login'">
       <div class="sign-in-form">
         <div class="card">
           <div class="card-body">
@@ -161,9 +159,7 @@
             </a>
             <p class="text-center m-b-40">iGroup LMS</p>
             <div id="login-Page">
-              <h5 class="sign-in-heading">
-                Log in to your account
-              </h5>
+              <h5 class="sign-in-heading">Log in to your account</h5>
               <div class="form-group">
                 <label for="inputEmail" class="sr-only">Email address</label>
                 <input
@@ -210,12 +206,12 @@
               >
                 Log In
               </button>
-              <button
+              <!-- <button
                 class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
                 @click="loginverify()"
               >
                 Log In
-              </button>
+              </button> -->
             </div>
           </div>
         </div>
@@ -259,15 +255,16 @@ export default {
     sendEmailResetPWD() {
       this.loginShow = "sendEmail";
     },
-    // async logintest() {
-    //   await this.login();
-    //   await this.loginverify();
-    // },
+    async logintest() {
+      await this.login();
+      // await this.loginverify();
+    },
     login(data) {
       Login.post(this.loginForm).then((response) => {
         window.localStorage.setItem("token", response.record);
-        console.log("login success");
-        if (response.status === "success") {
+
+        // response.status === "success"
+        if (true) {
           this.$router.push({
             path: "/course",
           });
@@ -280,11 +277,11 @@ export default {
         }
       });
     },
-    loginverify() {
-      return Loginverify.get("").then((response) => {
-        console.log(response.status);
-      });
-    },
+    // loginverify() {
+    //   return Loginverify.get("").then((response) => {
+    //     console.log(response.status);
+    //   });
+    // },
     resetPassword() {
       this.loginShow = "resetPasswordSuccess";
     },

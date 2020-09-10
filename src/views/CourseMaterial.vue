@@ -11,9 +11,7 @@
           <header class="page-header">
             <div class="d-flex align-items-start">
               <div class="mt-2 mr-3">
-                <a
-                  href="javascript:history.back()"
-                  class="btn-rounded-icon btn-primary ml-2"
+                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
                   ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
                 ></a>
               </div>
@@ -27,7 +25,7 @@
           <section class="page-content container-fluid">
             <div class="row">
               <div class="col-4 col-md">
-                <div class="card bg-secondary" style="height: 150px;">
+                <div class="card bg-secondary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">Open Material</h5>
                     <div class="w100 text-right">
@@ -41,7 +39,7 @@
                 </div>
               </div>
               <div class="col-4 col-md">
-                <div class="card bg-primary" style="height: 150px;">
+                <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       Picture Book Views<span class="text-light">Teacher</span>
@@ -57,7 +55,7 @@
                 </div>
               </div>
               <div class="col-4 col-md">
-                <div class="card bg-success" style="height: 150px;">
+                <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       Video Views<span class="text-light">Teacher</span>
@@ -73,7 +71,7 @@
                 </div>
               </div>
               <div class="col-6 col-md">
-                <div class="card bg-warning" style="height: 150px;">
+                <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       Picture Book Views<span class="text-light">Student</span>
@@ -89,7 +87,7 @@
                 </div>
               </div>
               <div class="col-6 col-md">
-                <div class="card bg-danger" style="height: 150px;">
+                <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       Video Views<span class="text-light">Student</span>
@@ -481,6 +479,7 @@
       tabindex="-1"
       role="dialog"
       aria-hidden="true"
+      data-modal="scroll"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -520,7 +519,7 @@
                 <div class="col-sm-9">
                   <div
                     class="border"
-                    style="max-height: 300px;"
+                    style="max-height: 300px"
                     data-scroll="dark"
                   >
                     <ul class="sequence">
@@ -855,7 +854,7 @@
                 <div class="col-sm-9">
                   <div
                     class="bg-light rounded"
-                    style="max-height: 300px;"
+                    style="max-height: 300px"
                     data-scroll="dark"
                   >
                     <ul class="sequence">
@@ -976,9 +975,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <h5>
-              How difficult is this assignment?
-            </h5>
+            <h5>How difficult is this assignment?</h5>
             <p>System will send more rewards to more difficult assignment.</p>
             <div class="text-center mt-4 mb-4">
               <div class="form-check form-check-inline text-primary">Easy</div>

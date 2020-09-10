@@ -11,9 +11,7 @@
           <header class="page-header">
             <div class="d-flex align-items-start">
               <div class="mt-2 mr-3">
-                <a
-                  href="javascript:history.back()"
-                  class="btn-rounded-icon btn-primary ml-2"
+                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
                   ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
                 ></a>
               </div>
@@ -26,7 +24,7 @@
           <section class="page-content container-fluid">
             <div class="row">
               <div class="col">
-                <div class="card bg-primary" style="height: 150px;">
+                <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       Popular map<button
@@ -52,7 +50,7 @@
                 </div>
               </div>
               <div class="col">
-                <div class="card bg-success" style="height: 150px;">
+                <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       Deserted & forgotten map<button
@@ -78,7 +76,7 @@
                 </div>
               </div>
               <div class="col">
-                <div class="card bg-warning" style="height: 150px;">
+                <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       Assignment completion rate<span class="text-light"
@@ -95,7 +93,7 @@
                 </div>
               </div>
               <div class="col">
-                <div class="card bg-danger" style="height: 150px;">
+                <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       Assignment completion rate<span class="text-light"
@@ -117,19 +115,15 @@
             <div class="row">
               <div class="col-9">
                 <div class="card">
-                  <h5 class="card-header">
-                    Assignments completion rate
-                  </h5>
-                  <div class="card-body" style="height: 597px;">
+                  <h5 class="card-header">Assignments completion rate</h5>
+                  <div class="card-body" style="height: 597px">
                     <p class="text-primary">last 30 days</p>
                   </div>
                 </div>
               </div>
               <div class="col-3">
                 <div class="card">
-                  <h5 class="card-header">
-                    Missed assignments
-                  </h5>
+                  <h5 class="card-header">Missed assignments</h5>
                   <div class="card-body">
                     <p class="text-primary">last 30 days</p>
                     <div class="table-responsive">
@@ -191,9 +185,7 @@
             <div class="row">
               <div class="col-4">
                 <div class="card">
-                  <h5 class="card-header border-none">
-                    Student login
-                  </h5>
+                  <h5 class="card-header border-none">Student login</h5>
                   <div class="card-body pt-0">
                     <p class="text-primary">last 30 days</p>
                     <h4 class="card-title text-success p-t-10">
@@ -204,9 +196,7 @@
               </div>
               <div class="col-4">
                 <div class="card">
-                  <h5 class="card-header border-none">
-                    Parent login
-                  </h5>
+                  <h5 class="card-header border-none">Parent login</h5>
                   <div class="card-body pt-0">
                     <p class="text-primary">last 30 days</p>
                     <h4 class="card-title text-success p-t-10">
@@ -217,9 +207,7 @@
               </div>
               <div class="col-4">
                 <div class="card">
-                  <h5 class="card-header border-none">
-                    Complete materials
-                  </h5>
+                  <h5 class="card-header border-none">Complete materials</h5>
                   <div class="card-body pt-0">
                     <p class="text-primary">last 30 days</p>
                     <h4 class="card-title text-danger p-t-10">
@@ -384,7 +372,7 @@
                   </div>
                   <div
                     class="card-body"
-                    style="max-height: 800px;"
+                    style="max-height: 800px"
                     data-scroll="dark"
                   >
                     <ul

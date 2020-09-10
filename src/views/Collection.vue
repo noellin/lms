@@ -10,7 +10,7 @@
           <div class="d-flex align-items-start">
             <!-- <div class="mt-2 mr-3" v-if="collectionShow !== 'home'">
               <a
-                href="javascript:history.back()"
+                @click="$back"
                 class="btn-rounded-icon btn-primary ml-2"
                 ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
               ></a>
@@ -60,12 +60,12 @@
                                         </div> -->
                   <!-- end No courses -->
                   <!-- id="bs4-table" -->
-                  <table class="table table-striped" style="width: 100%;">
+                  <table class="table table-striped" style="width: 100%">
                     <thead>
                       <tr>
-                        <th style="width: 20%;">Collection name</th>
-                        <th style="width: 20%;">Package</th>
-                        <th style="width: 60%;">Applicable course</th>
+                        <th style="width: 20%">Collection name</th>
+                        <th style="width: 20%">Package</th>
+                        <th style="width: 60%">Applicable course</th>
                       </tr>
                     </thead>
                     <tbody>

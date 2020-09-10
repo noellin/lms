@@ -3,100 +3,7 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <nav class="top-toolbar navbar navbar-mobile navbar-tablet">
-        <ul class="navbar-nav nav-left">
-          <li class="nav-item">
-            <a href="javascript:void(0)" data-toggle-state="aside-left-open">
-              <i class="icon dripicons-align-left"></i>
-            </a>
-          </li>
-        </ul>
-        <ul class="navbar-nav nav-center site-logo">
-          <li>
-            <a href="course-list.html">
-              <span class="brand-text">School Name</span>
-            </a>
-          </li>
-        </ul>
-        <ul class="navbar-nav nav-right">
-          <li class="nav-item">
-            <a
-              href="javascript:void(0)"
-              data-toggle-state="mobile-topbar-toggle"
-            >
-              <i class="icon dripicons-dots-3 rotate-90"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <nav class="top-toolbar navbar navbar-desktop flex-nowrap">
-        <ul class="navbar-nav nav-left">
-          <div class="">
-            <ul class="site-logo">
-              <!-- <li class="nav-item">
-                                <a href="course-list.html">
-                                    <div class="logo">
-                                        <img src="../assets/img/avatars/logo_light.png" alt="" style="max-height:35px; max-width: 190px;">
-                                    </div>
-                                </a>
-                            </li> -->
-              <li class="nav-item">
-                <a href="course-list.html" title=""
-                  ><span class="brand-text">School Name</span></a
-                >
-              </li>
-            </ul>
-            <ul class="navbar-nav nav-left">
-              <li class="nav-item nav-text active">
-                <a href="course-list.html">
-                  Course
-                </a>
-              </li>
-              <li class="nav-item nav-text">
-                <a href="collection-list.html">
-                  Collection
-                </a>
-              </li>
-              <li class="nav-item nav-text">
-                <a href="teacher-account-list.html">
-                  Account
-                </a>
-              </li>
-            </ul>
-          </div>
-        </ul>
-        <ul class="navbar-nav nav-right">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link nav-pill user-avatar"
-              data-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img
-                src="../assets/img/avatars/user.png"
-                class="w-40 rounded-circle"
-                alt="Albert Einstein"
-              />
-              <!-- <span class="text-white">Amanda</span> -->
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-accout">
-              <div class="dropdown-header pb-3">
-                <h5 class="mt-0 mb-0">Amanda</h5>
-                <span>support@authenticgoods.co</span>
-              </div>
-              <a class="dropdown-item" href="teacher-account-personal.html"
-                ><i class="icon dripicons-user"></i> My account</a
-              >
-              <a class="dropdown-item" href="#"
-                ><i class="icon dripicons-lock-open"></i> Log Out</a
-              >
-            </div>
-          </li>
-        </ul>
-      </nav>
+      <custom-header></custom-header>
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
         <menu-left></menu-left>
@@ -120,9 +27,7 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th>
-                              Assigned date
-                            </th>
+                            <th>Assigned date</th>
                             <th>Due</th>
                             <th>For</th>
                             <th>Completed ／Total students</th>
@@ -152,8 +57,8 @@
                             </td>
                             <td>
                               <a
-                                href="assignments-progress.html"
-                                class="btn btn-primary btn-sm btn-rounded"
+                                @click="gotoProgress()"
+                                class="btn btn-primary btn-sm btn-rounded text-white"
                                 >Progress view</a
                               >
                             </td>
@@ -339,15 +244,11 @@
             <div class="mb-3">
               <div class="row pb-2 pt-2">
                 <h6 class="col-3 text-right">Date</h6>
-                <div class="col-9">
-                  2020.05.25
-                </div>
+                <div class="col-9">2020.05.25</div>
               </div>
               <div class="row pb-2">
                 <h6 class="col-3 text-right">Students</h6>
-                <div class="col-9">
-                  Anna、Tom、Vivien...
-                </div>
+                <div class="col-9">Anna、Tom、Vivien...</div>
               </div>
             </div>
             <div class="bg-light rounded">
@@ -402,7 +303,14 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    gotoProgress() {
+      this.$router.push({
+        path:
+          "/course_assignment/course=301 English/type=Assignment/assignment=1234567",
+      });
+    },
+  },
 };
 </script>
 

@@ -5,23 +5,39 @@
       <ul class="nav metismenu">
         <li class="sidebar-header"><span>Active</span></li>
         <li
-          class="nav-dropdown"
+          id="accordionExample"
+          class="nav-dropdown accordion"
           v-for="(course, coursename, index) in classList"
           :key="index"
+          :class="coursePage === coursename ? 'active' : ''"
         >
           <!-- class="has-arrow" -->
           <a
             class="has-arrow"
-            aria-expanded="false"
+            :aria-expanded="coursePage === coursename ? true : false"
             :href="'#course' + index"
+            :data-target="'#course' + index"
             @click.prevent=""
             data-toggle="collapse"
-            ><span>{{ coursename }}</span></a
+            :aria-controls="'course' + index"
+            @click="changePageStatus(coursename)"
+            :class="coursePage === coursename ? '' : 'collapsed'"
+            ><i class="ig-notice" v-if="coursePage === coursename"></i>
+            <span>
+              {{ coursename }}
+              <!-- <i
+                class="la la-angle-down color-lightblue"
+                v-if="iconStatus === coursename"
+              ></i>
+              <i class="la la-angle-right color-lightblue" v-else></i> -->
+            </span></a
           >
           <ul
             class="nav-sub collapse"
             :id="'course' + index"
             :class="coursePage === coursename ? 'show' : ''"
+            data-parent="#accordionExample"
+            :aria-labelledby="index"
           >
             <li v-for="type in course" :key="type + index">
               <a
@@ -34,8 +50,13 @@
                   class="pointer"
                   @click="changePage(coursename, type)"
                   >{{ type }}</span
-                ></a
-              >
+                >
+                <span
+                  class="badge badge-pill badge-danger"
+                  v-if="type === 'Assignment'"
+                  >4</span
+                >
+              </a>
             </li>
             <!-- <li>
               <a href="assignments-list.html"><span>Assignment</span></a>
@@ -67,6 +88,7 @@ export default {
       },
       coursePage: this.$route.params.course,
       courseType: this.$route.params.type,
+      iconStatus: this.$route.params.course,
     };
   },
   mounted() {
@@ -79,6 +101,13 @@ export default {
     },
   },
   methods: {
+    changePageStatus(courseName) {
+      if (this.iconStatus === courseName) {
+        this.iconStatus = "null";
+      } else {
+        this.iconStatus = courseName;
+      }
+    },
     changePage(course, type) {
       switch (type) {
         case "Material":

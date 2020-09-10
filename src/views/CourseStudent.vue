@@ -11,9 +11,7 @@
           <header class="page-header">
             <div class="d-flex align-items-start">
               <div class="mt-2 mr-3">
-                <a
-                  href="javascript:history.back()"
-                  class="btn-rounded-icon btn-primary ml-2"
+                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
                   ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
                 ></a>
               </div>
@@ -26,7 +24,7 @@
           <section class="page-content container-fluid">
             <div class="row">
               <div class="col-sm-3">
-                <div class="card bg-primary" style="height: 150px;">
+                <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">Active student</h5>
                     <div class="w100 text-right">
@@ -40,7 +38,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="card bg-danger" style="height: 150px;">
+                <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">Suspended student</h5>
                     <div class="w100 text-right">
@@ -52,7 +50,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="card bg-success" style="height: 150px;">
+                <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">Limit</h5>
                     <div class="w100 text-right">
@@ -116,9 +114,7 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th>
-                              Student name
-                            </th>
+                            <th>Student name</th>
                             <th>Parent account</th>
                             <th>Remarks</th>
                             <th>Status</th>
@@ -564,9 +560,7 @@
                   <div>
                     <i class="zmdi zmdi-account-add zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">
-                    Add a single student
-                  </div>
+                  <div class="mt-3">Add a single student</div>
                 </button>
               </div>
               <div>
@@ -579,9 +573,7 @@
                   <div>
                     <i class="zmdi zmdi-accounts-list zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">
-                    Import a CSV
-                  </div>
+                  <div class="mt-3">Import a CSV</div>
                 </button>
               </div>
               <div>
@@ -594,9 +586,7 @@
                   <div>
                     <i class="zmdi zmdi-copy zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">
-                    Copy
-                  </div>
+                  <div class="mt-3">Copy</div>
                 </button>
               </div>
             </div>
@@ -778,7 +768,7 @@
             </form>
             <div
               class="table-responsive border rounded p-10 mb-2"
-              style="max-height: 200px;"
+              style="max-height: 200px"
               data-scroll="dark"
             >
               <table class="table table-striped">
@@ -905,7 +895,7 @@
             </div>
             <div
               class="table-responsive border rounded p-10 mb-2"
-              style="max-height: 200px;"
+              style="max-height: 200px"
               data-scroll="dark"
             >
               <table class="table table-striped">
@@ -1017,7 +1007,7 @@
               </p>
               <div
                 class="table-responsive p-10 mb-2"
-                style="max-height: 200px;"
+                style="max-height: 200px"
                 data-scroll="dark"
               >
                 <table class="table table-striped">

@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import CourseList from "../views/CourseList";
 import CourseMaterial from "../views/CourseMaterial.vue";
 import CourseAssignment from "../views/CourseAssignment.vue";
+import AssignmentProgress from "../views/AssignmentProgress.vue"
 import CourseDashboard from "../views/CourseDashboard.vue";
 import CourseStudent from "../views/CourseStudent.vue";
 import Login from "../views/Login.vue";
@@ -34,56 +35,97 @@ const routes = [
     path: "/course",
     name: "Course",
     component: CourseList,
+    meta: {
+      header: 'course'
+    }
   },
   {
     path: "/course_material/course=:course/type=:type",
     name: "CourseMaterial",
     component: CourseMaterial,
+    meta: {
+      header: 'course'
+    }
   },
   {
     path: "/course_assignment/course=:course/type=:type",
     name: "CourseAssignment",
     component: CourseAssignment,
+    meta: {
+      header: 'course'
+    }
+  },
+  {
+    path: "/course_assignment/course=:course/type=:type/assignment=:id",
+    name: "AssignmentProgress",
+    component: AssignmentProgress,
+    meta: {
+      header: 'course'
+    }
   },
   {
     path: "/course_student/course=:course/type=:type",
     name: "CourseStudent",
     component: CourseStudent,
+    meta: {
+      header: 'course'
+    }
   },
   {
     path: "/course_dashboard/course=:course/type=:type",
     name: "CourseDashboard",
     component: CourseDashboard,
+    meta: {
+      header: 'course'
+    }
   },
   {
     path: "/speaking_quiz/course=:course/type=:type",
     name: "SpeakingQuiz",
     component: SpeakingQuiz,
+    meta: {
+      header: 'course'
+    }
   },
   {
     path: "/collection",
     name: "Collection",
     component: Collection,
+    meta: {
+      header: 'collection'
+    }
   },
   {
     path: "/collection/collection=:collection",
     name: "CollectionDetail",
     component: CollectionDetail,
+    meta: {
+      header: 'collection'
+    }
   },
   {
     path: "/collection/collection=:collection/edit",
     name: "CollectionEdit",
     component: CollectionEdit,
+    meta: {
+      header: 'collection'
+    }
   },
   {
     path: "/account",
     name: "Account",
     component: Account,
+    meta: {
+      header: 'account'
+    }
   },
   {
     path: "/account/:id",
     name: "AccountDetail",
     component: AccountDetail,
+    meta: {
+      header: 'account'
+    }
   },
   {
     path: "/404",

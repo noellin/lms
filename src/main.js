@@ -31,6 +31,9 @@ extend("required", {
   message: "This field is required",
 });
 Vue.config.productionTip = false;
+(Vue.prototype.$back = function (distance) {
+  router.back(-1)
+}),
 Vue.prototype.$bus = new Vue();
 new Vue({
   router,

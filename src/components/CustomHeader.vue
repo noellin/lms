@@ -33,7 +33,7 @@
                   <img
                     src="../assets/img/avatars/logo_light.png"
                     alt=""
-                    style="max-height: 35px; max-width: 190px;"
+                    style="max-height: 35px; max-width: 190px"
                   />
                 </div>
               </a>
@@ -43,32 +43,26 @@
           <ul class="navbar-nav nav-left">
             <li
               class="nav-item nav-text"
-              :class="[showPage === 'Course' ? 'active' : '']"
+              :class="[headerLabel === 'course' ? 'active' : '']"
             >
               <router-link class="" to="/course">
-                <a>
-                  Course
-                </a>
+                <a> Course </a>
               </router-link>
             </li>
             <li
               class="nav-item nav-text"
-              :class="[showPage === 'Collection' ? 'active' : '']"
+              :class="[headerLabel === 'collection' ? 'active' : '']"
             >
               <router-link class="" to="/collection">
-                <a>
-                  Collection
-                </a>
+                <a> Collection </a>
               </router-link>
             </li>
             <li
               class="nav-item nav-text"
-              :class="[showPage === 'Account' ? 'active' : '']"
+              :class="[headerLabel === 'account' ? 'active' : '']"
             >
               <router-link class="" to="/account">
-                <a>
-                  Account
-                </a>
+                <a> Account </a>
               </router-link>
             </li>
           </ul>
@@ -117,6 +111,7 @@ export default {
         name: "Amanda",
         email: "support@authenticgoods.co",
       },
+      headerLabel: this.$route.meta.header,
     };
   },
   computed: {
