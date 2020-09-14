@@ -233,8 +233,8 @@ export default {
       showErrorMessage: false,
       loginShow: "login",
       loginForm: {
-        email: "goldmfive@gmail.com",
-        password: "666666",
+        email: "bkbjava@mhsh.ptc.edu.tw",
+        password: "123456",
       },
       userEmail: "jolin123@gmail.com",
       ErrorMessage: "Your email or password is incorrect. please try again.",
@@ -245,6 +245,17 @@ export default {
     // this.$store.dispatch("setAuth", {
     //   isLogin: false,
     // });
+  },
+  mounted() {
+    if (this.$route.params.id !== undefined) {
+      this.loginForm.email = this.$route.params.id;
+      this.loginShow = "resetPassword";
+    }
+  },
+  computed: {
+    token() {
+      return this.$store.state.token;
+    },
   },
   methods: {
     forgotPassword() {
@@ -262,9 +273,13 @@ export default {
     login(data) {
       Login.post(this.loginForm).then((response) => {
         window.localStorage.setItem("token", response.record);
-
+        //vuex
+        this.$store.dispatch("setAuth", {
+          token: response.record,
+          isLogin: response.record === "success" ? true : false,
+        });
         // response.status === "success"
-        if (true) {
+        if (response.status === "success") {
           this.$router.push({
             path: "/course",
           });

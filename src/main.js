@@ -16,6 +16,7 @@ import "bootstrap";
 import Select2 from "v-select2-component";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import '@/utils/mixins'
 Vue.use(VueAxios, axios);
 Vue.component("Select2", Select2);
 Vue.use(Vuex);

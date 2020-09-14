@@ -9,6 +9,18 @@
   color: #32c0db !important;
 }
 
+.select2-dropdown {
+  background-color: white;
+  border: 0px solid #aaa !important;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  left: -100000px;
+  width: 100%;
+  z-index: 1051;
+}
+
 /* */
 .collection-scroll {
   height: 600px;

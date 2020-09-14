@@ -10,10 +10,8 @@ axios.defaults.headers.post["Content-Type"] =
 
 axios.interceptors.request.use(
     (config) => {
-        // config.data = JSON.stringify(config.data);
-
-        let token = window.localStorage.getItem("token");
-        console.log(token)
+        let token = store.state.token;
+        // let token = window.localStorage.getItem("token");
         // token && (config.headers.Authorization = 'Bearer' + token)
         config.headers = {
             // 如果沒有cors的問題則可以都不加

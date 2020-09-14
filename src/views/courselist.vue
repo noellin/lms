@@ -24,8 +24,8 @@
                       :key="teacher.name"
                       :value="teacher.value"
                     >
-                      {{ teacher.name }}</option
-                    >
+                      {{ teacher.name }}
+                    </option>
                   </select>
                 </div>
                 <div class="form-group form-rounded mb-0">
@@ -35,6 +35,7 @@
                       class="form-control"
                       placeholder="Search..."
                       @keyup.enter="searchCourse()"
+                      v-model="courseName"
                     />
                     <div class="input-group-append">
                       <button
@@ -55,7 +56,11 @@
               <div class="card">
                 <div class="card-body">
                   <ul class="nav nav-tabs">
-                    <li class="nav-item" role="presentation">
+                    <li
+                      class="nav-item"
+                      role="presentation"
+                      @click="showTable = 'active'"
+                    >
                       <a
                         href="#tab-1"
                         class="nav-link active show"
@@ -64,7 +69,11 @@
                         >Active</a
                       >
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li
+                      class="nav-item"
+                      role="presentation"
+                      @click="showTable = 'expired'"
+                    >
                       <a
                         href="#tab-2"
                         class="nav-link"
@@ -75,14 +84,18 @@
                     </li>
                   </ul>
                   <div class="tab-content">
-                    <div class="tab-pane fadeIn active" id="tab-1">
+                    <div
+                      class="tab-pane fadeIn active"
+                      id="tab-1"
+                      v-if="showTable === 'active'"
+                    >
                       <!-- No courses -->
                       <!--   <div class="bg-secondary text-center p-15 text-light rounded">
                                              No courses
                                         </div> -->
                       <!-- end No courses -->
                       <!-- id="bs4-table" -->
-                      <table class="table table-striped" style="width: 100%;">
+                      <table class="table table-striped" style="width: 100%">
                         <thead>
                           <tr>
                             <th>Course name</th>
@@ -152,7 +165,7 @@
                             <td>
                               <a
                                 @click="gotoCourseMaterial"
-                                class="text-link"
+                                class="text-link pointer"
                                 >{{ course.name }}</a
                               >
                             </td>
@@ -343,11 +356,15 @@
                       </div>
                     </div>
                     <!-- expired的table -->
-                    <div class="tab-pane fadeIn" id="tab-2">
+                    <div
+                      class="tab-pane fadeIn"
+                      id="tab-2"
+                      v-if="showTable === 'expired'"
+                    >
                       <!-- id="bs4-table" -->
                       <table
                         class="table table-striped table-bordered"
-                        style="width: 100%;"
+                        style="width: 100%"
                       >
                         <thead>
                           <tr>
@@ -620,9 +637,7 @@
                   <div>
                     <i class="zmdi zmdi-account-add zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">
-                    Add a single student
-                  </div>
+                  <div class="mt-3">Add a single student</div>
                 </button>
               </div>
               <div>
@@ -635,9 +650,7 @@
                   <div>
                     <i class="zmdi zmdi-accounts-list zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">
-                    Import a CSV
-                  </div>
+                  <div class="mt-3">Import a CSV</div>
                 </button>
               </div>
               <div>
@@ -650,9 +663,7 @@
                   <div>
                     <i class="zmdi zmdi-copy zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">
-                    Copy
-                  </div>
+                  <div class="mt-3">Copy</div>
                 </button>
               </div>
             </div>
@@ -771,7 +782,7 @@
             </form>
             <div
               class="table-responsive border rounded p-10 mb-2"
-              style="max-height: 200px;"
+              style="max-height: 200px"
               data-scroll="dark"
             >
               <table class="table table-striped">
@@ -898,7 +909,7 @@
             </div>
             <div
               class="table-responsive border rounded p-10 mb-2"
-              style="max-height: 200px;"
+              style="max-height: 200px"
               data-scroll="dark"
             >
               <table class="table table-striped">
@@ -1010,7 +1021,7 @@
               </p>
               <div
                 class="table-responsive p-10 mb-2"
-                style="max-height: 200px;"
+                style="max-height: 200px"
                 data-scroll="dark"
               >
                 <table class="table table-striped">
@@ -1097,6 +1108,8 @@ export default {
   mounted() {},
   data() {
     return {
+      showTable: "active",
+      courseName: "",
       userInfo: {
         name: "Amanda",
         email: "support@authenticgoods.co",

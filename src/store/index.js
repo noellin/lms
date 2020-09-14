@@ -7,11 +7,17 @@ export default new Vuex.Store({
     //引用vuex-persistedstate对state数据持久化
     plugins: [
         persistedState({
-            storage: window.sessionStorage
+            reducer(val) {
+                return {
+                    token: val.token
+                }
+            }
+
+            // storage: window.sessionStorage
         })
     ],
     state: {
-        token: '',
+        token: '99988',
         isLogin: false
     },
     mutations: {

@@ -25,11 +25,17 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
+    meta: {
+      status: 'login'
+    }
   },
   {
     path: "/resetpassword/id=:id",
     name: "ResetPassword",
     component: Login,
+    meta: {
+      status: 'reset'
+    }
   },
   {
     path: "/course",
