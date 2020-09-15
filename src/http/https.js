@@ -124,6 +124,24 @@ export function put(url, data = {}) {
     });
 }
 // 將封裝的方法打包起來
+//範例
+// export const Login = {
+// get: function (paramObj) {
+//     return get("/info/login", paramObj);
+// },
+// post: function (paramObj) {
+// const result = await post("/info/login", paramObj);
+// console.log(result)
+// return post("/info/login", paramObj);
+// return post("/info/login", paramObj);
+// },
+// put: function (paramObj) {
+//     return put("api/users", paramObj);
+// },
+// delete: function (paramObj) {
+//     return remove("api/users", paramObj);
+// },
+// };
 //LOGIN PAGE
 export const Login = {
     // get: function (paramObj) {
@@ -145,6 +163,11 @@ export const Login = {
 export const ForgotPassword = {
     get: (paramObj) => {
         return get(`info/forgotpw/${paramObj}`);
+    },
+};
+export const ResetPassword = {
+    post: (paramObj) => {
+        return post(`info/confirmpw/${paramObj}`);
     },
 };
 export const Loginverify = {

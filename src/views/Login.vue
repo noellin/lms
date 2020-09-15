@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    {{ token }}
     <!-- <div
       class="alert alert-danger alert-dismissible fade show"
       role="alert"
@@ -221,7 +222,7 @@
 </template>
 
 <script>
-import { Login, ForgotPassword, Loginverify } from "../http/https";
+// import { Login, ForgotPassword, Loginverify } from "../http/https";
 import Alert from "../components/AlertMessage";
 export default {
   name: "Login",
@@ -241,7 +242,11 @@ export default {
     };
   },
   created() {
-    window.localStorage.setItem("token", "");
+    this.$store.dispatch("auth/setAuth", {
+      token: "",
+      isLogin: false,
+    });
+    // window.localStorage.setItem("token", "");
     // this.$store.dispatch("setAuth", {
     //   isLogin: false,
     // });
@@ -254,12 +259,12 @@ export default {
   },
   computed: {
     token() {
-      return this.$store.state.token;
+      return this.$store.state.auth.token;
     },
   },
   methods: {
     forgotPassword() {
-      ForgotPassword.get(this.loginForm.email).then((response) => {
+      this.$api.ForgotPassword.get(this.loginForm.email).then((response) => {
         console.log(response);
       });
     },
@@ -271,10 +276,10 @@ export default {
       // await this.loginverify();
     },
     login(data) {
-      Login.post(this.loginForm).then((response) => {
+      this.$api.Login.post(this.loginForm).then((response) => {
         window.localStorage.setItem("token", response.record);
         //vuex
-        this.$store.dispatch("setAuth", {
+        this.$store.dispatch("auth/setAuth", {
           token: response.record,
           isLogin: response.record === "success" ? true : false,
         });
