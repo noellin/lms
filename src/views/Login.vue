@@ -207,12 +207,6 @@
               >
                 Log In
               </button>
-              <!-- <button
-                class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-                @click="loginverify()"
-              >
-                Log In
-              </button> -->
             </div>
           </div>
         </div>
@@ -222,7 +216,12 @@
 </template>
 
 <script>
-// import { Login, ForgotPassword, Loginverify } from "../http/https";
+import {
+  ApiLogin,
+  ApiForgotPassword,
+  ApiResetPassword,
+  ApiActivateUser,
+} from "../http/api";
 import Alert from "../components/AlertMessage";
 export default {
   name: "Login",
@@ -242,18 +241,16 @@ export default {
     };
   },
   created() {
+    //resetpassword用網址
+    ///resetpassword/id=0430d89bd1005af68a291b2f980c8dcda8b9f761
     this.$store.dispatch("auth/setAuth", {
       token: "",
       isLogin: false,
     });
-    // window.localStorage.setItem("token", "");
-    // this.$store.dispatch("setAuth", {
-    //   isLogin: false,
-    // });
   },
   mounted() {
     if (this.$route.params.id !== undefined) {
-      this.loginForm.email = this.$route.params.id;
+      this.activateUser(this.$route.params.id);
       this.loginShow = "resetPassword";
     }
   },
@@ -264,24 +261,21 @@ export default {
   },
   methods: {
     forgotPassword() {
-      this.$api.ForgotPassword.get(this.loginForm.email).then((response) => {
+      ForgotPassword.get(this.loginForm.email).then((response) => {
         console.log(response);
       });
     },
     sendEmailResetPWD() {
       this.loginShow = "sendEmail";
     },
-    async logintest() {
-      await this.login();
-      // await this.loginverify();
-    },
     login(data) {
-      this.$api.Login.post(this.loginForm).then((response) => {
+      ApiLogin.post(this.loginForm).then((response) => {
         window.localStorage.setItem("token", response.record);
         //vuex
         this.$store.dispatch("auth/setAuth", {
           token: response.record,
           isLogin: response.record === "success" ? true : false,
+          userid: response.record.userID,
         });
         // response.status === "success"
         if (response.status === "success") {
@@ -297,34 +291,17 @@ export default {
         }
       });
     },
-    // loginverify() {
-    //   return Loginverify.get("").then((response) => {
-    //     console.log(response.status);
-    //   });
-    // },
+
     resetPassword() {
       this.loginShow = "resetPasswordSuccess";
     },
+    activateUser(activeid) {
+      ApiActivateUser.get(activeid).then((response) => {
+        this.loginForm.email = response.record.email;
+      });
+    },
   },
 };
-
-// let api = `${process.env.VUE_APP_DOMAIN}/info/login`;
-// this.axios
-//   .post(api, this.loginForm, {
-//     headers: {
-//       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-//     },
-//   })
-//   .then((Response) => {
-//     console.log(Response.data);
-//   })
-//   .catch((error) => {
-//     if (error.response.status === 404) {
-//       this.$router.push({
-//         path: "/404",
-//       });
-//     }
-//   });
 </script>
 <style scoped lang="scss">
 </style>
