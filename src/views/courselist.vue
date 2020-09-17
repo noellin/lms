@@ -21,10 +21,10 @@
                   <select class="form-control" v-model="selectedTeacher">
                     <option
                       v-for="teacher in teacherList"
-                      :key="teacher.name"
-                      :value="teacher.value"
+                      :key="teacher.userid"
+                      :value="teacher.userid"
                     >
-                      {{ teacher.name }}
+                      {{ teacher.username }}
                     </option>
                   </select>
                 </div>
@@ -161,16 +161,20 @@
                               >
                             </td>
                           </tr>
-                          <tr v-for="course in courseList" :key="course.id">
+                          <tr
+                            v-for="course in activeCourseList"
+                            :key="course.courseid"
+                          >
                             <td>
                               <a
                                 @click="gotoCourseMaterial"
                                 class="text-link pointer"
-                                >{{ course.name }}</a
+                                >{{ course.course_name }}</a
                               >
                             </td>
                             <td>
-                              <span
+                              <span>{{ course.username }}</span>
+                              <!-- <span
                                 v-for="(teacher, index) in course.teacher"
                                 :key="teacher"
                                 class="mr-1"
@@ -178,11 +182,11 @@
                                 }}<span v-if="index + 1 < course.teacher.length"
                                   >,</span
                                 ></span
-                              >
+                              > -->
                             </td>
-                            <td>{{ course.student }}／{{ course.limit }}</td>
-                            <td>{{ course.package }}</td>
-                            <td>{{ course.expiryDate }}</td>
+                            <td>{{ course.noOfStu }}／{{ course.quota }}</td>
+                            <td>{{ course.pkg_name }}</td>
+                            <td>{{ course.expiry_date | expiredDate }}</td>
                             <td>
                               <button
                                 class="btn btn-nostyle"
@@ -200,31 +204,6 @@
                               >
                             </td>
                           </tr>
-                          <!-- <tr>
-                            <td>
-                              <a href="course-material-list.html">301 中文課</a>
-                            </td>
-                            <td>王小明</td>
-                            <td>47／50</td>
-                            <td>中文三</td>
-                            <td>2020/08/30</td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <a
-                                href="assignments-progress.html"
-                                class="btn btn-primary btn-rounded btn-sm btn-message"
-                                >Checking</a
-                              >
-                            </td>
-                          </tr> -->
                           <tr>
                             <td>
                               <a href="course-material-list.html"
@@ -290,69 +269,10 @@
                         </tbody>
                       </table>
                       <div class="col-12">
-                        <div
-                          class="dataTables_paginate paging_simple_numbers"
-                          id="recent-transaction-table_paginate"
-                        >
-                          <ul class="pagination d-flex justify-content-end">
-                            <li
-                              class="paginate_button page-item previous disabled"
-                              id="recent-transaction-table_previous"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="0"
-                                tabindex="0"
-                                class="page-link"
-                                >Prev</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item active">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="1"
-                                tabindex="0"
-                                class="page-link"
-                                >1</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="2"
-                                tabindex="0"
-                                class="page-link"
-                                >2</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="3"
-                                tabindex="0"
-                                class="page-link"
-                                >3</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item next"
-                              id="recent-transaction-table_next"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="4"
-                                tabindex="0"
-                                class="page-link"
-                                >Next</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
+                        <pagination
+                          :pages="pagination"
+                          @emitPages="getActiveCourseList"
+                        ></pagination>
                       </div>
                     </div>
                     <!-- expired的table -->
@@ -376,7 +296,23 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          <tr
+                            v-for="expiredCourse in expiredCourseList"
+                            :key="expiredCourse.courseid"
+                          >
+                            <td>{{ expiredCourse.course_name }}</td>
+                            <td>{{ expiredCourse.username }}</td>
+                            <td>
+                              {{ expiredCourse.noOfStu }}/{{
+                                expiredCourse.quota
+                              }}
+                            </td>
+                            <td>{{ expiredCourse.pkg_name }}</td>
+                            <td>
+                              {{ expiredCourse.expiry_date | expiredDate }}
+                            </td>
+                          </tr>
+                          <!-- <tr>
                             <td><a href="">301 中文課</a></td>
                             <td>王小明</td>
                             <td>47／50</td>
@@ -396,7 +332,7 @@
                             <td>43／50</td>
                             <td>中文三</td>
                             <td>2022/06/30</td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </table>
                       <div class="col-12">
@@ -1098,12 +1034,20 @@
 <script>
 import $ from "jquery";
 import CustomHeader from "../components/CustomHeader";
+import pagination from "../components/Pagination";
 import Select2 from "v-select2-component";
+import {
+  ApiGetActiveCourseList,
+  ApiGetExpiredCourseList,
+  ApiGetTeacherList,
+  ApiUserProfile,
+} from "../http/api";
 export default {
   name: "Course",
   components: {
     CustomHeader,
     Select2,
+    pagination,
   },
   mounted() {},
   data() {
@@ -1114,28 +1058,11 @@ export default {
         name: "Amanda",
         email: "support@authenticgoods.co",
       },
-      teacherList: [
-        { name: "All teacher", value: "A" },
-        { name: "Amanda", value: "B" },
-        { name: "Diana", value: "C" },
-        { name: "Jim", value: "D" },
-        { name: "Mark", value: "E" },
-        { name: "王小明", value: "F" },
-      ],
+      teacherList: [],
       selectTeacherList: ["Amanda", "Diana", "Jim", "Mark"],
       selectedTeacher: "A",
-
-      courseList: [
-        {
-          id: "1223555",
-          name: "300 體育課",
-          teacher: ["王小明", "Diana"],
-          student: "40",
-          limit: "50",
-          package: "second part",
-          expiryDate: "	2020/10/30",
-        },
-      ],
+      activeCourseList: [],
+      expiredCourseList: [],
       tempCourse: {
         id: "1223555",
         name: "300 體育課",
@@ -1145,10 +1072,43 @@ export default {
         package: "second part",
         expiryDate: "	2020/10/30",
       },
+      pagination: {
+        total_pages: 1,
+        current_page: 1,
+        has_pre: false,
+        has_next: false,
+      },
     };
   },
-
+  mounted() {
+    this.getActiveCourseList();
+    this.getExpiredCourseList();
+    this.getTeacherList();
+  },
+  computed: {
+    userid() {
+      return this.$store.state.auth.userid;
+    },
+  },
   methods: {
+    getTeacherList() {
+      this.teacherList = [];
+      ApiGetTeacherList.get().then((Response) => {
+        this.teacherList = Response.record;
+      });
+    },
+    getActiveCourseList() {
+      this.activeCourseList = [];
+      ApiGetActiveCourseList.get(this.userid).then((Response) => {
+        this.activeCourseList = Response.record;
+      });
+    },
+    getExpiredCourseList() {
+      this.expiredCourseList = [];
+      ApiGetExpiredCourseList.get(this.userid).then((Response) => {
+        this.expiredCourseList = Response.record;
+      });
+    },
     myChangeEvent(val) {
       console.log(val);
     },

@@ -246,6 +246,7 @@ export default {
     this.$store.dispatch("auth/setAuth", {
       token: "",
       isLogin: false,
+      userid: "",
     });
   },
   mounted() {
@@ -274,8 +275,8 @@ export default {
         //vuex
         this.$store.dispatch("auth/setAuth", {
           token: response.record,
-          isLogin: response.record === "success" ? true : false,
-          userid: response.record.userID,
+          isLogin: response.status === "success" ? true : false,
+          userid: response.userID,
         });
         // response.status === "success"
         if (response.status === "success") {

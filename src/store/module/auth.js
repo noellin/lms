@@ -8,11 +8,10 @@ const auth = {
     },
     mutations: {
         SET_AUTH(state, data) {
+            console.log(data.userid)
             state.token = data.token;
             state.isLogin = data.isLogin
             state.userid = data.userid
-        },
-        SET_USERID() {
 
         },
     },
@@ -24,9 +23,7 @@ const auth = {
                 userid: data.userid
             })
         },
-        serUserid(context, data) {
-            context.commit('SET_USERID', data)
-        }
+
     },
     // getters: {
     //     List: state => state.List,
