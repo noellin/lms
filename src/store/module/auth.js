@@ -4,14 +4,15 @@ const auth = {
     state: {
         token: '99988',
         isLogin: false,
-        userid: ''
+        userid: '',
+        permit: ''
     },
     mutations: {
         SET_AUTH(state, data) {
-            console.log(data.userid)
             state.token = data.token;
             state.isLogin = data.isLogin
             state.userid = data.userid
+            state.permit = data.permit
 
         },
     },
@@ -20,7 +21,8 @@ const auth = {
             context.commit('SET_AUTH', {
                 token: data.token,
                 isLogin: data.isLogin,
-                userid: data.userid
+                userid: data.userid,
+                permit: data.permit
             })
         },
 

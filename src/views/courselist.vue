@@ -18,7 +18,15 @@
             <div class="col-12">
               <div class="form-row">
                 <div class="form-group form-rounded mb-0 mr-3">
-                  <select class="form-control" v-model="selectedTeacher">
+                  <select
+                    class="form-control"
+                    v-model="selectedTeacher"
+                    @change="
+                      getActiveCourseList(selectedTeacher);
+                      getExpiredCourseList(selectedTeacher);
+                    "
+                    :disabled="permit === 'teacher'"
+                  >
                     <option
                       v-for="teacher in teacherList"
                       :key="teacher.userid"
@@ -34,12 +42,12 @@
                       type="text"
                       class="form-control"
                       placeholder="Search..."
-                      @keyup.enter="searchCourse()"
+                      @keyup.enter="searchCourse(courseName)"
                       v-model="courseName"
                     />
                     <div class="input-group-append">
                       <button
-                        @click="searchCourse()"
+                        @click="searchCourse(courseName)"
                         class="btn btn-secondary btn-outline btn-icon btn-rounded"
                         type="button"
                       >
@@ -162,7 +170,7 @@
                             </td>
                           </tr>
                           <tr
-                            v-for="course in activeCourseList"
+                            v-for="course in course.activeCourseList"
                             :key="course.courseid"
                           >
                             <td>
@@ -270,7 +278,7 @@
                       </table>
                       <div class="col-12">
                         <pagination
-                          :pages="pagination"
+                          :pages="course.coursePagination"
                           @emitPages="getActiveCourseList"
                         ></pagination>
                       </div>
@@ -297,7 +305,7 @@
                         </thead>
                         <tbody>
                           <tr
-                            v-for="expiredCourse in expiredCourseList"
+                            v-for="expiredCourse in course.expiredCourseList"
                             :key="expiredCourse.courseid"
                           >
                             <td>{{ expiredCourse.course_name }}</td>
@@ -312,27 +320,6 @@
                               {{ expiredCourse.expiry_date | expiredDate }}
                             </td>
                           </tr>
-                          <!-- <tr>
-                            <td><a href="">301 中文課</a></td>
-                            <td>王小明</td>
-                            <td>47／50</td>
-                            <td>中文三</td>
-                            <td>2022/06/30</td>
-                          </tr>
-                          <tr>
-                            <td><a href="">302 English</a></td>
-                            <td>Amanda</td>
-                            <td>43／50</td>
-                            <td>Third grage</td>
-                            <td>2022/06/30</td>
-                          </tr>
-                          <tr>
-                            <td><a href="">302 中文課</a></td>
-                            <td>王小明</td>
-                            <td>43／50</td>
-                            <td>中文三</td>
-                            <td>2022/06/30</td>
-                          </tr> -->
                         </tbody>
                       </table>
                       <div class="col-12">
@@ -456,11 +443,11 @@
                   >Multi Select</label
                 >
                 <div class="col-sm-8">
-                  <Select2
+                  <select2
                     class="form-control"
                     multiple
                     v-model="tempCourse.teacher"
-                    :options="selectTeacherList"
+                    :options="teacherList"
                     @change="myChangeEvent($event)"
                     @select="mySelectEvent($event)"
                     :settings="{ multiple: true }"
@@ -471,7 +458,7 @@
                       :key="seteacher.value"
                       >{{ seteacher.name }}</option
                     > -->
-                  </Select2>
+                  </select2>
                   <!-- <span>{{ tempCourse.teacher }}</span> -->
                 </div>
               </div>
@@ -491,6 +478,7 @@
               data-dismiss="modal"
               data-toggle="modal"
               data-target="#editChangeModal"
+              @click="setCourse(tempCourse.teacher)"
             >
               Save changes
             </button>
@@ -1040,7 +1028,8 @@ import {
   ApiGetActiveCourseList,
   ApiGetExpiredCourseList,
   ApiGetTeacherList,
-  ApiUserProfile,
+  ApiSearchCourse,
+  ApiSetCourse,
 } from "../http/api";
 export default {
   name: "Course",
@@ -1058,11 +1047,20 @@ export default {
         name: "Amanda",
         email: "support@authenticgoods.co",
       },
-      teacherList: [],
+      teacherList: [{ userid: "", username: "All" }],
       selectTeacherList: ["Amanda", "Diana", "Jim", "Mark"],
-      selectedTeacher: "A",
-      activeCourseList: [],
-      expiredCourseList: [],
+      selectedTeacher: "",
+      course: {
+        activeCourseList: [],
+        expiredCourseList: [],
+        coursePagination: {
+          total_pages: 1,
+          current_page: 1,
+          has_pre: false,
+          has_next: false,
+        },
+      },
+
       tempCourse: {
         id: "1223555",
         name: "300 體育課",
@@ -1072,15 +1070,14 @@ export default {
         package: "second part",
         expiryDate: "	2020/10/30",
       },
-      pagination: {
-        total_pages: 1,
-        current_page: 1,
-        has_pre: false,
-        has_next: false,
-      },
     };
   },
   mounted() {
+    if (this.permit === "admin") {
+      this.selectedTeacher = "";
+    } else {
+      this.selectedTeacher = this.userid;
+    }
     this.getActiveCourseList();
     this.getExpiredCourseList();
     this.getTeacherList();
@@ -1089,33 +1086,64 @@ export default {
     userid() {
       return this.$store.state.auth.userid;
     },
+    permit() {
+      return this.$store.state.auth.permit;
+    },
   },
   methods: {
     getTeacherList() {
-      this.teacherList = [];
-      ApiGetTeacherList.get().then((Response) => {
-        this.teacherList = Response.record;
+      ApiGetTeacherList.get().then((response) => {
+        if (this.permit === "admin") {
+          response.record.forEach((element) => {
+            this.teacherList.push(element);
+          });
+        } else {
+          this.teacherList = [];
+          this.teacherList = response.record;
+        }
       });
     },
-    getActiveCourseList() {
-      this.activeCourseList = [];
-      ApiGetActiveCourseList.get(this.userid).then((Response) => {
-        this.activeCourseList = Response.record;
+    getActiveCourseList(teacherid) {
+      this.course.activeCourseList = [];
+      ApiGetActiveCourseList.get(this.permit, this.userid, teacherid).then(
+        (response) => {
+          this.course.activeCourseList = response.record;
+        }
+      );
+    },
+    getExpiredCourseList(teacherid) {
+      this.course.expiredCourseList = [];
+      ApiGetExpiredCourseList.get(this.permit, this.userid, teacherid).then(
+        (response) => {
+          this.course.expiredCourseList = response.record;
+        }
+      );
+    },
+    searchCourse(courseName) {
+      this.course.expiredCourseList = [];
+      this.course.activeCourseList = [];
+      let searchItem = {
+        keyword: courseName,
+      };
+      ApiSearchCourse.post(this.userid, searchItem).then((response) => {
+        response.record.forEach((item) => {
+          if (item.statu === "active") {
+            this.course.activeCourseList.push(item);
+          } else {
+            this.course.expiredCourseList.push(item);
+          }
+        });
       });
     },
-    getExpiredCourseList() {
-      this.expiredCourseList = [];
-      ApiGetExpiredCourseList.get(this.userid).then((Response) => {
-        this.expiredCourseList = Response.record;
-      });
+    setCourse() {
+      ApiSetCourse.put().then((response) => {});
     },
     myChangeEvent(val) {
       console.log(val);
     },
-    mySelectEvent({ id, text }) {
-      console.log({ id, text });
+    mySelectEvent({ userid, username }) {
+      console.log({ userid, username });
     },
-    searchCourse() {},
     gotoCourseMaterial() {
       this.$router.push({
         path: "/course_material/course=301 English/type=Material/",

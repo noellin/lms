@@ -103,7 +103,6 @@
   </div>
 </template>
 <script>
-import { ApiUserProfile } from "../http/api";
 export default {
   name: "CustomHeader",
   data() {
@@ -116,10 +115,10 @@ export default {
     };
   },
   created() {
-    ApiUserProfile.get().then((Response) => {
-      this.userInfo.name = Response.record.username;
-      this.userInfo.email = "support@authenticgoods.co";
-    });
+    // ApiUserProfile.get().then((Response) => {
+    //   this.userInfo.name = Response.record.username;
+    //   this.userInfo.email = "support@authenticgoods.co";
+    // });
   },
   computed: {
     showPage() {

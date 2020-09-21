@@ -16,11 +16,10 @@ import CollectionEdit from "../views/CollectionEdit.vue";
 import ErrorPage from "../views/error.vue";
 Vue.use(VueRouter);
 
-const routes = [
-  // {
-  //   path: "*",
-  //   redirect: "/",
-  // },
+const routes = [{
+    path: "*",
+    redirect: "/",
+  },
   {
     path: "/",
     name: "Login",

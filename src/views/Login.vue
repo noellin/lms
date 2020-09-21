@@ -277,6 +277,8 @@ export default {
           token: response.record,
           isLogin: response.status === "success" ? true : false,
           userid: response.userID,
+          username: response.username,
+          permit: response.permit,
         });
         // response.status === "success"
         if (response.status === "success") {
