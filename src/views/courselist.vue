@@ -92,6 +92,14 @@
                     </li>
                   </ul>
                   <div class="tab-content">
+                    <loading
+                      :active.sync="isLoading"
+                      :can-cancel="true"
+                      :is-full-page="false"
+                      color="#32C1DB"
+                      :width="100"
+                      :height="100"
+                    ></loading>
                     <div
                       class="tab-pane fadeIn active"
                       id="tab-1"
@@ -103,7 +111,11 @@
                                         </div> -->
                       <!-- end No courses -->
                       <!-- id="bs4-table" -->
-                      <table class="table table-striped" style="width: 100%">
+                      <table
+                        class="table table-striped"
+                        style="width: 100%"
+                        v-show="!isLoading"
+                      >
                         <thead>
                           <tr>
                             <th>Course name</th>
@@ -174,6 +186,18 @@
                             :key="course.courseid"
                           >
                             <td>
+                              <button
+                                v-if="
+                                  course.course_name === '' ||
+                                  course.course_name === undefined
+                                "
+                                type=""
+                                class="btn btn-primary btn-rounded btn-sm"
+                                data-toggle="modal"
+                                data-target="#editModal"
+                              >
+                                Setting
+                              </button>
                               <a
                                 @click="gotoCourseMaterial"
                                 class="text-link pointer"
@@ -181,16 +205,21 @@
                               >
                             </td>
                             <td>
-                              <span>{{ course.username }}</span>
-                              <!-- <span
-                                v-for="(teacher, index) in course.teacher"
-                                :key="teacher"
-                                class="mr-1"
-                                >{{ teacher
-                                }}<span v-if="index + 1 < course.teacher.length"
-                                  >,</span
-                                ></span
-                              > -->
+                              <span>
+                                <button
+                                  v-if="
+                                    course.username === '' ||
+                                    course.username === undefined
+                                  "
+                                  type=""
+                                  class="btn btn-primary btn-rounded btn-sm"
+                                  data-toggle="modal"
+                                  data-target="#editModal"
+                                >
+                                  Setting
+                                </button>
+                                {{ course.username }}</span
+                              >
                             </td>
                             <td>{{ course.noOfStu }}／{{ course.quota }}</td>
                             <td>{{ course.pkg_name }}</td>
@@ -447,7 +476,7 @@
                     class="form-control"
                     multiple
                     v-model="tempCourse.teacher"
-                    :options="teacherList"
+                    :options="selectTeacherList"
                     @change="myChangeEvent($event)"
                     @select="mySelectEvent($event)"
                     :settings="{ multiple: true }"
@@ -1030,7 +1059,7 @@ import {
   ApiGetTeacherList,
   ApiSearchCourse,
   ApiSetCourse,
-} from "../http/api";
+} from "../http/apis/CourseList";
 export default {
   name: "Course",
   components: {
@@ -1048,7 +1077,16 @@ export default {
         email: "support@authenticgoods.co",
       },
       teacherList: [{ userid: "", username: "All" }],
-      selectTeacherList: ["Amanda", "Diana", "Jim", "Mark"],
+      selectTeacherList: [],
+      tempCourse: {
+        id: "1223555",
+        name: "300 體育課",
+        teacher: ["Amanda", "Diana"],
+        student: "40",
+        limit: "50",
+        package: "second part",
+        expiryDate: "	2020/10/30",
+      },
       selectedTeacher: "",
       course: {
         activeCourseList: [],
@@ -1060,28 +1098,20 @@ export default {
           has_next: false,
         },
       },
-
-      tempCourse: {
-        id: "1223555",
-        name: "300 體育課",
-        teacher: ["Amanda", "Diana"],
-        student: "40",
-        limit: "50",
-        package: "second part",
-        expiryDate: "	2020/10/30",
-      },
     };
   },
-  mounted() {
+  created() {
     if (this.permit === "admin") {
       this.selectedTeacher = "";
     } else {
       this.selectedTeacher = this.userid;
     }
-    this.getActiveCourseList();
-    this.getExpiredCourseList();
-    this.getTeacherList();
+    this.init();
+    // this.getActiveCourseList();
+    // this.getExpiredCourseList();
+    // this.getTeacherList();
   },
+  mounted() {},
   computed: {
     userid() {
       return this.$store.state.auth.userid;
@@ -1089,21 +1119,44 @@ export default {
     permit() {
       return this.$store.state.auth.permit;
     },
+    isLoading() {
+      return this.$store.state.common.isLoading;
+    },
   },
   methods: {
+    init() {
+      this.$store.dispatch("common/setLoading", true);
+      this.axios
+        .all([
+          this.getActiveCourseList(),
+          this.getExpiredCourseList(),
+          this.getTeacherList(),
+        ])
+        .then((response) => {
+          setTimeout(() => {
+            this.$store.dispatch("common/setLoading", false);
+          }, 500);
+        });
+    },
     getTeacherList() {
       ApiGetTeacherList.get().then((response) => {
         if (this.permit === "admin") {
           response.record.forEach((element) => {
             this.teacherList.push(element);
           });
+          this.selectTeacherList = response.record.map((o) => {
+            return { id: o.userid, text: o.username };
+          });
         } else {
           this.teacherList = [];
           this.teacherList = response.record;
+          this.selectTeacherList = response.record.map((o) => {
+            return { id: o.userid, text: o.username };
+          });
         }
       });
     },
-    getActiveCourseList(teacherid) {
+    getActiveCourseList(teacherid = "") {
       this.course.activeCourseList = [];
       ApiGetActiveCourseList.get(this.permit, this.userid, teacherid).then(
         (response) => {
@@ -1111,7 +1164,7 @@ export default {
         }
       );
     },
-    getExpiredCourseList(teacherid) {
+    getExpiredCourseList(teacherid = "") {
       this.course.expiredCourseList = [];
       ApiGetExpiredCourseList.get(this.permit, this.userid, teacherid).then(
         (response) => {
@@ -1120,6 +1173,7 @@ export default {
       );
     },
     searchCourse(courseName) {
+      this.$store.dispatch("common/setLoading", true);
       this.course.expiredCourseList = [];
       this.course.activeCourseList = [];
       let searchItem = {
@@ -1127,12 +1181,15 @@ export default {
       };
       ApiSearchCourse.post(this.userid, searchItem).then((response) => {
         response.record.forEach((item) => {
-          if (item.statu === "active") {
+          if (item.status === "active") {
             this.course.activeCourseList.push(item);
           } else {
             this.course.expiredCourseList.push(item);
           }
         });
+        setTimeout(() => {
+          this.$store.dispatch("common/setLoading", false);
+        }, 500);
       });
     },
     setCourse() {
@@ -1141,8 +1198,8 @@ export default {
     myChangeEvent(val) {
       console.log(val);
     },
-    mySelectEvent({ userid, username }) {
-      console.log({ userid, username });
+    mySelectEvent({ id, text }) {
+      console.log({ id, text });
     },
     gotoCourseMaterial() {
       this.$router.push({

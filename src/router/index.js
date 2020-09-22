@@ -15,8 +15,9 @@ import CollectionDetail from "../views/CollectionDetail.vue";
 import CollectionEdit from "../views/CollectionEdit.vue";
 import ErrorPage from "../views/error.vue";
 Vue.use(VueRouter);
+const routes = [
 
-const routes = [{
+  {
     path: "*",
     redirect: "/",
   },
@@ -147,6 +148,7 @@ const routes = [{
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes,
 });
 

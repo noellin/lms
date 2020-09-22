@@ -2,11 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import persistedState from "vuex-persistedstate"
 import auth from "./module/auth"
+import common from "./module/common"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        auth
+        auth,
+        common
     },
     //引用vuex-persistedstate对state数据持久化
     plugins: [

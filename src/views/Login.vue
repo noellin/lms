@@ -221,7 +221,7 @@ import {
   ApiForgotPassword,
   ApiResetPassword,
   ApiActivateUser,
-} from "../http/api";
+} from "../http/apis/Login";
 import Alert from "../components/AlertMessage";
 export default {
   name: "Login",
@@ -262,9 +262,7 @@ export default {
   },
   methods: {
     forgotPassword() {
-      ForgotPassword.get(this.loginForm.email).then((response) => {
-        console.log(response);
-      });
+      ForgotPassword.get(this.loginForm.email).then((response) => {});
     },
     sendEmailResetPWD() {
       this.loginShow = "sendEmail";

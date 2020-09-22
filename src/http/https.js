@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../store";
-
+import router from "../router";
 axios.defaults.timeout = 5000;
 axios.defaults.baseURL = process.env.VUE_APP_DOMAIN; // 域名
 // axios.defaults.headers.common['Content-Type'] = '~'
@@ -28,13 +28,26 @@ axios.interceptors.request.use(
 // 異常處理
 axios.interceptors.response.use(
     (response) => {
+        //現在error是寫在response.data.status
+        // if (response.data.status === 'failed') {
+        //     store.dispatch('setAuth', {
+        //         "token": '',
+        //         "isLogin": false
+        //     })
+        //     setTimeout(() => {
+        //         router.push({
+        //             path: "/login",
+        //         });
+        //     }, 2000);
+        // }
+        //
         return response;
     },
     (err) => {
         if (err && err.response) {
             switch (err.response.status) {
                 case 401:
-                    if (this.$router.currentRoute === 'Login') {
+                    if (router.currentRoute === 'Login') {
 
                     } else {
                         store.dispatch('setAuth', {
@@ -42,7 +55,7 @@ axios.interceptors.response.use(
                             "isLogin": false
                         })
                         setTimeout(() => {
-                            this.$router.push({
+                            router.push({
                                 path: "/login",
                             });
                         }, 2000);
@@ -50,7 +63,7 @@ axios.interceptors.response.use(
                     break;
                 case 404:
                     console.log("找不到該頁面");
-                    this.$router.push({
+                    router.push({
                         path: "/404",
                     });
                     break;
@@ -102,6 +115,7 @@ export function remove(url, data = {}) {
     return new Promise((resolve, reject) => {
         axios.delete(url, data).then(
             (response) => {
+
                 resolve(response.data);
             },
             (err) => {
