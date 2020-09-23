@@ -216,6 +216,7 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 import {
   ApiLogin,
   ApiForgotPassword,
@@ -248,6 +249,15 @@ export default {
       isLogin: false,
       userid: "",
     });
+    // const todayTimestamp = Math.floor(Date.now() / 1000);
+    // console.log(dayjs.unix(todayTimestamp).format("YYYY-MM-DD"));
+    // console.log(dayjs.unix(1597939200).format("YYYY-MM-DD"));
+    // console.log(
+    //   dayjs
+    //     .unix(1598198400)
+    //     .add(1, "month")
+    //     .isBefore(dayjs.unix(todayTimestamp))
+    // );
   },
   mounted() {
     if (this.$route.params.id !== undefined) {
@@ -268,6 +278,7 @@ export default {
       this.loginShow = "sendEmail";
     },
     login(data) {
+      const todayTimestamp = Math.floor(Date.now() / 1000);
       ApiLogin.post(this.loginForm).then((response) => {
         window.localStorage.setItem("token", response.record);
         //vuex
@@ -277,6 +288,7 @@ export default {
           userid: response.userID,
           username: response.username,
           permit: response.permit,
+          todayTimestamp: todayTimestamp,
         });
         // response.status === "success"
         if (response.status === "success") {

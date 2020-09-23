@@ -5,6 +5,35 @@
   color: #ff9835 !important;
 }
 
+.text-height-form-control {
+  margin-top: 8.4px;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+  padding-left: 10px !important;
+}
+
+.select2-selection--multiple {
+  overflow: hidden !important;
+  height: auto !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+  background-color: white;
+  border-color: #dfe7f3 !important;
+  border-radius: 0px !important;
+  /* display: hidden !important; */
+  cursor: text;
+  margin-bottom: 2px !important;
+}
+
+.custom-file-input:focus~.custom-file-label:after,
+.custom-file-label,
+.custom-file-label:after,
+.form-control {
+  border-color: #dfe7f3 !important;
+}
+
 .color-lightblue {
   color: #32c0db !important;
 }

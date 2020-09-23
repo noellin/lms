@@ -5,7 +5,8 @@ const auth = {
         token: '99988',
         isLogin: false,
         userid: '',
-        permit: ''
+        permit: '',
+        todayTimestamp: 0
     },
     mutations: {
         SET_AUTH(state, data) {
@@ -13,7 +14,7 @@ const auth = {
             state.isLogin = data.isLogin
             state.userid = data.userid
             state.permit = data.permit
-
+            state.todayTimestamp = data.todayTimestamp
         },
     },
     actions: {
@@ -22,7 +23,8 @@ const auth = {
                 token: data.token,
                 isLogin: data.isLogin,
                 userid: data.userid,
-                permit: data.permit
+                permit: data.permit,
+                todayTimestamp: data.todayTimestamp
             })
         },
 

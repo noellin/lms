@@ -128,59 +128,6 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td colspan="1" class="text-left">
-                              <button
-                                type=""
-                                class="btn btn-primary btn-rounded btn-sm"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                              >
-                                Setting
-                              </button>
-                            </td>
-                            <td colspan="1" class="text-left">
-                              <button
-                                type=""
-                                class="btn btn-primary btn-rounded btn-sm"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                              >
-                                Setting
-                              </button>
-                            </td>
-                            <td>
-                              <span class="text-muted"
-                                ><button
-                                  type=""
-                                  class="btn btn-primary btn-rounded btn-sm"
-                                  data-toggle="modal"
-                                  data-target="#AddStudentModal"
-                                >
-                                  Add student
-                                </button></span
-                              >／50
-                            </td>
-                            <td>Third grage</td>
-                            <td>2020/10/30</td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <a
-                                href="assignments-progress.html"
-                                class="btn btn-primary btn-rounded btn-sm"
-                                disabled
-                                >Checking</a
-                              >
-                            </td>
-                          </tr>
                           <tr
                             v-for="course in course.activeCourseList"
                             :key="course.courseid"
@@ -195,6 +142,13 @@
                                 class="btn btn-primary btn-rounded btn-sm"
                                 data-toggle="modal"
                                 data-target="#editModal"
+                                @click="
+                                  setTempCourse(
+                                    course.username,
+                                    course.course_name,
+                                    course.courseid
+                                  )
+                                "
                               >
                                 Setting
                               </button>
@@ -215,20 +169,56 @@
                                   class="btn btn-primary btn-rounded btn-sm"
                                   data-toggle="modal"
                                   data-target="#editModal"
+                                  @click="
+                                    setTempCourse(
+                                      course.username,
+                                      course.course_name,
+                                      course.courseid
+                                    )
+                                  "
                                 >
                                   Setting
                                 </button>
                                 {{ course.username }}</span
                               >
                             </td>
-                            <td>{{ course.noOfStu }}／{{ course.quota }}</td>
+                            <td>
+                              {{ course.noOfStu }}／{{ course.quota }}
+                              <button
+                                type=""
+                                class="btn btn-primary btn-rounded btn-sm ml-2"
+                                data-toggle="modal"
+                                data-target="#AddStudentModal"
+                              >
+                                Add student
+                              </button>
+                            </td>
                             <td>{{ course.pkg_name }}</td>
-                            <td>{{ course.expiry_date | expiredDate }}</td>
+                            <td>
+                              <span
+                                :class="{
+                                  'text-danger': course.expiry === true,
+                                }"
+                                >{{ course.expiry_date | expiredDate }}</span
+                              >
+                              <span
+                                class="badge badge-pill badge-secondary"
+                                v-if="course.expiry"
+                                >expiring</span
+                              >
+                            </td>
                             <td>
                               <button
                                 class="btn btn-nostyle"
                                 data-toggle="modal"
                                 data-target="#editModal"
+                                @click="
+                                  setTempCourse(
+                                    course.username,
+                                    course.course_name,
+                                    course.courseid
+                                  )
+                                "
                               >
                                 <i class="la la-edit"></i>
                               </button>
@@ -439,7 +429,7 @@
       role="dialog"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit</h5>
@@ -455,39 +445,54 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label class="control-label text-right col-sm-4"
+                <label
+                  class="control-label text-right col-sm-4 text-height-form-control"
                   >Course Name</label
                 >
                 <div class="col-sm-8">
                   <input
                     type="text"
                     class="form-control"
-                    placeholder=""
-                    value="102 English"
+                    placeholder="Course Name"
+                    v-model="tempCourse.course_name"
                   />
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label text-right col-sm-4"
+                <label
+                  class="control-label text-right col-sm-4 text-height-form-control"
                   >Multi Select</label
                 >
                 <div class="col-sm-8">
-                  <select2
+                  <select
+                    class="form-control"
+                    id="s2_demo3"
+                    multiple="multiple"
+                    v-model="tempCourse.id"
+                  >
+                    <optgroup label="title">
+                      <option
+                        v-for="option in selectTeacherList"
+                        :key="option.id"
+                      >
+                        {{ option.text }}
+                      </option>
+                      <!-- <option>Brandon</option>
+                      <option>Claude</option>
+                      <option selected>Diana</option>
+                      <option selected>Edward</option> -->
+                    </optgroup>
+                  </select>
+                  <!-- <select2
                     class="form-control"
                     multiple
-                    v-model="tempCourse.teacher"
+                    v-model="tempCourse.id"
                     :options="selectTeacherList"
                     @change="myChangeEvent($event)"
                     @select="mySelectEvent($event)"
                     :settings="{ multiple: true }"
                   >
-                    <!-- <option
-                      :value="seteacher.value"
-                      v-for="seteacher in selectTeacherList"
-                      :key="seteacher.value"
-                      >{{ seteacher.name }}</option
-                    > -->
-                  </select2>
+                  </select2> -->
                   <!-- <span>{{ tempCourse.teacher }}</span> -->
                 </div>
               </div>
@@ -507,7 +512,6 @@
               data-dismiss="modal"
               data-toggle="modal"
               data-target="#editChangeModal"
-              @click="setCourse(tempCourse.teacher)"
             >
               Save changes
             </button>
@@ -538,9 +542,16 @@
           </div>
           <div class="modal-body">
             <p>
+              Confirm to change the teacher to
+              {{ tempCourse.id }}
+              <!-- <strong v-for="teacher in tempCourse.id" :key="teacher.id"
+                >{{ teacher }} </strong
+              >. -->
+            </p>
+            <!-- <p>
               Confirm to change the teacher to <strong>Diana</strong> and
               <strong>Edward</strong>.
-            </p>
+            </p> -->
           </div>
           <div class="modal-footer">
             <button
@@ -550,7 +561,11 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="setCourse()"
+            >
               Confirm
             </button>
           </div>
@@ -1053,6 +1068,7 @@ import $ from "jquery";
 import CustomHeader from "../components/CustomHeader";
 import pagination from "../components/Pagination";
 import Select2 from "v-select2-component";
+import dayjs from "dayjs";
 import {
   ApiGetActiveCourseList,
   ApiGetExpiredCourseList,
@@ -1079,14 +1095,17 @@ export default {
       teacherList: [{ userid: "", username: "All" }],
       selectTeacherList: [],
       tempCourse: {
-        id: "1223555",
-        name: "300 體育課",
-        teacher: ["Amanda", "Diana"],
-        student: "40",
-        limit: "50",
-        package: "second part",
-        expiryDate: "	2020/10/30",
+        id: [],
+        course_name: "",
+        // id: "1223555",
+        // name: "300 體育課",
+        // teacher: ["Amanda", "Diana"],
+        // student: "40",
+        // limit: "50",
+        // package: "second part",
+        // expiryDate: "	2020/10/30",
       },
+      tempCourseid: "",
       selectedTeacher: "",
       course: {
         activeCourseList: [],
@@ -1118,6 +1137,9 @@ export default {
     },
     permit() {
       return this.$store.state.auth.permit;
+    },
+    todayTimestamp() {
+      return this.$store.state.auth.todayTimestamp;
     },
     isLoading() {
       return this.$store.state.common.isLoading;
@@ -1161,6 +1183,12 @@ export default {
       ApiGetActiveCourseList.get(this.permit, this.userid, teacherid).then(
         (response) => {
           this.course.activeCourseList = response.record;
+          this.course.activeCourseList.forEach((item) => {
+            item.expiry = dayjs
+              .unix(item.expiry_date)
+              .add(1, "month")
+              .isBefore(dayjs.unix(this.todayTimestamp));
+          });
         }
       );
     },
@@ -1192,8 +1220,20 @@ export default {
         }, 500);
       });
     },
+    setTempCourse(username, coursename, courseid) {
+      if (username === "") {
+        this.tempCourse.id = [];
+      } else {
+        this.tempCourse.id = username.split(",");
+      }
+
+      this.tempCourse.couse_name = coursename;
+      this.tempCourseid = courseid;
+    },
     setCourse() {
-      ApiSetCourse.put().then((response) => {});
+      console.log(tempCourse);
+      console.log(tempCourseid);
+      // ApiSetCourse.put().then((response) => {});
     },
     myChangeEvent(val) {
       console.log(val);

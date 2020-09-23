@@ -11,6 +11,7 @@ axios.defaults.headers.post["Content-Type"] =
 axios.interceptors.request.use(
     (config) => {
         let token = store.state.auth.token;
+        console.log(token)
         // let token = window.localStorage.getItem("token");
         // token && (config.headers.Authorization = 'Bearer' + token)
         config.headers = {
@@ -18,6 +19,7 @@ axios.interceptors.request.use(
             "Authorization": "Bearer " + token,
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         };
+
         return config;
     },
     (error) => {
