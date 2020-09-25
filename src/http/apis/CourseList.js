@@ -38,6 +38,7 @@ export const ApiGetTeacherList = {
 };
 
 export const ApiSearchCourse = {
+
     post: (id, paramObj) => {
         return post(`/course/search/${id}`, paramObj);
     },
@@ -45,6 +46,6 @@ export const ApiSearchCourse = {
 
 export const ApiSetCourse = {
     put: (id, paramObj) => {
-        return put(`/course/search/${id}`, paramObj);
+        return put(`/course/setinfo/${id}`, paramObj);
     },
 };

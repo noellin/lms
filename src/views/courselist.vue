@@ -111,11 +111,7 @@
                                         </div> -->
                       <!-- end No courses -->
                       <!-- id="bs4-table" -->
-                      <table
-                        class="table table-striped"
-                        style="width: 100%"
-                        v-show="!isLoading"
-                      >
+                      <table class="table table-striped" style="width: 100%">
                         <thead>
                           <tr>
                             <th>Course name</th>
@@ -127,7 +123,7 @@
                             <th>Checking assignment</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody v-show="!isLoading">
                           <tr
                             v-for="course in course.activeCourseList"
                             :key="course.courseid"
@@ -144,6 +140,7 @@
                                 data-target="#editModal"
                                 @click="
                                   setTempCourse(
+                                    course.userid,
                                     course.username,
                                     course.course_name,
                                     course.courseid
@@ -171,6 +168,7 @@
                                   data-target="#editModal"
                                   @click="
                                     setTempCourse(
+                                      course.userid,
                                       course.username,
                                       course.course_name,
                                       course.courseid
@@ -183,7 +181,10 @@
                               >
                             </td>
                             <td>
-                              {{ course.noOfStu }}／{{ course.quota }}
+                              <span class="tdwidth-sm text-right"
+                                >{{ course.noOfStu }}／{{ course.quota }}</span
+                              >
+
                               <button
                                 type=""
                                 class="btn btn-primary btn-rounded btn-sm ml-2"
@@ -214,6 +215,7 @@
                                 data-target="#editModal"
                                 @click="
                                   setTempCourse(
+                                    course.userid,
                                     course.username,
                                     course.course_name,
                                     course.courseid
@@ -231,7 +233,7 @@
                               >
                             </td>
                           </tr>
-                          <tr>
+                          <!-- <tr>
                             <td>
                               <a href="course-material-list.html"
                                 >302 English</a
@@ -292,7 +294,7 @@
                                 >Checking</a
                               >
                             </td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </table>
                       <div class="col-12">
@@ -464,7 +466,7 @@
                   >Multi Select</label
                 >
                 <div class="col-sm-8">
-                  <select
+                  <!-- <select
                     class="form-control"
                     id="s2_demo3"
                     multiple="multiple"
@@ -477,22 +479,18 @@
                       >
                         {{ option.text }}
                       </option>
-                      <!-- <option>Brandon</option>
-                      <option>Claude</option>
-                      <option selected>Diana</option>
-                      <option selected>Edward</option> -->
                     </optgroup>
-                  </select>
-                  <!-- <select2
-                    class="form-control"
+                  </select> -->
+                  <select2
+                    class=""
                     multiple
-                    v-model="tempCourse.id"
                     :options="selectTeacherList"
                     @change="myChangeEvent($event)"
                     @select="mySelectEvent($event)"
                     :settings="{ multiple: true }"
+                    v-model="tempCourse.id"
                   >
-                  </select2> -->
+                  </select2>
                   <!-- <span>{{ tempCourse.teacher }}</span> -->
                 </div>
               </div>
@@ -543,15 +541,17 @@
           <div class="modal-body">
             <p>
               Confirm to change the teacher to
-              {{ tempCourse.id }}
               <!-- <strong v-for="teacher in tempCourse.id" :key="teacher.id"
                 >{{ teacher }} </strong
               >. -->
+              <span
+                v-for="(tempTeacher, index) in tempTeacherList"
+                :key="tempTeacher"
+              >
+                {{ tempTeacher }}
+                <span v-if="index + 1 !== tempTeacherList.length">,</span>
+              </span>
             </p>
-            <!-- <p>
-              Confirm to change the teacher to <strong>Diana</strong> and
-              <strong>Edward</strong>.
-            </p> -->
           </div>
           <div class="modal-footer">
             <button
@@ -564,7 +564,8 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded"
-              @click="setCourse()"
+              data-dismiss="modal"
+              @click="setCourse(tempCourse)"
             >
               Confirm
             </button>
@@ -1105,6 +1106,7 @@ export default {
         // package: "second part",
         // expiryDate: "	2020/10/30",
       },
+      tempTeacherList: [],
       tempCourseid: "",
       selectedTeacher: "",
       course: {
@@ -1150,14 +1152,14 @@ export default {
       this.$store.dispatch("common/setLoading", true);
       this.axios
         .all([
-          this.getActiveCourseList(),
-          this.getExpiredCourseList(),
+          this.getActiveCourseList(this.selectedTeacher),
+          this.getExpiredCourseList(this.selectedTeacher),
           this.getTeacherList(),
         ])
         .then((response) => {
           setTimeout(() => {
             this.$store.dispatch("common/setLoading", false);
-          }, 500);
+          }, 400);
         });
     },
     getTeacherList() {
@@ -1179,7 +1181,7 @@ export default {
       });
     },
     getActiveCourseList(teacherid = "") {
-      this.course.activeCourseList = [];
+      // this.course.activeCourseList = [];
       ApiGetActiveCourseList.get(this.permit, this.userid, teacherid).then(
         (response) => {
           this.course.activeCourseList = response.record;
@@ -1193,7 +1195,7 @@ export default {
       );
     },
     getExpiredCourseList(teacherid = "") {
-      this.course.expiredCourseList = [];
+      // this.course.expiredCourseList = [];
       ApiGetExpiredCourseList.get(this.permit, this.userid, teacherid).then(
         (response) => {
           this.course.expiredCourseList = response.record;
@@ -1217,29 +1219,42 @@ export default {
         });
         setTimeout(() => {
           this.$store.dispatch("common/setLoading", false);
-        }, 500);
+        }, 400);
       });
     },
-    setTempCourse(username, coursename, courseid) {
-      if (username === "") {
+    setTempCourse(userid, username, coursename, courseid) {
+      if (userid === "") {
         this.tempCourse.id = [];
       } else {
-        this.tempCourse.id = username.split(",");
+        this.tempCourse.id = userid.split(";");
       }
-
-      this.tempCourse.couse_name = coursename;
+      if (username === "") {
+        this.tempTeacherList = [];
+      } else {
+        this.tempTeacherList = username.split(",");
+      }
+      this.tempCourse.course_name = coursename;
       this.tempCourseid = courseid;
     },
-    setCourse() {
-      console.log(tempCourse);
-      console.log(tempCourseid);
-      // ApiSetCourse.put().then((response) => {});
+    async setCourse(tempCourse) {
+      tempCourse.userID = tempCourse.id.join(";");
+      const result = await ApiSetCourse.put(this.tempCourseid, tempCourse).then(
+        (response) => {
+          return response;
+        }
+      );
+      if (result.status === "success") {
+        this.getActiveCourseList(this.selectedTeacher);
+      }
     },
-    myChangeEvent(val) {
-      console.log(val);
-    },
+    myChangeEvent(val) {},
     mySelectEvent({ id, text }) {
-      console.log({ id, text });
+      let index = this.tempTeacherList.indexOf(text);
+      if (index === -1) {
+        this.tempTeacherList.push(text);
+      } else {
+        this.tempTeacherList.splice(index, 1);
+      }
     },
     gotoCourseMaterial() {
       this.$router.push({

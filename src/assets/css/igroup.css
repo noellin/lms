@@ -5,6 +5,12 @@
   color: #ff9835 !important;
 }
 
+.tdwidth-sm {
+  width: 50px !important;
+  display: inline-block;
+}
+
+
 .text-height-form-control {
   margin-top: 8.4px;
 }
