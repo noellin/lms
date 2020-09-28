@@ -150,7 +150,12 @@
                                 Setting
                               </button>
                               <a
-                                @click="gotoCourseMaterial"
+                                @click="
+                                  gotoCourseMaterial(
+                                    course.course_name,
+                                    course.courseid
+                                  )
+                                "
                                 class="text-link pointer"
                                 >{{ course.course_name }}</a
                               >
@@ -227,7 +232,12 @@
                             </td>
                             <td>
                               <a
-                                @click="gotoCourseAssignment()"
+                                @click="
+                                  gotoCourseAssignment(
+                                    course.course_name,
+                                    course.courseid
+                                  )
+                                "
                                 class="btn btn-primary btn-rounded btn-sm btn-message btn-link"
                                 >Checking</a
                               >
@@ -338,7 +348,7 @@
                             </td>
                             <td>{{ expiredCourse.pkg_name }}</td>
                             <td>
-                              {{ expiredCourse.expiry_date | expiredDate }}
+                              {{ expiredCourse.expiry_date }}
                             </td>
                           </tr>
                         </tbody>
@@ -1098,13 +1108,6 @@ export default {
       tempCourse: {
         id: [],
         course_name: "",
-        // id: "1223555",
-        // name: "300 體育課",
-        // teacher: ["Amanda", "Diana"],
-        // student: "40",
-        // limit: "50",
-        // package: "second part",
-        // expiryDate: "	2020/10/30",
       },
       tempTeacherList: [],
       tempCourseid: "",
@@ -1146,6 +1149,9 @@ export default {
     isLoading() {
       return this.$store.state.common.isLoading;
     },
+    // filterExpiredDate(value) {
+    //   return dayjs.unix(value).format("YYYY/MM/DD");
+    // },
   },
   methods: {
     init() {
@@ -1256,14 +1262,14 @@ export default {
         this.tempTeacherList.splice(index, 1);
       }
     },
-    gotoCourseMaterial() {
+    gotoCourseMaterial(coursename, courseid) {
       this.$router.push({
-        path: "/course_material/course=301 English/type=Material/",
+        path: `/course_material/course=${coursename}/type=Material/${courseid}`,
       });
     },
-    gotoCourseAssignment() {
+    gotoCourseAssignment(coursename, courseid) {
       this.$router.push({
-        path: "/course_assignment/course=301 English/type=Assignment",
+        path: `/course_assignment/course=${coursename}/type=Assignment/${courseid}`,
       });
     },
   },

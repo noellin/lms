@@ -69,14 +69,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr
+                        v-for="collection in collectionList"
+                        :key="collection.collectionid"
+                      >
                         <td @click="gotoCollectionDeatail()">
-                          <a>Elementary</a>
+                          <a>{{ collection.collection_name }}</a>
                         </td>
-                        <td>Picture book 100</td>
-                        <td>103 English</td>
+                        <td>{{ collection.pkg_name }}</td>
+                        <td>少了這個</td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td><a href="collection.html">Intermediate</a></td>
                         <td>Video 200</td>
                         <td>203 English、202English</td>
@@ -128,7 +131,7 @@
                         <td><a href="collection.html">Winter class</a></td>
                         <td>Winter class special</td>
                         <td>Winter vacation</td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                   <div class="col-12">
@@ -253,16 +256,38 @@
 </template>
 <script>
 import CustomHeader from "../components/CustomHeader";
+import {
+  ApiGetCollection,
+  ApiSearchCollection,
+  ApiGetCollectionContent,
+} from "../http/apis/Collection";
 export default {
   name: "Collection",
   components: {
     CustomHeader,
   },
   data() {
-    return {};
+    return {
+      collectionList: [],
+    };
   },
-
+  created() {
+    this.getCollection();
+  },
+  computed: {
+    userid() {
+      return this.$store.state.auth.userid;
+    },
+  },
   methods: {
+    getCollection() {
+      ApiGetCollection.get(this.userid).then((response) => {
+        this.collectionList = response.record;
+      });
+    },
+    searchCollection() {
+      ApiSearchCollection.get().then((response) => {});
+    },
     gotoCollectionDeatail() {
       this.$router.push({
         path: "/collection/collection=First grage/",

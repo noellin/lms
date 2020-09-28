@@ -33,14 +33,8 @@ export default {
     return {};
   },
 
-  methods: {
-    gotoSpeakingQuiz() {
-      $("#addSpeakingquiz").modal("hide");
-      this.$router.push({
-        path: "/speaking_quiz/course=301 English/type=Material",
-      });
-    },
-  },
+  computed: {},
+  methods: {},
 };
 </script>
 

@@ -1,436 +1,388 @@
 <template>
   <div id="app">
     <!-- END MENU SIDEBAR WRAPPER -->
-    <div class="content-wrapper">
-      <!-- TOP TOOLBAR WRAPPER -->
-      <custom-header></custom-header>
-      <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="content page-aside-left">
-        <menu-left></menu-left>
-        <div class="main-content">
-          <header class="page-header">
-            <div class="d-flex align-items-start">
-              <div class="mt-2 mr-3">
-                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
-                  ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
-                ></a>
-              </div>
-              <div class="mr-auto">
-                <h1 class="separator">201 ENGLISH</h1>
-                <span>Material</span>
-                <p class="second-title">Second grage</p>
-              </div>
-            </div>
-          </header>
-          <section class="page-content container-fluid">
-            <div class="row">
-              <div class="col-4 col-md">
-                <div class="card bg-secondary" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Open Material</h5>
-                    <div class="w100 text-right">
-                      <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="151"
-                          >151</span
-                        ><span class="d-none d-xl-inlineblock">/ 400</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-4 col-md">
-                <div class="card bg-primary" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">
-                      Picture Book Views<span class="text-light">Teacher</span>
-                    </h5>
-                    <div class="w100 text-right">
-                      <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="13"
-                          >13</span
-                        >
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-4 col-md">
-                <div class="card bg-success" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">
-                      Video Views<span class="text-light">Teacher</span>
-                    </h5>
-                    <div class="w100 text-right">
-                      <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="29"
-                          >29</span
-                        >
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6 col-md">
-                <div class="card bg-warning" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">
-                      Picture Book Views<span class="text-light">Student</span>
-                    </h5>
-                    <div class="w100 text-right">
-                      <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="173"
-                          >173</span
-                        >
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6 col-md">
-                <div class="card bg-danger" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">
-                      Video Views<span class="text-light">Student</span>
-                    </h5>
-                    <div class="w100 text-right">
-                      <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="197"
-                          >197</span
-                        >
-                      </p>
-                    </div>
-                  </div>
+    <div class="main-content">
+      <course-header></course-header>
+      <section class="page-content container-fluid">
+        <div class="row">
+          <div class="col-4 col-md">
+            <div class="card bg-secondary" style="height: 150px">
+              <div class="card-body d-flex align-content-between flex-wrap">
+                <h5 class="card-title text-white">Open Material</h5>
+                <div class="w100 text-right">
+                  <p class="card-text text-white">
+                    <span class="display-4 counter" data-count="151">151</span
+                    ><span class="d-none d-xl-inlineblock">/ 400</span>
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="d-flex justify-content-between">
-              <div class="pb-3">
-                <div class="form-row">
-                  <div class="form-group form-rounded mb-0 mr-3">
-                    <select class="form-control">
-                      <option>All type</option>
-                      <option>Picture Book</option>
-                      <option>Video</option>
-                    </select>
+          </div>
+          <div class="col-4 col-md">
+            <div class="card bg-primary" style="height: 150px">
+              <div class="card-body d-flex align-content-between flex-wrap">
+                <h5 class="card-title text-white">
+                  Picture Book Views<span class="text-light">Teacher</span>
+                </h5>
+                <div class="w100 text-right">
+                  <p class="card-text text-white">
+                    <span class="display-4 counter" data-count="13">13</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-md">
+            <div class="card bg-success" style="height: 150px">
+              <div class="card-body d-flex align-content-between flex-wrap">
+                <h5 class="card-title text-white">
+                  Video Views<span class="text-light">Teacher</span>
+                </h5>
+                <div class="w100 text-right">
+                  <p class="card-text text-white">
+                    <span class="display-4 counter" data-count="29">29</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md">
+            <div class="card bg-warning" style="height: 150px">
+              <div class="card-body d-flex align-content-between flex-wrap">
+                <h5 class="card-title text-white">
+                  Picture Book Views<span class="text-light">Student</span>
+                </h5>
+                <div class="w100 text-right">
+                  <p class="card-text text-white">
+                    <span class="display-4 counter" data-count="173">173</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md">
+            <div class="card bg-danger" style="height: 150px">
+              <div class="card-body d-flex align-content-between flex-wrap">
+                <h5 class="card-title text-white">
+                  Video Views<span class="text-light">Student</span>
+                </h5>
+                <div class="w100 text-right">
+                  <p class="card-text text-white">
+                    <span class="display-4 counter" data-count="197">197</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="pb-3">
+            <div class="form-row">
+              <div class="form-group form-rounded mb-0 mr-3">
+                <select class="form-control">
+                  <option>All type</option>
+                  <option>Picture Book</option>
+                  <option>Video</option>
+                </select>
+              </div>
+              <div class="form-group form-rounded mb-0">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search..."
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-secondary btn-outline btn-icon btn-rounded"
+                      type="button"
+                    >
+                      <i class="zmdi zmdi-search text-secondary"></i>
+                    </button>
                   </div>
-                  <div class="form-group form-rounded mb-0">
-                    <div class="input-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Search..."
-                      />
-                      <div class="input-group-append">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded btn-outline"
+              data-toggle="modal"
+              data-target="#AssignmentModal"
+            >
+              <i class="la la-clipboard"></i>Assignment
+              <span class="badge badge-primary">2</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col-12"
+            v-for="textbook in textbookList"
+            :key="textbook.resourceid"
+          >
+            <div class="card">
+              <div class="card-body">
+                <div class="media">
+                  <div
+                    class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
+                  >
+                    <span class="overlay-icon"
+                      ><i class="fas fa-video"></i
+                    ></span>
+                    <a
+                      href="#"
+                      title=""
+                      class="overlay-img"
+                      style="background-image: url(../assets/img/avatars/3.jpg)"
+                    ></a>
+                  </div>
+                  <div class="media-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <!-- <span class="badge badge-pill badge-secondary mt-2 mr-2"
+                          >Lavel J</span
+                        ><span class="badge badge-pill badge-secondary mt-2"
+                          >Topic A</span
+                        > -->
+                        <span class="badge badge-pill badge-secondary mt-2"
+                          >缺少該項目</span
+                        >
+                        <h4
+                          class="mb-0 mt-3 d-flex align-self-center text-primary"
+                        >
+                          <a href="" title="">{{ textbook.resource_name }}</a>
+                        </h4>
+                        <p class="text-muted mt-1">
+                          <small class="fw300">Last played 2020.06.01</small>
+                        </p>
+                      </div>
+                      <div class="text-primary">
+                        start<a
+                          href=""
+                          class="btn-rounded-icon btn-primary rounded ml-2"
+                          ><i
+                            class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
+                          ></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="border-top pt-3 d-flex justify-content-between">
+                      <div>
                         <button
-                          class="btn btn-secondary btn-outline btn-icon btn-rounded"
                           type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#addAssignment"
                         >
-                          <i class="zmdi zmdi-search text-secondary"></i>
+                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#addSpeakingquiz"
+                        >
+                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking quiz
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#addtoColletion"
+                        >
+                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Collection
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#OpenMaterial"
+                        >
+                          Open Material
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="text-right">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-rounded btn-outline"
-                  data-toggle="modal"
-                  data-target="#AssignmentModal"
-                >
-                  <i class="la la-clipboard"></i>Assignment
-                  <span class="badge badge-primary">2</span>
-                </button>
-              </div>
             </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="media">
-                      <div
-                        class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
-                      >
-                        <span class="overlay-icon"
-                          ><i class="fas fa-video"></i
-                        ></span>
-                        <a
-                          href="#"
-                          title=""
-                          class="overlay-img"
-                          style="
-                            background-image: url(../assets/img/avatars/3.jpg);
-                          "
-                        ></a>
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span class="badge badge-pill badge-secondary mt-2"
-                              >Category</span
-                            >
-                            <h4
-                              class="mb-0 mt-3 d-flex align-self-center text-primary"
-                            >
-                              <a href="" title="">Unit5 Conversation</a>
-                            </h4>
-                            <p class="text-muted mt-1">
-                              <small class="fw300"
-                                >Last played 2020.06.01</small
-                              >
-                            </p>
-                          </div>
-                          <div class="text-primary">
-                            start<a
-                              href=""
-                              class="btn-rounded-icon btn-primary rounded ml-2"
-                              ><i
-                                class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                              ></i
-                            ></a>
-                          </div>
-                        </div>
-                        <div
-                          class="border-top pt-3 d-flex justify-content-between"
+          </div>
+          <!--  <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="media">
+                  <div
+                    class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
+                  >
+                    <span class="overlay-icon"
+                      ><i class="fas fa-book-open"></i
+                    ></span>
+                    <a
+                      href="#"
+                      title=""
+                      class="overlay-img"
+                      style="background-image: url(../assets/img/avatars/3.jpg)"
+                    ></a>
+                  </div>
+                  <div class="media-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <span class="badge badge-pill badge-secondary mt-2 mr-2"
+                          >Lavel J</span
+                        ><span class="badge badge-pill badge-secondary mt-2"
+                          >Topic A</span
                         >
-                          <div>
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#addAssignment"
-                            >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Assignment
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#addSpeakingquiz"
-                            >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
-                              quiz
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#addtoColletion"
-                            >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Collection
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#OpenMaterial"
-                            >
-                              Open Material
-                            </button>
-                          </div>
-                        </div>
+                        <h4
+                          class="mb-0 mt-3 d-flex align-self-center text-primary"
+                        >
+                          <a href="" title="">A Pocket Park for Tiny</a>
+                        </h4>
+                        <p class="text-muted mt-1">
+                          <small class="fw300"
+                            >This material has not been played.</small
+                          >
+                        </p>
+                      </div>
+                      <div class="text-primary">
+                        start<a
+                          href=""
+                          class="btn-rounded-icon btn-primary rounded ml-2"
+                          ><i
+                            class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
+                          ></i
+                        ></a>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="media">
-                      <div
-                        class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
-                      >
-                        <span class="overlay-icon"
-                          ><i class="fas fa-book-open"></i
-                        ></span>
-                        <a
-                          href="#"
-                          title=""
-                          class="overlay-img"
-                          style="
-                            background-image: url(../assets/img/avatars/3.jpg);
-                          "
-                        ></a>
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span
-                              class="badge badge-pill badge-secondary mt-2 mr-2"
-                              >Lavel J</span
-                            ><span class="badge badge-pill badge-secondary mt-2"
-                              >Topic A</span
-                            >
-                            <h4
-                              class="mb-0 mt-3 d-flex align-self-center text-primary"
-                            >
-                              <a href="" title="">A Pocket Park for Tiny</a>
-                            </h4>
-                            <p class="text-muted mt-1">
-                              <small class="fw300"
-                                >This material has not been played.</small
-                              >
-                            </p>
-                          </div>
-                          <div class="text-primary">
-                            start<a
-                              href=""
-                              class="btn-rounded-icon btn-primary rounded ml-2"
-                              ><i
-                                class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                              ></i
-                            ></a>
-                          </div>
-                        </div>
-                        <div
-                          class="border-top pt-3 d-flex justify-content-between"
+                    <div class="border-top pt-3 d-flex justify-content-between">
+                      <div>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
                         >
-                          <div>
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                            >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Assignment
-                            </button>
-                            <a
-                              href="speaking-quiz.html"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              ><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
-                              quiz</a
-                            >
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#addtoColletion"
-                            >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Collection
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#OpenMaterial"
-                            >
-                              Open Material
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="media">
-                      <div
-                        class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
-                      >
-                        <span class="overlay-icon"
-                          ><i class="fas fa-book-open"></i
-                        ></span>
+                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
+                        </button>
                         <a
-                          href="#"
-                          title=""
-                          class="overlay-img"
-                          style="
-                            background-image: url(../assets/img/avatars/3.jpg);
-                          "
-                        ></a>
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span
-                              class="badge badge-pill badge-secondary mt-2 mr-2"
-                              >Lavel J</span
-                            ><span class="badge badge-pill badge-secondary mt-2"
-                              >Topic A</span
-                            >
-                            <h4
-                              class="mb-0 mt-3 d-flex align-self-center text-primary"
-                            >
-                              <a href="" title="">Broken Arm Blues</a>
-                            </h4>
-                            <p class="text-muted mt-1">
-                              <small class="fw300"
-                                >Last played 2020.06.01</small
-                              >
-                            </p>
-                          </div>
-                          <div class="text-primary">
-                            start<a
-                              href=""
-                              class="btn-rounded-icon btn-primary rounded ml-2"
-                              ><i
-                                class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                              ></i
-                            ></a>
-                          </div>
-                        </div>
-                        <div
-                          class="border-top pt-3 d-flex justify-content-between"
+                          href="speaking-quiz.html"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          ><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
+                          quiz</a
                         >
-                          <div>
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                            >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Assignment
-                            </button>
-                            <a
-                              href="speaking-quiz.html"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              ><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
-                              quiz</a
-                            >
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#addtoColletion"
-                            >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Collection
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#OpenMaterial"
-                            >
-                              Open Material
-                            </button>
-                          </div>
-                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#addtoColletion"
+                        >
+                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Collection
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#OpenMaterial"
+                        >
+                          Open Material
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="media">
+                  <div
+                    class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
+                  >
+                    <span class="overlay-icon"
+                      ><i class="fas fa-book-open"></i
+                    ></span>
+                    <a
+                      href="#"
+                      title=""
+                      class="overlay-img"
+                      style="background-image: url(../assets/img/avatars/3.jpg)"
+                    ></a>
+                  </div>
+                  <div class="media-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <span class="badge badge-pill badge-secondary mt-2 mr-2"
+                          >Lavel J</span
+                        ><span class="badge badge-pill badge-secondary mt-2"
+                          >Topic A</span
+                        >
+                        <h4
+                          class="mb-0 mt-3 d-flex align-self-center text-primary"
+                        >
+                          <a href="" title="">Broken Arm Blues</a>
+                        </h4>
+                        <p class="text-muted mt-1">
+                          <small class="fw300">Last played 2020.06.01</small>
+                        </p>
+                      </div>
+                      <div class="text-primary">
+                        start<a
+                          href=""
+                          class="btn-rounded-icon btn-primary rounded ml-2"
+                          ><i
+                            class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
+                          ></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="border-top pt-3 d-flex justify-content-between">
+                      <div>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                        >
+                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
+                        </button>
+                        <a
+                          href="speaking-quiz.html"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          ><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
+                          quiz</a
+                        >
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#addtoColletion"
+                        >
+                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Collection
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#OpenMaterial"
+                        >
+                          Open Material
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
         </div>
-      </div>
-      <footer class="bg-secondary bg-dk d-flex justify-content-center">
-        <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer>
+      </section>
     </div>
+
     <!-- END CONTENT WRAPPER -->
     <!-- Open material MODAL -->
     <div
@@ -1047,20 +999,35 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
-import MenuLeft from "../components/MenuLeft";
-// import Menu
+// import CustomHeader from "../components/CustomHeader";
+// import MenuLeft from "../components/MenuLeft";
+import { ApiGetCourseDatail } from "../http/apis/CourseDetail";
+import CourseHeader from "../components/CourseHeader";
 export default {
   name: "CourseMaterial",
   components: {
-    CustomHeader,
-    MenuLeft,
+    CourseHeader,
   },
   data() {
-    return {};
+    return {
+      courseid: this.$route.params.courseid,
+    };
   },
-
+  created() {
+    // this.getCourseDatail();
+  },
+  computed: {
+    textbookList() {
+      return this.$store.state.courseInfo.textbookList;
+    },
+  },
   methods: {
+    // getCourseDatail() {
+    //   ApiGetCourseDatail.get(this.courseid).then((response) => {
+    //     this.courseInfo = response.csrInfo;
+    //     this.textbookList = response.record;
+    //   });
+    // },
     gotoSpeakingQuiz() {
       $("#addSpeakingquiz").modal("hide");
       this.$router.push({

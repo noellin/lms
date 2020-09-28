@@ -7,24 +7,24 @@
         <li
           id="accordionExample"
           class="nav-dropdown accordion"
-          v-for="(course, coursename, index) in classList"
-          :key="index"
-          :class="coursePage === coursename ? 'active' : ''"
+          v-for="course in course.activeCourseList"
+          :key="course.courseid"
+          :class="coursePage === course.course_name ? 'active' : ''"
         >
           <!-- class="has-arrow" -->
           <a
             class="has-arrow"
-            :aria-expanded="coursePage === coursename ? true : false"
-            :href="'#course' + index"
-            :data-target="'#course' + index"
+            :aria-expanded="coursePage === course.course_name ? true : false"
+            :href="'#course' + course.courseid"
+            :data-target="'#course' + course.courseid"
             @click.prevent=""
             data-toggle="collapse"
-            :aria-controls="'course' + index"
-            @click="changePageStatus(coursename)"
-            :class="coursePage === coursename ? '' : 'collapsed'"
-            ><i class="ig-notice" v-if="coursePage === coursename"></i>
+            :aria-controls="'course' + course.courseid"
+            @click="changePageStatus(course.course_name)"
+            :class="coursePage === course.course_name ? '' : 'collapsed'"
+            ><i class="ig-notice" v-if="coursePage === course.course_name"></i>
             <span>
-              {{ coursename }}
+              {{ course.course_name }}
               <!-- <i
                 class="la la-angle-down color-lightblue"
                 v-if="iconStatus === coursename"
@@ -34,21 +34,21 @@
           >
           <ul
             class="nav-sub collapse"
-            :id="'course' + index"
-            :class="coursePage === coursename ? 'show' : ''"
+            :id="'course' + course.courseid"
+            :class="coursePage === course.course_name ? 'show' : ''"
             data-parent="#accordionExample"
-            :aria-labelledby="index"
+            :aria-labelledby="course.courseid"
           >
-            <li v-for="type in course" :key="type + index">
+            <li v-for="type in typeList" :key="type + course.courseid">
               <a
                 ><span
                   :class="
-                    courseType === type && coursePage === coursename
+                    courseType === type && coursePage === course.course_name
                       ? 'color-lightblue'
                       : ''
                   "
                   class="pointer"
-                  @click="changePage(coursename, type)"
+                  @click="changePage(course.course_name, type, course.courseid)"
                   >{{ type }}</span
                 >
                 <span
@@ -58,15 +58,6 @@
                 >
               </a>
             </li>
-            <!-- <li>
-              <a href="assignments-list.html"><span>Assignment</span></a>
-            </li>
-            <li>
-              <a href="course-student-list.html"><span>Student</span></a>
-            </li>
-            <li>
-              <a href="dashboard.html"><span>Dashboard</span></a>
-            </li> -->
           </ul>
         </li>
       </ul>
@@ -74,6 +65,8 @@
   </aside>
 </template>
 <script>
+import { ApiGetActiveCourseList } from "../http/apis/CourseList";
+import dayjs from "dayjs";
 export default {
   name: "MenuLeft",
   data() {
@@ -82,25 +75,57 @@ export default {
         name: "Amanda",
         email: "support@authenticgoods.co",
       },
-      classList: {
-        "301 English": ["Material", "Assignment", "Student", "Dashboard"],
-        "302 English": ["Material", "Assignment", "Student", "Dashboard"],
-      },
+      typeList: ["Material", "Assignment", "Student", "Dashboard"],
       coursePage: this.$route.params.course,
       courseType: this.$route.params.type,
       iconStatus: this.$route.params.course,
+      courseID: this.$route.params.courseid,
+      course: {
+        activeCourseList: [],
+        coursePagination: {
+          total_pages: 1,
+          current_page: 1,
+          has_pre: false,
+          has_next: false,
+        },
+      },
     };
   },
-  mounted() {
-    console.log(this.$route.params.course);
-    // document.getElementById("tt").setAttribute("aria-expanded", false);
+  created() {
+    if (this.permit === "admin") {
+      this.getActiveCourseList("");
+    } else {
+      this.getActiveCourseList(this.userid);
+    }
+    this.$store.dispatch("courseInfo/getCouseInfo", this.courseID);
   },
+  mounted() {},
   computed: {
+    userid() {
+      return this.$store.state.auth.userid;
+    },
+    permit() {
+      return this.$store.state.auth.permit;
+    },
     showPage() {
       return this.$route.name;
     },
   },
   methods: {
+    getActiveCourseList(teacherid = "") {
+      // this.course.activeCourseList = [];
+      ApiGetActiveCourseList.get(this.permit, this.userid, teacherid).then(
+        (response) => {
+          this.course.activeCourseList = response.record;
+          this.course.activeCourseList.forEach((item) => {
+            item.expiry = dayjs
+              .unix(item.expiry_date)
+              .add(1, "month")
+              .isBefore(dayjs.unix(this.todayTimestamp));
+          });
+        }
+      );
+    },
     changePageStatus(courseName) {
       if (this.iconStatus === courseName) {
         this.iconStatus = "null";
@@ -108,33 +133,36 @@ export default {
         this.iconStatus = courseName;
       }
     },
-    changePage(course, type) {
+    changePage(course, type, id) {
+      if (id !== this.courseID) {
+        this.$store.dispatch("courseIngo/getCouseInfo", id);
+      }
       switch (type) {
         case "Material":
           this.$router
             .push({
-              path: `/course_material/course=${course}/type=${type}`,
+              path: `/course_material/course=${course}/type=${type}/${id}`,
             })
             .catch((err) => err);
           break;
         case "Assignment":
           this.$router
             .push({
-              path: `/course_assignment/course=${course}/type=${type}`,
+              path: `/course_assignment/course=${course}/type=${type}/${id}`,
             })
             .catch((err) => err);
           break;
         case "Student":
           this.$router
             .push({
-              path: `/course_student/course=${course}/type=${type}`,
+              path: `/course_student/course=${course}/type=${type}/${id}`,
             })
             .catch((err) => err);
           break;
         case "Dashboard":
           this.$router
             .push({
-              path: `/course_dashboard/course=${course}/type=${type}`,
+              path: `/course_dashboard/course=${course}/type=${type}/${id}`,
             })
             .catch((err) => err);
           break;

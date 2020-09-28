@@ -14,6 +14,7 @@ import SpeakingQuiz from "../views/SpeakingQuiz.vue";
 import CollectionDetail from "../views/CollectionDetail.vue";
 import CollectionEdit from "../views/CollectionEdit.vue";
 import ErrorPage from "../views/error.vue";
+import Layout from "../views/CourseLayout.vue"
 Vue.use(VueRouter);
 const routes = [
 
@@ -46,53 +47,110 @@ const routes = [
     }
   },
   {
-    path: "/course_material/course=:course/type=:type",
-    name: "CourseMaterial",
-    component: CourseMaterial,
+    path: "/browse",
+    name: "Layout",
+    component: Layout,
     meta: {
       header: 'course'
-    }
+    },
+    children: [{
+        path: "/course_material/course=:course/type=:type/:courseid",
+        name: "CourseMaterial",
+        component: CourseMaterial,
+        meta: {
+          header: 'course'
+        }
+      },
+      {
+        path: "/course_assignment/course=:course/type=:type/:courseid",
+        name: "CourseAssignment",
+        component: CourseAssignment,
+        meta: {
+          header: 'course'
+        }
+      },
+      {
+        path: "/course_assignment/course=:course/type=:type/assignment=:id",
+        name: "AssignmentProgress",
+        component: AssignmentProgress,
+        meta: {
+          header: 'course'
+        }
+      },
+      {
+        path: "/course_student/course=:course/type=:type/:courseid",
+        name: "CourseStudent",
+        component: CourseStudent,
+        meta: {
+          header: 'course'
+        }
+      },
+      {
+        path: "/course_dashboard/course=:course/type=:type/:courseid",
+        name: "CourseDashboard",
+        component: CourseDashboard,
+        meta: {
+          header: 'course'
+        }
+      },
+      {
+        path: "/speaking_quiz/course=:course/type=:type",
+        name: "SpeakingQuiz",
+        component: SpeakingQuiz,
+        meta: {
+          header: 'course'
+        }
+      },
+    ]
   },
-  {
-    path: "/course_assignment/course=:course/type=:type",
-    name: "CourseAssignment",
-    component: CourseAssignment,
-    meta: {
-      header: 'course'
-    }
-  },
-  {
-    path: "/course_assignment/course=:course/type=:type/assignment=:id",
-    name: "AssignmentProgress",
-    component: AssignmentProgress,
-    meta: {
-      header: 'course'
-    }
-  },
-  {
-    path: "/course_student/course=:course/type=:type",
-    name: "CourseStudent",
-    component: CourseStudent,
-    meta: {
-      header: 'course'
-    }
-  },
-  {
-    path: "/course_dashboard/course=:course/type=:type",
-    name: "CourseDashboard",
-    component: CourseDashboard,
-    meta: {
-      header: 'course'
-    }
-  },
-  {
-    path: "/speaking_quiz/course=:course/type=:type",
-    name: "SpeakingQuiz",
-    component: SpeakingQuiz,
-    meta: {
-      header: 'course'
-    }
-  },
+  // {
+  //   path: "/course_material/course=:course/type=:type",
+  //   name: "CourseMaterial",
+  //   component: CourseMaterial,
+  //   meta: {
+  //     header: 'course'
+  //   }
+  // },
+  // {
+  //   path: "/course_assignment/course=:course/type=:type",
+  //   name: "CourseAssignment",
+  //   component: CourseAssignment,
+  //   meta: {
+  //     header: 'course'
+  //   }
+  // },
+  // {
+  //   path: "/course_assignment/course=:course/type=:type/assignment=:id",
+  //   name: "AssignmentProgress",
+  //   component: AssignmentProgress,
+  //   meta: {
+  //     header: 'course'
+  //   }
+  // },
+  // {
+  //   path: "/course_student/course=:course/type=:type",
+  //   name: "CourseStudent",
+  //   component: CourseStudent,
+  //   meta: {
+  //     header: 'course'
+  //   }
+  // },
+  // {
+  //   path: "/course_dashboard/course=:course/type=:type",
+  //   name: "CourseDashboard",
+  //   component: CourseDashboard,
+  //   meta: {
+  //     header: 'course'
+  //   }
+  // },
+  // {
+  //   path: "/speaking_quiz/course=:course/type=:type",
+  //   name: "SpeakingQuiz",
+  //   component: SpeakingQuiz,
+  //   meta: {
+  //     header: 'course'
+  //   }
+  // },
   {
     path: "/collection",
     name: "Collection",

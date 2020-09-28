@@ -21,7 +21,6 @@ import expiredDate from "./filter/ExpiredDate";
 import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
 
-
 Vue.component('Loading', Loading)
 Vue.use(Loading, {
   color: 'red'
