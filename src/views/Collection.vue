@@ -31,6 +31,8 @@
                   type="text"
                   class="form-control"
                   placeholder="Search..."
+                  v-model="collectionName"
+                  @keyup.enter="searchCollection()"
                 />
                 <div class="input-group-append">
                   <button
@@ -44,7 +46,7 @@
             </div>
             <div class="text-right">
               <a
-                href="collection-create.html"
+                @click="gotoCollectionCreate()"
                 class="btn btn-primary btn-outline btn-rounded"
                 ><i class="la la-plus"></i>Create new Collection</a
               >
@@ -73,10 +75,27 @@
                         v-for="collection in collectionList"
                         :key="collection.collectionid"
                       >
-                        <td @click="gotoCollectionDeatail()">
+                        <td
+                          @click="
+                            gotoCollectionDeatail(collection.collectionid)
+                          "
+                          class="pointer"
+                        >
                           <a>{{ collection.collection_name }}</a>
                         </td>
                         <td>{{ collection.pkg_name }}</td>
+                        <td>少了這個</td>
+                      </tr>
+                      <tr>
+                        <td
+                          @click="
+                            gotoCollectionDeatail(collection.collectionid)
+                          "
+                          class="pointer"
+                        >
+                          <a>測試用</a>
+                        </td>
+                        <td>ME TOO</td>
                         <td>少了這個</td>
                       </tr>
                       <!-- <tr>
@@ -269,6 +288,7 @@ export default {
   data() {
     return {
       collectionList: [],
+      collectionName: "",
     };
   },
   created() {
@@ -286,11 +306,19 @@ export default {
       });
     },
     searchCollection() {
-      ApiSearchCollection.get().then((response) => {});
+      ApiSearchCollection.get(
+        this.userid,
+        this.collectionName
+      ).then((response) => {});
     },
-    gotoCollectionDeatail() {
+    gotoCollectionDeatail(coid) {
       this.$router.push({
-        path: "/collection/collection=First grage/",
+        path: `/collection/collection=${coid}/`,
+      });
+    },
+    gotoCollectionCreate() {
+      this.$router.push({
+        path: `/collection/create`,
       });
     },
   },

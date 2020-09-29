@@ -114,12 +114,13 @@
                       <table class="table table-striped" style="width: 100%">
                         <thead>
                           <tr>
+                            <th>Edit</th>
                             <th>Course name</th>
                             <th>Teacher</th>
                             <th>Active student／Limit</th>
                             <th>Package</th>
                             <th>Expiry date</th>
-                            <th>Edit</th>
+                            <!-- <th>Edit</th> -->
                             <th>Checking assignment</th>
                           </tr>
                         </thead>
@@ -130,6 +131,23 @@
                           >
                             <td>
                               <button
+                                class="btn btn-nostyle"
+                                data-toggle="modal"
+                                data-target="#editModal"
+                                @click="
+                                  setTempCourse(
+                                    course.userid,
+                                    course.username,
+                                    course.course_name,
+                                    course.courseid
+                                  )
+                                "
+                              >
+                                <i class="la la-edit"></i>
+                              </button>
+                            </td>
+                            <td>
+                              <!-- <button
                                 v-if="
                                   course.course_name === '' ||
                                   course.course_name === undefined
@@ -148,7 +166,7 @@
                                 "
                               >
                                 Setting
-                              </button>
+                              </button> -->
                               <a
                                 @click="
                                   gotoCourseMaterial(
@@ -162,7 +180,7 @@
                             </td>
                             <td>
                               <span>
-                                <button
+                                <!-- <button
                                   v-if="
                                     course.username === '' ||
                                     course.username === undefined
@@ -181,7 +199,7 @@
                                   "
                                 >
                                   Setting
-                                </button>
+                                </button> -->
                                 {{ course.username }}</span
                               >
                             </td>
@@ -213,7 +231,7 @@
                                 >expiring</span
                               >
                             </td>
-                            <td>
+                            <!-- <td>
                               <button
                                 class="btn btn-nostyle"
                                 data-toggle="modal"
@@ -229,7 +247,7 @@
                               >
                                 <i class="la la-edit"></i>
                               </button>
-                            </td>
+                            </td> -->
                             <td>
                               <a
                                 @click="
@@ -243,68 +261,6 @@
                               >
                             </td>
                           </tr>
-                          <!-- <tr>
-                            <td>
-                              <a href="course-material-list.html"
-                                >302 English</a
-                              >
-                            </td>
-                            <td>Amanda</td>
-                            <td>43／50</td>
-                            <td>Third grage</td>
-                            <td>
-                              <span class="text-danger">2020/07/30 </span
-                              ><span class="badge badge-pill badge-secondary"
-                                >expiring</span
-                              >
-                            </td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <a
-                                href="assignments-progress.html"
-                                class="btn btn-primary btn-rounded btn-sm"
-                                >Checking</a
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <a href="course-material-list.html">302 中文課</a>
-                            </td>
-                            <td>王小明</td>
-                            <td>43／50</td>
-                            <td>中文三</td>
-                            <td>
-                              <span class="text-danger">2020/07/30 </span
-                              ><span class="badge badge-pill badge-secondary"
-                                >expiring</span
-                              >
-                            </td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <a
-                                href="assignments-progress.html"
-                                class="btn btn-primary btn-rounded btn-sm"
-                                >Checking</a
-                              >
-                            </td>
-                          </tr> -->
                         </tbody>
                       </table>
                       <div class="col-12">

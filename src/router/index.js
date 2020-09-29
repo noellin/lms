@@ -7,10 +7,11 @@ import AssignmentProgress from "../views/AssignmentProgress.vue"
 import CourseDashboard from "../views/CourseDashboard.vue";
 import CourseStudent from "../views/CourseStudent.vue";
 import Login from "../views/Login.vue";
-import Collection from "../views/Collection.vue";
 import Account from "../views/Account.vue";
 import AccountDetail from "../views/AccountDetail.vue";
 import SpeakingQuiz from "../views/SpeakingQuiz.vue";
+import Collection from "../views/Collection.vue";
+import CollectionCreate from "../views/CollectionCreate.vue"
 import CollectionDetail from "../views/CollectionDetail.vue";
 import CollectionEdit from "../views/CollectionEdit.vue";
 import ErrorPage from "../views/error.vue";
@@ -155,6 +156,14 @@ const routes = [
     path: "/collection",
     name: "Collection",
     component: Collection,
+    meta: {
+      header: 'collection'
+    }
+  },
+  {
+    path: "/collection/create",
+    name: "CollectionCreate",
+    component: CollectionCreate,
     meta: {
       header: 'collection'
     }

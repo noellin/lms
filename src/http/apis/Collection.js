@@ -26,3 +26,21 @@ export const ApiGetCollectionContent = {
         return get(`/collection/byteacher/${userid}/${cid}`);
     },
 };
+
+export const ApiGetPkgList = {
+    get: (userid) => {
+        return get(`/collection/listpkgbyteacher/${userid}`);
+    }
+}
+
+export const ApiSetCollection = {
+    post: (paramObj) => {
+        return get(`/collection/create`);
+    }
+}
+
+export const ApiGetPkgMaterial = {
+    get: (pkgid) => {
+        return get(`/collection/pkgresource/${pkgid}`);
+    }
+}

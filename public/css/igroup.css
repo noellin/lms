@@ -10,6 +10,17 @@ a, a:link, a:visited {
     outline: 0;
     transition: all .3s ease;
 } */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #839bb3 !important;
+    line-height: 20px !important;
+    border-color: #dfe7f3 !important;
+    border: 1px solid transparent;
+}
+
+#select2-s2_demo2-container {
+    border: 1px solid transparent;
+    border-color: #dfe7f3 !important;
+}
 
 a:not([href]):not([tabindex]) {
     text-decoration: none;

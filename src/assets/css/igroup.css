@@ -117,11 +117,7 @@ a:link.btn.btn-sm {
   padding: 0 5px;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-  color: #839bb3 !important;
-  line-height: 20px !important;
-  border: none !important;
-}
+
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
   height: 26px;
@@ -495,6 +491,12 @@ select.form-control {
   padding: 0.58rem 2rem 0.58rem 1rem;
   font-size: 0.875rem;
   height: 38px;
+  color: #839bb3 !important;
+  line-height: 20px !important;
+  border-color: #dfe7f3;
+  border: 1px solid rgba(120, 141, 180, .3);
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .select2-container--default .select2-selection--single {

@@ -234,7 +234,11 @@ export default {
       showErrorMessage: false,
       loginShow: "login",
       loginForm: {
-        email: "bkbjava@mhsh.ptc.edu.tw",
+        //測試帳號A
+        // email: "bkbjava@mhsh.ptc.edu.tw",
+        // password: "123456",
+        //測試帳號B
+        email: "kevin.chen@igroupnet.com",
         password: "123456",
       },
       userEmail: "jolin123@gmail.com",
