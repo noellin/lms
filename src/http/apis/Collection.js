@@ -35,7 +35,7 @@ export const ApiGetPkgList = {
 
 export const ApiSetCollection = {
     post: (paramObj) => {
-        return get(`/collection/create`);
+        return post(`/collection/create`, paramObj);
     }
 }
 

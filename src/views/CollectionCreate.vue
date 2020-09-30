@@ -7,6 +7,7 @@
 
       <custom-header></custom-header>
       <!-- END TOP TOOLBAR WRAPPER -->
+      <alert></alert>
       <div class="content">
         <header class="page-header">
           <div class="d-flex align-items-center">
@@ -30,6 +31,7 @@
                           type="text"
                           placeholder="Enter collection name"
                           id=""
+                          v-model="collectionName"
                         />
                       </div>
                     </div>
@@ -87,16 +89,59 @@
               <div class="card">
                 <h5 class="card-header">Sequence</h5>
                 <div class="card-body">
-                  <div class="bg-secondary text-center p-15 text-light rounded">
+                  <li
+                    class="d-flex justify-content-between"
+                    v-for="m in materialSequence"
+                    :key="m.id"
+                  >
+                    <div class="d-flex justify-content-start">
+                      <button class="btn btn-nostyle btn-move mr-3">
+                        <i class="la la-ellipsis-v"></i
+                        ><i class="la la-ellipsis-v"></i>
+                      </button>
+                      <div
+                        class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
+                      >
+                        <span class="overlay-icon"
+                          ><i class="fas fa-video" v-if="m.type === 'video'"></i
+                          ><i class="fas fa-book-open" v-else></i>
+                        </span>
+                        <div
+                          href="#"
+                          title=""
+                          class="overlay-img"
+                          style="
+                            background-image: url(../assets/img/avatars/3.jpg);
+                          "
+                        ></div>
+                      </div>
+                      <div>
+                        <span class="badge badge-pill badge-secondary mt-2">{{
+                          m.category
+                        }}</span>
+                        <h4 class="d-flex align-self-center mt-2">
+                          {{ m.resource_name }}
+                        </h4>
+                      </div>
+                    </div>
+                    <button class="btn btn-nostyle btn-remove">
+                      <i
+                        class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
+                      ></i>
+                    </button>
+                  </li>
+                  <!-- <div
+                    class="bg-secondary text-center p-15 text-light rounded mb-2"
+                  >
                     You can add materials in this list.
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
             <div class="col-12 text-right">
               <button
                 type="button"
-                class="btn btn-secondary btn-rounded btn-outline"
+                class="btn btn-secondary btn-rounded btn-outline mr-2"
                 data-toggle="modal"
                 data-target="#SaveChangeModal"
               >
@@ -152,7 +197,11 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="setCollection()"
+            >
               Save
             </button>
           </div>
@@ -191,10 +240,18 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-group form-rounded">
-                  <select class="form-control" id="s2_demo1">
-                    <option>All type</option>
-                    <option>Picture Book</option>
-                    <option>Video</option>
+                  <select
+                    class="form-control"
+                    id="s2_demo1"
+                    v-model="seleceType"
+                  >
+                    <option
+                      v-for="type in typeList"
+                      :key="type.value"
+                      :value="type.value"
+                    >
+                      {{ type.text }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -205,11 +262,14 @@
                       type="text"
                       class="form-control"
                       placeholder="Search..."
+                      v-model="tempSearch"
+                      @keyup.enter="searchRName = tempSearch"
                     />
                     <div class="input-group-append">
                       <button
                         class="btn btn-secondary btn-outline btn-icon btn-rounded"
                         type="button"
+                        @click="searchRName = tempSearch"
                       >
                         <i class="zmdi zmdi-search text-secondary"></i>
                       </button>
@@ -222,13 +282,15 @@
           <div class="modal-body" data-scroll="dark">
             <div
               class="custom-control custom-checkbox form-check pb-2"
-              v-for="pkgm in pkgMaterialList"
+              v-for="pkgm in resourceFilter"
               :key="pkgm.resourceid"
             >
               <input
                 type="checkbox"
                 class="custom-control-input"
+                :value="pkgm"
                 :id="pkgm.resourceid"
+                v-model="tempMaterial"
               />
               <label class="custom-control-label" :for="pkgm.resourceid">{{
                 pkgm.resource_name
@@ -278,8 +340,10 @@
 </template>
 
 <script>
+import $ from "jquery";
 import CustomHeader from "../components/CustomHeader";
 import Select2 from "v-select2-component";
+import Alert from "../components/AlertMessage";
 import {
   ApiGetPkgList,
   ApiSetCollection,
@@ -290,6 +354,7 @@ export default {
   components: {
     CustomHeader,
     Select2,
+    Alert,
   },
   data() {
     return {
@@ -298,6 +363,17 @@ export default {
       pkgMaterialList: [],
       pkgid: "",
       pkgname: "",
+      collectionName: "",
+      tempMaterial: [],
+      materialSequence: [],
+      typeList: [
+        { text: "All type", value: "" },
+        { text: "Picture Book", value: "book" },
+        { text: "Video", value: "video" },
+      ],
+      seleceType: "",
+      tempSearch: "",
+      searchRName: "",
     };
   },
   created() {
@@ -306,6 +382,33 @@ export default {
   computed: {
     userid() {
       return this.$store.state.auth.userid;
+    },
+    resourceFilter() {
+      let result = [];
+      if (this.seleceType !== "") {
+        result = this.pkgMaterialList.filter((item) => {
+          return (
+            item.type === this.seleceType &&
+            item.resource_name
+              .toLowerCase()
+              .indexOf(this.searchRName.toLowerCase()) !== -1
+          );
+        });
+      } else {
+        result = this.pkgMaterialList.filter((item) => {
+          console.log(
+            item.resource_name
+              .toLowerCase()
+              .indexOf(this.searchRName.toLowerCase()) !== -1
+          );
+          return (
+            item.resource_name
+              .toLowerCase()
+              .indexOf(this.searchRName.toLowerCase()) !== -1
+          );
+        });
+      }
+      return result;
     },
   },
 
@@ -328,10 +431,33 @@ export default {
     mySelectEvent({ id, text }) {
       this.pkgname = text;
     },
-    addtoSequence() {},
+    addtoSequence() {
+      this.materialSequence = this.tempMaterial;
+      $("#addMaterial").modal("hide");
+    },
+    setCollection() {
+      let obj = {};
+      let resourceList = [];
+      obj.collection_name = this.collectionName;
+      obj.pkgid = this.pkgid;
+      obj.list = [];
+      this.materialSequence.forEach((item) => {
+        obj.list.push(item.resourceid);
+      });
+      obj.resource = obj.list.join(";");
+      obj.userid = this.userid;
+      ApiSetCollection.post(obj)
+        .then((response) => {})
+        .catch((err) => {});
+      this.$bus.$emit("messsage:push", "New Collection Success.", "success");
+      $("#SaveChangeModal").modal("hide");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.overlay-wrap .overlay-icon i {
+  color: #fff !important;
+}
 </style>

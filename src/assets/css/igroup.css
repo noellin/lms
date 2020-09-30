@@ -5,6 +5,12 @@
   color: #ff9835 !important;
 }
 
+.fa,
+.far,
+.fas {
+  font-family: "Font Awesome 5 Free" !important;
+}
+
 .tdwidth-sm {
   width: 50px !important;
   display: inline-block;
