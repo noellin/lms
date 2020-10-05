@@ -114,7 +114,6 @@
                       <table class="table table-striped" style="width: 100%">
                         <thead>
                           <tr>
-                            <th>Edit</th>
                             <th>Course name</th>
                             <th>Teacher</th>
                             <th>Active student／Limit</th>
@@ -122,6 +121,7 @@
                             <th>Expiry date</th>
                             <!-- <th>Edit</th> -->
                             <th>Checking assignment</th>
+                            <th style="text-align: center">Action</th>
                           </tr>
                         </thead>
                         <tbody v-show="!isLoading">
@@ -129,23 +129,6 @@
                             v-for="course in course.activeCourseList"
                             :key="course.courseid"
                           >
-                            <td>
-                              <button
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                                @click="
-                                  setTempCourse(
-                                    course.userid,
-                                    course.username,
-                                    course.course_name,
-                                    course.courseid
-                                  )
-                                "
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
                             <td>
                               <!-- <button
                                 v-if="
@@ -259,6 +242,23 @@
                                 class="btn btn-primary btn-rounded btn-sm btn-message btn-link"
                                 >Checking</a
                               >
+                            </td>
+                            <td style="text-align: center">
+                              <button
+                                class="btn btn-nostyle"
+                                data-toggle="modal"
+                                data-target="#editModal"
+                                @click="
+                                  setTempCourse(
+                                    course.userid,
+                                    course.username,
+                                    course.course_name,
+                                    course.courseid
+                                  )
+                                "
+                              >
+                                <i class="la la-edit"></i>
+                              </button>
                             </td>
                           </tr>
                         </tbody>

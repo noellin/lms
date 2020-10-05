@@ -73,12 +73,16 @@
                 <h5 class="card-header">Sequence</h5>
                 <div class="card-body">
                   <div
-                    style="max-height: 600px;"
+                    style="max-height: 600px"
                     data-scroll="dark"
                     class="collection-scroll"
                   >
                     <ul class="sequence">
-                      <li class="d-flex justify-content-between">
+                      <li
+                        class="d-flex justify-content-between"
+                        v-for="cr in cResourceList"
+                        :key="cr.resourceid"
+                      >
                         <div class="d-flex justify-content-start">
                           <button class="btn btn-nostyle btn-move mr-3">
                             <i class="la la-ellipsis-v"></i
@@ -87,9 +91,13 @@
                           <div
                             class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
                           >
-                            <span class="overlay-icon"
-                              ><i class="fas fa-video"></i
-                            ></span>
+                            <span class="overlay-icon">
+                              <i
+                                class="fas fa-video"
+                                v-if="cr.note === 'video'"
+                              ></i
+                              ><i class="fas fa-book-open" v-else></i>
+                            </span>
                             <div
                               href="#"
                               title=""
@@ -101,279 +109,16 @@
                           </div>
                           <div>
                             <span class="badge badge-pill badge-secondary mt-2"
-                              >Category</span
+                              >缺</span
                             >
                             <h4 class="d-flex align-self-center mt-2">
-                              Unit5 Conversation
+                              {{ cr.resource_name }}
                             </h4>
                           </div>
                         </div>
                         <button class="btn btn-nostyle btn-remove">
                           <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <div class="d-flex justify-content-start">
-                          <button class="btn btn-nostyle btn-move mr-3">
-                            <i class="la la-ellipsis-v"></i
-                            ><i class="la la-ellipsis-v"></i>
-                          </button>
-                          <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                          >
-                            <span class="overlay-icon"
-                              ><i class="fas fa-book-open"></i
-                            ></span>
-                            <div
-                              href="#"
-                              title=""
-                              class="overlay-img"
-                              style="
-                                background-image: url(../assets/img/avatars/3.jpg);
-                              "
-                            ></div>
-                          </div>
-                          <div>
-                            <span
-                              class="badge badge-pill badge-secondary mt-2 mr-2"
-                              >Lavel J</span
-                            ><span class="badge badge-pill badge-secondary mt-2"
-                              >Topic A</span
-                            >
-                            <h4 class="d-flex align-self-center mt-2">
-                              A Pocket Park for Tiny
-                            </h4>
-                          </div>
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <div class="d-flex justify-content-start">
-                          <button class="btn btn-nostyle btn-move mr-3">
-                            <i class="la la-ellipsis-v"></i
-                            ><i class="la la-ellipsis-v"></i>
-                          </button>
-                          <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                          >
-                            <span class="overlay-icon"
-                              ><i class="fas fa-video"></i
-                            ></span>
-                            <div
-                              href="#"
-                              title=""
-                              class="overlay-img"
-                              style="
-                                background-image: url(../assets/img/avatars/3.jpg);
-                              "
-                            ></div>
-                          </div>
-                          <div>
-                            <span class="badge badge-pill badge-secondary mt-2"
-                              >Category</span
-                            >
-                            <h4 class="d-flex align-self-center mt-2">
-                              Unit5 Conversation
-                            </h4>
-                          </div>
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <div class="d-flex justify-content-start">
-                          <button class="btn btn-nostyle btn-move mr-3">
-                            <i class="la la-ellipsis-v"></i
-                            ><i class="la la-ellipsis-v"></i>
-                          </button>
-                          <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                          >
-                            <span class="overlay-icon"
-                              ><i class="fas fa-book-open"></i
-                            ></span>
-                            <div
-                              href="#"
-                              title=""
-                              class="overlay-img"
-                              style="
-                                background-image: url(../assets/img/avatars/3.jpg);
-                              "
-                            ></div>
-                          </div>
-                          <div>
-                            <span
-                              class="badge badge-pill badge-secondary mt-2 mr-2"
-                              >Lavel J</span
-                            ><span class="badge badge-pill badge-secondary mt-2"
-                              >Topic A</span
-                            >
-                            <h4 class="d-flex align-self-center mt-2">
-                              A Pocket Park for Tiny
-                            </h4>
-                          </div>
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <div class="d-flex justify-content-start">
-                          <button class="btn btn-nostyle btn-move mr-3">
-                            <i class="la la-ellipsis-v"></i
-                            ><i class="la la-ellipsis-v"></i>
-                          </button>
-                          <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                          >
-                            <span class="overlay-icon"
-                              ><i class="fas fa-video"></i
-                            ></span>
-                            <div
-                              href="#"
-                              title=""
-                              class="overlay-img"
-                              style="
-                                background-image: url(../assets/img/avatars/3.jpg);
-                              "
-                            ></div>
-                          </div>
-                          <div>
-                            <span class="badge badge-pill badge-secondary mt-2"
-                              >Category</span
-                            >
-                            <h4 class="d-flex align-self-center mt-2">
-                              Unit5 Conversation
-                            </h4>
-                          </div>
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <div class="d-flex justify-content-start">
-                          <button class="btn btn-nostyle btn-move mr-3">
-                            <i class="la la-ellipsis-v"></i
-                            ><i class="la la-ellipsis-v"></i>
-                          </button>
-                          <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                          >
-                            <span class="overlay-icon"
-                              ><i class="fas fa-book-open"></i
-                            ></span>
-                            <div
-                              href="#"
-                              title=""
-                              class="overlay-img"
-                              style="
-                                background-image: url(../assets/img/avatars/3.jpg);
-                              "
-                            ></div>
-                          </div>
-                          <div>
-                            <span
-                              class="badge badge-pill badge-secondary mt-2 mr-2"
-                              >Lavel J</span
-                            ><span class="badge badge-pill badge-secondary mt-2"
-                              >Topic A</span
-                            >
-                            <h4 class="d-flex align-self-center mt-2">
-                              A Pocket Park for Tiny
-                            </h4>
-                          </div>
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <div class="d-flex justify-content-start">
-                          <button class="btn btn-nostyle btn-move mr-3">
-                            <i class="la la-ellipsis-v"></i
-                            ><i class="la la-ellipsis-v"></i>
-                          </button>
-                          <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                          >
-                            <span class="overlay-icon"
-                              ><i class="fas fa-video"></i
-                            ></span>
-                            <div
-                              href="#"
-                              title=""
-                              class="overlay-img"
-                              style="
-                                background-image: url(../assets/img/avatars/3.jpg);
-                              "
-                            ></div>
-                          </div>
-                          <div>
-                            <span class="badge badge-pill badge-secondary mt-2"
-                              >Category</span
-                            >
-                            <h4 class="d-flex align-self-center mt-2">
-                              Unit5 Conversation
-                            </h4>
-                          </div>
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <div class="d-flex justify-content-start">
-                          <button class="btn btn-nostyle btn-move mr-3">
-                            <i class="la la-ellipsis-v"></i
-                            ><i class="la la-ellipsis-v"></i>
-                          </button>
-                          <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                          >
-                            <span class="overlay-icon"
-                              ><i class="fas fa-book-open"></i
-                            ></span>
-                            <div
-                              href="#"
-                              title=""
-                              class="overlay-img"
-                              style="
-                                background-image: url(../assets/img/avatars/3.jpg);
-                              "
-                            ></div>
-                          </div>
-                          <div>
-                            <span
-                              class="badge badge-pill badge-secondary mt-2 mr-2"
-                              >Lavel J</span
-                            ><span class="badge badge-pill badge-secondary mt-2"
-                              >Topic A</span
-                            >
-                            <h4 class="d-flex align-self-center mt-2">
-                              A Pocket Park for Tiny
-                            </h4>
-                          </div>
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
+                            @click="deleteResource(cr.resourceid)"
                             class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
                           ></i>
                         </button>
@@ -712,6 +457,10 @@
 </template>
 <script>
 import CustomHeader from "../components/CustomHeader";
+import {
+  ApiGetCollectionContent,
+  ApiDeleteResource,
+} from "../http/apis/Collection";
 // import Menu
 export default {
   name: "CollectionDetail",
@@ -719,10 +468,29 @@ export default {
     CustomHeader,
   },
   data() {
-    return {};
+    return {
+      cResourceList: [],
+    };
   },
-
-  methods: {},
+  computed: {
+    userid() {
+      return this.$store.state.auth.userid;
+    },
+  },
+  methods: {
+    getCollectionContent() {
+      ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
+        .then((response) => {
+          this.cResourceList = response.record;
+        })
+        .catch((err) => {});
+    },
+    deleteResource(pid) {
+      ApiDeleteResource.get(this.userid, this.$route.params.cid, pid)
+        .then((response) => {})
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 

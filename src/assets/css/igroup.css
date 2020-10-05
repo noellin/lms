@@ -5,6 +5,10 @@
   color: #ff9835 !important;
 }
 
+.table .td-center {
+  text-align: center !important;
+}
+
 .fa,
 .far,
 .fas {

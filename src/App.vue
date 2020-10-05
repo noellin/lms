@@ -1,6 +1,7 @@
 <template>
   <!-- <div id="app">  20200720 SPWang 如果加入 id="app" 會跑版-->
   <div id="vueapp">
+    <alert></alert>
     <!-- <loading
       :active.sync="isLoading"
       :can-cancel="true"
@@ -15,9 +16,13 @@
   </div>
 </template>
 <script>
+import Alert from "./components/AlertMessage";
 export default {
   data() {
     return {};
+  },
+  components: {
+    Alert,
   },
   computed: {
     isLoading() {

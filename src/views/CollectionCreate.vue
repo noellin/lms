@@ -91,7 +91,7 @@
                 <div class="card-body">
                   <li
                     class="d-flex justify-content-between"
-                    v-for="m in materialSequence"
+                    v-for="(m, index) in materialSequence"
                     :key="m.id"
                   >
                     <div class="d-flex justify-content-start">
@@ -124,7 +124,10 @@
                         </h4>
                       </div>
                     </div>
-                    <button class="btn btn-nostyle btn-remove">
+                    <button
+                      class="btn btn-nostyle btn-remove"
+                      @click="removeFromSequence(index)"
+                    >
                       <i
                         class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
                       ></i>
@@ -434,6 +437,9 @@ export default {
     addtoSequence() {
       this.materialSequence = this.tempMaterial;
       $("#addMaterial").modal("hide");
+    },
+    removeFromSequence(index) {
+      this.materialSequence.splice(index, 1);
     },
     setCollection() {
       let obj = {};

@@ -15,7 +15,7 @@
             </div>
             <div class="mr-auto">
               <h1>Collection</h1>
-              <p class="second-title">First grage</p>
+              <p class="second-title">{{ cname }}</p>
             </div>
           </div>
         </header>
@@ -58,16 +58,21 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12">
+            <div
+              class="col-12"
+              v-for="cr in cResourceList"
+              :key="cr.resourceid"
+            >
               <div class="card">
                 <div class="card-body">
                   <div class="media">
                     <div
                       class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
                     >
-                      <span class="overlay-icon"
-                        ><i class="fas fa-video"></i
-                      ></span>
+                      <span class="overlay-icon">
+                        <i class="fas fa-video" v-if="cr.note === 'video'"></i
+                        ><i class="fas fa-book-open" v-else></i>
+                      </span>
                       <a
                         href="#"
                         title=""
@@ -81,7 +86,7 @@
                       <div class="d-flex justify-content-between">
                         <div>
                           <span class="badge badge-pill badge-secondary mt-2"
-                            >Category</span
+                            >少了這個</span
                           >
                           <h4
                             class="mb-0 mt-3 d-flex align-self-center text-primary"
@@ -91,190 +96,14 @@
                               title=""
                               data-toggle="modal"
                               data-target="#StartModal"
-                              >Unit5 THE COLOUR WHEEL SONG</a
-                            >
-                          </h4>
-                          <p class="text-muted mt-1">
-                            <small class="fw300">Last played 2020.06.01</small>
-                          </p>
-                        </div>
-                        <div class="text-primary">
-                          start<a
-                            href=""
-                            class="btn-rounded-icon btn-primary rounded ml-2"
-                            data-toggle="modal"
-                            data-target="#StartModal"
-                            ><i
-                              class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                            ></i
-                          ></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="media">
-                    <div
-                      class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
-                    >
-                      <span class="overlay-icon"
-                        ><i class="fas fa-book-open"></i
-                      ></span>
-                      <a
-                        href="#"
-                        title=""
-                        class="overlay-img"
-                        style="
-                          background-image: url(../assets/img/avatars/3.jpg);
-                        "
-                      ></a>
-                    </div>
-                    <div class="media-body">
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <span
-                            class="badge badge-pill badge-secondary mt-2 mr-2"
-                            >Lavel J</span
-                          ><span class="badge badge-pill badge-secondary mt-2"
-                            >Topic A</span
-                          >
-                          <h4
-                            class="mb-0 mt-3 d-flex align-self-center text-primary"
-                          >
-                            <a
-                              href=""
-                              title=""
-                              data-toggle="modal"
-                              data-target="#StartModal"
-                              >A Pocket Park for Tiny</a
+                              >{{ cr.resource_name }}</a
                             >
                           </h4>
                           <p class="text-muted mt-1">
                             <small class="fw300"
-                              >This material has not been played.</small
+                              >Last played 2020.06.01
+                              (這裡會傳文字還是日期?)</small
                             >
-                          </p>
-                        </div>
-                        <div class="text-primary">
-                          start<a
-                            href=""
-                            class="btn-rounded-icon btn-primary rounded ml-2"
-                            data-toggle="modal"
-                            data-target="#StartModal"
-                            ><i
-                              class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                            ></i
-                          ></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="media">
-                    <div
-                      class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
-                    >
-                      <span class="overlay-icon"
-                        ><i class="fas fa-book-open"></i
-                      ></span>
-                      <a
-                        href="#"
-                        title=""
-                        class="overlay-img"
-                        style="
-                          background-image: url(../assets/img/avatars/3.jpg);
-                        "
-                      ></a>
-                    </div>
-                    <div class="media-body">
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <span
-                            class="badge badge-pill badge-secondary mt-2 mr-2"
-                            >Lavel J</span
-                          ><span class="badge badge-pill badge-secondary mt-2"
-                            >Topic A</span
-                          >
-                          <h4
-                            class="mb-0 mt-3 d-flex align-self-center text-primary"
-                          >
-                            <a
-                              href=""
-                              title=""
-                              data-toggle="modal"
-                              data-target="#StartModal"
-                              >Broken Arm Blues</a
-                            >
-                          </h4>
-                          <p class="text-muted mt-1">
-                            <small class="fw300">Last played 2020.06.01</small>
-                          </p>
-                        </div>
-                        <div class="text-primary">
-                          start<a
-                            href=""
-                            class="btn-rounded-icon btn-primary rounded ml-2"
-                            data-toggle="modal"
-                            data-target="#StartModal"
-                            ><i
-                              class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                            ></i
-                          ></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="media">
-                    <div
-                      class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
-                    >
-                      <span class="overlay-icon"
-                        ><i class="fas fa-video"></i
-                      ></span>
-                      <a
-                        href="#"
-                        title=""
-                        class="overlay-img"
-                        style="
-                          background-image: url(../assets/img/avatars/3.jpg);
-                        "
-                      ></a>
-                    </div>
-                    <div class="media-body">
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <span class="badge badge-pill badge-secondary mt-2"
-                            >Category</span
-                          >
-                          <h4
-                            class="mb-0 mt-3 d-flex align-self-center text-primary"
-                          >
-                            <a
-                              href=""
-                              title=""
-                              data-toggle="modal"
-                              data-target="#StartModal"
-                              >Color Wheel Colors</a
-                            >
-                          </h4>
-                          <p class="text-muted mt-1">
-                            <small class="fw300">Last played 2020.06.01</small>
                           </p>
                         </div>
                         <div class="text-primary">
@@ -346,6 +175,10 @@
 </template>
 <script>
 import CustomHeader from "../components/CustomHeader";
+import {
+  ApiGetCollectionContent,
+  ApiSearchCollection,
+} from "../http/apis/Collection";
 // import Menu
 export default {
   name: "CollectionDetail",
@@ -353,13 +186,32 @@ export default {
     CustomHeader,
   },
   data() {
-    return {};
+    return {
+      cname: "",
+      cResourceList: [],
+    };
   },
-
+  created() {},
+  mounted() {
+    this.cname = this.$route.params.cname;
+    this.getCollectionContent();
+  },
+  computed: {
+    userid() {
+      return this.$store.state.auth.userid;
+    },
+  },
   methods: {
+    getCollectionContent() {
+      ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
+        .then((response) => {
+          this.cResourceList = response.record;
+        })
+        .catch((err) => {});
+    },
     gotoCollectionEdit() {
       this.$router.push({
-        path: "/collection/collection=:collection/edit",
+        path: `/collection/edit/${this.$route.params.pid}/${this.$route.params.cname}/${this.$route.params.cid}`,
       });
     },
   },

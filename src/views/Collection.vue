@@ -16,7 +16,7 @@
               ></a>
             </div> -->
             <div class="mr-auto">
-              <h1>Collection</h1>
+              <h1>Collection(表格內容return2次，無法搜尋*)</h1>
               <!-- <p class="second-title" v-if="collectionShow === 'detail'">
                 First grage
               </p> -->
@@ -36,6 +36,7 @@
                 />
                 <div class="input-group-append">
                   <button
+                    @click="searchCollection()"
                     class="btn btn-secondary btn-outline btn-icon btn-rounded"
                     type="button"
                   >
@@ -65,9 +66,12 @@
                   <table class="table table-striped" style="width: 100%">
                     <thead>
                       <tr>
-                        <th style="width: 20%">Collection name</th>
-                        <th style="width: 20%">Package</th>
-                        <th style="width: 60%">Applicable course</th>
+                        <th style="width: 30%">Collection name</th>
+                        <th style="width: 30%">Package</th>
+                        <th style="width: 30%">Applicable course</th>
+                        <th style="width: 10%; text-align: center">
+                          Action(少了刪除API)
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -77,7 +81,11 @@
                       >
                         <td
                           @click="
-                            gotoCollectionDeatail(collection.collectionid)
+                            gotoCollectionDeatail(
+                              collection.pkgid,
+                              collection.collection_name,
+                              collection.collectionid
+                            )
                           "
                           class="pointer"
                         >
@@ -85,8 +93,17 @@
                         </td>
                         <td>{{ collection.pkg_name }}</td>
                         <td>少了這個</td>
+                        <td style="text-align: center">
+                          <button
+                            class="btn btn-nostyle"
+                            data-toggle="modal"
+                            data-target="#deleteModal"
+                          >
+                            <i class="la la-trash"></i>
+                          </button>
+                        </td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td
                           @click="
                             gotoCollectionDeatail(collection.collectionid)
@@ -97,59 +114,6 @@
                         </td>
                         <td>ME TOO</td>
                         <td>少了這個</td>
-                      </tr>
-                      <!-- <tr>
-                        <td><a href="collection.html">Intermediate</a></td>
-                        <td>Video 200</td>
-                        <td>203 English、202English</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="collection.html"> High Intermediate</a>
-                        </td>
-                        <td>Picture book 200</td>
-                        <td>303 English</td>
-                      </tr>
-                      <tr>
-                        <td><a href="collection.html">Advanced</a></td>
-                        <td>First grage</td>
-                        <td>101 English、102English</td>
-                      </tr>
-                      <tr>
-                        <td><a href="collection.html"> First grage</a></td>
-                        <td>Second grage</td>
-                        <td>
-                          101English、102English、201
-                          English、202English、101English、102English、201
-                          English、202English、101English、102English、201
-                          English、202English、101English、102English、201
-                          English、202English、
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><a href="collection.html">Second grade</a></td>
-                        <td>Third grage</td>
-                        <td>301 English、302English</td>
-                      </tr>
-                      <tr>
-                        <td><a href="collection.html"> Third grade</a></td>
-                        <td>Summer class special</td>
-                        <td>301 English、302English</td>
-                      </tr>
-                      <tr>
-                        <td><a href="collection.html">Summer class</a></td>
-                        <td>Summer class special</td>
-                        <td>Summer vacation</td>
-                      </tr>
-                      <tr>
-                        <td><a href="collection.html"> Intensive class</a></td>
-                        <td>Intensive class special</td>
-                        <td>Gifted classes</td>
-                      </tr>
-                      <tr>
-                        <td><a href="collection.html">Winter class</a></td>
-                        <td>Winter class special</td>
-                        <td>Winter vacation</td>
                       </tr> -->
                     </tbody>
                   </table>
@@ -229,10 +193,10 @@
       </footer>
     </div>
     <!-- END CONTENT WRAPPER -->
-    <!-- EDIT-CHANGE MODAL -->
+    <!-- DELETE MODAL -->
     <div
       class="modal fade"
-      id="editChangeModal"
+      id="deleteModal"
       tabindex="-1"
       role="dialog"
       aria-hidden="true"
@@ -240,7 +204,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit</h5>
+            <h5 class="modal-title">Delete</h5>
             <button
               type="button"
               class="close"
@@ -251,10 +215,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>
-              Confirm to change the teacher to <strong>Diana</strong> and
-              <strong>Edward</strong>.
-            </p>
+            <p>Confirm to delete Collect:<strong>123</strong>?</p>
           </div>
           <div class="modal-footer">
             <button
@@ -291,7 +252,8 @@ export default {
       collectionName: "",
     };
   },
-  created() {
+  created() {},
+  mounted() {
     this.getCollection();
   },
   computed: {
@@ -301,19 +263,25 @@ export default {
   },
   methods: {
     getCollection() {
+      console.log(this.userid);
       ApiGetCollection.get(this.userid).then((response) => {
         this.collectionList = response.record;
       });
     },
     searchCollection() {
-      ApiSearchCollection.get(
-        this.userid,
-        this.collectionName
-      ).then((response) => {});
+      let keyword = this.collectionName;
+      if (this.collectionName === "") {
+        keyword = "*";
+      }
+      console.log(this.userid);
+      console.log(keyword);
+      ApiSearchCollection.get(this.userid, keyword).then((response) => {
+        this.collectionList = response.record;
+      });
     },
-    gotoCollectionDeatail(coid) {
+    gotoCollectionDeatail(pid, cname, cid) {
       this.$router.push({
-        path: `/collection/collection=${coid}/`,
+        path: `/collection/${pid}/${cname}/${cid}/`,
       });
     },
     gotoCollectionCreate() {

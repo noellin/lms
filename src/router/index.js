@@ -169,7 +169,7 @@ const routes = [
     }
   },
   {
-    path: "/collection/collection=:collection",
+    path: "/collection/:pid/:cname/:cid",
     name: "CollectionDetail",
     component: CollectionDetail,
     meta: {
@@ -177,7 +177,7 @@ const routes = [
     }
   },
   {
-    path: "/collection/collection=:collection/edit",
+    path: "/collection/edit/:pid/:cname/:cid/",
     name: "CollectionEdit",
     component: CollectionEdit,
     meta: {

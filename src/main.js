@@ -35,7 +35,15 @@ extend("required", {
 });
 Vue.config.productionTip = false;
 (Vue.prototype.$back = function (distance) {
-  router.back(-1);
+  if (window.history.length <= 1) {
+    router.push({
+      path: "/",
+    });
+    return false
+  } else {
+    router.go(-1);
+  }
+
 }),
 (Vue.prototype.$bus = new Vue());
 new Vue({

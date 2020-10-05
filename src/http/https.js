@@ -78,6 +78,11 @@ axios.interceptors.response.use(
                     console.log(`連接錯誤${err.response.status}`);
             }
         } else {
+            setTimeout(() => {
+                router.push({
+                    path: "/login",
+                });
+            }, 3000);
             console.log("連接到服務器失敗");
         }
         return Promise.resolve(err.response);
