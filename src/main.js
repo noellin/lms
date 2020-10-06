@@ -28,7 +28,7 @@ Vue.use(Loading, {
 Vue.use(VueAxios, axios);
 Vue.component("Select2", Select2);
 Vue.use(Vuex);
-Vue.filter("expiredDate", expiredDate);
+Vue.filter("dateConversion", expiredDate);
 extend("required", {
   ...required,
   message: "This field is required",

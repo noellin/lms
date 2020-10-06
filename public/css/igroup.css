@@ -1,21 +1,18 @@
 /* custom */
-/* a:link, h4 i.zmdi, h4 i.la {
-    font-size: 1.2em;
-}
-a:link, a:visited {
-    color: #32C1DB;
-}
-a, a:link, a:visited {
-    text-decoration: none;
-    outline: 0;
-    transition: all .3s ease;
-} */
+/*不要改在這 要去ASSETS更改ˋ*/
+
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #839bb3 !important;
     line-height: 20px !important;
     border-color: #dfe7f3 !important;
     border: 1px solid transparent;
+    border-radius: 1rem !important;
 }
+
+.select2-container--default .select2-selection--single {
+    border-radius: 0 1rem 1rem 0;
+}
+
 
 #select2-s2_demo2-container {
     border: 1px solid transparent;
@@ -371,11 +368,12 @@ select.form-control {
     border-radius: 1rem;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
+/* .select2-container--default .select2-selection--single .select2-selection__rendered {
     padding: .58rem 2rem .58rem 1rem;
     font-size: 0.875rem;
     height: 38px;
-}
+    border-radius: 1rem !important;
+} */
 
 .select2-container--default .select2-selection--multiple,
 .select2-container--default .select2-selection--single {

@@ -206,7 +206,7 @@
                                 :class="{
                                   'text-danger': course.expiry === true,
                                 }"
-                                >{{ course.expiry_date | expiredDate }}</span
+                                >{{ course.expiry_date | dateConversion }}</span
                               >
                               <span
                                 class="badge badge-pill badge-secondary"

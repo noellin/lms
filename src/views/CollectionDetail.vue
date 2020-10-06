@@ -23,12 +23,27 @@
           <div class="d-flex justify-content-between">
             <div class="pb-3">
               <div class="form-row">
-                <div class="form-group form-rounded mb-0 mr-3">
-                  <select class="form-control" id="s2_demo1">
-                    <option>All type</option>
-                    <option>Picture Book</option>
-                    <option>Video</option>
-                  </select>
+                <div class="form-group form-rounded form-custom mb-0 mr-3">
+                  <!-- <select
+                    class="form-control"
+                    id="s2_demo1"
+                    v-model="seleceType"
+                  >
+                    <option
+                      v-for="type in typeList"
+                      :key="type.value"
+                      :value="type.value"
+                    >
+                      {{ type.text }}
+                    </option>
+                  </select> -->
+                  <select2
+                    id="s2_demo1"
+                    class=""
+                    :options="typeList"
+                    v-model="seleceType"
+                  >
+                  </select2>
                 </div>
                 <div class="form-group form-rounded mb-0">
                   <div class="input-group">
@@ -101,9 +116,9 @@
                           </h4>
                           <p class="text-muted mt-1">
                             <small class="fw300"
-                              >Last played 2020.06.01
-                              (這裡會傳文字還是日期?)</small
-                            >
+                              >Last played
+                              <span>{{ cr.last_access | dateConversion }}</span>
+                            </small>
                           </p>
                         </div>
                         <div class="text-primary">
@@ -179,6 +194,7 @@ import {
   ApiGetCollectionContent,
   ApiSearchCollection,
 } from "../http/apis/Collection";
+import Select2 from "v-select2-component";
 // import Menu
 export default {
   name: "CollectionDetail",
@@ -189,6 +205,12 @@ export default {
     return {
       cname: "",
       cResourceList: [],
+      typeList: [
+        { text: "All type", id: "all" },
+        { text: "Picture Book", id: "book" },
+        { text: "Video", id: "video" },
+      ],
+      seleceType: "all",
     };
   },
   created() {},

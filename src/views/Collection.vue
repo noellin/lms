@@ -16,7 +16,7 @@
               ></a>
             </div> -->
             <div class="mr-auto">
-              <h1>Collection(表格內容return2次，無法搜尋*)</h1>
+              <h1>Collection</h1>
               <!-- <p class="second-title" v-if="collectionShow === 'detail'">
                 First grage
               </p> -->
@@ -69,9 +69,7 @@
                         <th style="width: 30%">Collection name</th>
                         <th style="width: 30%">Package</th>
                         <th style="width: 30%">Applicable course</th>
-                        <th style="width: 10%; text-align: center">
-                          Action(少了刪除API)
-                        </th>
+                        <th style="width: 10%; text-align: center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -92,12 +90,26 @@
                           <a>{{ collection.collection_name }}</a>
                         </td>
                         <td>{{ collection.pkg_name }}</td>
-                        <td>少了這個</td>
+                        <td>
+                          <span
+                            v-for="(course, index) in collection.courseInfo"
+                            :key="course.courseid"
+                            >{{ course.course_name }}
+                            <span
+                              v-if="index + 1 < collection.courseInfo.length"
+                              >,
+                            </span></span
+                          >
+                        </td>
                         <td style="text-align: center">
                           <button
                             class="btn btn-nostyle"
                             data-toggle="modal"
                             data-target="#deleteModal"
+                            @click="
+                              tempCname = collection.collection_name;
+                              tempCid = collection.collectionid;
+                            "
                           >
                             <i class="la la-trash"></i>
                           </button>
@@ -215,7 +227,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Confirm to delete Collect:<strong>123</strong>?</p>
+            <p>
+              Confirm to delete Collection：<strong>{{ tempCname }}</strong
+              >?
+            </p>
           </div>
           <div class="modal-footer">
             <button
@@ -225,7 +240,12 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="deleteCollection(tempCid)"
+            >
               Confirm
             </button>
           </div>
@@ -240,6 +260,7 @@ import {
   ApiGetCollection,
   ApiSearchCollection,
   ApiGetCollectionContent,
+  ApiDeleteCollection,
 } from "../http/apis/Collection";
 export default {
   name: "Collection",
@@ -250,6 +271,8 @@ export default {
     return {
       collectionList: [],
       collectionName: "",
+      tempCname: "",
+      tempCid: "",
     };
   },
   created() {},
@@ -273,8 +296,6 @@ export default {
       if (this.collectionName === "") {
         keyword = "*";
       }
-      console.log(this.userid);
-      console.log(keyword);
       ApiSearchCollection.get(this.userid, keyword).then((response) => {
         this.collectionList = response.record;
       });
@@ -288,6 +309,16 @@ export default {
       this.$router.push({
         path: `/collection/create`,
       });
+    },
+    async deleteCollection(cid) {
+      const result = await ApiDeleteCollection.get(cid)
+        .then((resonse) => {
+          return resonse.status;
+        })
+        .catch((err) => {});
+      if (result) {
+        this.getCollection();
+      }
     },
   },
 };

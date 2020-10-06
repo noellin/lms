@@ -27,7 +27,7 @@
                           class="form-control"
                           type="text"
                           placeholder="Enter collection name"
-                          value="First grage"
+                          v-model="cName"
                         />
                       </div>
                     </div>
@@ -36,7 +36,7 @@
                         <label>Default Select</label>
                         <select class="form-control" id="s2_demo2" disabled>
                           <optgroup label="select package">
-                            <option selected>First grage</option>
+                            <option selected>{{ pName }}</option>
                             <option>Second grage</option>
                             <option>Third grage</option>
                             <option>Fourth grage</option>
@@ -80,7 +80,7 @@
                     <ul class="sequence">
                       <li
                         class="d-flex justify-content-between"
-                        v-for="cr in cResourceList"
+                        v-for="(cr, index) in materialSequence"
                         :key="cr.resourceid"
                       >
                         <div class="d-flex justify-content-start">
@@ -116,9 +116,17 @@
                             </h4>
                           </div>
                         </div>
-                        <button class="btn btn-nostyle btn-remove">
+                        <button
+                          class="btn btn-nostyle btn-remove"
+                          data-toggle="modal"
+                          data-target="#deleteModal"
+                          @click="
+                            tempRname = cr.resource_name;
+                            tempRid = cr.resourceid;
+                            tempIndex = index;
+                          "
+                        >
                           <i
-                            @click="deleteResource(cr.resourceid)"
                             class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
                           ></i>
                         </button>
@@ -263,16 +271,17 @@
           <div class="modal-body">
             <h6 class="pb-2">
               <span class="text-muted">package</span>
-              <strong>First grage</strong>
+              <strong class="ml-1">{{ pName }}</strong>
             </h6>
             <div class="row">
               <div class="col-6">
                 <div class="form-group form-rounded">
-                  <select class="form-control" id="s2_demo1">
-                    <option>All type</option>
-                    <option>Picture Book</option>
-                    <option>Video</option>
-                  </select>
+                  <select2
+                    id="s2_demo1"
+                    :options="typeList"
+                    v-model="seleceType"
+                  >
+                  </select2>
                 </div>
               </div>
               <div class="col-6">
@@ -282,11 +291,14 @@
                       type="text"
                       class="form-control"
                       placeholder="Search..."
+                      v-model="tempSearch"
+                      @keyup.enter="searchRName = tempSearch"
                     />
                     <div class="input-group-append">
                       <button
                         class="btn btn-secondary btn-outline btn-icon btn-rounded"
                         type="button"
+                        @click="searchRName = tempSearch"
                       >
                         <i class="zmdi zmdi-search text-secondary"></i>
                       </button>
@@ -297,145 +309,22 @@
             </div>
           </div>
           <div class="modal-body" data-scroll="dark">
-            <div class="custom-control custom-checkbox form-check pb-2">
+            <div
+              class="custom-control custom-checkbox form-check pb-2"
+              v-for="pkgm in resourceFilter"
+              :key="pkgm.resourceid"
+            >
               <input
                 type="checkbox"
                 class="custom-control-input"
-                id="customCheck1"
+                :value="pkgm.resourceid"
+                :id="pkgm.resourceid"
+                v-model="tempMidList"
               />
-              <label class="custom-control-label" for="customCheck1"
-                >Unit 8 MY FRIENDS</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck2"
-              />
-              <label class="custom-control-label" for="customCheck2"
-                >Unit 9 MY FAMILY</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck3"
-              />
-              <label class="custom-control-label" for="customCheck3"
-                >Unit 10 FAVORITE SPORT</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck4"
-              />
-              <label class="custom-control-label" for="customCheck4"
-                >Alistair's Night</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck5"
-              />
-              <label class="custom-control-label" for="customCheck5"
-                >The Three Little Pigs</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck6"
-              />
-              <label class="custom-control-label" for="customCheck6"
-                >Broken Arm Blues</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck7"
-              />
-              <label class="custom-control-label" for="customCheck7"
-                >A Pocket Park for Tiny</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck1"
-              />
-              <label class="custom-control-label" for="customCheck1"
-                >Unit 8 MY FRIENDS</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck2"
-              />
-              <label class="custom-control-label" for="customCheck2"
-                >Unit 9 MY FAMILY</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck3"
-              />
-              <label class="custom-control-label" for="customCheck3"
-                >Unit 10 FAVORITE SPORT</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck4"
-              />
-              <label class="custom-control-label" for="customCheck4"
-                >Alistair's Night</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck5"
-              />
-              <label class="custom-control-label" for="customCheck5"
-                >The Three Little Pigs</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck6"
-              />
-              <label class="custom-control-label" for="customCheck6"
-                >Broken Arm Blues</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck7"
-              />
-              <label class="custom-control-label" for="customCheck7"
-                >A Pocket Park for Tiny</label
-              >
+              <!-- @click="mySelectEvent(pkgm)" -->
+              <label class="custom-control-label" :for="pkgm.resourceid">{{
+                pkgm.resource_name
+              }}</label>
             </div>
           </div>
           <div class="modal-footer">
@@ -446,8 +335,60 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="addtoSequence()"
+            >
               <i class="la la-plus"></i>Material
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- DELETE MODAL -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Confirm to delete Resource：<strong>{{ tempRname }}</strong
+              >?
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-rounded btn-outline"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="removeFromSequence(tempIndex)"
+            >
+              Confirm
             </button>
           </div>
         </div>
@@ -460,6 +401,8 @@ import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetCollectionContent,
   ApiDeleteResource,
+  ApiGetCollectionInfo,
+  ApiGetPkgMaterial,
 } from "../http/apis/Collection";
 // import Menu
 export default {
@@ -469,26 +412,119 @@ export default {
   },
   data() {
     return {
-      cResourceList: [],
+      cName: "",
+      pName: "",
+      tempRname: "",
+      tempRid: "",
+      tempIndex: 0,
+      pkgMaterialList: [],
+      typeList: [
+        { text: "All type", id: "all" },
+        { text: "Picture Book", id: "book" },
+        { text: "Video", id: "video" },
+      ],
+      seleceType: "all",
+      tempSearch: "",
+      searchRName: "",
+      materialSequence: [],
+      tempMidList: [],
+      tempMaterialList: [],
     };
   },
   computed: {
     userid() {
       return this.$store.state.auth.userid;
     },
+    resourceFilter() {
+      let result = [];
+      if (this.seleceType !== "all") {
+        result = this.pkgMaterialList.filter((item) => {
+          return (
+            item.type === this.seleceType &&
+            item.resource_name
+              .toLowerCase()
+              .indexOf(this.searchRName.toLowerCase()) !== -1
+          );
+        });
+      } else {
+        result = this.pkgMaterialList.filter((item) => {
+          return (
+            item.resource_name
+              .toLowerCase()
+              .indexOf(this.searchRName.toLowerCase()) !== -1
+          );
+        });
+      }
+      return result;
+    },
+  },
+  mounted() {
+    this.init();
+    this.getCollectionContent();
   },
   methods: {
+    init() {
+      this.axios
+        .all([
+          this.getCollectionContent(),
+          this.getCollectionInfo(),
+          this.getPkgMaterial(),
+        ])
+        .then(this.axios.spread((func1, func2) => {}))
+        .catch((err) => {});
+      this.cName = this.$route.params.cname;
+    },
     getCollectionContent() {
-      ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
+      return ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
         .then((response) => {
-          this.cResourceList = response.record;
+          this.materialSequence = response.record;
+          response.record.forEach((msi) => {
+            this.tempMidList.push(msi.resourceid);
+          });
         })
         .catch((err) => {});
     },
-    deleteResource(pid) {
-      ApiDeleteResource.get(this.userid, this.$route.params.cid, pid)
-        .then((response) => {})
+    getCollectionInfo() {
+      ApiGetCollectionInfo.get(this.userid, this.$route.params.pid)
+        .then((response) => {
+          response.forEach((element) => {
+            this.pName = element.pkg_name;
+          });
+        })
         .catch((err) => {});
+    },
+    // deleteResource(pid) {
+    //   ApiDeleteResource.get(this.userid, this.$route.params.cid, pid)
+    //     .then((response) => {})
+    //     .catch((err) => {});
+    // },
+    getPkgMaterial() {
+      ApiGetPkgMaterial.get(this.$route.params.pid)
+        .then((response) => {
+          this.pkgMaterialList = response.record;
+        })
+        .catch((err) => {});
+    },
+    removeFromSequence(index) {
+      this.materialSequence.splice(index, 1);
+    },
+    addtoSequence() {
+      this.materialSequence = [];
+      let ml = [];
+      this.tempMidList.forEach((id) => {
+        this.pkgMaterialList.forEach((pkg) => {
+          if (pkg.resourceid === id) {
+            ml.push(pkg);
+          }
+        });
+      });
+      this.materialSequence = ml;
+      // ml.forEach((currentItem) => {
+      //   this.materialSequence.forEach((item) => {
+      //     console.log(currentItem);
+      //     console.log(item);
+      //   });
+      // });
     },
   },
 };

@@ -243,7 +243,7 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-group form-rounded">
-                  <select
+                  <!-- <select
                     class="form-control"
                     id="s2_demo1"
                     v-model="seleceType"
@@ -255,7 +255,13 @@
                     >
                       {{ type.text }}
                     </option>
-                  </select>
+                  </select> -->
+                  <select2
+                    id="s2_demo1"
+                    :options="typeList"
+                    v-model="seleceType"
+                  >
+                  </select2>
                 </div>
               </div>
               <div class="col-6">
@@ -331,6 +337,7 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
               @click="addtoSequence()"
             >
               <i class="la la-plus"></i>Material
@@ -370,11 +377,11 @@ export default {
       tempMaterial: [],
       materialSequence: [],
       typeList: [
-        { text: "All type", value: "" },
-        { text: "Picture Book", value: "book" },
-        { text: "Video", value: "video" },
+        { text: "All type", id: "all" },
+        { text: "Picture Book", id: "book" },
+        { text: "Video", id: "video" },
       ],
-      seleceType: "",
+      seleceType: "all",
       tempSearch: "",
       searchRName: "",
     };
@@ -388,7 +395,7 @@ export default {
     },
     resourceFilter() {
       let result = [];
-      if (this.seleceType !== "") {
+      if (this.seleceType !== "all") {
         result = this.pkgMaterialList.filter((item) => {
           return (
             item.type === this.seleceType &&
@@ -399,11 +406,6 @@ export default {
         });
       } else {
         result = this.pkgMaterialList.filter((item) => {
-          console.log(
-            item.resource_name
-              .toLowerCase()
-              .indexOf(this.searchRName.toLowerCase()) !== -1
-          );
           return (
             item.resource_name
               .toLowerCase()
@@ -436,7 +438,6 @@ export default {
     },
     addtoSequence() {
       this.materialSequence = this.tempMaterial;
-      $("#addMaterial").modal("hide");
     },
     removeFromSequence(index) {
       this.materialSequence.splice(index, 1);

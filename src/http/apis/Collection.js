@@ -20,8 +20,8 @@ export const ApiSearchCollection = {
     },
 };
 export const ApiSearchCollectionResource = {
-    get: (userid, cid, keyword) => {
-        return get(`/collection/searchresource/${userid}/${cid}/${keyword}`);
+    get: (userid, cid, keyword, type) => {
+        return get(`/collection/searchresource/${userid}/${cid}/${keyword}/${type}`);
     },
 };
 export const ApiGetCollectionContent = {
@@ -51,5 +51,17 @@ export const ApiGetPkgMaterial = {
 export const ApiDeleteResource = {
     get: (uid, cid, rid) => {
         return get(`/collection/deleteresource/${uid}/${cid}/${rid}`);
+    }
+}
+
+export const ApiDeleteCollection = {
+    get: (cid) => {
+        return get(`/collection/delete/${cid}`);
+    }
+}
+
+export const ApiGetCollectionInfo = {
+    get: (cid, pid) => {
+        return get(`/collection/pkgmapcurs/${cid}/${pid}`)
     }
 }

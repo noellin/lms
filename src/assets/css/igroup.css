@@ -1,8 +1,41 @@
 /* custom */
 
 /* Color */
+html body {
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; */
+  /* font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; */
+}
+
 .color-orange {
   color: #ff9835 !important;
+}
+
+.select2-container--default .select2-selection--multiple,
+.select2-container--default .select2-selection--single {
+  min-height: 36.5px !important;
+}
+
+#select-from {
+  background-color: #f0f6ff;
+}
+
+/* #select2-custom_demo1-container {
+  border-radius: 1rem !important;
+  height: 16spx;
+  background-color: #f0f6ff;
+  ;
+} */
+
+#select2-s2_demo1-container {
+  border-radius: 1rem !important;
+  border-color: #dfe7f3 !important;
+  color: #839bb3 !important;
+  /* color: #A0B0CA !important; */
+  font-size: .875rem !important;
+  font-family: inherit !important;
+  font-weight: 400 !important;
+  padding-bottom: 8px !important;
+  padding-top: 8px !important;
 }
 
 .table .td-center {
@@ -25,6 +58,9 @@
   margin-top: 8.4px;
 }
 
+.select2-container .select2-selection--single .select2-selection__rendered {}
+
+/* border-radius: 1rem !important; */
 .select2-container--default .select2-search--inline .select2-search__field {
   padding-left: 10px !important;
 }
