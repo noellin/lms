@@ -193,7 +193,7 @@ const routes = [
     }
   },
   {
-    path: "/account/:id",
+    path: "/account/:uid",
     name: "AccountDetail",
     component: AccountDetail,
     meta: {

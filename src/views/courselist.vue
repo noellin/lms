@@ -114,14 +114,16 @@
                       <table class="table table-striped" style="width: 100%">
                         <thead>
                           <tr>
-                            <th>Course name</th>
-                            <th>Teacher</th>
-                            <th>Active student／Limit</th>
-                            <th>Package</th>
-                            <th>Expiry date</th>
+                            <th style="width: 15%">Course name</th>
+                            <th style="width: 15%">Teacher</th>
+                            <th style="width: 15%">Active student／Limit</th>
+                            <th style="width: 15%">Package</th>
+                            <th style="width: 15%">Expiry date</th>
                             <!-- <th>Edit</th> -->
-                            <th>Checking assignment</th>
-                            <th style="text-align: center">Action</th>
+                            <th style="width: 15%">Checking assignment</th>
+                            <th style="text-align: center; width: 10%">
+                              Action
+                            </th>
                           </tr>
                         </thead>
                         <tbody v-show="!isLoading">

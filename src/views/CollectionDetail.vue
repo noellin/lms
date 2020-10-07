@@ -51,11 +51,14 @@
                       type="text"
                       class="form-control"
                       placeholder="Search..."
+                      v-model="searchRname"
+                      @keyup.enter="searchCollectionResource()"
                     />
                     <div class="input-group-append">
                       <button
                         class="btn btn-secondary btn-outline btn-icon btn-rounded"
                         type="button"
+                        @click="searchCollectionResource()"
                       >
                         <i class="zmdi zmdi-search text-secondary"></i>
                       </button>
@@ -121,12 +124,14 @@
                             </small>
                           </p>
                         </div>
-                        <div class="text-primary">
+                        <div
+                          class="text-primary pointer"
+                          @click="getAvailableCourse(cr.resourceid)"
+                          data-toggle="modal"
+                          data-target="#StartModal"
+                        >
                           start<a
-                            href=""
                             class="btn-rounded-icon btn-primary rounded ml-2"
-                            data-toggle="modal"
-                            data-target="#StartModal"
                             ><i
                               class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
                             ></i
@@ -158,7 +163,8 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Start</h5>
+            <h5 class="modal-title" v-if="courseList.length !== 0">Start</h5>
+            <h5 class="modal-title" v-else>No course</h5>
             <button
               type="button"
               class="close"
@@ -168,20 +174,22 @@
               <span aria-hidden="true" class="zmdi zmdi-close"></span>
             </button>
           </div>
-          <div class="modal-body pb-4">
+          <div class="modal-body pb-4" v-if="courseList.length !== 0">
             <h5>What is your ongoing course?</h5>
             <p>This material can only be viewed in the following course.</p>
             <a
-              href="#"
               title=""
               class="btn btn-primary btn-outline btn-rounded mr-3"
-              >101 ENGLISH</a
-            ><a
-              href="#"
-              title=""
-              class="btn btn-primary btn-outline btn-rounded mr-3"
-              >102 ENGLISH</a
+              v-for="course in courseList"
+              :key="course.resourceid"
+              >{{ course.resource_name }}</a
             >
+          </div>
+          <div class="modal-body pb-4" v-else>
+            <p>
+              The course you can use this collection has expired. If you wish to
+              continue using it, you must renew your contract.
+            </p>
           </div>
         </div>
       </div>
@@ -193,6 +201,8 @@ import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetCollectionContent,
   ApiSearchCollection,
+  ApiGetAvailableCourse,
+  ApiSearchCollectionResource,
 } from "../http/apis/Collection";
 import Select2 from "v-select2-component";
 // import Menu
@@ -211,6 +221,8 @@ export default {
         { text: "Video", id: "video" },
       ],
       seleceType: "all",
+      courseList: [],
+      searchRname: "",
     };
   },
   created() {},
@@ -224,6 +236,26 @@ export default {
     },
   },
   methods: {
+    searchCollectionResource() {
+      let type = this.seleceType;
+      let keyword = this.searchRname;
+      if (this.seleceType === "all") {
+        type = "*";
+      }
+      if (this.searchRname === "") {
+        keyword = "*";
+      }
+      ApiSearchCollectionResource.get(
+        this.userid,
+        this.$route.params.cid,
+        keyword,
+        type
+      )
+        .then((response) => {
+          this.cResourceList = response.record;
+        })
+        .catch((err) => {});
+    },
     getCollectionContent() {
       ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
         .then((response) => {
@@ -235,6 +267,14 @@ export default {
       this.$router.push({
         path: `/collection/edit/${this.$route.params.pid}/${this.$route.params.cname}/${this.$route.params.cid}`,
       });
+    },
+    getAvailableCourse(rid) {
+      ApiGetAvailableCourse.get(this.userid, this.$route.params.cid, rid)
+        .then((response) => {
+          this.courseList = response.record;
+          console.log(response.record);
+        })
+        .catch((err) => {});
     },
   },
 };

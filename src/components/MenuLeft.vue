@@ -71,10 +71,10 @@ export default {
   name: "MenuLeft",
   data() {
     return {
-      userInfo: {
-        name: "Amanda",
-        email: "support@authenticgoods.co",
-      },
+      // userInfo: {
+      //   name: "Amanda",
+      //   email: "support@authenticgoods.co",
+      // },
       typeList: ["Material", "Assignment", "Student", "Dashboard"],
       coursePage: this.$route.params.course,
       courseType: this.$route.params.type,

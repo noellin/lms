@@ -65,3 +65,9 @@ export const ApiGetCollectionInfo = {
         return get(`/collection/pkgmapcurs/${cid}/${pid}`)
     }
 }
+
+export const ApiGetAvailableCourse = {
+    get: (uid, cid, rid) => {
+        return get(`/collection/availablecourse/${uid}/${cid}/${rid}`)
+    }
+}

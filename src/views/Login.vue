@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-    {{ token }}
     <!-- <div
       class="alert alert-danger alert-dismissible fade show"
       role="alert"
@@ -234,12 +233,12 @@ export default {
       showErrorMessage: false,
       loginShow: "login",
       loginForm: {
-        //測試帳號A
-        // email: "bkbjava@mhsh.ptc.edu.tw",
-        // password: "123456",
-        //測試帳號B
-        email: "kevin.chen@igroupnet.com",
+        // // 測試帳號A admin權限
+        email: "bkbjava@mhsh.ptc.edu.tw",
         password: "123456",
+        // 測試帳號B teacher權限
+        // email: "kevin.chen@igroupnet.com",
+        // password: "123456",
       },
       userEmail: "jolin123@gmail.com",
       ErrorMessage: "Your email or password is incorrect. please try again.",
@@ -253,15 +252,6 @@ export default {
       isLogin: false,
       userid: "",
     });
-    // const todayTimestamp = Math.floor(Date.now() / 1000);
-    // console.log(dayjs.unix(todayTimestamp).format("YYYY-MM-DD"));
-    // console.log(dayjs.unix(1597939200).format("YYYY-MM-DD"));
-    // console.log(
-    //   dayjs
-    //     .unix(1598198400)
-    //     .add(1, "month")
-    //     .isBefore(dayjs.unix(todayTimestamp))
-    // );
   },
   mounted() {
     if (this.$route.params.id !== undefined) {
@@ -291,6 +281,7 @@ export default {
           isLogin: response.status === "success" ? true : false,
           userid: response.userID,
           username: response.username,
+          email: response.email,
           permit: response.permit,
           todayTimestamp: todayTimestamp,
         });

@@ -21,6 +21,8 @@
                   type="text"
                   class="form-control"
                   placeholder="Search..."
+                  v-model="searchAccountName"
+                  @keyup.enter="searchAccount()"
                 />
                 <div class="input-group-append">
                   <button
@@ -53,7 +55,7 @@
                                         </div> -->
                   <!-- end No courses -->
                   <!-- id="bs4-table" -->
-                  <table class="table table-striped" style="width: 100%;">
+                  <table class="table table-striped" style="width: 100%">
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -62,135 +64,27 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr v-for="ac in accountList" :key="ac.userid">
                         <td>
-                          <a @click="gotoAccountDetail()"
+                          <a
+                            @click="gotoAccountDetail(ac.userid)"
+                            class="pointer"
                             ><img
                               src="../assets/img/avatars/user.png"
                               class="w-40 rounded-circle mr-3"
                               alt="Albert Einstein"
-                            />Amanda</a
+                            />{{ ac.username }}</a
                           >
                         </td>
-                        <td>amanada@gmail.com</td>
-                        <td><span class="text-success">Active</span></td>
-                      </tr>
-                      <tr>
+                        <td>{{ ac.email }}</td>
                         <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Diana</a
+                          <span
+                            class="text-success"
+                            v-if="ac.status === 'enable'"
+                            >Active</span
                           >
+                          <span class="text-danger" v-else>Supended</span>
                         </td>
-                        <td>Diana@gmail.com</td>
-                        <td><span class="text-success">Active</span></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Jim</a
-                          >
-                        </td>
-                        <td>jim@gmail.com</td>
-                        <td><span class="text-success">Active</span></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Mark</a
-                          >
-                        </td>
-                        <td>mark@gmail.com</td>
-                        <td><span class="text-success">Active</span></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Jeffrey</a
-                          >
-                        </td>
-                        <td>Jeffrey@gmail.com</td>
-                        <td><span class="text-success">Active</span></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Lawrence</a
-                          >
-                        </td>
-                        <td>lawrence@gmail.com</td>
-                        <td><span class="text-success">Active</span></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Peter</a
-                          >
-                        </td>
-                        <td>peter@gmail.com</td>
-                        <td><span class="text-danger">Supended</span></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Alice</a
-                          >
-                        </td>
-                        <td>alice@gmail.com</td>
-                        <td><span class="text-success">Active</span></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Dominic</a
-                          >
-                        </td>
-                        <td>dominic@gmail.com</td>
-                        <td><span class="text-success">Active</span></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="teacher-account-admin.html"
-                            ><img
-                              src="../assets/img/avatars/user.png"
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein"
-                            />Emily</a
-                          >
-                        </td>
-                        <td>emily@gmail.com</td>
-                        <td><span class="text-danger">Supended</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -306,11 +200,10 @@
                     class="form-control"
                     placeholder=" Enter teacher's name"
                     value=""
+                    v-model="tempAccount.username"
                   />
                 </div>
-                <div class="invalid-feedback">
-                  error message
-                </div>
+                <div class="invalid-feedback">error message</div>
               </div>
               <div class="form-group row">
                 <label class="control-label text-right col-3">E-mail</label>
@@ -320,11 +213,10 @@
                     class="form-control is-invalid"
                     placeholder=" Enter teacher's E-mail"
                     value=""
+                    v-model="tempAccount.email"
                   />
                 </div>
-                <div class="invalid-feedback">
-                  E-mail format error
-                </div>
+                <div class="invalid-feedback">E-mail format error</div>
               </div>
             </form>
           </div>
@@ -342,6 +234,7 @@
               data-dismiss="modal"
               data-toggle="modal"
               data-target="#InviteEmailSentModal"
+              @click="sendInviteMail()"
             >
               Invite
             </button>
@@ -378,18 +271,60 @@
 </template>
 <script>
 import CustomHeader from "../components/CustomHeader";
+import {
+  ApiGetAccoutList,
+  ApiSearchAccount,
+  ApiSendInviteMail,
+} from "../http/apis/Account";
 export default {
   name: "Account",
   components: {
     CustomHeader,
   },
   data() {
-    return {};
+    return {
+      accountList: [],
+      searchAccountName: "",
+      tempAccount: {
+        username: "",
+        email: "",
+      },
+    };
   },
-
+  computed: {
+    userid() {
+      return this.$store.state.auth.userid;
+    },
+  },
+  mounted() {
+    this.getAccoutList();
+  },
   methods: {
-    gotoAccountDetail() {
-      this.$router.push({ path: "/account/123456" });
+    getAccoutList() {
+      ApiGetAccoutList.get()
+        .then((response) => {
+          this.accountList = response.record;
+        })
+        .catch((err) => {});
+    },
+    sendInviteMail() {
+      ApiSendInviteMail.post(this.tempAccount)
+        .then((response) => {})
+        .catch((err) => {});
+    },
+    searchAccount() {
+      let keyword = this.searchAccountName;
+      if (this.searchAccountName === "") {
+        keyword = "*";
+      }
+      ApiSearchAccount.get(keyword)
+        .then((response) => {
+          this.accountList = response.record;
+        })
+        .catch((err) => {});
+    },
+    gotoAccountDetail(uid) {
+      this.$router.push({ path: `/account/${uid}` });
     },
   },
 };

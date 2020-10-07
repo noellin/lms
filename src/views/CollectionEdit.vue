@@ -49,9 +49,15 @@
                     <div class="col-12">
                       <h6>Applicable course</h6>
                       <p>
-                        101 English、102 English、103 English、104 English、105
+                        <span
+                          v-for="(course, index) in courseList"
+                          :key="index + course"
+                          >{{ course }}
+                          <span v-if="index + 1 < courseList.length">、</span>
+                        </span>
+                        <!-- 101 English、102 English、103 English、104 English、105
                         English、106 English、107 English、108 English、109
-                        English、110 English、111 English、112 English
+                        English、110 English、111 English、112 English -->
                       </p>
                     </div>
                   </div>
@@ -139,7 +145,7 @@
             <div class="col-12 text-right">
               <button
                 type="button"
-                class="btn btn-secondary btn-rounded btn-outline"
+                class="btn btn-secondary btn-rounded btn-outline mr-2"
                 data-toggle="modal"
                 data-target="#SaveChangeModal"
               >
@@ -195,7 +201,11 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="setCollection()"
+            >
               Save
             </button>
           </div>
@@ -232,7 +242,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary btn-rounded btn-outline"
+              class="btn btn-secondary btn-rounded btn-outline mr-2"
               data-dismiss="modal"
             >
               Cancel
@@ -403,6 +413,7 @@ import {
   ApiDeleteResource,
   ApiGetCollectionInfo,
   ApiGetPkgMaterial,
+  ApiSetCollection,
 } from "../http/apis/Collection";
 // import Menu
 export default {
@@ -429,6 +440,7 @@ export default {
       materialSequence: [],
       tempMidList: [],
       tempMaterialList: [],
+      courseList: [],
     };
   },
   computed: {
@@ -460,7 +472,6 @@ export default {
   },
   mounted() {
     this.init();
-    this.getCollectionContent();
   },
   methods: {
     init() {
@@ -485,9 +496,11 @@ export default {
         .catch((err) => {});
     },
     getCollectionInfo() {
+      this.courseList = [];
       ApiGetCollectionInfo.get(this.userid, this.$route.params.pid)
         .then((response) => {
           response.forEach((element) => {
+            this.courseList.push(element.course_name);
             this.pName = element.pkg_name;
           });
         })
@@ -509,7 +522,7 @@ export default {
       this.materialSequence.splice(index, 1);
     },
     addtoSequence() {
-      this.materialSequence = [];
+      // this.materialSequence = [];
       let ml = [];
       this.tempMidList.forEach((id) => {
         this.pkgMaterialList.forEach((pkg) => {
@@ -525,6 +538,23 @@ export default {
       //     console.log(item);
       //   });
       // });
+    },
+    setCollection() {
+      let obj = {};
+      let resourceList = [];
+      obj.collection_name = this.collectionName;
+      obj.pkgid = this.pkgid;
+      obj.list = [];
+      this.materialSequence.forEach((item) => {
+        obj.list.push(item.resourceid);
+      });
+      obj.resource = obj.list.join(";");
+      obj.userid = this.userid;
+      ApiSetCollection.post(obj)
+        .then((response) => {})
+        .catch((err) => {});
+      this.$bus.$emit("messsage:push", "New Collection Success.", "success");
+      $("#SaveChangeModal").modal("hide");
     },
   },
 };

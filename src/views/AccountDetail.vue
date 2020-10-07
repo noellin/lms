@@ -9,7 +9,9 @@
         <header class="page-header">
           <div class="d-flex align-items-center">
             <div class="mt-2 mr-3">
-              <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
+              <a
+                @click="$back"
+                class="btn-rounded-icon btn-primary ml-2 pointer"
                 ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
               ></a>
             </div>
@@ -40,22 +42,23 @@
                         <ul class="list-reset text-left m-t-20 m-b-30">
                           <li class="text-muted">
                             <strong>Name:</strong>
-                            <span class="m-l-15">Amanda</span>
+                            <span class="m-l-15">{{
+                              accountInfo.username
+                            }}</span>
                           </li>
                           <li class="text-muted">
                             <strong>Email:</strong>
-                            <span class="m-l-15"
-                              >authenticgoods.co@gmail.com</span
-                            >
+                            <span class="m-l-15">{{ accountInfo.email }}</span>
                           </li>
                         </ul>
-                        <div class="form-group row" v-if="user === 'admin'">
+                        <div class="form-group row" v-if="permit === 'admin'">
                           <div class="switch">
                             <input
                               class="tgl tgl-light tgl-success"
                               id="cb8"
                               type="checkbox"
                               checked
+                              v-model="status"
                             />
                             <label class="tgl-btn" for="cb8"></label>
                           </div>
@@ -63,10 +66,10 @@
                             <span class="text-success mt-1">Active</span>
                           </div>
                         </div>
-                        <div v-if="user === 'teacher'">
+                        <div v-if="permit === 'teacher'">
                           <a
                             @click="accountShow = 'edit'"
-                            class="btn btn-primary btn-rounded mr-1"
+                            class="btn btn-primary btn-rounded mr-2"
                             >Edit</a
                           >
                           <button
@@ -256,22 +259,41 @@
 </template>
 <script>
 import CustomHeader from "../components/CustomHeader";
-import MenuLeft from "../components/MenuLeft";
+// import MenuLeft from "../components/MenuLeft";
+import { ApiGetAccountInfo } from "../http/apis/Account";
 // import Menu
 export default {
   name: "SpeakingQuiz",
   components: {
     CustomHeader,
-    MenuLeft,
   },
   data() {
     return {
-      user: "teacher",
+      // user: "teacher",
       accountShow: "information",
+      accountInfo: {},
+      accountStatus: false,
     };
   },
-
+  mounted() {
+    this.getAccountInfo();
+  },
+  computed: {
+    userid() {
+      return this.$store.state.auth.userid;
+    },
+    permit() {
+      return this.$store.state.auth.permit;
+    },
+  },
   methods: {
+    getAccountInfo() {
+      ApiGetAccountInfo.get(this.$route.params.uid)
+        .then((response) => {
+          this.accountInfo = response.record;
+        })
+        .catch((err) => {});
+    },
     saveAccount() {},
   },
 };

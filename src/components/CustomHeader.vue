@@ -58,12 +58,13 @@
               </router-link>
             </li>
             <li
-              class="nav-item nav-text"
+              class="nav-item nav-text pointer"
               :class="[headerLabel === 'account' ? 'active' : '']"
+              @click="gotoAccount()"
             >
-              <router-link class="" to="/account">
-                <a> Account </a>
-              </router-link>
+              <!-- <router-link class="" to="/accountlist"> -->
+              <a> Account </a>
+              <!-- </router-link> -->
             </li>
           </ul>
         </div>
@@ -87,13 +88,13 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-accout">
             <div class="dropdown-header pb-3">
-              <h5 class="mt-0 mb-0">{{ userInfo.name }}</h5>
+              <h5 class="mt-0 mb-0">{{ userInfo.username }}</h5>
               <span>{{ userInfo.email }}</span>
             </div>
             <a class="dropdown-item" href="teacher-account-personal.html"
               ><i class="icon dripicons-user"></i> My account</a
             >
-            <a class="dropdown-item" href="#"
+            <a class="dropdown-item" @click="logout()"
               ><i class="icon dripicons-lock-open"></i> Log Out</a
             >
           </div>
@@ -107,10 +108,10 @@ export default {
   name: "CustomHeader",
   data() {
     return {
-      userInfo: {
-        name: "Amanda",
-        email: "support@authenticgoods.co",
-      },
+      // userInfo: {
+      //   name: "Amanda",
+      //   email: "support@authenticgoods.co",
+      // },
       headerLabel: this.$route.meta.header,
     };
   },
@@ -120,14 +121,28 @@ export default {
     //   this.userInfo.email = "support@authenticgoods.co";
     // });
   },
+  mounted() {},
   computed: {
     showPage() {
       return this.$route.name;
     },
+    userInfo() {
+      return this.$store.state.auth;
+    },
   },
   methods: {
-    gotoLogin() {
+    logout() {
       this.$router.push({ path: "/" });
+    },
+    gotoLogin() {
+      this.$router.push({ path: "/course" });
+    },
+    gotoAccount() {
+      if (this.userInfo.permit === "admin") {
+        this.$router.push({ path: "/account" }).catch(() => {});
+      } else {
+        this.$router.push({ path: `/account/${this.userinfo.userid}` });
+      }
     },
   },
 };
