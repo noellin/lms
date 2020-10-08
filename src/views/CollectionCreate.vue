@@ -116,9 +116,9 @@
                         ></div>
                       </div>
                       <div>
-                        <span class="badge badge-pill badge-secondary mt-2">{{
-                          m.category
-                        }}</span>
+                        <span
+                          class="badge badge-pill badge-secondary mt-2"
+                        ></span>
                         <h4 class="d-flex align-self-center mt-2">
                           {{ m.resource_name }}
                         </h4>
@@ -421,6 +421,8 @@ export default {
     getPkgList() {
       ApiGetPkgList.get(this.userid).then((response) => {
         this.pkgList = response.record;
+        this.pkgid = response.record[0].pkgid;
+
         this.selectPkgList = response.record.map((o) => {
           return { id: o.pkgid, text: o.pkg_name };
         });

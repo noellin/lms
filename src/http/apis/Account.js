@@ -30,19 +30,19 @@ export const ApiGetAccountInfo = {
 }
 
 export const ApiSetAccountStatus = {
-    post: (uid) => {
-        return post(`/tchr/setsatus/${uid}`)
+    get: (uid, status) => {
+        return get(`/tchr/setstatus/${uid}/${status}`)
     }
 }
 
 export const ApiSetAccountInfo = {
-    post: (uid) => {
-        return post(`/tchr/modify/${uid}`)
+    post: (uid, paramObj) => {
+        return post(`/tchr/modify/${uid}`, paramObj)
     }
 }
 
 export const ApiSetAccountPWD = {
-    post: (uid) => {
-        return post(`/tchr/resetpw/${uid}`)
+    post: (uid, paramObj) => {
+        return post(`/tchr/resetpw/${uid}`, paramObj)
     }
 }

@@ -5,12 +5,15 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store/index.js";
 import {
+  ValidationObserver,
   ValidationProvider,
-  extend
-} from "vee-validate";
-import {
-  required
-} from "vee-validate/dist/rules";
+  extend,
+  localize
+} from 'vee-validate';
+// import {
+//   required
+// } from "vee-validate/dist/rules";
+import * as rules from 'vee-validate/dist/rules';
 import Vuex from "vuex";
 import "bootstrap";
 import Select2 from "v-select2-component";
@@ -22,6 +25,20 @@ import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
 
 Vue.component('Loading', Loading)
+
+//輸入驗證
+Object.keys(rules).forEach((rule) => {
+  extend(rule, rules[rule]);
+});
+Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
+// extend("required", {
+//   ...required,
+//   message: "This field is required",
+// });
+//輸入驗證 END
+
+
 Vue.use(Loading, {
   color: 'red'
 })
@@ -29,10 +46,7 @@ Vue.use(VueAxios, axios);
 Vue.component("Select2", Select2);
 Vue.use(Vuex);
 Vue.filter("dateConversion", expiredDate);
-extend("required", {
-  ...required,
-  message: "This field is required",
-});
+
 Vue.config.productionTip = false;
 (Vue.prototype.$back = function (distance) {
   if (window.history.length <= 1) {
@@ -49,9 +63,9 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  components: {
-    ValidationProvider,
-  },
+  // components: {
+  //   ValidationProvider,
+  // },
   data: () => ({
     value: "",
   }),

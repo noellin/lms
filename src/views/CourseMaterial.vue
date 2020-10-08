@@ -79,11 +79,13 @@
           <div class="pb-3">
             <div class="form-row">
               <div class="form-group form-rounded mb-0 mr-3">
-                <select class="form-control">
+                <select2 id="s2_demo1" :options="typeList" v-model="seleceType">
+                </select2>
+                <!-- <select class="form-control">
                   <option>All type</option>
                   <option>Picture Book</option>
                   <option>Video</option>
-                </select>
+                </select> -->
               </div>
               <div class="form-group form-rounded mb-0">
                 <div class="input-group">
@@ -91,11 +93,14 @@
                     type="text"
                     class="form-control"
                     placeholder="Search..."
+                    v-model="searchRname"
+                    @keyup.enter="searchCourseResource()"
                   />
                   <div class="input-group-append">
                     <button
                       class="btn btn-secondary btn-outline btn-icon btn-rounded"
                       type="button"
+                      @click="searchCourseResource()"
                     >
                       <i class="zmdi zmdi-search text-secondary"></i>
                     </button>
@@ -128,9 +133,13 @@
                   <div
                     class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
                   >
-                    <span class="overlay-icon"
-                      ><i class="fas fa-video"></i
-                    ></span>
+                    <span class="overlay-icon">
+                      <i
+                        class="fas fa-video"
+                        v-if="textbook.note === 'video'"
+                      ></i
+                      ><i class="fas fa-book-open" v-else></i>
+                    </span>
                     <a
                       href="#"
                       title=""
@@ -146,16 +155,19 @@
                         ><span class="badge badge-pill badge-secondary mt-2"
                           >Topic A</span
                         > -->
-                        <span class="badge badge-pill badge-secondary mt-2"
-                          >缺少該項目</span
-                        >
+                        <span
+                          class="badge badge-pill badge-secondary mt-2"
+                        ></span>
                         <h4
                           class="mb-0 mt-3 d-flex align-self-center text-primary"
                         >
                           <a href="" title="">{{ textbook.resource_name }}</a>
                         </h4>
                         <p class="text-muted mt-1">
-                          <small class="fw300">Last played 2020.06.01</small>
+                          <small class="fw300"
+                            >Last played
+                            <span>{{ textbook.last_access }}</span></small
+                          >
                         </p>
                       </div>
                       <div class="text-primary">
@@ -172,7 +184,7 @@
                       <div>
                         <button
                           type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
                           data-toggle="modal"
                           data-target="#addAssignment"
                         >
@@ -180,7 +192,7 @@
                         </button>
                         <button
                           type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
                           data-toggle="modal"
                           data-target="#addSpeakingquiz"
                         >
@@ -1001,7 +1013,14 @@
 <script>
 // import CustomHeader from "../components/CustomHeader";
 // import MenuLeft from "../components/MenuLeft";
-import { ApiGetCourseDatail } from "../http/apis/CourseDetail";
+import {
+  ApiGetCourseDatail,
+  ApiSearchCourseResource,
+  ApiGetStudentList,
+  ApiGetVideoMaterial,
+  ApiSetAssignment,
+  ApiGetOpenResource,
+} from "../http/apis/CourseDetail";
 import CourseHeader from "../components/CourseHeader";
 export default {
   name: "CourseMaterial",
@@ -1011,23 +1030,64 @@ export default {
   data() {
     return {
       courseid: this.$route.params.courseid,
+      searchRname: "",
+      typeList: [
+        { text: "All type", id: "all" },
+        { text: "Picture Book", id: "book" },
+        { text: "Video", id: "video" },
+      ],
+      seleceType: "all",
+      searchStatus: false,
+      searchRList: [],
     };
   },
   created() {
-    // this.getCourseDatail();
+    //列表資訊從menulift call (為了重複使用)
   },
   computed: {
     textbookList() {
+      if (
+        this.searchStatus &&
+        this.searchRname !== "" &&
+        this.searchRname !== null &&
+        this.searchRname !== undefined
+      ) {
+        return this.searchRList;
+      }
       return this.$store.state.courseInfo.textbookList;
     },
   },
   methods: {
-    // getCourseDatail() {
-    //   ApiGetCourseDatail.get(this.courseid).then((response) => {
-    //     this.courseInfo = response.csrInfo;
-    //     this.textbookList = response.record;
-    //   });
-    // },
+    searchCourseResource() {
+      //更改LIST為 SEARCH後的LISR
+      this.searchStatus = false;
+      if (
+        this.searchRname !== "" &&
+        this.searchRname !== null &&
+        this.searchRname !== undefined
+      ) {
+        this.searchStatus = true;
+      }
+
+      let sType = this.seleceType;
+      if (this.seleceType === "all") {
+        sType = "*";
+      }
+      let searchObj = {
+        type: sType,
+        keyword: this.searchRname,
+      };
+      ApiSearchCourseResource.post(this.courseid, searchObj)
+        .then((response) => {
+          console.log(response.record);
+          this.searchRList = response.record;
+        })
+        .catch((err) => {});
+    },
+    getStudentList() {},
+    getVideoMaterial() {},
+    setAssignment() {},
+    getOpenResource() {},
     gotoSpeakingQuiz() {
       $("#addSpeakingquiz").modal("hide");
       this.$router.push({

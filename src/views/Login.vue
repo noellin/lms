@@ -234,11 +234,11 @@ export default {
       loginShow: "login",
       loginForm: {
         // // 測試帳號A admin權限
-        email: "bkbjava@mhsh.ptc.edu.tw",
-        password: "123456",
-        // 測試帳號B teacher權限
-        // email: "kevin.chen@igroupnet.com",
+        // email: "bkbjava@mhsh.ptc.edu.tw",
         // password: "123456",
+        // 測試帳號B teacher權限
+        email: "kevin.chen@igroupnet.com",
+        password: "123456",
       },
       userEmail: "jolin123@gmail.com",
       ErrorMessage: "Your email or password is incorrect. please try again.",

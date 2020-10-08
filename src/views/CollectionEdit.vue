@@ -114,9 +114,9 @@
                             ></div>
                           </div>
                           <div>
-                            <span class="badge badge-pill badge-secondary mt-2"
-                              >缺</span
-                            >
+                            <span
+                              class="badge badge-pill badge-secondary mt-2"
+                            ></span>
                             <h4 class="d-flex align-self-center mt-2">
                               {{ cr.resource_name }}
                             </h4>

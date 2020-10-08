@@ -141,7 +141,7 @@ export default {
       if (this.userInfo.permit === "admin") {
         this.$router.push({ path: "/account" }).catch(() => {});
       } else {
-        this.$router.push({ path: `/account/${this.userinfo.userid}` });
+        this.$router.push({ path: `/account/${this.userInfo.userid}` });
       }
     },
   },

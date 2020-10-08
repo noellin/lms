@@ -13,6 +13,7 @@ const courseInfo = {
             state.courseInfo = data
         },
         SET_TEXTBOOKLIST(state, data) {
+            console.log(data)
             state.textbookList = data
         }
     },

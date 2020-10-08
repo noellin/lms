@@ -103,9 +103,9 @@
                     <div class="media-body">
                       <div class="d-flex justify-content-between">
                         <div>
-                          <span class="badge badge-pill badge-secondary mt-2"
-                            >少了這個</span
-                          >
+                          <span
+                            class="badge badge-pill badge-secondary mt-2"
+                          ></span>
                           <h4
                             class="mb-0 mt-3 d-flex align-self-center text-primary"
                           >
@@ -182,6 +182,7 @@
               class="btn btn-primary btn-outline btn-rounded mr-3"
               v-for="course in courseList"
               :key="course.resourceid"
+              @click="gotoCourse()"
               >{{ course.resource_name }}</a
             >
           </div>
@@ -268,6 +269,7 @@ export default {
         path: `/collection/edit/${this.$route.params.pid}/${this.$route.params.cname}/${this.$route.params.cid}`,
       });
     },
+    gotoCourse() {},
     getAvailableCourse(rid) {
       ApiGetAvailableCourse.get(this.userid, this.$route.params.cid, rid)
         .then((response) => {

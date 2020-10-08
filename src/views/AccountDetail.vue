@@ -58,7 +58,8 @@
                               id="cb8"
                               type="checkbox"
                               checked
-                              v-model="status"
+                              v-model="accountStatus"
+                              @click="setAccountStatus"
                             />
                             <label class="tgl-btn" for="cb8"></label>
                           </div>
@@ -66,6 +67,7 @@
                             <span class="text-success mt-1">Active</span>
                           </div>
                         </div>
+                        <!-- v-if="permit === 'teacher'" -->
                         <div v-if="permit === 'teacher'">
                           <a
                             @click="accountShow = 'edit'"
@@ -96,6 +98,7 @@
                               class="form-control"
                               placeholder=""
                               value="Amanda"
+                              v-model="accountInfo.username"
                             />
                           </div>
                         </div>
@@ -108,7 +111,7 @@
                               type="email"
                               class="form-control"
                               placeholder="col-form-label"
-                              value="authenticgoods.co@gmail.com"
+                              :value="accountInfo.email"
                               disabled
                             />
                           </div>
@@ -116,12 +119,12 @@
                         <button
                           @click="accountShow = 'information'"
                           type="button"
-                          class="btn btn-secondary btn-outline btn-rounded mr-1"
+                          class="btn btn-secondary btn-outline btn-rounded mr-2"
                         >
                           Cancel
                         </button>
                         <button
-                          @click="saveAccount()"
+                          @click="setAccountInfo()"
                           type="button"
                           class="btn btn-primary btn-rounded"
                         >
@@ -162,71 +165,114 @@
               <span aria-hidden="true" class="zmdi zmdi-close"></span>
             </button>
           </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group row">
-                <label class="control-label text-right col-4"
-                  >Current password</label
+          <ValidationObserver ref="resetForm">
+            <div class="modal-body">
+              <form>
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="Current password"
                 >
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter your current password"
-                    value=""
-                  />
-                </div>
-                <div class="invalid-feedback">
-                  Current password is incorrect.
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="control-label text-right col-4"
-                  >New password</label
+                  <div class="form-group row">
+                    <label class="control-label text-right col-4"
+                      >Current password</label
+                    >
+
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter your current password"
+                        value=""
+                        :class="{ 'is-invalid': failed }"
+                        v-model="tempPwdInfo.oldpw"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+
+                    <div class="invalid-feedback">
+                      Current password is incorrect.
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="New password"
+                  vid="confirmation"
                 >
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control is-invalid"
-                    placeholder="Password must be at least 6 characters"
-                    value=""
-                  />
-                </div>
-                <div class="invalid-feedback">Passwords are inconsistent.</div>
-              </div>
-              <div class="form-group row">
-                <label class="control-label text-right col-4"
-                  >Confirm password</label
+                  <div class="form-group row">
+                    <label class="control-label text-right col-4"
+                      >New password</label
+                    >
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        class="form-control is-invalid"
+                        placeholder="Password must be at least 6 characters"
+                        value=""
+                        :class="{ 'is-invalid': failed }"
+                        v-model="tempPwdInfo.newpw"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+
+                    <div class="invalid-feedback">
+                      Passwords are inconsistent.
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required|confirmed:confirmation"
+                  v-slot="{ failed, errors }"
+                  name="Confirm password"
                 >
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter your password again"
-                    value=""
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary btn-outline btn-rounded"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              class="btn btn-accent btn-rounded"
-              data-dismiss="modal"
-              data-toggle="modal"
-              data-target="#PasswordResetSuccessModal"
-            >
-              Reset
-            </button>
-          </div>
+                  <div class="form-group row">
+                    <label class="control-label text-right col-4"
+                      >Confirm password</label
+                    >
+
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter your password again"
+                        value=""
+                        v-model="tempPwdInfo.confirmpw"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+                  </div>
+                </ValidationProvider>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary btn-outline btn-rounded"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="btn btn-accent btn-rounded"
+                @click="setAccountPWD"
+              >
+                Reset
+              </button>
+              <!-- 
+                data-dismiss="modal"
+                data-toggle="modal"
+                data-target="#PasswordResetSuccessModal" -->
+            </div>
+          </ValidationObserver>
         </div>
       </div>
     </div>
@@ -240,10 +286,26 @@
     >
       <div class="modal-dialog" role="document">
         <div
+          v-if="resetpwStatus"
           class="alert alert-success alert-dismissible fade show"
           role="alert"
         >
           Your password has now been successfully reset.
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true" class="la la-close"></span>
+          </button>
+        </div>
+        <div
+          v-else
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
+          <span>Error：</span>{{ errorMessage }}.
           <button
             type="button"
             class="close"
@@ -260,8 +322,13 @@
 <script>
 import CustomHeader from "../components/CustomHeader";
 // import MenuLeft from "../components/MenuLeft";
-import { ApiGetAccountInfo } from "../http/apis/Account";
-// import Menu
+import {
+  ApiGetAccountInfo,
+  ApiSetAccountStatus,
+  ApiSetAccountInfo,
+  ApiSetAccountPWD,
+} from "../http/apis/Account";
+import $ from "jquery";
 export default {
   name: "SpeakingQuiz",
   components: {
@@ -273,6 +340,13 @@ export default {
       accountShow: "information",
       accountInfo: {},
       accountStatus: false,
+      tempPwdInfo: {
+        oldpw: "",
+        newpw: "",
+        confirmpw: "",
+      },
+      resetpwStatus: false,
+      errorMessage: "",
     };
   },
   mounted() {
@@ -294,7 +368,44 @@ export default {
         })
         .catch((err) => {});
     },
-    saveAccount() {},
+    setAccountInfo() {
+      ApiSetAccountInfo.post(this.userid, this.accountInfo)
+        .then((response) => {})
+        .catch((err) => {});
+    },
+    setAccountPWD() {
+      this.$refs.resetForm.validate().then((success) => {
+        if (success) {
+          ApiSetAccountPWD.post(this.userid, this.tempPwdInfo)
+            .then((response) => {
+              if (response.satus === "success") {
+                this.resetpwStatus = true;
+                $("#ResetPasswordModal").modal("hide");
+                $("#PasswordResetSuccessModal").modal("show");
+              } else {
+                this.resetpwStatus = false;
+                this.errorMessage = response.record;
+                $("#ResetPasswordModal").modal("hide");
+                $("#PasswordResetSuccessModal").modal("show");
+              }
+            })
+            .catch((err) => {});
+          // 證成功後的行為包含 AJAX傳送、重製表單等等
+        } else {
+          console.log("not ok");
+          // 驗證失敗產生的行為
+        }
+      });
+    },
+    setAccountStatus() {
+      let status = "disable";
+      if (this.accountStatus) {
+        status = "enable";
+      }
+      ApiSetAccountStatus.get(this.userid, status)
+        .then((response) => {})
+        .catch((err) => {});
+    },
   },
 };
 </script>
