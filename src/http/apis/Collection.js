@@ -71,3 +71,22 @@ export const ApiGetAvailableCourse = {
         return get(`/collection/availablecourse/${uid}/${cid}/${rid}`)
     }
 }
+
+//course material use
+export const ApiGetCollectionList = {
+    get: (uid, rid) => {
+        return get(`/collection/exist/${uid}/${rid}`)
+    }
+};
+
+export const ApiGetResource = {
+    get: (uid, colid) => {
+        return get(`/collection/getresource/${uid}/${colid}`)
+    }
+};
+
+export const ApiAddResource = {
+    get: (colid, rid) => {
+        return get(`/collection/getresource/${uid}/${rid}`)
+    }
+};

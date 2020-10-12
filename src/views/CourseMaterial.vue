@@ -170,9 +170,11 @@
                           >
                         </p>
                       </div>
-                      <div class="text-primary">
+                      <div
+                        class="text-primary pointer"
+                        @click="gotoWebsite(textbook)"
+                      >
                         start<a
-                          href=""
                           class="btn-rounded-icon btn-primary rounded ml-2"
                           ><i
                             class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
@@ -183,18 +185,53 @@
                     <div class="border-top pt-3 d-flex justify-content-between">
                       <div>
                         <button
+                          v-if="textbook.note === 'video'"
                           type="button"
                           class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
                           data-toggle="modal"
                           data-target="#addAssignment"
+                          @click="
+                            getVideoMaterial(
+                              textbook.colid,
+                              textbook.resourceid
+                            );
+                            tempRname = textbook.resource_name;
+                          "
                         >
                           <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
+                        </button>
+                        <button
+                          :disabled="clicked.includes(textbook.resourceid)"
+                          v-else
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                          data-toggle="modal"
+                          data-target="#addAssignment"
+                          @click="addToAssignmentList(textbook)"
+                        >
+                          <i
+                            class="zmdi zmdi-plus zmdi-hc-fw"
+                            v-if="!clicked.includes(textbook.resourceid)"
+                          ></i>
+                          <i class="zmdi zmdi-assignment-check" v-else></i>
+                          Assignment
                         </button>
                         <button
                           type="button"
                           class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
                           data-toggle="modal"
                           data-target="#addSpeakingquiz"
+                          v-if="textbook.note === 'video'"
+                        >
+                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking quiz
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                          data-toggle="modal"
+                          data-target="#addSpeakingquiz"
+                          v-else
+                          @click="gotoSpeakingQuiz()"
                         >
                           <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking quiz
                         </button>
@@ -203,6 +240,7 @@
                           class="btn btn-sm btn-secondary btn-rounded btn-outline"
                           data-toggle="modal"
                           data-target="#addtoColletion"
+                          @click="getCollectionList(textbook.resourceid)"
                         >
                           <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Collection
                         </button>
@@ -223,174 +261,6 @@
               </div>
             </div>
           </div>
-          <!--  <div class="col-12">
-            <div class="card">
-              <div class="card-body">
-                <div class="media">
-                  <div
-                    class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
-                  >
-                    <span class="overlay-icon"
-                      ><i class="fas fa-book-open"></i
-                    ></span>
-                    <a
-                      href="#"
-                      title=""
-                      class="overlay-img"
-                      style="background-image: url(../assets/img/avatars/3.jpg)"
-                    ></a>
-                  </div>
-                  <div class="media-body">
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        <span class="badge badge-pill badge-secondary mt-2 mr-2"
-                          >Lavel J</span
-                        ><span class="badge badge-pill badge-secondary mt-2"
-                          >Topic A</span
-                        >
-                        <h4
-                          class="mb-0 mt-3 d-flex align-self-center text-primary"
-                        >
-                          <a href="" title="">A Pocket Park for Tiny</a>
-                        </h4>
-                        <p class="text-muted mt-1">
-                          <small class="fw300"
-                            >This material has not been played.</small
-                          >
-                        </p>
-                      </div>
-                      <div class="text-primary">
-                        start<a
-                          href=""
-                          class="btn-rounded-icon btn-primary rounded ml-2"
-                          ><i
-                            class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                          ></i
-                        ></a>
-                      </div>
-                    </div>
-                    <div class="border-top pt-3 d-flex justify-content-between">
-                      <div>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                        >
-                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
-                        </button>
-                        <a
-                          href="speaking-quiz.html"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          ><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
-                          quiz</a
-                        >
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          data-toggle="modal"
-                          data-target="#addtoColletion"
-                        >
-                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Collection
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          data-toggle="modal"
-                          data-target="#OpenMaterial"
-                        >
-                          Open Material
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="card">
-              <div class="card-body">
-                <div class="media">
-                  <div
-                    class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
-                  >
-                    <span class="overlay-icon"
-                      ><i class="fas fa-book-open"></i
-                    ></span>
-                    <a
-                      href="#"
-                      title=""
-                      class="overlay-img"
-                      style="background-image: url(../assets/img/avatars/3.jpg)"
-                    ></a>
-                  </div>
-                  <div class="media-body">
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        <span class="badge badge-pill badge-secondary mt-2 mr-2"
-                          >Lavel J</span
-                        ><span class="badge badge-pill badge-secondary mt-2"
-                          >Topic A</span
-                        >
-                        <h4
-                          class="mb-0 mt-3 d-flex align-self-center text-primary"
-                        >
-                          <a href="" title="">Broken Arm Blues</a>
-                        </h4>
-                        <p class="text-muted mt-1">
-                          <small class="fw300">Last played 2020.06.01</small>
-                        </p>
-                      </div>
-                      <div class="text-primary">
-                        start<a
-                          href=""
-                          class="btn-rounded-icon btn-primary rounded ml-2"
-                          ><i
-                            class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                          ></i
-                        ></a>
-                      </div>
-                    </div>
-                    <div class="border-top pt-3 d-flex justify-content-between">
-                      <div>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                        >
-                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
-                        </button>
-                        <a
-                          href="speaking-quiz.html"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          ><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
-                          quiz</a
-                        >
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          data-toggle="modal"
-                          data-target="#addtoColletion"
-                        >
-                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Collection
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          data-toggle="modal"
-                          data-target="#OpenMaterial"
-                        >
-                          Open Material
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </section>
     </div>
@@ -465,15 +335,24 @@
                   >Collection</label
                 >
                 <div class="col-sm-9">
-                  <select class="form-control">
+                  <select2
+                    id="s2_demo1"
+                    :options="collectionList"
+                    v-model="selectCol"
+                    @select="getResource($event)"
+                  >
+                  </select2>
+                  <!-- <select class="">
                     <optgroup label="title">
-                      <option>First grade</option>
-                      <option>Elementary</option>
-                      <option>Intermediate</option>
-                      <option>High Intermediate</option>
-                      <option>Advanced</option>
+                      <option
+                        :value="col.collectionid"
+                        v-for="col in collectionList"
+                        :key="col.collectionid"
+                      >
+                        {{ col.collection_name }}
+                      </option>
                     </optgroup>
-                  </select>
+                  </select> -->
                 </div>
               </div>
               <div class="form-group row">
@@ -481,12 +360,8 @@
                   >Sequence</label
                 >
                 <div class="col-sm-9">
-                  <div
-                    class="border"
-                    style="max-height: 300px"
-                    data-scroll="dark"
-                  >
-                    <ul class="sequence">
+                  <div class="" style="max-height: 300px" data-scroll="dark">
+                    <ul class="sequence border">
                       <li class="d-flex justify-content-between">
                         <button class="btn btn-nostyle btn-move mr-3">
                           <i class="la la-ellipsis-v"></i
@@ -645,66 +520,22 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Unit9 MY FAMILY</p>
-            <div class="custom-control custom-checkbox form-check pb-2">
+            <p>{{ tempRname }}</p>
+            <div
+              class="custom-control custom-checkbox form-check pb-2"
+              v-for="vm in videoMaterialList"
+              :key="vm.materialid"
+            >
               <input
                 type="checkbox"
                 class="custom-control-input"
-                id="customCheck1"
+                :value="vm"
+                :id="vm.materialid"
+                v-model="tempVMList"
               />
-              <label class="custom-control-label" for="customCheck1"
-                >Lesson 1 CONVERSATION</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck2"
-              />
-              <label class="custom-control-label" for="customCheck2"
-                >Lesson 2 MUSIC VIDEO</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck3"
-              />
-              <label class="custom-control-label" for="customCheck3"
-                >Lesson 3 PRONOUNCE</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck4"
-              />
-              <label class="custom-control-label" for="customCheck4"
-                >Lesson 4 VOCAB RAP</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck5"
-              />
-              <label class="custom-control-label" for="customCheck5"
-                >Lesson 5 GRAMMAR</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck6"
-              />
-              <label class="custom-control-label" for="customCheck6"
-                >Lesson 6 KARAOKE</label
-              >
+              <label class="custom-control-label" :for="vm.materialid">{{
+                vm.material_name
+              }}</label>
             </div>
           </div>
           <div class="modal-footer">
@@ -715,7 +546,11 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="addtoSequence()"
+            >
               Save changes
             </button>
           </div>
@@ -1021,7 +856,13 @@ import {
   ApiSetAssignment,
   ApiGetOpenResource,
 } from "../http/apis/CourseDetail";
+import {
+  ApiGetCollectionList,
+  ApiGetResource,
+  ApiAddResource,
+} from "../http/apis/Collection";
 import CourseHeader from "../components/CourseHeader";
+// import Select2 from "v-select2-component";
 export default {
   name: "CourseMaterial",
   components: {
@@ -1039,11 +880,20 @@ export default {
       seleceType: "all",
       searchStatus: false,
       searchRList: [],
+      courseid: this.$route.params.courseid,
+      tempAssignmentList: [],
+      clicked: [],
+      videoMaterialList: [],
+      tempRname: "",
+      tempVMList: [],
+      collectionList: [],
+      selectCol: "",
     };
   },
   created() {
     //列表資訊從menulift call (為了重複使用)
   },
+  mounted() {},
   computed: {
     textbookList() {
       if (
@@ -1056,8 +906,38 @@ export default {
       }
       return this.$store.state.courseInfo.textbookList;
     },
+    courseInfo() {
+      return this.$store.state.courseInfo.courseInfo;
+    },
+    userid() {
+      return this.$store.state.auth.userid;
+    },
   },
   methods: {
+    getCollectionList(rid) {
+      this.collectionList = [];
+      ApiGetCollectionList.get(this.userid, rid)
+        .then((response) => {
+          this.collectionList = response.record.map((o) => {
+            return { id: o.collectionid, text: o.collection_name };
+          });
+        })
+        .catch((err) => {});
+    },
+    getResource(obj) {
+      ApiGetResource.get(this.userid, obj.id)
+        .then((response) => {})
+        .catch((err) => {});
+    },
+    addResource(rid) {
+      ApiAddResource.get(this.csrInfo.colid, rid)
+        .then((response) => {})
+        .catch((err) => {});
+    },
+    addToAssignmentList(m) {
+      this.clicked.push(m.resourceid);
+      this.tempAssignmentList.push(m);
+    },
     searchCourseResource() {
       //更改LIST為 SEARCH後的LISR
       this.searchStatus = false;
@@ -1085,13 +965,36 @@ export default {
         .catch((err) => {});
     },
     getStudentList() {},
-    getVideoMaterial() {},
+    getVideoMaterial(Ncolid, rid) {
+      let colid = Ncolid.split(";")[0];
+      ApiGetVideoMaterial.get(colid, this.courseid, rid)
+        .then((response) => {
+          this.videoMaterialList = response.record;
+        })
+        .catch((err) => {});
+    },
+    addtoSequence() {
+      this.tempVMList.forEach((currentItem) => {
+        this.tempAssignmentList.push(currentItem);
+      });
+    },
+    gotoWebsite(obj) {
+      if (obj.note === "book") {
+        window.open(`${process.env.VUE_APP_DOMAIN}/bk/?pkgid=${this.courseInfo.pkgid}
+        &colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}
+        &auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`);
+      } else {
+        window.open(`${process.env.VUE_APP_DOMAIN}/vp/?pkgid=${this.courseInfo.pkgid}
+        &colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}
+        &auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`);
+      }
+    },
     setAssignment() {},
     getOpenResource() {},
     gotoSpeakingQuiz() {
       $("#addSpeakingquiz").modal("hide");
       this.$router.push({
-        path: "/speaking_quiz/course=301 English/type=Material",
+        path: `/speaking_quiz/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.courseid}`,
       });
     },
   },

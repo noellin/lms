@@ -244,7 +244,7 @@ export default {
         type = "*";
       }
       if (this.searchRname === "") {
-        keyword = "*";
+        keyword = "";
       }
       ApiSearchCollectionResource.get(
         this.userid,

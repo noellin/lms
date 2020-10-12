@@ -3,10 +3,10 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <custom-header></custom-header>
+      <!-- <custom-header></custom-header> -->
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
-        <menu-left></menu-left>
+        <!-- <menu-left></menu-left> -->
         <div class="main-content">
           <header class="page-header">
             <div class="d-flex align-items-start">
@@ -426,9 +426,6 @@
           </section>
         </div>
       </div>
-      <footer class="bg-secondary bg-dk d-flex justify-content-center">
-        <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer>
     </div>
     <!-- END CONTENT WRAPPER -->
     <!-- SpeakingQuizPreview MODAL -->

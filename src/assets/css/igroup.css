@@ -49,7 +49,7 @@ html body {
 }
 
 .tdwidth-sm {
-  width: 50px !important;
+  width: 58px !important;
   display: inline-block;
 }
 
@@ -802,6 +802,8 @@ footer {
 .sequence {
   padding-inline-start: 0;
   padding: 12px 20px 12px 20px;
+  overflow-y: scroll;
+
 }
 
 .sequence li {

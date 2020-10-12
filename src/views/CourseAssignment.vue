@@ -3,14 +3,19 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <custom-header></custom-header>
+      <!-- <custom-header></custom-header> -->
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
-        <menu-left></menu-left>
+        <!-- <menu-left></menu-left> -->
 
         <div class="main-content">
           <header class="page-header">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-start">
+              <div class="mt-2 mr-3">
+                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
+                  ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
+                ></a>
+              </div>
               <div class="mr-auto">
                 <h1 class="separator">201 ENGLISH</h1>
                 <span>Assignment</span>

@@ -95,7 +95,7 @@ const routes = [
         }
       },
       {
-        path: "/speaking_quiz/course=:course/type=:type",
+        path: "/speaking_quiz/course=:course/type=:type/:courseid",
         name: "SpeakingQuiz",
         component: SpeakingQuiz,
         meta: {
