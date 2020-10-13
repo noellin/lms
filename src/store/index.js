@@ -15,7 +15,7 @@ export default new Vuex.Store({
     //引用vuex-persistedstate对state数据持久化
     plugins: [
         persistedState({
-            paths: ["auth"]
+            paths: ["auth", "courseInfo"]
             // reducer(val) {
             //     return {
             //         token: val.token

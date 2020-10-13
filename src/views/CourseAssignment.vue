@@ -9,20 +9,7 @@
         <!-- <menu-left></menu-left> -->
 
         <div class="main-content">
-          <header class="page-header">
-            <div class="d-flex align-items-start">
-              <div class="mt-2 mr-3">
-                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
-                  ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
-                ></a>
-              </div>
-              <div class="mr-auto">
-                <h1 class="separator">201 ENGLISH</h1>
-                <span>Assignment</span>
-                <p class="second-title">Second grage</p>
-              </div>
-            </div>
-          </header>
+          <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row">
               <div class="col-12">
@@ -217,9 +204,6 @@
           </section>
         </div>
       </div>
-      <footer class="bg-secondary bg-dk d-flex justify-content-center">
-        <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer>
     </div>
 
     <!-- END CONTENT WRAPPER -->
@@ -296,13 +280,12 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
-import MenuLeft from "../components/MenuLeft";
+import CourseHeader from "../components/CourseHeader";
+
 export default {
   name: "CourseAssignment",
   components: {
-    CustomHeader,
-    MenuLeft,
+    CourseHeader,
   },
   data() {
     return {};

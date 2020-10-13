@@ -41,6 +41,6 @@ export const ApiSetAssignment = {
 
 export const ApiGetOpenResource = {
     get: (colid, courseid, rid, status) => {
-        return post(`/course/openresource/${colid}/${courseid}/${rid}/${status}`)
+        return get(`/course/openresource/${colid}/${courseid}/${rid}/${status}`)
     }
 };

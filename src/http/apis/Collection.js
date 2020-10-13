@@ -87,6 +87,12 @@ export const ApiGetResource = {
 
 export const ApiAddResource = {
     get: (colid, rid) => {
-        return get(`/collection/getresource/${uid}/${rid}`)
+        return get(`/collection/addresource/${colid}/${rid}`)
+    }
+};
+
+export const ApideleteResource = {
+    get: (uid, colid, rid) => {
+        return get(`/collection/deleteresource/${uid}/${colid}/${rid}`)
     }
 };

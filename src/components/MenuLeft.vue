@@ -170,6 +170,10 @@ export default {
         default:
           break;
       }
+      (this.coursePage = this.$route.params.course),
+        (this.courseType = this.$route.params.type),
+        (this.iconStatus = this.$route.params.course),
+        (this.courseID = this.$route.params.courseid);
     },
   },
 };

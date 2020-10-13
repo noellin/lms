@@ -1,14 +1,14 @@
 <template>
   <header class="page-header">
     <div class="d-flex align-items-start">
-      <div class="mt-2 mr-3">
+      <div class="mt-2 mr-3" v-if="backtag === true">
         <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
           ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
         ></a>
       </div>
       <div class="mr-auto">
         <h1 class="separator">{{ courseInfo.course_name }}</h1>
-        <span>Material</span>
+        <span>{{ page }}</span>
         <p class="second-title">{{ courseInfo.pkg_name }}</p>
       </div>
     </div>
@@ -20,7 +20,10 @@
 export default {
   name: "CourseHeader",
   data() {
-    return {};
+    return {
+      backtag: this.$route.meta.backtag,
+      page: this.$route.params.type,
+    };
   },
   computed: {
     courseInfo() {

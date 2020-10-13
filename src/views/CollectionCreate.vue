@@ -445,6 +445,20 @@ export default {
       this.materialSequence.splice(index, 1);
     },
     setCollection() {
+      if (
+        this.collectionName === "" ||
+        this.collectionName === undefined ||
+        this.collectionName === null
+      ) {
+        this.$bus.$emit(
+          "messsage:push",
+          "Collection name cannot be a null value.",
+          "danger"
+        );
+        $("#SaveChangeModal").modal("hide");
+        return;
+      }
+      console.log("ff");
       let obj = {};
       let resourceList = [];
       obj.collection_name = this.collectionName;

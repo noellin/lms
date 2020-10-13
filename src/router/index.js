@@ -59,7 +59,8 @@ const routes = [
         name: "CourseMaterial",
         component: CourseMaterial,
         meta: {
-          header: 'course'
+          header: 'course',
+          backtag: false
         }
       },
       {
@@ -67,7 +68,8 @@ const routes = [
         name: "CourseAssignment",
         component: CourseAssignment,
         meta: {
-          header: 'course'
+          header: 'course',
+          backtag: false
         }
       },
       {

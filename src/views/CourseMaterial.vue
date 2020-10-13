@@ -79,7 +79,7 @@
           <div class="pb-3">
             <div class="form-row">
               <div class="form-group form-rounded mb-0 mr-3">
-                <select2 id="s2_demo1" :options="typeList" v-model="seleceType">
+                <select2 id="s2_demo2" :options="typeList" v-model="seleceType">
                 </select2>
                 <!-- <select class="form-control">
                   <option>All type</option>
@@ -240,19 +240,33 @@
                           class="btn btn-sm btn-secondary btn-rounded btn-outline"
                           data-toggle="modal"
                           data-target="#addtoColletion"
-                          @click="getCollectionList(textbook.resourceid)"
+                          @click="
+                            getCollectionList(textbook.resourceid, textbook)
+                          "
                         >
                           <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Collection
                         </button>
                       </div>
                       <div>
                         <button
+                          v-if="textbook.openflag !== 'true'"
                           type="button"
                           class="btn btn-sm btn-secondary btn-rounded btn-outline"
                           data-toggle="modal"
                           data-target="#OpenMaterial"
+                          @click="tempResource = textbook"
                         >
                           Open Material
+                        </button>
+                        <button
+                          v-else
+                          type="button"
+                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                          data-toggle="modal"
+                          data-target="#OpenMaterial"
+                          @click="tempResource = textbook"
+                        >
+                          Close Material
                         </button>
                       </div>
                     </div>
@@ -278,7 +292,10 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Open material</h5>
+            <h5 class="modal-title" v-if="tempResource.openflag !== 'true'">
+              Open material
+            </h5>
+            <h5 class="modal-title" v-else>Close material</h5>
             <button
               type="button"
               class="close"
@@ -289,7 +306,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Open this material and allow 201 ENGLISH students to view it.</p>
+            <p v-if="tempResource.openflag !== 'true'">
+              Open this material and allow
+              {{ tempResource.resource_name }} students to view it.
+            </p>
+            <p v-else>
+              Close this material and do not allow
+              {{ tempResource.resource_name }} students to view it.
+            </p>
           </div>
           <div class="modal-footer">
             <button
@@ -299,8 +323,19 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
-              Open
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="
+                getOpenResource(
+                  tempResource.colid,
+                  tempResource.resourceid,
+                  tempResource.openflag
+                )
+              "
+            >
+              <span v-if="tempResource.openflag !== 'true'">Open</span>
+              <span v-else>Close</span>
             </button>
           </div>
         </div>
@@ -339,20 +374,9 @@
                     id="s2_demo1"
                     :options="collectionList"
                     v-model="selectCol"
-                    @select="getResource($event)"
+                    @select="tempcolid = $event.id"
                   >
                   </select2>
-                  <!-- <select class="">
-                    <optgroup label="title">
-                      <option
-                        :value="col.collectionid"
-                        v-for="col in collectionList"
-                        :key="col.collectionid"
-                      >
-                        {{ col.collection_name }}
-                      </option>
-                    </optgroup>
-                  </select> -->
                 </div>
               </div>
               <div class="form-group row">
@@ -365,114 +389,17 @@
                       <li class="d-flex justify-content-between">
                         <button class="btn btn-nostyle btn-move mr-3">
                           <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i>Unit1 Conversation
+                          ><i class="la la-ellipsis-v"></i
+                          >{{ tempResource.resource_name }}
                         </button>
-                        <button class="btn btn-nostyle btn-remove">
+                        <!-- <div
+                          class="btn btn-nostyle btn-remove"
+                          @click="deleteResource(r.colid, r.resourceid)"
+                        >
                           <i
                             class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
                           ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i>Unit2 Conversation
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i>Broken Arm Blues
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i> Unit3 Conversation
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i> A Pocket Park for
-                          Tiny
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i>Unit1 Conversation
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i>Unit2 Conversation
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i>Broken Arm Blues
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i> Unit3 Conversation
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i> A Pocket Park for
-                          Tiny
-                        </button>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
+                        </div> -->
                       </li>
                     </ul>
                   </div>
@@ -486,9 +413,13 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              Close
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="addResource()"
+            >
               Add
             </button>
           </div>
@@ -860,6 +791,7 @@ import {
   ApiGetCollectionList,
   ApiGetResource,
   ApiAddResource,
+  ApideleteResource,
 } from "../http/apis/Collection";
 import CourseHeader from "../components/CourseHeader";
 // import Select2 from "v-select2-component";
@@ -888,22 +820,35 @@ export default {
       tempVMList: [],
       collectionList: [],
       selectCol: "",
+      tempResource: {},
+      tempcolid: "",
+      textbookList: [],
     };
   },
   created() {
     //列表資訊從menulift call (為了重複使用)
   },
-  mounted() {},
+  mounted() {
+    // console.log(this.$store.state.courseInfo.textbookList);
+    // console.log("get");
+    // this.textbookList = this.textbookLists;
+    this.textbookList = this.textbookLists;
+  },
+  watch: {
+    textbookLists() {
+      this.textbookList = this.textbookLists;
+    },
+  },
   computed: {
-    textbookList() {
-      if (
-        this.searchStatus &&
-        this.searchRname !== "" &&
-        this.searchRname !== null &&
-        this.searchRname !== undefined
-      ) {
-        return this.searchRList;
-      }
+    textbookLists() {
+      // if (
+      //   this.searchStatus &&
+      //   this.searchRname !== "" &&
+      //   this.searchRname !== null &&
+      //   this.searchRname !== undefined
+      // ) {
+      //   return this.searchRList;
+      // }
       return this.$store.state.courseInfo.textbookList;
     },
     courseInfo() {
@@ -914,7 +859,8 @@ export default {
     },
   },
   methods: {
-    getCollectionList(rid) {
+    getCollectionList(rid, obj) {
+      this.tempResource = obj;
       this.collectionList = [];
       ApiGetCollectionList.get(this.userid, rid)
         .then((response) => {
@@ -924,15 +870,31 @@ export default {
         })
         .catch((err) => {});
     },
-    getResource(obj) {
-      ApiGetResource.get(this.userid, obj.id)
-        .then((response) => {})
+    // getResource(colid) {
+    //   this.tempcolid = colid;
+    //   ApiGetResource.get(this.userid, colid)
+    //     .then((response) => {
+    //       console.log(response.record);
+    //       this.resourceList = response.record;
+    //     })
+    //     .catch((err) => {});
+    // },
+    addResource() {
+      ApiAddResource.get(this.tempcolid, this.tempResource.resourceid)
+        .then((response) => {
+          console.log(response);
+        })
         .catch((err) => {});
     },
-    addResource(rid) {
-      ApiAddResource.get(this.csrInfo.colid, rid)
-        .then((response) => {})
+    async deleteResource(colid, rid) {
+      let result = await ApideleteResource.get(this.userid, this.tempcolid, rid)
+        .then((response) => {
+          return response.status;
+        })
         .catch((err) => {});
+      if (result) {
+        this.getResource(this.tempcolid);
+      }
     },
     addToAssignmentList(m) {
       this.clicked.push(m.resourceid);
@@ -940,14 +902,14 @@ export default {
     },
     searchCourseResource() {
       //更改LIST為 SEARCH後的LISR
-      this.searchStatus = false;
-      if (
-        this.searchRname !== "" &&
-        this.searchRname !== null &&
-        this.searchRname !== undefined
-      ) {
-        this.searchStatus = true;
-      }
+      // this.searchStatus = false;
+      // if (
+      //   this.searchRname !== "" &&
+      //   this.searchRname !== null &&
+      //   this.searchRname !== undefined
+      // ) {
+      //   this.searchStatus = true;
+      // }
 
       let sType = this.seleceType;
       if (this.seleceType === "all") {
@@ -960,7 +922,7 @@ export default {
       ApiSearchCourseResource.post(this.courseid, searchObj)
         .then((response) => {
           console.log(response.record);
-          this.searchRList = response.record;
+          this.textbookList = response.record;
         })
         .catch((err) => {});
     },
@@ -990,7 +952,23 @@ export default {
       }
     },
     setAssignment() {},
-    getOpenResource() {},
+    getOpenResource(colid, rid, status) {
+      let openStatus = "true";
+      if (status === "true") {
+        openStatus = "false";
+      }
+      colid = colid.split(";")[0];
+      ApiGetOpenResource.get(
+        colid,
+        this.$route.params.courseid,
+        rid,
+        openStatus
+      )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {});
+    },
     gotoSpeakingQuiz() {
       $("#addSpeakingquiz").modal("hide");
       this.$router.push({
@@ -1003,4 +981,8 @@ export default {
 
 <style scoped lang="scss">
 //@import '../assets/css/igroup.css';
+
+.sequence {
+  overflow-y: scroll !important;
+}
 </style>

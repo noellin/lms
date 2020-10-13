@@ -3,24 +3,11 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <custom-header></custom-header>
+
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
-        <menu-left></menu-left>
         <div class="main-content">
-          <header class="page-header">
-            <div class="d-flex align-items-start">
-              <div class="mt-2 mr-3">
-                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
-                  ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
-                ></a>
-              </div>
-              <div class="mr-auto">
-                <h1 class="separator">201 ENGLISH</h1>
-                <span>Student</span>
-              </div>
-            </div>
-          </header>
+          <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row">
               <div class="col-sm-3">
@@ -71,11 +58,14 @@
                     type="text"
                     class="form-control"
                     placeholder="Search..."
+                    v-model="searchStudentName"
+                    @keyup.enter="searchStudent()"
                   />
                   <div class="input-group-append">
                     <button
                       class="btn btn-secondary btn-outline btn-icon btn-rounded"
                       type="button"
+                      @click="searchStudent()"
                     >
                       <i class="zmdi zmdi-search text-secondary"></i>
                     </button>
@@ -85,13 +75,14 @@
               <div class="text-right">
                 <button
                   type="button"
-                  class="btn btn-primary btn-outline btn-rounded"
+                  class="btn btn-primary btn-outline btn-rounded mr-2"
                 >
                   <i class="la la-print"></i>Print notice
                 </button>
                 <button
                   type="button"
-                  class="btn btn-primary btn-outline btn-rounded"
+                  class="btn btn-primary btn-outline btn-rounded mr-2"
+                  @click="exportSList()"
                 >
                   <i class="zmdi zmdi-open-in-new zmdi-hc-fw"></i>Export student
                   list
@@ -123,271 +114,18 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>Aaron</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
+                          <tr v-for="s in studentList" :key="s.stuid">
+                            <td>{{ s.username }}</td>
+                            <td>{{ s.parents }}</td>
+                            <td>{{ s.remark }}</td>
                             <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
+                              <span
+                                class="text-success"
+                                v-if="s.status === 'true'"
+                                >Active</span
                               >
-                                <i class="la la-edit"></i>
-                              </button>
+                              <span class="text-danger" v-else>Suspended</span>
                             </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Alexander</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Alice</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Aurora</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Bennett</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Bonnie</td>
-                            <td>abc123@gmail.com</td>
-                            <td>often doesn't do homework</td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Aurora</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Brook</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Christopher</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Constance</td>
-                            <td>abc123@gmail.com</td>
-                            <td></td>
-                            <td><span class="text-success">Active</span></td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Cynthia</td>
-                            <td>abc123@gmail.com</td>
-                            <td>often doesn't do homework</td>
-                            <td><span class="text-danger">Suspended</span></td>
                             <td>
                               <button
                                 type=""
@@ -419,9 +157,6 @@
           </section>
         </div>
       </div>
-      <footer class="bg-secondary bg-dk d-flex justify-content-center">
-        <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer>
     </div>
 
     <!-- END CONTENT WRAPPER -->
@@ -459,6 +194,7 @@
                     class="form-control"
                     placeholder=""
                     value="Constance"
+                    v-model="tempStudent.name"
                   />
                 </div>
               </div>
@@ -467,7 +203,11 @@
                   >Remarks</label
                 >
                 <div class="col-8">
-                  <textarea class="form-control" name=""></textarea>
+                  <textarea
+                    class="form-control"
+                    name=""
+                    v-model="tempStudent.remark"
+                  ></textarea>
                 </div>
               </div>
               <div class="form-group row">
@@ -1145,20 +885,68 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
-import MenuLeft from "../components/MenuLeft";
-// import Menu
+import CourseHeader from "../components/CourseHeader";
+import {
+  ApiImportStudent,
+  ApiGetStudentList,
+  ApiSearchStudent,
+  ApiAddStudent,
+  ApiGetStudentInfo,
+  ApiModifyStudent,
+  ApiResetStudent,
+  ApiDownloadSample,
+  ApiExportSList,
+  ApiCopySList,
+} from "../http/apis/Student";
 export default {
   name: "CourseStudent",
   components: {
-    CustomHeader,
-    MenuLeft,
+    CourseHeader,
   },
   data() {
-    return {};
+    return {
+      courseid: this.$route.params.courseid,
+      studentList: [],
+      tempStudent: {
+        name: "",
+        status: "",
+        remark: "",
+      },
+      searchStudentName: "",
+    };
   },
-
-  methods: {},
+  created() {},
+  mounted() {
+    this.getStudentList();
+  },
+  methods: {
+    getStudentList() {
+      ApiGetStudentList.get(this.courseid)
+        .then((response) => {
+          console.log(response.record);
+          this.studentList = response.record;
+        })
+        .catch((err) => {});
+    },
+    searchStudent() {
+      let key = this.searchStudentName;
+      if (this.searchStudentName === "") {
+        keyword = "*";
+      }
+      ApiSearchStudent.get(this.courseid, keyword)
+        .then((response) => {
+          this.studentList = response.record;
+        })
+        .catch((err) => {});
+    },
+    exportSList() {
+      ApiExportSList.get(this.courseid)
+        .then((reponse) => {
+          console.log(response);
+        })
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 
