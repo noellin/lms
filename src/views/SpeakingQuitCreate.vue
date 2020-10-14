@@ -381,12 +381,23 @@ export default {
   data() {
     return {
       quizShow: "edit",
+      rid: this.$route.params.rid,
+      mid: this.$route.params.mid,
     };
   },
   created() {},
+  computed: {
+    pkgid() {
+      return this.$store.state.courseInfo.courseInfo.pkgid;
+    },
+    colid() {
+      return this.$store.state.courseInfo.courseInfo.colid;
+    },
+  },
   methods: {
     getSubtitleList() {
       if (this.$route.params.note === "video") {
+        ApiGetSubtitileByVideo.get(this.pkgid, this.colid);
       } else {
       }
     },
