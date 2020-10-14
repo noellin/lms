@@ -9,7 +9,10 @@
       <div class="mr-auto">
         <h1 class="separator">{{ courseInfo.course_name }}</h1>
         <span>{{ page }}</span>
-        <p class="second-title">{{ courseInfo.pkg_name }}</p>
+        <p class="second-title" v-if="page !== 'Speaking Quiz'">
+          {{ courseInfo.pkg_name }}
+        </p>
+        <p class="second-title" v-else>{{ rname }} / {{ mname }}</p>
       </div>
     </div>
   </header>
@@ -23,7 +26,14 @@ export default {
     return {
       backtag: this.$route.meta.backtag,
       page: this.$route.params.type,
+      rname: this.$route.params.rname,
+      mname: this.$route.params.mname,
     };
+  },
+  created() {
+    if (this.$route.params.mname === "undefined") {
+      this.mname = "";
+    }
   },
   computed: {
     courseInfo() {

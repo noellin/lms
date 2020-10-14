@@ -941,8 +941,22 @@ export default {
     },
     exportSList() {
       ApiExportSList.get(this.courseid)
-        .then((reponse) => {
-          console.log(response);
+        .then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response]));
+          var fileLink = document.createElement("a");
+
+          fileLink.href = fileURL;
+          fileLink.setAttribute("target", "_blank");
+          fileLink.setAttribute("download", "file.csv");
+          document.body.appendChild(fileLink);
+
+          fileLink.click();
+          // const url = window.URL.createObjectURL(new Blob([response.data]));
+          // const link = document.createElement("a");
+          // link.href = url;
+          // link.setAttribute("download", "file.csv"); //or any other extension
+          // document.body.appendChild(link);
+          // link.click();
         })
         .catch((err) => {});
     },

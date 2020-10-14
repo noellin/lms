@@ -10,6 +10,7 @@ import Login from "../views/Login.vue";
 import Account from "../views/Account.vue";
 import AccountDetail from "../views/AccountDetail.vue";
 import SpeakingQuiz from "../views/SpeakingQuiz.vue";
+import QuizCreate from '../views/SpeakingQuitCreate.vue';
 import Collection from "../views/Collection.vue";
 import CollectionCreate from "../views/CollectionCreate.vue"
 import CollectionDetail from "../views/CollectionDetail.vue";
@@ -97,63 +98,26 @@ const routes = [
         }
       },
       {
-        path: "/speaking_quiz/course=:course/type=:type/:courseid",
+        path: "/quiz/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
         name: "SpeakingQuiz",
         component: SpeakingQuiz,
         meta: {
-          header: 'course'
+          header: 'course',
+        }
+      },
+      {
+        path: "/quizcreate/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
+        name: "QuizCreate",
+        component: QuizCreate,
+        meta: {
+          header: 'course',
+          backtag: true
         }
       },
     ]
   },
-  // {
-  //   path: "/course_material/course=:course/type=:type",
-  //   name: "CourseMaterial",
-  //   component: CourseMaterial,
-  //   meta: {
-  //     header: 'course'
-  //   }
-  // },
-  // {
-  //   path: "/course_assignment/course=:course/type=:type",
-  //   name: "CourseAssignment",
-  //   component: CourseAssignment,
-  //   meta: {
-  //     header: 'course'
-  //   }
-  // },
-  // {
-  //   path: "/course_assignment/course=:course/type=:type/assignment=:id",
-  //   name: "AssignmentProgress",
-  //   component: AssignmentProgress,
-  //   meta: {
-  //     header: 'course'
-  //   }
-  // },
-  // {
-  //   path: "/course_student/course=:course/type=:type",
-  //   name: "CourseStudent",
-  //   component: CourseStudent,
-  //   meta: {
-  //     header: 'course'
-  //   }
-  // },
-  // {
-  //   path: "/course_dashboard/course=:course/type=:type",
-  //   name: "CourseDashboard",
-  //   component: CourseDashboard,
-  //   meta: {
-  //     header: 'course'
-  //   }
-  // },
-  // {
-  //   path: "/speaking_quiz/course=:course/type=:type",
-  //   name: "SpeakingQuiz",
-  //   component: SpeakingQuiz,
-  //   meta: {
-  //     header: 'course'
-  //   }
-  // },
+
+
   {
     path: "/collection",
     name: "Collection",

@@ -18,6 +18,11 @@ axios.interceptors.request.use(
             "Authorization": "Bearer " + token,
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         };
+        // export封裝
+        // if (config.url.includes('/stu/export/')) {
+        //     config.headers["responseType"] = "blob"
+        // }
+
 
         return config;
     },

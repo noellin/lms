@@ -222,6 +222,13 @@
                           data-toggle="modal"
                           data-target="#addSpeakingquiz"
                           v-if="textbook.note === 'video'"
+                          @click="
+                            getVideoMaterial(
+                              textbook.colid,
+                              textbook.resourceid
+                            );
+                            tempRname = textbook.resource_name;
+                          "
                         >
                           <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking quiz
                         </button>
@@ -231,7 +238,9 @@
                           data-toggle="modal"
                           data-target="#addSpeakingquiz"
                           v-else
-                          @click="gotoSpeakingQuiz()"
+                          @click="
+                            gotoSpeakingQuiz(textbook, textbook.resource_name)
+                          "
                         >
                           <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking quiz
                         </button>
@@ -511,45 +520,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Unit9 MY FAMILY</p>
+            <p>{{ tempRname }}</p>
             <div>
               <a
+                v-for="m in videoMaterialList"
+                :key="m.materialid"
                 class="btn btn-primary btn-outline btn-block"
-                @click="gotoSpeakingQuiz()"
-                >Lesson 1 CONVERSATION</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 2 MUSIC VIDEO</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 3 PRONOUNCE</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 4 VOCAB RAP</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 5 GRAMMAR</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 6 KARAOKE</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 7 CONVERSATION</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 8 MUSIC VIDEO</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 9 PRONOUNCE</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 10 VOCAB RAP</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 11 GRAMMAR</a
-              >
-              <a class="btn btn-primary btn-outline btn-block"
-                >Lesson 12 KARAOKE</a
+                @click="gotoSpeakingQuiz(m, tempRname)"
+                >{{ m.material_name }}</a
               >
             </div>
           </div>
@@ -969,10 +947,15 @@ export default {
         })
         .catch((err) => {});
     },
-    gotoSpeakingQuiz() {
+    gotoSpeakingQuiz(m, rname = "") {
       $("#addSpeakingquiz").modal("hide");
+      let mType = "video";
+      if (m.note === "book") {
+        mType = "book";
+      }
       this.$router.push({
-        path: `/speaking_quiz/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.courseid}`,
+        path: `/quiz/${this.$route.params.course}
+        /Speaking Quiz/${rname}/${m.material_name}/${this.courseid}/${mType}/${m.resourceid}/${m.materialid}`,
       });
     },
   },
