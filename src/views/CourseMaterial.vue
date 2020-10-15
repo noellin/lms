@@ -490,6 +490,7 @@
               type="button"
               class="btn btn-primary btn-rounded"
               @click="addtoSequence()"
+              data-dismiss="modal"
             >
               Save changes
             </button>
@@ -791,7 +792,7 @@ export default {
       searchStatus: false,
       searchRList: [],
       courseid: this.$route.params.courseid,
-      tempAssignmentList: [],
+      // tempAssignmentList: [],
       clicked: [],
       videoMaterialList: [],
       tempRname: "",
@@ -876,7 +877,10 @@ export default {
     },
     addToAssignmentList(m) {
       this.clicked.push(m.resourceid);
-      this.tempAssignmentList.push(m);
+      this.$store.dispatch("courseInfo/setAssignment", {
+        assignment: m,
+      });
+      // this.tempAssignmentList.push(m);
     },
     searchCourseResource() {
       //更改LIST為 SEARCH後的LISR
@@ -906,6 +910,9 @@ export default {
     },
     getStudentList() {},
     getVideoMaterial(Ncolid, rid) {
+      // if (Ncolid.indexOf(";") !== 0) {
+      //   let colid = Ncolid.split(";")[0];
+      // }
       let colid = Ncolid.split(";")[0];
       ApiGetVideoMaterial.get(colid, this.courseid, rid)
         .then((response) => {
@@ -915,7 +922,10 @@ export default {
     },
     addtoSequence() {
       this.tempVMList.forEach((currentItem) => {
-        this.tempAssignmentList.push(currentItem);
+        this.$store.dispatch("courseInfo/setAssignment", {
+          assignment: currentItem,
+        });
+        // this.tempAssignmentList.push(currentItem);
       });
     },
     gotoWebsite(obj) {

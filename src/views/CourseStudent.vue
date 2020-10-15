@@ -929,7 +929,7 @@ export default {
         .catch((err) => {});
     },
     searchStudent() {
-      let key = this.searchStudentName;
+      let keyword = this.searchStudentName;
       if (this.searchStudentName === "") {
         keyword = "*";
       }
@@ -947,7 +947,7 @@ export default {
 
           fileLink.href = fileURL;
           fileLink.setAttribute("target", "_blank");
-          fileLink.setAttribute("download", "file.csv");
+          fileLink.setAttribute("download", "Student.csv");
           document.body.appendChild(fileLink);
 
           fileLink.click();

@@ -20,48 +20,6 @@
                 >
               </div>
             </div>
-            <!-- preview quiz-->
-            <!-- <div class="row" v-if="quizShow === 'preview'">
-              <div class="col-12">
-                <div class="card mb-2">
-                  <div class="card-body">
-                    <ul class="quiz-list">
-                      <li v-for="s in SList" :key="s.sentenceID">
-                        <strong class="text-primary mr-2">Q{{ s.seq }}.</strong
-                        >{{ s.content }}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="custom-control custom-checkbox form-check ml-3">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="customCheck1"
-                    checked
-                  />
-                  <label class="custom-control-label" for="customCheck1"
-                    >Add to Assignment</label
-                  >
-                </div>
-              </div>
-              <div class="col-12 text-right">
-                <button
-                  type=""
-                  class="btn btn-primary btn-outline btn-rounded"
-                  @click="quizShow === 'edit'"
-                >
-                  Back
-                </button>
-                <button
-                  type=""
-                  class="btn btn-primary btn-rounded"
-                  @click="saveQuiz()"
-                >
-                  Create
-                </button>
-              </div>
-            </div> -->
             <!-- preview quiz end-->
             <!-- spaking quiz -->
             <div class="row" v-if="quizShow === 'home'">
@@ -111,39 +69,23 @@
                                 class="btn btn-primary btn-sm btn-rounded"
                                 data-toggle="modal"
                                 data-target="#AddModal"
+                                v-if="!q.added"
+                                @click="addtoAssignment(q)"
                               >
                                 Add
                               </button>
-                            </td>
-                          </tr>
-                          <!-- <tr>
-                            <td>2020.01.23</td>
-                            <td>Geoffrey</td>
-                            <td>6</td>
-                            <td>8</td>
-                            <td>256</td>
-                            <td>100%</td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SpeakingQuizPreviewModal"
-                              >
-                                <i class="la la-eye display-6"></i>
-                              </button>
-                            </td>
-                            <td>
                               <button
                                 type=""
                                 class="btn btn-secondary btn-sm btn-rounded"
                                 data-toggle="modal"
                                 data-target="#AddedModal"
+                                v-else
+                                @click="removeAssignment(q.quizid)"
                               >
                                 Added
                               </button>
                             </td>
-                          </tr> -->
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -238,7 +180,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">取消加入assignment</h5>
+            <h5 class="modal-title">Remove</h5>
             <button
               type="button"
               class="close"
@@ -249,7 +191,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>是否取消已加入assignment?</p>
+            <p>Does it cancel an assignment that has been added?</p>
           </div>
           <div class="modal-footer">
             <button
@@ -260,7 +202,7 @@
               Cancel
             </button>
             <button type="button" class="btn btn-primary btn-rounded">
-              取消加入
+              Confirm
             </button>
           </div>
         </div>
@@ -290,26 +232,60 @@ export default {
       SList: [],
       tempSname: "",
       tempStime: new Date(),
+      getQstatus: false,
     };
   },
   mounted() {
     this.getQuitList();
   },
+  computed: {
+    tempQList() {
+      return this.$store.state.courseInfo.tempQList;
+    },
+    tempAList() {
+      return this.$store.state.courseInfo.tempAList;
+    },
+  },
   methods: {
-    getQuitList() {
+    async getQuitList() {
       if (this.$route.params.note === "video") {
-        ApiGetQuizByVideo.get(this.rid, this.mid)
+        this.getQstatus = await ApiGetQuizByVideo.get(this.rid, this.mid)
           .then((response) => {
             this.quizList = response.record;
+            if (response.status === "success") {
+              return true;
+            }
           })
           .catch((err) => {});
       } else {
-        ApiGetQuizByBook.get(this.rid)
+        this.getQstatust = await ApiGetQuizByBook.get(this.rid)
           .then((response) => {
             this.quizList = response.record;
+            if (response.status === "success") {
+              return true;
+            }
           })
           .catch((err) => {});
       }
+      if (this.getQstatus) {
+        this.quizList.forEach((element) => {
+          if (this.tempQList.indexOf(element.quizid) !== -1) {
+            this.$set(element, "added", true);
+          } else {
+            this.$set(element, "added", false);
+          }
+        });
+      }
+    },
+    addtoAssignment(q) {
+      this.$store.dispatch("courseInfo/setAssignment", {
+        assignment: q,
+      });
+    },
+    removeAssignment(qid) {
+      this.$store.dispatch("courseInfo/removeAssignment", {
+        assignment: q,
+      });
     },
     getSList(qid) {
       ApiGetSList.get(qid)
@@ -320,10 +296,7 @@ export default {
     },
     gotoQuitCreate() {
       this.$router.push({
-        path: `/quizcreate/${this.$route.params.course}
-        /Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/
-        ${this.$route.params.courseid}/${this.$route.params.note}/
-        ${this.$route.params.rid}/${this.$route.params.mid}`,
+        path: `/quizcreate/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.$route.params.courseid}/${this.$route.params.note}/${this.$route.params.rid}/${this.$route.params.mid}`,
       });
     },
     saveQuiz() {

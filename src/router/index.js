@@ -74,7 +74,7 @@ const routes = [
         }
       },
       {
-        path: "/course_assignment/course=:course/type=:type/assignment=:id",
+        path: "/check_assignment/course=:course/type=:type/assignment=:id",
         name: "AssignmentProgress",
         component: AssignmentProgress,
         meta: {

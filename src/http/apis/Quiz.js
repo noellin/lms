@@ -30,14 +30,14 @@ export const ApiGetSubtitleByBook = {
 };
 
 export const ApiSetSByVideo = {
-    post: (rid, mid, courseid) => {
-        return post(`/quiz/create/video/${rid}/${mid}/${courseid}`)
+    post: (rid, mid, courseid, paramObj) => {
+        return post(`/quiz/create/video/${rid}/${mid}/${courseid}`, paramObj)
     }
 };
 
 export const ApiSetSByBook = {
-    post: (rid, courseid) => {
-        return post(`/quiz/create/book/${rid}/${courseid}`)
+    post: (rid, courseid, ) => {
+        return post(`/quiz/create/book/${rid}/${courseid}`, paramObj)
     }
 };
 

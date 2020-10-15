@@ -3,10 +3,9 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <custom-header></custom-header>
+
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
-        <menu-left></menu-left>
         <div class="main-content">
           <header class="page-header">
             <div class="d-flex justify-content-start">
@@ -787,14 +786,9 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
-import MenuLeft from "../components/MenuLeft";
 export default {
   name: "AssignmentProgress",
-  components: {
-    CustomHeader,
-    MenuLeft,
-  },
+  components: {},
   data() {
     return {};
   },
@@ -804,5 +798,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// .main-content {
+//   overflow-y: hidden !important;
+// }
 //@import '../assets/css/igroup.css';
 </style>

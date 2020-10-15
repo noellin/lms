@@ -18,150 +18,24 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-body">
-                    <div class="custom-control custom-checkbox form-check">
+                    <div
+                      class="custom-control custom-checkbox form-check"
+                      v-for="s in sList"
+                      :key="s.sentenceid"
+                    >
                       <input
                         type="checkbox"
                         class="custom-control-input"
-                        id="customCheck1"
+                        :id="s.sentenceid"
+                        v-model="tempSList"
+                        :value="s"
                       />
-                      <label class="custom-control-label" for="customCheck1"
-                        >Welcome to The Planet Pop Show!</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck2"
-                      />
-                      <label class="custom-control-label" for="customCheck2"
-                        >Meet your host Alice.<span class="text-danger ml-2"
+                      <label class="custom-control-label" :for="s.sentenceid"
+                        >{{ s.sentence }}
+                        <!-- <span class="text-danger ml-2"
                           >Hot!</span
-                        ></label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck3"
-                      />
-                      <label class="custom-control-label" for="customCheck3"
-                        >And today's Planet Pop Superstar is Lily-Brainy
-                        Kid.</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck4"
-                        checked
-                      />
-                      <label class="custom-control-label" for="customCheck4"
-                        >She likes maths and science.</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck5"
-                        checked
-                      />
-                      <label class="custom-control-label" for="customCheck5"
-                        >Her favourite colour is pink and her superpower is data
-                        processing.</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck6"
-                      />
-                      <label class="custom-control-label" for="customCheck6"
-                        >Hello. Conversation Practice.</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck7"
-                      />
-                      <label class="custom-control-label" for="customCheck7"
-                        >Hi Lily.</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck8"
-                      />
-                      <label class="custom-control-label" for="customCheck8"
-                        >Hi Alice</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck9"
-                      />
-                      <label class="custom-control-label" for="customCheck9"
-                        >Welcome to The Planet Pop Show!</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck10"
-                      />
-                      <label class="custom-control-label" for="customCheck10"
-                        >Let's learn about numbers today.</label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck11"
-                        checked
-                      />
-                      <label class="custom-control-label" for="customCheck11"
-                        >How old are you?<span class="text-danger ml-2"
-                          >Hot!</span
-                        ></label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck12"
-                        checked
-                      />
-                      <label class="custom-control-label" for="customCheck12"
-                        >I'm 10.<span class="text-danger ml-2"
-                          >Hot!</span
-                        ></label
-                      >
-                    </div>
-                    <div class="custom-control custom-checkbox form-check">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck13"
-                        checked
-                      />
-                      <label class="custom-control-label" for="customCheck13"
-                        >10 is a great number.<span class="text-danger ml-2"
-                          >Hot!</span
-                        ></label
-                      >
+                        > -->
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -170,7 +44,10 @@
                 <button
                   type=""
                   class="btn btn-primary btn-rounded"
-                  @click="quizShow = 'preview'"
+                  @click="
+                    quizShow = 'preview';
+                    convertS();
+                  "
                 >
                   Next
                 </button>
@@ -183,31 +60,16 @@
                 <div class="card mb-2">
                   <div class="card-body">
                     <ul class="quiz-list">
-                      <li>
-                        <strong class="text-primary mr-2">Q1.</strong>She likes
-                        maths and science.
-                      </li>
-                      <li>
-                        <strong class="text-primary mr-2">Q2.</strong>Her
-                        favourite colour is pink and her superpower is data
-                        processing.
-                      </li>
-                      <li>
-                        <strong class="text-primary mr-2">Q3.</strong>How old
-                        are you?
-                      </li>
-                      <li>
-                        <strong class="text-primary mr-2">Q4.</strong>I'm 10.
-                      </li>
-                      <li>
-                        <strong class="text-primary mr-2">Q5.</strong>10 is a
-                        great number.
+                      <li v-for="(ts, index) in finalS" :key="ts">
+                        <strong class="text-primary mr-2"
+                          >Q{{ index + 1 }}.</strong
+                        >{{ ts }}
                       </li>
                     </ul>
                   </div>
                 </div>
                 <div class="custom-control custom-checkbox form-check ml-3">
-                  <input
+                  <!-- <input
                     type="checkbox"
                     class="custom-control-input"
                     id="customCheck1"
@@ -215,21 +77,21 @@
                   />
                   <label class="custom-control-label" for="customCheck1"
                     >Add to Assignment</label
-                  >
+                  > -->
                 </div>
               </div>
               <div class="col-12 text-right">
                 <button
                   type=""
-                  class="btn btn-primary btn-outline btn-rounded"
-                  @click="quizShow === 'edit'"
+                  class="btn btn-primary btn-outline btn-rounded mr-2"
+                  @click="quizShow = 'edit'"
                 >
                   Back
                 </button>
                 <button
                   type=""
                   class="btn btn-primary btn-rounded"
-                  @click="saveQuiz()"
+                  @click="setS()"
                 >
                   Create
                 </button>
@@ -383,29 +245,82 @@ export default {
       quizShow: "edit",
       rid: this.$route.params.rid,
       mid: this.$route.params.mid,
+      courseid: this.$route.params.courseid,
+      sList: [],
+      tempSList: [],
+      finalS: [],
     };
   },
   created() {},
+  mounted() {
+    this.getSubtitleList();
+  },
   computed: {
     pkgid() {
       return this.$store.state.courseInfo.courseInfo.pkgid;
     },
     colid() {
-      return this.$store.state.courseInfo.courseInfo.colid;
+      return this.$store.state.courseInfo.courseInfo.colid.split(";")[0];
+    },
+    userid() {
+      return this.$store.state.auth.userid;
     },
   },
   methods: {
     getSubtitleList() {
       if (this.$route.params.note === "video") {
-        ApiGetSubtitileByVideo.get(this.pkgid, this.colid);
+        ApiGetSubtitileByVideo.get(this.pkgid, this.colid, this.rid, this.mid)
+          .then((response) => {
+            this.sList = response.record;
+          })
+          .catch((err) => {});
       } else {
+        ApiGetSubtitleByBook.get(this.pkgid, this.colid, this.rid)
+          .then((response) => {
+            this.sList = response.record;
+          })
+          .catch((err) => {});
       }
     },
     editQuiz() {
       this.quizShow = "edit";
     },
-    saveQuiz() {
-      this.quizShow = "home";
+    convertS() {
+      this.finalS = [];
+      this.tempSList.sort((a, b) => {
+        return Number(a.seq) > Number(b.seq) ? 1 : -1;
+      });
+      this.tempSList.forEach((element) => {
+        this.finalS.push(element.sentence);
+      });
+    },
+    setS() {
+      let obj = {};
+      obj.userid = this.userid;
+      obj.sentence = this.finalS;
+      if (this.$route.params.note === "video") {
+        ApiSetSByVideo.post(this.rid, this.mid, this.courseid, obj)
+          .then((response) => {
+            if (response.status === "success") {
+              this.$router.push({
+                path: `/quiz/${this.$route.params.course}
+        /Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`,
+              });
+            }
+          })
+          .catch((err) => {});
+      } else {
+        ApiSetSByBook.post(this.rid, this.courseid, obj)
+          .then((response) => {
+            if (response.status === "success") {
+              this.$router.push({
+                path: `/quiz/${this.$route.params.course}
+        /Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`,
+              });
+            }
+          })
+          .catch((err) => {});
+      }
     },
   },
 };

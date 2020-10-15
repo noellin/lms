@@ -1,6 +1,8 @@
 /* custom */
 /*不要改在這 要去ASSETS更改ˋ*/
 
+
+
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #839bb3 !important;
     line-height: 20px !important;

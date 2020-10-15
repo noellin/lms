@@ -293,9 +293,10 @@ export default {
 
   methods: {
     gotoProgress() {
+      console.log("dd");
       this.$router.push({
         path:
-          "/course_assignment/course=301 English/type=Assignment/assignment=1234567",
+          "/check_assignment/course=301 English/type=Assignment/assignment=1234567",
       });
     },
   },

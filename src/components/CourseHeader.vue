@@ -7,7 +7,7 @@
         ></a>
       </div>
       <div class="mr-auto">
-        <h1 class="separator">{{ courseInfo.course_name }}</h1>
+        <h1 class="separator">{{ course_name }}</h1>
         <span>{{ page }}</span>
         <p class="second-title" v-if="page !== 'Speaking Quiz'">
           {{ courseInfo.pkg_name }}
@@ -28,6 +28,7 @@ export default {
       page: this.$route.params.type,
       rname: this.$route.params.rname,
       mname: this.$route.params.mname,
+      course_name: this.$route.params.course,
     };
   },
   created() {
@@ -37,6 +38,7 @@ export default {
   },
   computed: {
     courseInfo() {
+      console.log(this.$store.state.courseInfo.courseInfo);
       return this.$store.state.courseInfo.courseInfo;
     },
   },
