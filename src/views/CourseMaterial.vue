@@ -196,12 +196,13 @@
                               textbook.resourceid
                             );
                             tempRname = textbook.resource_name;
+                            tempVMList = tempAIDList;
                           "
                         >
                           <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
                         </button>
                         <button
-                          :disabled="clicked.includes(textbook.resourceid)"
+                          :disabled="tempAIDList.includes(textbook.resourceid)"
                           v-else
                           type="button"
                           class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
@@ -211,7 +212,7 @@
                         >
                           <i
                             class="zmdi zmdi-plus zmdi-hc-fw"
-                            v-if="!clicked.includes(textbook.resourceid)"
+                            v-if="!tempAIDList.includes(textbook.resourceid)"
                           ></i>
                           <i class="zmdi zmdi-assignment-check" v-else></i>
                           Assignment
@@ -469,13 +470,14 @@
               <input
                 type="checkbox"
                 class="custom-control-input"
-                :value="vm"
+                :value="vm.materialid"
                 :id="vm.materialid"
                 v-model="tempVMList"
               />
               <label class="custom-control-label" :for="vm.materialid">{{
                 vm.material_name
               }}</label>
+              <!-- <span>{{ vm.materialid }}</span> -->
             </div>
           </div>
           <div class="modal-footer">
@@ -820,14 +822,6 @@ export default {
   },
   computed: {
     textbookLists() {
-      // if (
-      //   this.searchStatus &&
-      //   this.searchRname !== "" &&
-      //   this.searchRname !== null &&
-      //   this.searchRname !== undefined
-      // ) {
-      //   return this.searchRList;
-      // }
       return this.$store.state.courseInfo.textbookList;
     },
     courseInfo() {
@@ -835,6 +829,12 @@ export default {
     },
     userid() {
       return this.$store.state.auth.userid;
+    },
+    tempAIDList() {
+      return this.$store.state.courseInfo.tempAIDList;
+    },
+    tempAList() {
+      return this.$store.state.courseInfo.tempAList;
     },
   },
   methods: {
@@ -876,9 +876,10 @@ export default {
       }
     },
     addToAssignmentList(m) {
-      this.clicked.push(m.resourceid);
+      // this.clicked.push(m.resourceid);
       this.$store.dispatch("courseInfo/setAssignment", {
         assignment: m,
+        id: m.resourceid,
       });
       // this.tempAssignmentList.push(m);
     },
@@ -921,12 +922,50 @@ export default {
         .catch((err) => {});
     },
     addtoSequence() {
-      this.tempVMList.forEach((currentItem) => {
-        this.$store.dispatch("courseInfo/setAssignment", {
-          assignment: currentItem,
-        });
-        // this.tempAssignmentList.push(currentItem);
+      let result = this.tempVMList
+        .filter((e) => {
+          return this.tempAIDList.indexOf(e) === -1;
+        })
+        .concat(
+          this.tempAIDList.filter((f) => {
+            return this.tempVMList.indexOf(f) === -1;
+          })
+        );
+      //取絕對差集 補集
+      // result = id array
+
+      //從ID => GET OBJECT
+      let vmList = [];
+      this.videoMaterialList.forEach((element) => {
+        if (result.includes(element.materialid)) {
+          vmList.push(element);
+        }
       });
+
+      result.forEach((id) => {
+        if (this.tempAIDList.includes(id)) {
+          this.$store.dispatch("courseInfo/removeAssignment", {
+            id: id,
+          });
+        } else {
+          vmList.forEach((o) => {
+            if (o.materialid === id) {
+              this.$store.dispatch("courseInfo/setAssignment", {
+                assignment: o,
+                id: id,
+              });
+            }
+          });
+        }
+      });
+      vmList.forEach;
+      // console.log(result);
+      // result.forEach((currentItem) => {
+      //   this.$store.dispatch("courseInfo/setAssignment", {
+      //     assignment: currentItem,
+      //     id: currentItem.materialid,
+      //   });
+      // });
     },
     gotoWebsite(obj) {
       if (obj.note === "book") {
@@ -953,7 +992,7 @@ export default {
         openStatus
       )
         .then((response) => {
-          console.log(response);
+          // console.log(response);
         })
         .catch((err) => {});
     },

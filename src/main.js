@@ -23,9 +23,10 @@ import "@/utils/mixins";
 import expiredDate from "./filter/ExpiredDate";
 import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
+import VCharts from 'v-charts'
 
 Vue.component('Loading', Loading)
-
+Vue.use(VCharts)
 //輸入驗證
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);

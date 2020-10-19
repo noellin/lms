@@ -3,24 +3,11 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-      <custom-header></custom-header>
+
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
-        <menu-left></menu-left>
         <div class="main-content">
-          <header class="page-header">
-            <div class="d-flex align-items-start">
-              <div class="mt-2 mr-3">
-                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
-                  ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
-                ></a>
-              </div>
-              <div class="mr-auto">
-                <h1 class="separator">201 ENGLISH</h1>
-                <span>Dashboard</span>
-              </div>
-            </div>
-          </header>
+          <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row">
               <div class="col">
@@ -118,6 +105,11 @@
                   <h5 class="card-header">Assignments completion rate</h5>
                   <div class="card-body" style="height: 597px">
                     <p class="text-primary">last 30 days</p>
+                    <ve-histogram
+                      :data="chartData"
+                      height="540px"
+                      :settings="chartSettings"
+                    ></ve-histogram>
                   </div>
                 </div>
               </div>
@@ -188,6 +180,10 @@
                   <h5 class="card-header border-none">Student login</h5>
                   <div class="card-body pt-0">
                     <p class="text-primary">last 30 days</p>
+                    <ve-line
+                      :data="chartData1"
+                      :settings="chartSettings"
+                    ></ve-line>
                     <h4 class="card-title text-success p-t-10">
                       23<i class="zmdi zmdi-trending-up text-success ml-1"></i>
                     </h4>
@@ -199,6 +195,10 @@
                   <h5 class="card-header border-none">Parent login</h5>
                   <div class="card-body pt-0">
                     <p class="text-primary">last 30 days</p>
+                    <ve-line
+                      :data="chartData2"
+                      :settings="chartSettings"
+                    ></ve-line>
                     <h4 class="card-title text-success p-t-10">
                       12<i class="zmdi zmdi-trending-up text-success ml-1"></i>
                     </h4>
@@ -210,10 +210,12 @@
                   <h5 class="card-header border-none">Complete materials</h5>
                   <div class="card-body pt-0">
                     <p class="text-primary">last 30 days</p>
+                    <ve-line
+                      :data="chartData3"
+                      :settings="chartSettings"
+                    ></ve-line>
                     <h4 class="card-title text-danger p-t-10">
-                      139<i
-                        class="zmdi zmdi-trending-down text-danger ml-1"
-                      ></i>
+                      20<i class="zmdi zmdi-trending-down text-danger ml-1"></i>
                     </h4>
                   </div>
                 </div>
@@ -701,17 +703,101 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
-import MenuLeft from "../components/MenuLeft";
 // import Menu
+import CourseHeader from "../components/CourseHeader";
 export default {
   name: "CourseDashboard",
   components: {
-    CustomHeader,
-    MenuLeft,
+    CourseHeader,
   },
   data() {
-    return {};
+    this.barextend = {
+      xAxis: {
+        axisTick: {
+          alignWithLabel: true,
+        },
+        // axisLabel: {
+        //   textStyle: {
+        //     fontSize: 14,
+        //   },
+
+        //   // rotate: 5,
+        // },
+      },
+      // yAxis: {
+      //   axisLabel: {
+      //     textStyle: {
+      //       fontSize: 14,
+      //     },
+      //   },
+      // },
+      series: {
+        // barWidth: 10,
+        label: {
+          // show: true,
+          // position: "right",
+          // textStyle: {
+          //   fontSize: 14,
+          // },
+        },
+      },
+    };
+    return {
+      chartSettings: {
+        // stack: { 用户: ["Total", "Completed"] },
+        legendName: {
+          completionrate: "Completion rate",
+          Student_Login: "Student Login",
+          Parent_Login: "Parent Login",
+          Complete_materials: "Complete Materials",
+        },
+      },
+
+      chartData: {
+        columns: ["Date", "Total", "Completed", ""],
+        rows: [
+          { Date: "10/21", Total: 43, Completed: 33, completionrate: 100 },
+          { Date: "10/22", Total: 30, Completed: 30, completionrate: 1 },
+          { Date: "11/3", Total: 23, Completed: 23, completionrate: 1 },
+          { Date: "11/4", Total: 23, Completed: 20, completionrate: 0.869 },
+          { Date: "11/15", Total: 42, Completed: 2, completionrate: 0.0476 },
+          { Date: "11/6", Total: 43, Completed: 43, completionrate: 1 },
+        ],
+      },
+      chartData1: {
+        columns: ["日期", "Student_Login"],
+        rows: [
+          { 日期: "1/1", Student_Login: 20 },
+          { 日期: "1/2", Student_Login: 30 },
+          { 日期: "1/3", Student_Login: 20 },
+          { 日期: "1/4", Student_Login: 30 },
+          { 日期: "1/5", Student_Login: 30 },
+          { 日期: "1/6", Student_Login: 43 },
+        ],
+      },
+      chartData2: {
+        columns: ["日期", "Parent_Login"],
+        rows: [
+          { 日期: "1/1", Parent_Login: 13 },
+          { 日期: "1/2", Parent_Login: 5 },
+          { 日期: "1/3", Parent_Login: 5 },
+          { 日期: "1/4", Parent_Login: 20 },
+          { 日期: "1/5", Parent_Login: 25 },
+          { 日期: "1/6", Parent_Login: 25 },
+        ],
+      },
+      chartData3: {
+        columns: ["日期", "Complete_materials"],
+        rows: [
+          { 日期: "1/1", Complete_materials: 43 },
+          { 日期: "1/2", Complete_materials: 20 },
+          { 日期: "1/3", Complete_materials: 23 },
+          { 日期: "1/4", Complete_materials: 13 },
+          { 日期: "1/5", Complete_materials: 32 },
+          { 日期: "1/6", Complete_materials: 23 },
+        ],
+      },
+    };
   },
 
   methods: {},

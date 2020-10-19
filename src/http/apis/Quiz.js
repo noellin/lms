@@ -17,6 +17,17 @@ export const ApiGetQuizByBook = {
     }
 };
 
+export const ApiGetQuizList = {
+    get: (rid, mid, type) => {
+        if (type === 'video') {
+            return get(`/quiz/list/video/${rid}/${mid}`)
+        } else {
+            return get(`/quiz/list/book/${rid}`)
+        }
+    }
+
+};
+
 export const ApiGetSubtitileByVideo = {
     get: (pkgid, colid, rid, mid) => {
         return get(`/cms/resdl/subtitle/${pkgid}/${colid}/${rid}/${mid}`)

@@ -69,6 +69,7 @@
                                 class="btn btn-primary btn-sm btn-rounded"
                                 data-toggle="modal"
                                 data-target="#AddModal"
+                                data-dismiss="modal"
                                 v-if="!q.added"
                                 @click="addtoAssignment(q)"
                               >
@@ -80,7 +81,7 @@
                                 data-toggle="modal"
                                 data-target="#AddedModal"
                                 v-else
-                                @click="removeAssignment(q.quizid)"
+                                @click="tempQid = q.quizid"
                               >
                                 Added
                               </button>
@@ -201,7 +202,12 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="removeAssignment(tempQid)"
+              data-dismiss="modal"
+            >
               Confirm
             </button>
           </div>
@@ -216,6 +222,7 @@ import {
   ApiGetQuizByVideo,
   ApiGetQuizByBook,
   ApiGetSList,
+  ApiGetQuizList,
 } from "../http/apis/Quiz";
 // import Menu
 export default {
@@ -232,15 +239,20 @@ export default {
       SList: [],
       tempSname: "",
       tempStime: new Date(),
-      getQstatus: false,
+      tempQid: "",
     };
   },
   mounted() {
     this.getQuitList();
   },
+  watch: {
+    tempAIDList() {
+      this.getQuitList();
+    },
+  },
   computed: {
-    tempQList() {
-      return this.$store.state.courseInfo.tempQList;
+    tempAIDList() {
+      return this.$store.state.courseInfo.tempAIDList;
     },
     tempAList() {
       return this.$store.state.courseInfo.tempAList;
@@ -248,28 +260,21 @@ export default {
   },
   methods: {
     async getQuitList() {
-      if (this.$route.params.note === "video") {
-        this.getQstatus = await ApiGetQuizByVideo.get(this.rid, this.mid)
-          .then((response) => {
-            this.quizList = response.record;
-            if (response.status === "success") {
-              return true;
-            }
-          })
-          .catch((err) => {});
-      } else {
-        this.getQstatust = await ApiGetQuizByBook.get(this.rid)
-          .then((response) => {
-            this.quizList = response.record;
-            if (response.status === "success") {
-              return true;
-            }
-          })
-          .catch((err) => {});
-      }
-      if (this.getQstatus) {
+      let getQstatus = await ApiGetQuizList.get(
+        this.rid,
+        this.mid,
+        this.$route.params.note
+      )
+        .then((response) => {
+          this.quizList = response.record;
+          if (response.status === "success") {
+            return true;
+          }
+        })
+        .catch((err) => {});
+      if (getQstatus) {
         this.quizList.forEach((element) => {
-          if (this.tempQList.indexOf(element.quizid) !== -1) {
+          if (this.tempAIDList.indexOf(element.quizid) !== -1) {
             this.$set(element, "added", true);
           } else {
             this.$set(element, "added", false);
@@ -280,11 +285,12 @@ export default {
     addtoAssignment(q) {
       this.$store.dispatch("courseInfo/setAssignment", {
         assignment: q,
+        id: q.quizid,
       });
     },
     removeAssignment(qid) {
       this.$store.dispatch("courseInfo/removeAssignment", {
-        assignment: q,
+        id: qid,
       });
     },
     getSList(qid) {

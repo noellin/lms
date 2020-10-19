@@ -8,7 +8,7 @@ const courseInfo = {
         courseInfo: {},
         textbookList: [],
         tempAList: [],
-        tempQList: []
+        tempAIDList: []
     },
     mutations: {
         SET_COURSEINFO(state, data) {
@@ -19,14 +19,21 @@ const courseInfo = {
             state.textbookList = data
         },
         SET_ASSIGNMENT(state, data) {
-            if (data.status) {
-                state.tempAList = []
-            } else {
+            // state.tempAIDList = []
+            // state.tempAList = []
+            if (state.tempAIDList.indexOf(data.id) === -1) {
                 state.tempAList.push(data.assignment)
+                state.tempAIDList.push(data.id)
             }
+
 
         },
         REMOVE_ASSIGNMENT(state, data) {
+            if (state.tempAIDList.indexOf(data.id) !== -1) {
+                let index = state.tempAIDList.indexOf(data.id)
+                state.tempAIDList.splice(index, 1)
+                state.tempAList.splice(index, 1)
+            }
 
         }
     },
