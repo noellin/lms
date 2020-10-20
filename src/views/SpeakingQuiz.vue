@@ -279,6 +279,8 @@ export default {
           } else {
             this.$set(element, "added", false);
           }
+          this.$set(element, "resource_name", this.$route.params.rname);
+          this.$set(element, "material_name", this.$route.params.mname);
         });
       }
     },

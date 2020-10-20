@@ -276,7 +276,6 @@ export default {
       ApiLogin.post(this.loginForm).then((response) => {
         window.localStorage.setItem("token", response.record);
         //vuex
-        console.log(response.userID);
         this.$store.dispatch("auth/setAuth", {
           token: response.record,
           isLogin: response.status === "success" ? true : false,
@@ -286,6 +285,7 @@ export default {
           permit: response.permit,
           todayTimestamp: todayTimestamp,
         });
+        this.$store.dispatch("courseInfo/clearAllAssignment");
         // response.status === "success"
         if (response.status === "success") {
           this.$router.push({

@@ -135,7 +135,7 @@ export default {
     },
     changePage(course, type, id) {
       if (id !== this.courseID) {
-        this.$store.dispatch("courseIngo/getCouseInfo", id);
+        this.$store.dispatch("courseInfo/getCouseInfo", id);
       }
       switch (type) {
         case "Material":

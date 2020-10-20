@@ -1,4 +1,14 @@
 /* custom */
+.mx-input {
+  font-size: 0.875rem;
+  height: 38px;
+  color: #839bb3 !important;
+  line-height: 20px !important;
+  border-color: #dfe7f3;
+  border: 1px solid rgba(120, 141, 180, 0.3) !important;
+  border-radius: 1rem !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
 /* Color */
 html body {
@@ -11,9 +21,7 @@ html body {
   height: 100%
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-  border-radius: 1rem !important;
-}
+
 
 #s2_demo1 {
   border: 1px solid rgba(120, 141, 180, .3) !important;
@@ -551,10 +559,10 @@ select.form-control {
   font-size: 0.875rem;
   height: 38px;
   color: #839bb3 !important;
-  line-height: 20px !important;
+  line-height: 17.5px !important;
   border-color: #dfe7f3;
   border: 1px solid rgba(120, 141, 180, .3);
-  border-radius: .25rem;
+  border-radius: 1rem !important;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 

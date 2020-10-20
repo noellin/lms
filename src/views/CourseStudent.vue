@@ -132,6 +132,7 @@
                                 class="btn btn-nostyle"
                                 data-toggle="modal"
                                 data-target="#SettingModal"
+                                @click="tempStudent = s"
                               >
                                 <i class="la la-edit"></i>
                               </button>
@@ -194,7 +195,7 @@
                     class="form-control"
                     placeholder=""
                     value="Constance"
-                    v-model="tempStudent.name"
+                    v-model="tempStudent.username"
                   />
                 </div>
               </div>
@@ -221,35 +222,20 @@
                     id="cb8"
                     type="checkbox"
                     checked
+                    v-model="tempStudent.status"
                   />
                   <label class="tgl-btn" for="cb8"></label>
                 </div>
                 <div class="col">
-                  <span class="text-success mt-1">Active</span>
+                  <span class="text-success mt-1" v-if="tempStudent.status"
+                    >Active</span
+                  >
+                  <span class="text-danger mt-1" v-else>Suspended</span>
                 </div>
               </div>
-              <!-- Suspended -->
-              <div class="form-group row">
-                <label
-                  class="col-sm-4 col-form-label col-form-label-sm text-right"
-                  >Status</label
-                >
-                <div class="switch">
-                  <input
-                    class="tgl tgl-light tgl-success"
-                    id="cb8"
-                    type="checkbox"
-                    checkbox
-                  />
-                  <label class="tgl-btn" for="cb8"></label>
-                </div>
-                <div class="col">
-                  <span class="text-danger mt-1">Suspended</span>
-                </div>
-              </div>
-              <p class="text-danger">
+              <!-- <p class="text-danger">
                 The number of students has reached the upper limit.
-              </p>
+              </p> -->
             </form>
           </div>
           <div class="modal-footer">
@@ -260,7 +246,12 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="modifyStudent()"
+              data-dismiss="modal"
+            >
               Save
             </button>
           </div>
@@ -957,6 +948,17 @@ export default {
           // link.setAttribute("download", "file.csv"); //or any other extension
           // document.body.appendChild(link);
           // link.click();
+        })
+        .catch((err) => {});
+    },
+    modifyStudent() {
+      let obj = {};
+      obj.name = this.tempStudent.username;
+      obj.status = this.tempStudent.status;
+      obj.remark = this.tempStudent.remark;
+      ApiModifyStudent.post(this.courseid, this.tempStudent.stuid, obj)
+        .then((response) => {
+          console.log(response);
         })
         .catch((err) => {});
     },

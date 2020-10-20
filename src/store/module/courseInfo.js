@@ -35,6 +35,10 @@ const courseInfo = {
                 state.tempAList.splice(index, 1)
             }
 
+        },
+        CLEAR_ALL_ASSIGNMENT(state) {
+            state.tempAIDList = []
+            state.tempAList = []
         }
     },
     actions: {
@@ -50,6 +54,9 @@ const courseInfo = {
         },
         removeAssignment(context, data) {
             context.commit('REMOVE_ASSIGNMENT', data)
+        },
+        clearAllAssignment(context) {
+            context.commit('CLEAR_ALL_ASSIGNMENT')
         }
 
     },

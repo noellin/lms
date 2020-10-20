@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     courseInfo() {
-      console.log(this.$store.state.courseInfo.courseInfo);
       return this.$store.state.courseInfo.courseInfo;
     },
   },

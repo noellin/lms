@@ -117,7 +117,7 @@
               data-target="#AssignmentModal"
             >
               <i class="la la-clipboard"></i>Assignment
-              <span class="badge badge-primary">2</span>
+              <span class="badge badge-primary">{{ tempAList.length }}</span>
             </button>
           </div>
         </div>
@@ -563,52 +563,36 @@
               <div class="form-group row">
                 <label class="control-label text-right col-sm-3">title</label>
                 <div class="col-sm-9">
-                  <div
-                    class="bg-light rounded"
-                    style="max-height: 300px"
-                    data-scroll="dark"
-                  >
-                    <ul class="sequence">
+                  <div class="bg-light rounded" data-scroll="dark">
+                    <ul class="sequence a-sequence">
                       <li
+                        v-for="(ta, index) in tempAList"
+                        :key="index"
                         class="d-flex justify-content-between border bg-white rounded"
                       >
                         <div class="mr-3">
-                          <span class="badge badge-pill badge-primary"
-                            >Reading</span
+                          <span v-if="ta.note === 'book'">
+                            <span class="badge badge-pill badge-primary mr-2"
+                              >Reading</span
+                            >{{ ta.resource_name }}</span
                           >
-                          A Pocket Park for Tiny
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li
-                        class="d-flex justify-content-between border bg-white rounded"
-                      >
-                        <div class="mr-3">
-                          <span class="badge badge-pill badge-warning"
-                            >Watching</span
+                          <span v-else-if="ta.note === 'video'">
+                            <span class="badge badge-pill badge-warning mr-2"
+                              >Watching</span
+                            >{{ ta.resource_name + " - " + ta.material_name }}
+                          </span>
+                          <span v-else>
+                            <span class="badge badge-pill badge-accent mr-2"
+                              >Speaking Quiz</span
+                            >{{
+                              ta.resource_name + " - " + ta.material_name
+                            }}</span
                           >
-                          Unit4 NUMBER RUMBA SONG
                         </div>
-                        <button class="btn btn-nostyle btn-remove">
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
-                      <li
-                        class="d-flex justify-content-between border bg-white rounded"
-                      >
-                        <div class="mr-3">
-                          <span class="badge badge-pill badge-accent"
-                            >Speaking Quiz</span
-                          >
-                          Unit4 NUMBER RUMBA SONG
-                        </div>
-                        <button class="btn btn-nostyle btn-remove">
+                        <button
+                          class="btn btn-nostyle btn-remove"
+                          @click="removeAssignment(ta.note, ta)"
+                        >
                           <i
                             class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
                           ></i>
@@ -621,25 +605,37 @@
               <div class="form-group row">
                 <label class="control-label text-right col-sm-3">For</label>
                 <div class="col-sm-9">
-                  <select class="form-control">
+                  <select2
+                    id="s2_student"
+                    :options="studentList"
+                    v-model="selectStudent"
+                  >
+                  </select2>
+                  <!-- <select class="form-control">
                     <option>All students</option>
                     <option>Allen</option>
                     <option>Ben</option>
                     <option>Calvin</option>
                     <option>David</option>
-                  </select>
+                  </select> -->
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-form-label col-sm-3 text-right">Due</label>
                 <div class="col">
-                  <input
+                  <date-picker
+                    v-model="AssignmentDue"
+                    valueType="format"
+                    range
+                  ></date-picker>
+                  <!-- <input
                     type="text"
                     class="form-control date-picker-input"
                     placeholder="Select Date"
-                  />
+                    v-model="AssignmentDue"
+                  /> -->
                 </div>
-                <div class="col-2 pt-2 pl-0">23:59:59</div>
+                <!-- <div class="col-2 pt-2 pl-0">{{ AssignmentDue }}</div> -->
               </div>
             </form>
           </div>
@@ -690,51 +686,24 @@
             <p>System will send more rewards to more difficult assignment.</p>
             <div class="text-center mt-4 mb-4">
               <div class="form-check form-check-inline text-primary">Easy</div>
-              <div class="custom-control custom-radio custom-control-inline">
+              <div
+                class="custom-control custom-radio custom-control-inline mx-2"
+                v-for="d in difficultList"
+                :key="d"
+              >
                 <input
                   type="radio"
-                  id="RadioInline1"
+                  :id="d"
                   name="RadioInline"
-                  class="custom-control-input"
+                  class="custom-control-input pointer"
+                  v-model="difficult"
+                  :value="d"
                 />
-                <label class="custom-control-label" for="RadioInline1">1</label>
+                <label class="custom-control-label pointer" :for="d">{{
+                  d
+                }}</label>
               </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  type="radio"
-                  id="RadioInline2"
-                  name="RadioInline"
-                  class="custom-control-input"
-                />
-                <label class="custom-control-label" for="RadioInline2">2</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  type="radio"
-                  id="RadioInline3"
-                  name="RadioInline"
-                  class="custom-control-input"
-                />
-                <label class="custom-control-label" for="RadioInline3">3</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  type="radio"
-                  id="RadioInline4"
-                  name="RadioInline"
-                  class="custom-control-input"
-                />
-                <label class="custom-control-label" for="RadioInline4">4</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  type="radio"
-                  id="RadioInline5"
-                  name="RadioInline"
-                  class="custom-control-input"
-                />
-                <label class="custom-control-label" for="RadioInline5">5</label>
-              </div>
+
               <div class="form-check form-check-inline text-primary">
                 Difficult
               </div>
@@ -748,7 +717,12 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="setAssignment()"
+            >
               Assign
             </button>
           </div>
@@ -775,11 +749,15 @@ import {
   ApideleteResource,
 } from "../http/apis/Collection";
 import CourseHeader from "../components/CourseHeader";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
+import dayjs from "dayjs";
 // import Select2 from "v-select2-component";
 export default {
   name: "CourseMaterial",
   components: {
     CourseHeader,
+    DatePicker,
   },
   data() {
     return {
@@ -804,15 +782,18 @@ export default {
       tempResource: {},
       tempcolid: "",
       textbookList: [],
+      studentList: [],
+      selectStudent: "",
+      AssignmentDue: null,
+      difficult: "1",
+      difficultList: ["1", "2", "3", "4", "5"],
     };
   },
   created() {
     //列表資訊從menulift call (為了重複使用)
   },
   mounted() {
-    // console.log(this.$store.state.courseInfo.textbookList);
-    // console.log("get");
-    // this.textbookList = this.textbookLists;
+    this.getStudentList();
     this.textbookList = this.textbookLists;
   },
   watch: {
@@ -849,20 +830,10 @@ export default {
         })
         .catch((err) => {});
     },
-    // getResource(colid) {
-    //   this.tempcolid = colid;
-    //   ApiGetResource.get(this.userid, colid)
-    //     .then((response) => {
-    //       console.log(response.record);
-    //       this.resourceList = response.record;
-    //     })
-    //     .catch((err) => {});
-    // },
+
     addResource() {
       ApiAddResource.get(this.tempcolid, this.tempResource.resourceid)
-        .then((response) => {
-          console.log(response);
-        })
+        .then((response) => {})
         .catch((err) => {});
     },
     async deleteResource(colid, rid) {
@@ -881,19 +852,8 @@ export default {
         assignment: m,
         id: m.resourceid,
       });
-      // this.tempAssignmentList.push(m);
     },
     searchCourseResource() {
-      //更改LIST為 SEARCH後的LISR
-      // this.searchStatus = false;
-      // if (
-      //   this.searchRname !== "" &&
-      //   this.searchRname !== null &&
-      //   this.searchRname !== undefined
-      // ) {
-      //   this.searchStatus = true;
-      // }
-
       let sType = this.seleceType;
       if (this.seleceType === "all") {
         sType = "*";
@@ -904,22 +864,41 @@ export default {
       };
       ApiSearchCourseResource.post(this.courseid, searchObj)
         .then((response) => {
-          console.log(response.record);
           this.textbookList = response.record;
         })
         .catch((err) => {});
     },
-    getStudentList() {},
-    getVideoMaterial(Ncolid, rid) {
-      // if (Ncolid.indexOf(";") !== 0) {
-      //   let colid = Ncolid.split(";")[0];
-      // }
-      let colid = Ncolid.split(";")[0];
-      ApiGetVideoMaterial.get(colid, this.courseid, rid)
+    async getStudentList() {
+      let result = await ApiGetStudentList.get(this.courseid)
         .then((response) => {
-          this.videoMaterialList = response.record;
+          this.studentList = response.record.map((o) => {
+            return { id: o.stuid, text: o.username };
+          });
+          if (response.status === "success") {
+            return true;
+          }
         })
         .catch((err) => {});
+      if (result) {
+        let allS = { id: "*", text: "All Students" };
+        this.studentList.unshift(allS);
+      }
+    },
+    async getVideoMaterial(Ncolid, rid) {
+      let colid = Ncolid.split(";")[0];
+      let result = await ApiGetVideoMaterial.get(colid, this.courseid, rid)
+        .then((response) => {
+          this.videoMaterialList = response.record;
+          if (response.status === "success") {
+            return true;
+          }
+        })
+        .catch((err) => {});
+      if (result) {
+        this.videoMaterialList.forEach((el) => {
+          el.resource_name = this.tempRname;
+        });
+      }
     },
     addtoSequence() {
       let result = this.tempVMList
@@ -942,43 +921,113 @@ export default {
         }
       });
 
-      result.forEach((id) => {
-        if (this.tempAIDList.includes(id)) {
+      // result要排序
+      vmList.sort((a, b) => {
+        return ("" + a.material_name).localeCompare(b.material_name);
+        // return Number(a.material_name.split(".")[0]) >
+        //   Number(b.material_name.split(".")[0])
+        //   ? 1
+        //   : -1;
+      });
+
+      vmList.forEach((obj) => {
+        if (this.tempAIDList.includes(obj.materialid)) {
           this.$store.dispatch("courseInfo/removeAssignment", {
-            id: id,
+            id: obj.materialid,
           });
         } else {
-          vmList.forEach((o) => {
-            if (o.materialid === id) {
-              this.$store.dispatch("courseInfo/setAssignment", {
-                assignment: o,
-                id: id,
-              });
-            }
+          this.$store.dispatch("courseInfo/setAssignment", {
+            assignment: obj,
+            id: obj.materialid,
           });
         }
       });
-      vmList.forEach;
-      // console.log(result);
-      // result.forEach((currentItem) => {
-      //   this.$store.dispatch("courseInfo/setAssignment", {
-      //     assignment: currentItem,
-      //     id: currentItem.materialid,
-      //   });
+      // result.forEach((id) => {
+      //   if (this.tempAIDList.includes(id)) {
+      //     this.$store.dispatch("courseInfo/removeAssignment", {
+      //       id: id,
+      //     });
+      //   } else {
+      //     vmList.forEach((o) => {
+      //       if (o.materialid === id) {
+      //         this.$store.dispatch("courseInfo/setAssignment", {
+      //           assignment: o,
+      //           id: id,
+      //         });
+      //       }
+      //     });
+      //   }
       // });
+    },
+    removeAssignment(type, obj) {
+      if (type === "book") {
+        this.$store.dispatch("courseInfo/removeAssignment", {
+          id: obj.resourceid,
+        });
+      } else if (type === "video") {
+        this.$store.dispatch("courseInfo/removeAssignment", {
+          id: obj.materialid,
+        });
+      } else {
+        this.$store.dispatch("courseInfo/removeAssignment", {
+          id: obj.quizid,
+        });
+      }
     },
     gotoWebsite(obj) {
       if (obj.note === "book") {
-        window.open(`${process.env.VUE_APP_DOMAIN}/bk/?pkgid=${this.courseInfo.pkgid}
+        window.open(`${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}
         &colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}
         &auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`);
       } else {
-        window.open(`${process.env.VUE_APP_DOMAIN}/vp/?pkgid=${this.courseInfo.pkgid}
+        window.open(`${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}
         &colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}
         &auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`);
       }
     },
-    setAssignment() {},
+    async setAssignment() {
+      let obj = {};
+      let sidAr = [];
+      obj.userid = this.userid;
+      obj.publish_date = dayjs(this.AssignmentDue[0]).unix();
+      obj.expiry_date = dayjs(this.AssignmentDue[1]).unix();
+      obj.difficult = this.difficult;
+      if (this.selectStudent === "*") {
+        this.studentList.forEach((el, index, ar) => {
+          if (index === 0) {
+          } else {
+            sidAr.push(el.id);
+          }
+        });
+        obj.student = sidAr.join(";");
+      } else {
+        obj.student = this.selectStudent;
+      }
+      this.tempAList.forEach((el) => {
+        if (el.note === "video") {
+          this.$set(el, "assignment_type", "reading");
+        } else if (el.note === "book") {
+          this.$set(el, "assignment_type", "reading");
+        } else {
+          this.$set(el, "assignment_type", "speaking");
+        }
+      });
+      obj.content = this.tempAList;
+      let result = await ApiSetAssignment.post(this.courseid, obj)
+        .then((response) => {
+          console.log(response);
+          if (response.status === "success") {
+            return true;
+          }
+        })
+        .catch((err) => {});
+      if (result) {
+        this.$store.dispatch("courseInfo/clearAllAssignment");
+        this.selectStudent = "";
+        this.AssignmentDue = null;
+        this.difficult = "";
+      }
+    },
     getOpenResource(colid, rid, status) {
       let openStatus = "true";
       if (status === "true") {
@@ -1015,6 +1064,10 @@ export default {
 //@import '../assets/css/igroup.css';
 
 .sequence {
+  overflow-y: scroll !important;
+}
+
+.a-sequence {
   overflow-y: scroll !important;
 }
 </style>
