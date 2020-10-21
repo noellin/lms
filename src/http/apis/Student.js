@@ -43,7 +43,7 @@ export const ApiModifyStudent = {
     }
 };
 
-export const ApiResetStudent = {
+export const ApiResetPWD = {
     post: (sid, paramObj) => {
         return post(`/stu/resetimgpw/${sid}`, paramObj)
     }

@@ -1,269 +1,7 @@
 <template>
-  <div id="app">
-    <!-- END MENU SIDEBAR WRAPPER -->
-    <div class="content-wrapper">
-      <!-- TOP TOOLBAR WRAPPER -->
-
-      <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="content page-aside-left">
-        <div class="main-content">
-          <course-header></course-header>
-          <section class="page-content container-fluid">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="card bg-primary" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Active student</h5>
-                    <div class="w100 text-right">
-                      <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="37"
-                          >37</span
-                        >
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="card bg-danger" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Suspended student</h5>
-                    <div class="w100 text-right">
-                      <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="2">2</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="card bg-success" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Limit</h5>
-                    <div class="w100 text-right">
-                      <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="50"
-                          >50</span
-                        >
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <div class="form-group form-rounded mb-0">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search..."
-                    v-model="searchStudentName"
-                    @keyup.enter="searchStudent()"
-                  />
-                  <div class="input-group-append">
-                    <button
-                      class="btn btn-secondary btn-outline btn-icon btn-rounded"
-                      type="button"
-                      @click="searchStudent()"
-                    >
-                      <i class="zmdi zmdi-search text-secondary"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="text-right">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-outline btn-rounded mr-2"
-                >
-                  <i class="la la-print"></i>Print notice
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-outline btn-rounded mr-2"
-                  @click="exportSList()"
-                >
-                  <i class="zmdi zmdi-open-in-new zmdi-hc-fw"></i>Export student
-                  list
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-outline btn-rounded"
-                  data-toggle="modal"
-                  data-target="#AddStudentModal"
-                >
-                  <i class="la la-plus"></i>Add student
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Student name</th>
-                            <th>Parent account</th>
-                            <th>Remarks</th>
-                            <th>Status</th>
-                            <th>Edit</th>
-                            <th>Reset password</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="s in studentList" :key="s.stuid">
-                            <td>{{ s.username }}</td>
-                            <td>{{ s.parents }}</td>
-                            <td>{{ s.remark }}</td>
-                            <td>
-                              <span
-                                class="text-success"
-                                v-if="s.status === 'true'"
-                                >Active</span
-                              >
-                              <span class="text-danger" v-else>Suspended</span>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#SettingModal"
-                                @click="setTempStudent(s)"
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-primary btn-sm btn-rounded"
-                                data-toggle="modal"
-                                data-target="#ResetPasswordModal"
-                                @click="
-                                  tempSid = s.stuid;
-                                  tempSname = s.username;
-                                "
-                              >
-                                Reset
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
-    </div>
-
-    <!-- END CONTENT WRAPPER -->
-    <!-- Setting MODAL -->
-    <div
-      class="modal fade"
-      id="SettingModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-      data-modal="scroll"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Setting</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="zmdi zmdi-Cancel"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group row">
-                <label for="" class="col-sm-4 col-form-label text-right"
-                  >Student Name</label
-                >
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder=""
-                    value="Constance"
-                    v-model="tempStudent.username"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="" class="col-sm-4 col-form-label text-right"
-                  >Remarks</label
-                >
-                <div class="col-8">
-                  <textarea
-                    class="form-control"
-                    name=""
-                    v-model="tempStudent.remark"
-                  ></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label
-                  class="col-sm-4 col-form-label col-form-label-sm text-right"
-                  >Status</label
-                >
-                <div class="switch">
-                  <input
-                    class="tgl tgl-light tgl-success"
-                    id="cb8"
-                    type="checkbox"
-                    checked
-                    v-model="tempStudent.status"
-                  />
-                  <label class="tgl-btn" for="cb8"></label>
-                </div>
-                <div class="col">
-                  <span class="text-success mt-1" v-if="tempStudent.status"
-                    >Active</span
-                  >
-                  <span class="text-danger mt-1" v-else>Suspended</span>
-                </div>
-              </div>
-              <!-- <p class="text-danger">
-                The number of students has reached the upper limit.
-              </p> -->
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary btn-outline btn-rounded"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary btn-rounded"
-              @click="modifyStudent()"
-              data-dismiss="modal"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div>
     <!-- AddStudent modal -->
-    <!-- <div
+    <div
       class="modal fade"
       id="AddStudentModal"
       tabindex="-1"
@@ -329,7 +67,7 @@
         </div>
       </div>
     </div>
-    <!-- Add a single student Modal
+    <!-- Add a single student Modal-->
     <div
       class="modal fade"
       id="SingleStudentModal"
@@ -410,7 +148,7 @@
         </div>
       </div>
     </div>
-    <!-- Student Profile Already Exists Modal
+    <!-- Student Profile Already Exists Modal-->
     <div
       class="modal fade"
       id="AlreadyExistsModal"
@@ -467,7 +205,7 @@
         </div>
       </div>
     </div>
-    <!-- Copy Modal
+    <!-- Copy Modal-->
     <div
       class="modal fade"
       id="CopyModal"
@@ -579,7 +317,7 @@
         </div>
       </div>
     </div>
-    <!-- Import CSV Modal
+    <!-- Import CSV Modal-->
     <div
       class="modal fade"
       id="ImportCSVModal"
@@ -712,7 +450,7 @@
         </div>
       </div>
     </div>
-    <!-- StudentExisted Modal
+    <!-- StudentExisted Modal-->
     <div
       class="modal fade"
       id="StudentExistedModal"
@@ -814,257 +552,39 @@
           </div>
         </div>
       </div>
-    </div> -->
-    <add-student></add-student>
-    <!-- Reset Password Modal-->
-    <div
-      class="modal fade"
-      id="ResetPasswordModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Reset Password</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="zmdi zmdi-close"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h4 class="mb-4 mt-2">{{ tempSname }}</h4>
-            <p>Choose 2 pictures to reset password</p>
-            <ul
-              class="reset-password d-flex justify-content-start flex-wrap p-20"
-            >
-              <li v-for="emoji in emojiList" :key="emoji">
-                <a
-                  title=""
-                  v-html="emoji"
-                  class="pointer"
-                  :class="{ active: selectEmoji.includes(emoji) }"
-                  @click="setPassword(emoji)"
-                ></a>
-              </li>
-            </ul>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary btn-outline btn-rounded"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary btn-rounded"
-              data-dismiss="modal"
-              @click="resetPWD()"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
+
+
+
 <script>
-import CourseHeader from "../components/CourseHeader";
-import AddStudent from "../components/AddStudent";
-import {
-  ApiImportStudent,
-  ApiGetStudentList,
-  ApiSearchStudent,
-  ApiAddStudent,
-  ApiGetStudentInfo,
-  ApiModifyStudent,
-  ApiResetPWD,
-  ApiDownloadSample,
-  ApiExportSList,
-  ApiCopySList,
-} from "../http/apis/Student";
-import $ from "jquery";
+import { ApiAddStudent } from "../http/apis/Student";
 export default {
-  name: "CourseStudent",
-  components: {
-    CourseHeader,
-    AddStudent,
-  },
+  name: "AddStudent",
   data() {
     return {
-      courseid: this.$route.params.courseid,
-      studentList: [],
-      tempStudent: {
-        name: "",
-        status: "",
-        remark: "",
-      },
-      tempSid: "",
-      tempSname: "",
-      // newStudent: { name: "", phone: "" },
-      searchStudentName: "",
-      // emojiList: [
-      //   "&#127795;",
-      //   "&#128273;",
-      //   "&#128293;",
-      //   "&#127846;",
-      //   "&#127804;",
-      //   "&#127853;",
-      //   "&#127872;",
-      //   "&#128215;",
-      //   "&#129365;",
-      //   "&#127771;",
-      //   "&#127822;",
-      //   "&#128024;",
-      //   "&#127828;",
-      //   "&#128348;",
-      //   "&#128250;",
-      //   "&#128663;",
-      //   "&#127936;",
-      //   "&#127968;",
-      //   "&#128004;",
-      //   "&#128082;",
-      // ],
-      emojiList: [
-        "🌳",
-        "🔑",
-        "🔥",
-        "🍦",
-        "🌼",
-        "🍭",
-        "🎀",
-        "📗",
-        "🥕",
-        "🌛",
-        "🍎",
-        "🐘",
-        "🍔",
-        "🕜",
-        "📺",
-        "🚗",
-        "🏀",
-        "🏠",
-        "🐄",
-        "👒",
-      ],
-      selectEmoji: [],
+      newStudent: { name: "", phone: "" },
     };
   },
-  created() {},
-  mounted() {
-    this.studentList = this.studentLists;
-  },
-  watch: {
-    studentLists() {
-      this.studentList = this.studentLists;
-    },
-  },
-  computed: {
-    studentLists() {
-      return this.$store.state.courseInfo.studentList;
-    },
-  },
   methods: {
-    // async addStudent() {
-    //   let result = await ApiAddStudent.post(this.courseid, this.newStudent)
-    //     .then((response) => {
-    //       if (response.record === "success") {
-    //         return true;
-    //       }
-    //     })
-    //     .catch((err) => {});
-    //   if (result) {
-    //     this.$store.dispatch("courseInfo/updateStudent", this.courseid);
-    //   } else {
-    //     $("#AlreadyExistsModal").modal("show");
-    //   }
-    // },
-    setPassword(emoji) {
-      if (this.selectEmoji.length < 2) {
-        this.selectEmoji.push(emoji);
-      } else {
-        this.selectEmoji.shift();
-        this.selectEmoji.push(emoji);
-      }
-    },
-    searchStudent() {
-      let keyword = this.searchStudentName;
-      if (this.searchStudentName === "") {
-        keyword = "*";
-      }
-      ApiSearchStudent.get(this.courseid, keyword)
+    async addStudent() {
+      let result = await ApiAddStudent.post(this.courseid, this.newStudent)
         .then((response) => {
-          this.studentList = response.record;
-        })
-        .catch((err) => {});
-    },
-    exportSList() {
-      ApiExportSList.get(this.courseid)
-        .then((response) => {
-          var fileURL = window.URL.createObjectURL(new Blob([response]));
-          var fileLink = document.createElement("a");
-
-          fileLink.href = fileURL;
-          fileLink.setAttribute("target", "_blank");
-          fileLink.setAttribute("download", "Student.csv");
-          document.body.appendChild(fileLink);
-
-          fileLink.click();
-          // const url = window.URL.createObjectURL(new Blob([response.data]));
-          // const link = document.createElement("a");
-          // link.href = url;
-          // link.setAttribute("download", "file.csv"); //or any other extension
-          // document.body.appendChild(link);
-          // link.click();
-        })
-        .catch((err) => {});
-    },
-    async modifyStudent() {
-      let obj = {};
-      obj.name = this.tempStudent.username;
-      obj.status = this.tempStudent.status.toString();
-      obj.remark = this.tempStudent.remark;
-      let result = await ApiModifyStudent.post(
-        this.courseid,
-        this.tempStudent.stuid,
-        obj
-      )
-        .then((response) => {
-          if (response.status === "success") {
+          if (response.record === "success") {
             return true;
           }
         })
         .catch((err) => {});
       if (result) {
         this.$store.dispatch("courseInfo/updateStudent", this.courseid);
-      }
-    },
-    resetPWD() {
-      let pwd = { imgpw: this.selectEmoji.toString().replace(",", "") };
-      ApiResetPWD.post(this.tempSid)
-        .then((response) => {})
-        .catch((err) => {});
-    },
-    setTempStudent(s) {
-      this.tempStudent = Object.assign({}, s);
-      if (s.status === "true") {
-        this.tempStudent.status = true;
       } else {
-        this.tempStudent.status = false;
+        $("#AlreadyExistsModal").modal("show");
       }
     },
   },
 };
 </script>
 
-<style scoped lang="scss">
-//@import '../assets/css/igroup.css';
+<style>
 </style>

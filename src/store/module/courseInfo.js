@@ -2,11 +2,16 @@
 import {
     ApiGetCourseDatail
 } from "../../http/apis/CourseDetail"
+import {
+    ApiGetStudentList
+} from '../../http/apis/Student';
 const courseInfo = {
     namespaced: true, //注意 模組化管理資料請不要忘了名稱空間的開啟
     state: {
         courseInfo: {},
         textbookList: [],
+        studentList: [],
+        forSelectStudentList: [],
         tempAList: [],
         tempAIDList: []
     },
@@ -17,6 +22,22 @@ const courseInfo = {
         },
         SET_TEXTBOOKLIST(state, data) {
             state.textbookList = data
+        },
+        SET_STUDENT(state, data) {
+            state.studentList = data
+
+            state.forSelectStudentList = data.map((o) => {
+                return {
+                    id: o.stuid,
+                    text: o.username
+                };
+            });
+            //為了select寫的現在沒有用
+            // let allS = {
+            //     id: "*",
+            //     text: "All Students"
+            // };
+            // state.forSelectStudentList.unshift(allS);
         },
         SET_ASSIGNMENT(state, data) {
             // state.tempAIDList = []
@@ -43,11 +64,25 @@ const courseInfo = {
     },
     actions: {
         getCouseInfo(context, data) {
-
+            //courseInfo Material
             ApiGetCourseDatail.get(data).then((response) => {
                 context.commit('SET_COURSEINFO', response.csrInfo)
                 context.commit('SET_TEXTBOOKLIST', response.record)
             });
+            //student
+            ApiGetStudentList.get(data)
+                .then((response) => {
+                    context.commit('SET_STUDENT', response.record)
+                })
+                .catch((err) => {});
+
+        },
+        updateStudent(context, data) {
+            ApiGetStudentList.get(data)
+                .then((response) => {
+                    context.commit('SET_STUDENT', response.record)
+                })
+                .catch((err) => {});
         },
         setAssignment(context, data) {
             context.commit('SET_ASSIGNMENT', data)

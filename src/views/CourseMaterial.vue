@@ -544,8 +544,11 @@
       tabindex="-1"
       role="dialog"
       aria-hidden="true"
+      v-if="studentList.length > 0"
     >
-      <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Assignment</h5>
@@ -603,26 +606,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label text-right col-sm-3">For</label>
-                <div class="col-sm-9">
-                  <select2
-                    id="s2_student"
-                    :options="studentList"
-                    v-model="selectStudent"
-                  >
-                  </select2>
-                  <!-- <select class="form-control">
-                    <option>All students</option>
-                    <option>Allen</option>
-                    <option>Ben</option>
-                    <option>Calvin</option>
-                    <option>David</option>
-                  </select> -->
-                </div>
-              </div>
-              <div class="form-group row">
                 <label class="col-form-label col-sm-3 text-right">Due</label>
-                <div class="col">
+                <div class="col-sm-8">
                   <date-picker
                     v-model="AssignmentDue"
                     valueType="format"
@@ -636,6 +621,34 @@
                   /> -->
                 </div>
                 <!-- <div class="col-2 pt-2 pl-0">{{ AssignmentDue }}</div> -->
+              </div>
+              <div
+                class="form-group row align-items-start"
+                :style="{
+                  height: [parseInt(selectStudent.length / 3) + 1] * 25 + 'px',
+                }"
+              >
+                <label class="control-label text-right col-sm-3">For</label>
+                <div class="col-sm-7">
+                  <select2
+                    id="s2_student"
+                    :options="studentList"
+                    v-model="selectStudent"
+                    :disabled="selectAllS"
+                    :settings="{ multiple: true }"
+                  >
+                  </select2>
+                </div>
+                <div class="col-sm-2">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="std"
+                    v-model="selectAllS"
+                    name="std"
+                  />
+                  <label class="form-check-label" for="std">All Students</label>
+                </div>
               </div>
             </form>
           </div>
@@ -752,7 +765,11 @@ import CourseHeader from "../components/CourseHeader";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import dayjs from "dayjs";
+import $ from "jquery";
 // import Select2 from "v-select2-component";
+$("#mySelect2").select2({
+  dropdownParent: $("#s2_student"),
+});
 export default {
   name: "CourseMaterial",
   components: {
@@ -783,7 +800,8 @@ export default {
       tempcolid: "",
       textbookList: [],
       studentList: [],
-      selectStudent: "",
+      selectStudent: [],
+      selectAllS: false,
       AssignmentDue: null,
       difficult: "1",
       difficultList: ["1", "2", "3", "4", "5"],
@@ -791,19 +809,32 @@ export default {
   },
   created() {
     //列表資訊從menulift call (為了重複使用)
+
+    this.textbookList = this.textbookLists;
+    this.studentList = this.studentLists;
   },
   mounted() {
-    this.getStudentList();
-    this.textbookList = this.textbookLists;
+    // this.getStudentList();
   },
   watch: {
     textbookLists() {
       this.textbookList = this.textbookLists;
     },
+    studentLists() {
+      this.studentList = this.studentLists;
+    },
+    selectAllS() {
+      if (this.selectAllS) {
+        this.selectStudent = ["*"];
+      }
+    },
   },
   computed: {
     textbookLists() {
       return this.$store.state.courseInfo.textbookList;
+    },
+    studentLists() {
+      return this.$store.state.courseInfo.forSelectStudentList;
     },
     courseInfo() {
       return this.$store.state.courseInfo.courseInfo;
@@ -868,22 +899,22 @@ export default {
         })
         .catch((err) => {});
     },
-    async getStudentList() {
-      let result = await ApiGetStudentList.get(this.courseid)
-        .then((response) => {
-          this.studentList = response.record.map((o) => {
-            return { id: o.stuid, text: o.username };
-          });
-          if (response.status === "success") {
-            return true;
-          }
-        })
-        .catch((err) => {});
-      if (result) {
-        let allS = { id: "*", text: "All Students" };
-        this.studentList.unshift(allS);
-      }
-    },
+    // async getStudentList() {
+    //   let result = await ApiGetStudentList.get(this.courseid)
+    //     .then((response) => {
+    //       this.studentList = response.record.map((o) => {
+    //         return { id: o.stuid, text: o.username };
+    //       });
+    //       if (response.status === "success") {
+    //         return true;
+    //       }
+    //     })
+    //     .catch((err) => {});
+    //   if (result) {
+    //     let allS = { id: "*", text: "All Students" };
+    //     this.studentList.unshift(allS);
+    //   }
+    // },
     async getVideoMaterial(Ncolid, rid) {
       let colid = Ncolid.split(";")[0];
       let result = await ApiGetVideoMaterial.get(colid, this.courseid, rid)
@@ -992,16 +1023,13 @@ export default {
       obj.publish_date = dayjs(this.AssignmentDue[0]).unix();
       obj.expiry_date = dayjs(this.AssignmentDue[1]).unix();
       obj.difficult = this.difficult;
-      if (this.selectStudent === "*") {
+      if (this.selectStudent.includes("*")) {
         this.studentList.forEach((el, index, ar) => {
-          if (index === 0) {
-          } else {
-            sidAr.push(el.id);
-          }
+          sidAr.push(el.id);
         });
         obj.student = sidAr.join(";");
       } else {
-        obj.student = this.selectStudent;
+        obj.student = this.selectStudent.join(";");
       }
       this.tempAList.forEach((el) => {
         if (el.note === "video") {

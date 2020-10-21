@@ -10,6 +10,15 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.select-student {
+  height: 180px !important;
+}
+
+.modal-open .select2-container--open {
+  z-index: 999999 !important;
+  width: 100% !important;
+}
+
 /* Color */
 html body {
   overflow-y: auto !important;
@@ -182,6 +191,8 @@ a:link.btn.btn-sm {
   margin-right: 5px;
   margin-top: 5px;
   padding: 0 5px;
+  display: flex !important;
+  position: static !important;
 }
 
 
