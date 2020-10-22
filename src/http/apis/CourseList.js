@@ -49,3 +49,9 @@ export const ApiSetCourse = {
         return put(`/course/setinfo/${id}`, paramObj);
     },
 };
+
+export const ApiGetAllCourse = {
+    get: () => {
+        return get(`/course/list/all`)
+    }
+};

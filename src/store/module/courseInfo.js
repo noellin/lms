@@ -11,6 +11,7 @@ const courseInfo = {
         courseInfo: {},
         textbookList: [],
         studentList: [],
+        courseStudentInfo: {},
         forSelectStudentList: [],
         tempAList: [],
         tempAIDList: []
@@ -24,14 +25,14 @@ const courseInfo = {
             state.textbookList = data
         },
         SET_STUDENT(state, data) {
-            state.studentList = data
-
-            state.forSelectStudentList = data.map((o) => {
+            state.studentList = data.record
+            state.forSelectStudentList = data.record.map((o) => {
                 return {
                     id: o.stuid,
                     text: o.username
                 };
             });
+            state.courseStudentInfo = data.info
             //為了select寫的現在沒有用
             // let allS = {
             //     id: "*",
@@ -72,7 +73,7 @@ const courseInfo = {
             //student
             ApiGetStudentList.get(data)
                 .then((response) => {
-                    context.commit('SET_STUDENT', response.record)
+                    context.commit('SET_STUDENT', response)
                 })
                 .catch((err) => {});
 
@@ -80,7 +81,7 @@ const courseInfo = {
         updateStudent(context, data) {
             ApiGetStudentList.get(data)
                 .then((response) => {
-                    context.commit('SET_STUDENT', response.record)
+                    context.commit('SET_STUDENT', response)
                 })
                 .catch((err) => {});
         },

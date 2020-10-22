@@ -3,7 +3,6 @@
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
-
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
         <div class="main-content">
@@ -16,9 +15,9 @@
                     <h5 class="card-title text-white">Active student</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="37"
-                          >37</span
-                        >
+                        <span class="display-4 counter" data-count="37">{{
+                          courseStudentInfo.active
+                        }}</span>
                       </p>
                     </div>
                   </div>
@@ -30,7 +29,9 @@
                     <h5 class="card-title text-white">Suspended student</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="2">2</span>
+                        <span class="display-4 counter" data-count="2">{{
+                          courseStudentInfo.suspend
+                        }}</span>
                       </p>
                     </div>
                   </div>
@@ -42,9 +43,9 @@
                     <h5 class="card-title text-white">Limit</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="50"
-                          >50</span
-                        >
+                        <span class="display-4 counter" data-count="50">{{
+                          courseStudentInfo.quota
+                        }}</span>
                       </p>
                     </div>
                   </div>
@@ -92,6 +93,7 @@
                   class="btn btn-primary btn-outline btn-rounded"
                   data-toggle="modal"
                   data-target="#AddStudentModal"
+                  @click="resetStdTemp()"
                 >
                   <i class="la la-plus"></i>Add student
                 </button>
@@ -815,7 +817,7 @@
         </div>
       </div>
     </div> -->
-    <add-student></add-student>
+    <add-student ref="addstudent" :courseid="courseid"></add-student>
     <!-- Reset Password Modal-->
     <div
       class="modal fade"
@@ -883,11 +885,11 @@ import {
   ApiImportStudent,
   ApiGetStudentList,
   ApiSearchStudent,
-  ApiAddStudent,
+  // ApiAddStudent,
   ApiGetStudentInfo,
   ApiModifyStudent,
   ApiResetPWD,
-  ApiDownloadSample,
+  // ApiDownloadSample,
   ApiExportSList,
   ApiCopySList,
 } from "../http/apis/Student";
@@ -911,28 +913,7 @@ export default {
       tempSname: "",
       // newStudent: { name: "", phone: "" },
       searchStudentName: "",
-      // emojiList: [
-      //   "&#127795;",
-      //   "&#128273;",
-      //   "&#128293;",
-      //   "&#127846;",
-      //   "&#127804;",
-      //   "&#127853;",
-      //   "&#127872;",
-      //   "&#128215;",
-      //   "&#129365;",
-      //   "&#127771;",
-      //   "&#127822;",
-      //   "&#128024;",
-      //   "&#127828;",
-      //   "&#128348;",
-      //   "&#128250;",
-      //   "&#128663;",
-      //   "&#127936;",
-      //   "&#127968;",
-      //   "&#128004;",
-      //   "&#128082;",
-      // ],
+      courseid: this.$route.params.courseid,
       emojiList: [
         "🌳",
         "🔑",
@@ -956,20 +937,29 @@ export default {
         "👒",
       ],
       selectEmoji: [],
+      courseStudentInfo: {},
     };
   },
   created() {},
   mounted() {
     this.studentList = this.studentLists;
+    this.courseStudentInfo = this.courseStudentInfos;
+    console.log(this.courseStudentInfos);
   },
   watch: {
     studentLists() {
       this.studentList = this.studentLists;
     },
+    courseStudentInfo() {
+      this.courseStudentInfo = this.courseStudentInfos;
+    },
   },
   computed: {
     studentLists() {
       return this.$store.state.courseInfo.studentList;
+    },
+    courseStudentInfos() {
+      return this.$store.state.courseInfo.courseStudentInfo[0];
     },
   },
   methods: {
@@ -987,6 +977,9 @@ export default {
     //     $("#AlreadyExistsModal").modal("show");
     //   }
     // },
+    resetStdTemp() {
+      this.$refs.addstudent.resetStdTemp();
+    },
     setPassword(emoji) {
       if (this.selectEmoji.length < 2) {
         this.selectEmoji.push(emoji);
@@ -1018,12 +1011,6 @@ export default {
           document.body.appendChild(fileLink);
 
           fileLink.click();
-          // const url = window.URL.createObjectURL(new Blob([response.data]));
-          // const link = document.createElement("a");
-          // link.href = url;
-          // link.setAttribute("download", "file.csv"); //or any other extension
-          // document.body.appendChild(link);
-          // link.click();
         })
         .catch((err) => {});
     },
@@ -1038,6 +1025,7 @@ export default {
         obj
       )
         .then((response) => {
+          console.log(response);
           if (response.status === "success") {
             return true;
           }

@@ -4,6 +4,7 @@
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
       <custom-header></custom-header>
+      <alert></alert>
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
         <menu-left></menu-left>
@@ -22,12 +23,14 @@
 <script>
 import CustomHeader from "../components/CustomHeader";
 import MenuLeft from "../components/MenuLeft";
+import Alert from "../components/AlertMessage";
 // import Menu
 export default {
   name: "CourseMaterial",
   components: {
     CustomHeader,
     MenuLeft,
+    Alert,
   },
   data() {
     return {};

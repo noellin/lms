@@ -22,6 +22,10 @@ axios.interceptors.request.use(
         if (config.url.includes('/cms/resdl/')) {
             config.baseURL = process.env.VUE_APP_LMSDOMAIN
         }
+        //upload file
+        if (config.url.includes('stu/importfromfile/')) {
+            config.headers['Content-Type'] = "multipart/form-data"
+        }
         // export封裝
         // if (config.url.includes('/stu/export/')) {
         //     config.headers["responseType"] = "blob"
