@@ -944,13 +944,12 @@ export default {
   mounted() {
     this.studentList = this.studentLists;
     this.courseStudentInfo = this.courseStudentInfos;
-    console.log(this.courseStudentInfos);
   },
   watch: {
     studentLists() {
       this.studentList = this.studentLists;
     },
-    courseStudentInfo() {
+    courseStudentInfos() {
       this.courseStudentInfo = this.courseStudentInfos;
     },
   },
@@ -963,20 +962,6 @@ export default {
     },
   },
   methods: {
-    // async addStudent() {
-    //   let result = await ApiAddStudent.post(this.courseid, this.newStudent)
-    //     .then((response) => {
-    //       if (response.record === "success") {
-    //         return true;
-    //       }
-    //     })
-    //     .catch((err) => {});
-    //   if (result) {
-    //     this.$store.dispatch("courseInfo/updateStudent", this.courseid);
-    //   } else {
-    //     $("#AlreadyExistsModal").modal("show");
-    //   }
-    // },
     resetStdTemp() {
       this.$refs.addstudent.resetStdTemp();
     },
@@ -1025,7 +1010,6 @@ export default {
         obj
       )
         .then((response) => {
-          console.log(response);
           if (response.status === "success") {
             return true;
           }

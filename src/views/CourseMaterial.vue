@@ -1018,16 +1018,15 @@ export default {
     },
     async setAssignment() {
       let obj = {};
-      let sidAr = [];
       obj.userid = this.userid;
       obj.publish_date = dayjs(this.AssignmentDue[0]).unix();
       obj.expiry_date = dayjs(this.AssignmentDue[1]).unix();
       obj.difficult = this.difficult;
-      if (this.selectStudent.includes("*")) {
-        this.studentList.forEach((el, index, ar) => {
-          sidAr.push(el.id);
-        });
-        obj.student = sidAr.join(";");
+      if (
+        this.selectStudent.includes("*") ||
+        this.selectStudent.length === this.studentList
+      ) {
+        obj.student = "all";
       } else {
         obj.student = this.selectStudent.join(";");
       }
@@ -1041,6 +1040,7 @@ export default {
         }
       });
       obj.content = this.tempAList;
+      console.log(obj);
       let result = await ApiSetAssignment.post(this.courseid, obj)
         .then((response) => {
           console.log(response);

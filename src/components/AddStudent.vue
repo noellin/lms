@@ -235,20 +235,20 @@
             <p>Copy the list of students in other course.</p>
             <form>
               <div class="form-group">
-                <select class="form-control" id="s2_demo2">
-                  <optgroup label="Select course">
-                    <option>101 ENGLISH</option>
-                    <option>102 ENGLISH</option>
-                    <option>201 ENGLISH</option>
-                    <option>202 ENGLISH</option>
-                  </optgroup>
-                </select>
+                <select2
+                  id="s2_course"
+                  :options="courseList"
+                  v-model="seleceCourse"
+                  @select="getStudentInfo(seleceCourse)"
+                >
+                </select2>
               </div>
             </form>
             <div
               class="table-responsive border rounded p-10 mb-2"
               style="max-height: 200px"
               data-scroll="dark"
+              v-if="courseStudentList.length > 0"
             >
               <table class="table table-striped">
                 <thead>
@@ -258,53 +258,51 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Bach</td>
-                    <td>123456789***</td>
-                  </tr>
-                  <tr>
-                    <td>Ravel</td>
-                    <td>369659633***</td>
-                  </tr>
-                  <tr>
-                    <td>Schubert</td>
-                    <td>865742131***</td>
-                  </tr>
-                  <tr>
-                    <td>Vivaldi</td>
-                    <td>395631453***</td>
-                  </tr>
-                  <tr>
-                    <td>Handel</td>
-                    <td>165894253***</td>
-                  </tr>
-                  <tr>
-                    <td>Bach</td>
-                    <td>123456789***</td>
-                  </tr>
-                  <tr>
-                    <td>Ravel</td>
-                    <td>369659633***</td>
-                  </tr>
-                  <tr>
-                    <td>Schubert</td>
-                    <td>865742131***</td>
-                  </tr>
-                  <tr>
-                    <td>Vivaldi</td>
-                    <td>395631453***</td>
-                  </tr>
-                  <tr>
-                    <td>Handel</td>
-                    <td>165894253***</td>
+                  <tr
+                    v-for="cs in courseStudentList"
+                    :key="cs.username + cs.star_uni_info"
+                  >
+                    <td>{{ cs.username }}</td>
+                    <td>{{ cs.star_uni_info }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p class="mb-0"><span class="text-primary">10</span> students</p>
-            <p class="text-danger">
-              The number of students has reached the upper limit.
+            <p class="mb-0" v-if="courseStudentList.length > 0">
+              <span class="text-primary">{{ courseStudentList.length }}</span>
+              students
             </p>
+            <!-- <p class="text-danger">
+              The number of students has reached the upper limit.
+            </p> -->
+            <div
+              class="border border-danger rounded mt-4"
+              v-if="dupStudentList.length > 0"
+            >
+              <p class="text-danger ml-3 mt-3 mb-0">
+                You import students that already exist in course
+              </p>
+              <div
+                class="table-responsive p-10 mb-2"
+                style="max-height: 200px"
+                data-scroll="dark"
+              >
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Student name</th>
+                      <!-- <th>Unique Number</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="dups in dupStudentList" :key="dups.stuid">
+                      <td>{{ dups.username }}</td>
+                      <!-- <td>{{ aes.phone }}</td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -314,7 +312,11 @@
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-rounded">
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="copySList(seleceCourse)"
+            >
               Copy
             </button>
           </div>
@@ -425,108 +427,6 @@
       </div>
     </div>
     <!-- StudentExisted Modal-->
-    <!-- <div
-      class="modal fade"
-      id="StudentExistedModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">
-              Student profile already exists
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="zmdi zmdi-close"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h6>7 students have been added to this course.</h6>
-            <div class="border border-danger rounded mt-4">
-              <p class="text-danger ml-3 mt-3 mb-0">
-                You import students that already exist in else course,<br />Would
-                you like to combine datasets?
-              </p>
-              <div
-                class="table-responsive p-10 mb-2"
-                style="max-height: 200px"
-                data-scroll="dark"
-              >
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Student name</th>
-                      <th>Unique Number</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Bach</td>
-                      <td>123456789***</td>
-                    </tr>
-                    <tr>
-                      <td>Ravel</td>
-                      <td>369659633***</td>
-                    </tr>
-                    <tr>
-                      <td>Schubert</td>
-                      <td>865742131***</td>
-                    </tr>
-                    <tr>
-                      <td>Vivaldi</td>
-                      <td>395631453***</td>
-                    </tr>
-                    <tr>
-                      <td>Handel</td>
-                      <td>165894253***</td>
-                    </tr>
-                    <tr>
-                      <td>Bach</td>
-                      <td>123456789***</td>
-                    </tr>
-                    <tr>
-                      <td>Ravel</td>
-                      <td>369659633***</td>
-                    </tr>
-                    <tr>
-                      <td>Schubert</td>
-                      <td>865742131***</td>
-                    </tr>
-                    <tr>
-                      <td>Vivaldi</td>
-                      <td>395631453***</td>
-                    </tr>
-                    <tr>
-                      <td>Handel</td>
-                      <td>165894253***</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary btn-outline btn-rounded"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button type="button" class="btn btn-primary btn-rounded">
-              Combine
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -537,6 +437,8 @@ import {
   ApiAddStudent,
   ApiDownloadSample,
   ApiImportStudent,
+  ApiGetStudentInfo,
+  ApiCopySList,
 } from "../http/apis/Student";
 import { ApiGetAllCourse } from "../http/apis/CourseList";
 import vue2Dropzone from "vue2-dropzone";
@@ -558,6 +460,9 @@ export default {
       },
       files: {},
       courseList: [],
+      seleceCourse: "",
+      courseStudentList: [],
+      dupStudentList: [],
       showErrorMessage: false,
       errorMessage: "",
       showAlreadyExist: false,
@@ -572,6 +477,27 @@ export default {
     this.getAllCourse();
   },
   methods: {
+    async copySList(srcCourseid) {
+      let result = await ApiCopySList.get(srcCourseid, this.courseid)
+        .then((response) => {
+          this.dupStudentList = response.duplicateList;
+          if (response.status === "success") {
+            return true;
+          }
+        })
+        .catch((err) => {});
+      if (result && this.dupStudentList.length === 0) {
+        $("#CopyModal").modal("hide");
+        this.$bus.$emit("messsage:push", "Copy Student Success.", "success");
+      }
+    },
+    getStudentInfo(courseid) {
+      ApiGetStudentInfo.get(courseid)
+        .then((response) => {
+          this.courseStudentList = response.record;
+        })
+        .catch((err) => {});
+    },
     getAllCourse() {
       ApiGetAllCourse.get()
         .then((response) => {
@@ -588,6 +514,7 @@ export default {
       this.errorMessage = "";
       this.showAlreadyExist = false;
       this.alreadyStudendList = [];
+      this.dupStudentList = [];
     },
     async addStudent() {
       let result = await ApiAddStudent.post(this.courseid, this.newStudent)
@@ -648,8 +575,8 @@ export default {
           this.errorMessage = "";
           this.$refs.myVueDropzone.removeAllFiles();
           this.alreadyStudendList = [];
+          $("#ImportCSVModal").modal("hide");
           this.$bus.$emit("messsage:push", "New Student Success.", "success");
-          $("#ImportCSVModal").hide();
         }
       } else {
         this.showErrorMessage = true;

@@ -61,7 +61,7 @@ export const ApiExportSList = {
     }
 };
 export const ApiCopySList = {
-    get: (courseid) => {
-        return get(`/stu/copylist/${courseid}`)
+    get: (srcCourseid, courseid) => {
+        return get(`/stu/copylist/${srcCourseid}/${courseid}`)
     }
 };

@@ -29,12 +29,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          <tr v-for="a in aList" :key="a.asgmtid">
                             <td class="pl-5">
-                              <i class="ig-notice"></i>2020.07.01
+                              <i class="ig-notice"></i
+                              >{{ a.publish_date | dateConversion }}
                             </td>
-                            <td>2020.07.07</td>
-                            <td>All students</td>
+                            <td>{{ a.expiry_date | dateConversion }}</td>
+                            <!-- <td>All students</td> -->
+                            <td>{{ a.targer }}</td>
                             <td>47 ／50</td>
                             <td>5</td>
                             <td>
@@ -53,80 +55,11 @@
                                 class="btn btn-primary btn-sm btn-rounded text-white"
                                 >Progress view</a
                               >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="pl-5">
-                              <i class="ig-notice"></i>2020.06.20
-                            </td>
-                            <td>2020.06.30</td>
-                            <td>Anna、Tom...</td>
-                            <td>2 ／3</td>
-                            <td>2</td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#PreviewModel"
-                              >
-                                <i class="la la-eye"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <a
-                                href="assignments-progress.html"
-                                class="btn btn-primary btn-sm btn-rounded"
-                                >Progress view</a
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="pl-5">2020.06.24</td>
-                            <td>2020.07.01</td>
-                            <td>All students</td>
-                            <td>47 ／50</td>
-                            <td>5</td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#PreviewModel"
-                              >
-                                <i class="la la-eye"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <a
+                              <!-- <a
                                 href="assignments-progress.html"
                                 class="btn btn-primary btn-outline btn-sm btn-rounded"
                                 >Record view</a
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="pl-5">2020.06.17</td>
-                            <td>2020.07.01</td>
-                            <td>All students</td>
-                            <td>50 ／50</td>
-                            <td>4</td>
-                            <td>
-                              <button
-                                type=""
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#PreviewModel"
-                              >
-                                <i class="la la-eye"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <a
-                                href="assignments-progress.html"
-                                class="btn btn-primary btn-outline btn-sm btn-rounded"
-                                >Record view</a
-                              >
+                              > -->
                             </td>
                           </tr>
                         </tbody>
@@ -281,19 +214,37 @@
 </template>
 <script>
 import CourseHeader from "../components/CourseHeader";
-
+import { ApiGetAList } from "../http/apis/Assignment";
 export default {
   name: "CourseAssignment",
   components: {
     CourseHeader,
   },
   data() {
-    return {};
+    return {
+      courseid: this.$route.params.courseid,
+      aList: [],
+    };
   },
-
+  created() {
+    this.getAList();
+  },
+  computed: {
+    userid() {
+      return this.$store.state.auth.userid;
+    },
+  },
   methods: {
+    getAList() {
+      console.log(this.courseid);
+      console.log(this.userid);
+      ApiGetAList.get(this.courseid, this.userid)
+        .then((response) => {
+          aList = response.record;
+        })
+        .catch((err) => {});
+    },
     gotoProgress() {
-      console.log("dd");
       this.$router.push({
         path:
           "/check_assignment/course=301 English/type=Assignment/assignment=1234567",
