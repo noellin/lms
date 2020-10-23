@@ -236,8 +236,6 @@ export default {
   },
   methods: {
     getAList() {
-      console.log(this.courseid);
-      console.log(this.userid);
       ApiGetAList.get(this.courseid, this.userid)
         .then((response) => {
           aList = response.record;
