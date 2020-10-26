@@ -5,6 +5,8 @@ import {
 import {
     ApiGetStudentList
 } from '../../http/apis/Student';
+import Vue from 'vue';
+
 const courseInfo = {
     namespaced: true, //注意 模組化管理資料請不要忘了名稱空間的開啟
     state: {
@@ -13,13 +15,33 @@ const courseInfo = {
         studentList: [],
         courseStudentInfo: {},
         forSelectStudentList: [],
-        tempAList: [],
-        tempAIDList: []
+        tempAList: {},
+        tempAIDList: {},
+        courseid:'',
+        caList:[],
+        caidList:[],
+        aKeyList:[]
     },
+    // getters:{
+    //     tempA(state){
+    //         return state.tempAList
+    //     }
+    // },
     mutations: {
         SET_COURSEINFO(state, data) {
-
             state.courseInfo = data
+            state.courseid = data.courseid
+
+            if(state.aKeyList.includes(data.courseid) === false){
+                //初始 course KEY
+                Vue.set(state.tempAIDList, data.courseid, []);
+                Vue.set(state.tempAList, data.courseid, []);
+                state.aKeyList.push(data.courseid)
+            }
+            //由於無法監聽object變化
+            //額外拷貝一個陣列
+            state.caList = [...state.tempAList[data.courseid]]
+            state.caidList = [...state.tempAIDList[data.courseid]]
         },
         SET_TEXTBOOKLIST(state, data) {
             state.textbookList = data
@@ -43,24 +65,37 @@ const courseInfo = {
         SET_ASSIGNMENT(state, data) {
             // state.tempAIDList = []
             // state.tempAList = []
-            if (state.tempAIDList.indexOf(data.id) === -1) {
-                state.tempAList.push(data.assignment)
-                state.tempAIDList.push(data.id)
-            }
+            
+            if (state.tempAIDList[state.courseid].includes(data.id) === false) {
+                let tempa = [...state.tempAList[state.courseid]] 
+                tempa.push(data.assignment)
+                Vue.set(state.tempAList, state.courseid, tempa);
 
+                                let tempaid = [...state.tempAIDList[state.courseid]] 
+                tempaid.push(data.id)
+                Vue.set(state.tempAIDList, state.courseid, tempaid);
+
+                //額外拷貝
+                state.caList.push(data.assignment)
+                state.caidList.push(data.id)
+            }
 
         },
         REMOVE_ASSIGNMENT(state, data) {
-            if (state.tempAIDList.indexOf(data.id) !== -1) {
-                let index = state.tempAIDList.indexOf(data.id)
-                state.tempAIDList.splice(index, 1)
-                state.tempAList.splice(index, 1)
+            if (state.tempAIDList[state.courseid].indexOf(data.id) !== -1) {
+
+                let index = state.tempAIDList[state.courseid].indexOf(data.id)
+                state.tempAIDList[state.courseid].splice(index, 1)
+                state.tempAList[state.courseid].splice(index, 1)
+                state.caList.splice(index, 1)
+                state.caidList.splice(index, 1)
             }
 
         },
         CLEAR_ALL_ASSIGNMENT(state) {
-            state.tempAIDList = []
-            state.tempAList = []
+            state.tempAIDList = {}
+            state.tempAList = {}
+            state.aKeyList=[]
         }
     },
     actions: {

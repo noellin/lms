@@ -207,7 +207,6 @@
                           type="button"
                           class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
                           data-toggle="modal"
-                          data-target="#addAssignment"
                           @click="addToAssignmentList(textbook)"
                         >
                           <i
@@ -587,9 +586,13 @@
                           <span v-else>
                             <span class="badge badge-pill badge-accent mr-2"
                               >Speaking Quiz</span
-                            >{{
-                              ta.resource_name + " - " + ta.material_name
-                            }}</span
+                              
+                            >
+                            {{
+                              ta.resource_name
+                            }} - <span v-if="ta.material_name!=='undefined'">{{ta.material_name}}</span>
+                            <span v-else>Book</span>
+                            </span
                           >
                         </div>
                         <button
@@ -766,6 +769,7 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import dayjs from "dayjs";
 import $ from "jquery";
+// import {mapGetters} from 'vuex';
 // import Select2 from "v-select2-component";
 $("#mySelect2").select2({
   dropdownParent: $("#s2_student"),
@@ -805,6 +809,8 @@ export default {
       AssignmentDue: null,
       difficult: "1",
       difficultList: ["1", "2", "3", "4", "5"],
+      tempAIDList:[],
+      tempAList:[]
     };
   },
   created() {
@@ -812,11 +818,16 @@ export default {
 
     this.textbookList = this.textbookLists;
     this.studentList = this.studentLists;
+          this.tempAIDList = this.tempAIDLists
+              this.tempAList = this.tempALists
   },
   mounted() {
     // this.getStudentList();
   },
   watch: {
+    // courseid(){
+    //   this.reload()
+    // },
     textbookLists() {
       this.textbookList = this.textbookLists;
     },
@@ -828,6 +839,19 @@ export default {
         this.selectStudent = ["*"];
       }
     },
+    tempAIDLists(){
+      this.tempAIDList = this.tempAIDLists
+    },
+    tempALists(){
+      this.tempAList = this.tempALists
+    },
+    // tempALists:{
+    //         deep: true,
+    //               handler () {
+    //           console.log("changed");
+    //            this.tempAList = this.tempALists
+    //         },
+    // },
   },
   computed: {
     textbookLists() {
@@ -842,12 +866,16 @@ export default {
     userid() {
       return this.$store.state.auth.userid;
     },
-    tempAIDList() {
-      return this.$store.state.courseInfo.tempAIDList;
+    tempAIDLists() {
+      return this.$store.state.courseInfo.caidList
+      // return this.$store.state.courseInfo.tempAIDList[this.courseid] === undefined ?  this.tempAIDList : this.$store.state.courseInfo.tempAIDList[this.courseid] ;
     },
-    tempAList() {
-      return this.$store.state.courseInfo.tempAList;
+    tempALists() {
+      return this.$store.state.courseInfo.caList
+//  return this.$store.state.courseInfo.tempAList[this.courseid] === undefined ?  this.tempAList : this.$store.state.courseInfo.tempAList[this.courseid] ;
+      // return this.$store.state.courseInfo.tempAList[this.courseid];
     },
+    
   },
   methods: {
     getCollectionList(rid, obj) {
@@ -899,22 +927,6 @@ export default {
         })
         .catch((err) => {});
     },
-    // async getStudentList() {
-    //   let result = await ApiGetStudentList.get(this.courseid)
-    //     .then((response) => {
-    //       this.studentList = response.record.map((o) => {
-    //         return { id: o.stuid, text: o.username };
-    //       });
-    //       if (response.status === "success") {
-    //         return true;
-    //       }
-    //     })
-    //     .catch((err) => {});
-    //   if (result) {
-    //     let allS = { id: "*", text: "All Students" };
-    //     this.studentList.unshift(allS);
-    //   }
-    // },
     async getVideoMaterial(Ncolid, rid) {
       let colid = Ncolid.split(";")[0];
       let result = await ApiGetVideoMaterial.get(colid, this.courseid, rid)
@@ -1040,10 +1052,8 @@ export default {
         }
       });
       obj.content = this.tempAList;
-      console.log(obj);
       let result = await ApiSetAssignment.post(this.courseid, obj)
         .then((response) => {
-          console.log(response);
           if (response.status === "success") {
             return true;
           }

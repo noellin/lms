@@ -817,7 +817,7 @@
         </div>
       </div>
     </div> -->
-    <add-student ref="addstudent" :courseid="courseid"></add-student>
+    <add-student id="studentdrop" ref="addstudent" :courseid="courseid"></add-student>
     <!-- Reset Password Modal-->
     <div
       class="modal fade"

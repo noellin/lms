@@ -36,15 +36,16 @@
                             </td>
                             <td>{{ a.expiry_date | dateConversion }}</td>
                             <!-- <td>All students</td> -->
-                            <td>{{ a.targer }}</td>
-                            <td>47 ／50</td>
-                            <td>5</td>
+                            <td>{{ a.target }}</td>
+                            <td>{{a.completedStu}} ／{{a.totalStu}}</td>
+                            <td>{{a.difficult_level}}</td>
                             <td>
                               <button
                                 type=""
                                 class="btn btn-nostyle"
                                 data-toggle="modal"
                                 data-target="#PreviewModel"
+                                @click="getAMaterial(a.asgmtid);tempAM=a"
                               >
                                 <i class="la la-eye"></i>
                               </button>
@@ -166,33 +167,23 @@
             <div class="mb-3">
               <div class="row pb-2 pt-2">
                 <h6 class="col-3 text-right">Date</h6>
-                <div class="col-9">2020.05.25</div>
+                <div class="col-9">{{tempAM.publish_date | dateConversion}}</div>
               </div>
               <div class="row pb-2">
                 <h6 class="col-3 text-right">Students</h6>
-                <div class="col-9">Anna、Tom、Vivien...</div>
+                <div class="col-9">{{tempAM.target}}</div>
               </div>
             </div>
             <div class="bg-light rounded">
               <ul class="sequence">
-                <li class="border bg-white rounded">
-                  <div class="mr-3">
-                    <span class="badge badge-pill badge-primary">Reading</span>
-                    A Pocket Park for Tiny
-                  </div>
-                </li>
-                <li class="border bg-white rounded">
-                  <div class="mr-3">
-                    <span class="badge badge-pill badge-warning">Watching</span>
-                    Unit4 NUMBER RUMBA SONG
-                  </div>
-                </li>
-                <li class="border bg-white rounded">
-                  <div class="mr-3">
-                    <span class="badge badge-pill badge-accent"
+                <li class="border bg-white rounded" v-for="am in  aMaterial" :key="am.publish_date+am.resource_name">
+                  <div class="mr-3" >
+                    <span class="badge badge-pill badge-primary" v-if="am.type==='reading'">Reading</span>
+                                        <span class="badge badge-pill badge-accent" v-else-if="am.type==='speaking'"
                       >Speaking Quiz</span
                     >
-                    Unit4 NUMBER RUMBA SONG
+                    <span class="badge badge-pill badge-warning"  v-else>Watching</span>
+                    {{am.resource_name}}
                   </div>
                 </li>
               </ul>
@@ -214,7 +205,8 @@
 </template>
 <script>
 import CourseHeader from "../components/CourseHeader";
-import { ApiGetAList } from "../http/apis/Assignment";
+import { ApiGetAList,ApiGetAMaterial,ApiGetAProgress,ApiSetEvaluate,
+ ApiGetVoice,ApiGetSpeakScore,ApiCheckAllA,ApiGetADetail} from "../http/apis/Assignment";
 export default {
   name: "CourseAssignment",
   components: {
@@ -224,6 +216,8 @@ export default {
     return {
       courseid: this.$route.params.courseid,
       aList: [],
+      aMaterial:[],
+      tempAM:{}
     };
   },
   created() {
@@ -238,9 +232,17 @@ export default {
     getAList() {
       ApiGetAList.get(this.courseid, this.userid)
         .then((response) => {
-          aList = response.record;
+          console.log(response.record);
+          this.aList = response.record;
         })
         .catch((err) => {});
+    },
+    getAMaterial(aid){
+      ApiGetAMaterial.get(aid).then((response) => {
+        this.aMaterial = response.record
+      }).catch((err) => {
+        
+      });
     },
     gotoProgress() {
       this.$router.push({

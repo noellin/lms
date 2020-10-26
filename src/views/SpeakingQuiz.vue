@@ -240,6 +240,7 @@ export default {
       tempSname: "",
       tempStime: new Date(),
       tempQid: "",
+      courseid:this.$route.params.courseid
     };
   },
   mounted() {
@@ -252,10 +253,16 @@ export default {
   },
   computed: {
     tempAIDList() {
-      return this.$store.state.courseInfo.tempAIDList;
+                  if(this.$store.state.courseInfo.tempAIDList[this.courseid]===undefined){
+       return [];
+      }
+      return this.$store.state.courseInfo.tempAIDList[this.courseid];
     },
     tempAList() {
-      return this.$store.state.courseInfo.tempAList;
+            if(this.$store.state.courseInfo.tempAList[this.courseid]===undefined){
+       return [];
+      }
+      return this.$store.state.courseInfo.tempAList[this.courseid];
     },
   },
   methods: {
@@ -285,6 +292,7 @@ export default {
       }
     },
     addtoAssignment(q) {
+      q.resourceid = this.rid
       this.$store.dispatch("courseInfo/setAssignment", {
         assignment: q,
         id: q.quizid,
