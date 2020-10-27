@@ -17,6 +17,9 @@ import CollectionDetail from "../views/CollectionDetail.vue";
 import CollectionEdit from "../views/CollectionEdit.vue";
 import ErrorPage from "../views/error.vue";
 import Layout from "../views/CourseLayout.vue";
+import RecordList from '../views/RecordList.vue';
+import RecordProgress from '../views/RecordProgress.vue';
+import RecordCreate from '../views/RecordCreate.vue';
 Vue.use(VueRouter);
 const routes = [{
     path: "*",
@@ -72,7 +75,7 @@ const routes = [{
         },
       },
       {
-        path: "/check_assignment/course=:course/type=:type/assignment=:id",
+        path: "/check_assignment/course=:course/type=:type/:aid",
         name: "AssignmentProgress",
         component: AssignmentProgress,
         meta: {
@@ -112,6 +115,33 @@ const routes = [{
           backtag: true,
         },
       },
+      {
+        path: "/course_weekly_quiz/course=:course/type=:type/:courseid",
+        name: "WeeklyQuiz",
+        component: RecordList,
+        meta: {
+          header: "course",
+          backtag: true,
+        },
+      },
+      {
+        path: "/course_weekly_quiz/create/course=:course/type=:type/:courseid",
+        name: "weeklyQuizCreate",
+        component: RecordCreate,
+        meta: {
+          header: "course",
+          backtag: true,
+        },
+      },
+      {
+        path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid",
+        name: "WeeklyQuizProgress",
+        component: RecordProgress,
+        meta: {
+          header: "course",
+          backtag: true,
+        },
+      }
     ],
   },
 

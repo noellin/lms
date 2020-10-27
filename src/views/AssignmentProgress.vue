@@ -7,19 +7,7 @@
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
         <div class="main-content">
-          <header class="page-header">
-            <div class="d-flex justify-content-start">
-              <div class="mt-2 mr-3">
-                <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
-                  ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
-                ></a>
-              </div>
-              <div class="mr-auto">
-                <h1>201 ENGLISH</h1>
-                <p class="second-title">Assigned 2020.07.01 - Due 2020.07.07</p>
-              </div>
-            </div>
-          </header>
+          <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row">
               <div class="col-4 col-md">
@@ -121,6 +109,7 @@
                   type="button"
                   class="btn btn-primary btn-rounded"
                   disabled
+                  @click="checkAllA()"
                 >
                   Check
                 </button>
@@ -156,7 +145,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          <tr v-for="ap in aProgressList" :key="ap.stuid">
                             <td>
                               <div
                                 class="custom-control custom-checkbox form-check"
@@ -177,136 +166,20 @@
                                 class="btn btn-nostyle text-primary"
                                 data-toggle="modal"
                                 data-target="#CheckedModal"
+                                @click="getADetail(ap.stuid)"
                               >
-                                Aaron
+                                {{ ap.username }}
                               </button>
                             </td>
-                            <td>3/3</td>
-                            <td>2020.07.03</td>
-                            <td><span class="text-danger">Unchecked</span></td>
-                          </tr>
-                          <tr>
+                            <td>{{ ap.completed }}/{{ ap.totalq }}</td>
+                            <td>{{ ap.complete_time | dateConversion }}</td>
                             <td>
-                              <div
-                                class="custom-control custom-checkbox form-check"
+                              <span class="text-danger" v-if="checked"
+                                >Unchecked</span
                               >
-                                <input
-                                  type="checkbox"
-                                  class="custom-control-input"
-                                  id="customCheck3"
-                                />
-                                <label
-                                  class="custom-control-label"
-                                  for="customCheck3"
-                                ></label>
-                              </div>
                             </td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle text-primary"
-                                data-toggle="modal"
-                                data-target="#CheckedModal"
-                              >
-                                Alexander
-                              </button>
-                            </td>
-                            <td>3/3</td>
-                            <td>2020.07.03</td>
-                            <td><span class="text-danger">Unchecked</span></td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle text-primary"
-                                data-toggle="modal"
-                                data-target="#CheckedModal"
-                              >
-                                Aurora
-                              </button>
-                            </td>
-                            <td>3/3</td>
-                            <td>2020.07.03</td>
-                            <td>
-                              <span class="text-warning">Incomplete</span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle text-primary"
-                                data-toggle="modal"
-                                data-target="#CheckedModal"
-                              >
-                                Bennett
-                              </button>
-                            </td>
-                            <td>3/3</td>
-                            <td>2020.07.03</td>
-                            <td>
-                              <span class="text-warning">Incomplete</span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle text-primary"
-                                data-toggle="modal"
-                                data-target="#CheckedModal"
-                              >
-                                Bonnie
-                              </button>
-                            </td>
-                            <td>3/3</td>
-                            <td>2020.07.03</td>
-                            <td>checked</td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle text-primary"
-                                data-toggle="modal"
-                                data-target="#CheckedModal"
-                              >
-                                Brook
-                              </button>
-                            </td>
-                            <td>3/3</td>
-                            <td>2020.07.03</td>
-                            <td>checked</td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle text-primary"
-                                data-toggle="modal"
-                                data-target="#CheckedModal"
-                              >
-                                Christopher
-                              </button>
-                            </td>
-                            <td>3/3</td>
-                            <td>2020.07.02</td>
-                            <td>checked</td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td>
-                              <button
-                                class="btn btn-nostyle text-primary"
-                                data-toggle="modal"
-                                data-target="#CheckedModal"
-                              >
-                                Constance
-                              </button>
-                            </td>
-                            <td>3/3</td>
-                            <td>2020.07.02</td>
-                            <td>checked</td>
+                            <!-- <span class="text-warning">Incomplete</span> -->
+                            <!-- <td>checked</td> -->
                           </tr>
                         </tbody>
                       </table>
@@ -417,7 +290,11 @@
                 data-scroll="dark"
               >
                 <div class="mr-2">
-                  <div class="card">
+                  <div
+                    class="card"
+                    v-for="sa in studendAssignmentList"
+                    :key="sa.resourceid + sa.resource_name"
+                  >
                     <div class="card-body">
                       <div class="media rounded pb-2">
                         <div
@@ -435,6 +312,12 @@
                         <div class="media-body mr-3 mt-3 h-75">
                           <span class="badge badge-pill badge-primary"
                             >Reading</span
+                          >
+                          <span class="badge badge-pill badge-warning"
+                            >Watching</span
+                          >
+                          <span class="badge badge-pill badge-accent"
+                            >Speaking Quiz</span
                           >
                           <p class="mb-0 mt-1">A Pocket Park for Tiny</p>
                         </div>
@@ -715,11 +598,23 @@
                       Extra bonus <small class="text-muted">(optional)</small>
                     </h6>
                     <div class="mt-3">
-                      <a href="" title="" class="bonus"
-                        ><i class="la la-gift mr-1 display-6 active"></i>
-                        <i class="la la-gift mr-1 display-6 active"></i>
-                        <i class="la la-gift mr-1 display-6"></i
-                      ></a>
+                      <a title="" class="bonus">
+                        <i
+                          class="la la-gift mr-1 display-6 active pointer"
+                          v-for="index in 3"
+                          :key="index"
+                          @click="evaluate.score = index"
+                          :style="{
+                            color: evaluate.score >= index ? 'orange' : '',
+                          }"
+                        ></i>
+                        <!-- <i class="la la-gift mr-1 display-6 active pointer"></i>
+                        <i
+                          class="la la-gift mr-1 display-6 pointer"
+                          style="color: orange"
+                        ></i
+                      > -->
+                      </a>
                     </div>
                     <h6 class="mt-4">
                       Comments <small class="text-muted">(optional)</small>
@@ -727,32 +622,32 @@
                     <textarea
                       class="form-control"
                       id="exampleFormControlTextarea1"
-                      rows="3"
+                      rows="6"
                       placeholder="Leave a message to student..."
                     ></textarea>
                     <div class="pt-2">
                       <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-1"
+                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
                       >
                         Good Job!
                       </button>
                       <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-1"
+                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
                       >
                         Awesome!
                       </button>
                       <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-1"
+                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
                       >
                         Go for it!
                       </button>
                       <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-1"
+                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
                       >
                         You nailed it!
                       </button>
                       <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-1"
+                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
                       >
                         You are almost there!
                       </button>
@@ -761,7 +656,7 @@
                   <div class="card-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary btn-outline btn-rounded"
+                      class="btn btn-secondary btn-outline btn-rounded mr-2"
                       data-dismiss="modal"
                     >
                       Close
@@ -772,6 +667,7 @@
                       data-dismiss="modal"
                       data-toggle="modal"
                       data-target="#AssignmentModal-2"
+                      @click="setEvaluate()"
                     >
                       Check
                     </button>
@@ -786,18 +682,75 @@
   </div>
 </template>
 <script>
+import CourseHeader from "../components/CourseHeader";
+import {
+  ApiGetAProgress,
+  ApiCheckAllA,
+  ApiGetADetail,
+  ApiGetVoice,
+  ApiSetEvaluate,
+  ApiGetSpeakScore,
+} from "../http/apis/Assignment";
 export default {
   name: "AssignmentProgress",
-  components: {},
+  components: { CourseHeader },
   data() {
-    return {};
+    return {
+      aid: this.$route.params.aid,
+      aProgressList: [],
+      studendAssignmentList: [],
+      evaluate: {
+        score: "",
+        comment: "",
+      },
+    };
   },
-
-  methods: {},
+  created() {
+    this.getAProgress();
+  },
+  methods: {
+    getAProgress() {
+      ApiGetAProgress.get(this.aid)
+        .then((response) => {
+          this.aProgressList = response.record;
+        })
+        .catch((err) => {});
+    },
+    checkAllA() {
+      ApiCheckAllA.get()
+        .then((response) => {})
+        .catch((err) => {});
+    },
+    getADetail(sid) {
+      ApiGetADetail.get()
+        .then((response) => {
+          this.studendAssignmentList = response.record;
+        })
+        .catch((err) => {});
+    },
+    getVoice() {
+      ApiGetVoice.get(voiceid)
+        .then((response) => {})
+        .catch((err) => {});
+    },
+    setEvaluate() {
+      ApiSetEvaluate.post(this.aid, sid)
+        .then((response) => {})
+        .catch((err) => {});
+    },
+    getSpeakScore() {
+      ApiGetSpeakScore.get(asgmtid, ais, std)
+        .then((response) => {})
+        .catch((err) => {});
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+#exampleFormControlTextarea1 {
+  height: 100px;
+}
 // .main-content {
 //   overflow-y: hidden !important;
 // }

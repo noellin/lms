@@ -37,22 +37,25 @@
                             <td>{{ a.expiry_date | dateConversion }}</td>
                             <!-- <td>All students</td> -->
                             <td>{{ a.target }}</td>
-                            <td>{{a.completedStu}} ／{{a.totalStu}}</td>
-                            <td>{{a.difficult_level}}</td>
+                            <td>{{ a.completedStu }} ／{{ a.totalStu }}</td>
+                            <td>{{ a.difficult_level }}</td>
                             <td>
                               <button
                                 type=""
                                 class="btn btn-nostyle"
                                 data-toggle="modal"
                                 data-target="#PreviewModel"
-                                @click="getAMaterial(a.asgmtid);tempAM=a"
+                                @click="
+                                  getAMaterial(a.asgmtid);
+                                  tempAM = a;
+                                "
                               >
                                 <i class="la la-eye"></i>
                               </button>
                             </td>
                             <td>
                               <a
-                                @click="gotoProgress()"
+                                @click="gotoProgress(a.asgmtid)"
                                 class="btn btn-primary btn-sm btn-rounded text-white"
                                 >Progress view</a
                               >
@@ -167,23 +170,37 @@
             <div class="mb-3">
               <div class="row pb-2 pt-2">
                 <h6 class="col-3 text-right">Date</h6>
-                <div class="col-9">{{tempAM.publish_date | dateConversion}}</div>
+                <div class="col-9">
+                  {{ tempAM.publish_date | dateConversion }}
+                </div>
               </div>
               <div class="row pb-2">
                 <h6 class="col-3 text-right">Students</h6>
-                <div class="col-9">{{tempAM.target}}</div>
+                <div class="col-9">{{ tempAM.target }}</div>
               </div>
             </div>
             <div class="bg-light rounded">
               <ul class="sequence">
-                <li class="border bg-white rounded" v-for="am in  aMaterial" :key="am.publish_date+am.resource_name">
-                  <div class="mr-3" >
-                    <span class="badge badge-pill badge-primary" v-if="am.type==='reading'">Reading</span>
-                                        <span class="badge badge-pill badge-accent" v-else-if="am.type==='speaking'"
+                <li
+                  class="border bg-white rounded"
+                  v-for="am in aMaterial"
+                  :key="am.publish_date + am.resource_name"
+                >
+                  <div class="mr-3">
+                    <span
+                      class="badge badge-pill badge-primary"
+                      v-if="am.type === 'reading'"
+                      >Reading</span
+                    >
+                    <span
+                      class="badge badge-pill badge-accent"
+                      v-else-if="am.type === 'speaking'"
                       >Speaking Quiz</span
                     >
-                    <span class="badge badge-pill badge-warning"  v-else>Watching</span>
-                    {{am.resource_name}}
+                    <span class="badge badge-pill badge-warning" v-else
+                      >Watching</span
+                    >
+                    {{ am.resource_name }}
                   </div>
                 </li>
               </ul>
@@ -205,8 +222,7 @@
 </template>
 <script>
 import CourseHeader from "../components/CourseHeader";
-import { ApiGetAList,ApiGetAMaterial,ApiGetAProgress,ApiSetEvaluate,
- ApiGetVoice,ApiGetSpeakScore,ApiCheckAllA,ApiGetADetail} from "../http/apis/Assignment";
+import { ApiGetAList, ApiGetAMaterial } from "../http/apis/Assignment";
 export default {
   name: "CourseAssignment",
   components: {
@@ -216,8 +232,8 @@ export default {
     return {
       courseid: this.$route.params.courseid,
       aList: [],
-      aMaterial:[],
-      tempAM:{}
+      aMaterial: [],
+      tempAM: {},
     };
   },
   created() {
@@ -237,17 +253,16 @@ export default {
         })
         .catch((err) => {});
     },
-    getAMaterial(aid){
-      ApiGetAMaterial.get(aid).then((response) => {
-        this.aMaterial = response.record
-      }).catch((err) => {
-        
-      });
+    getAMaterial(aid) {
+      ApiGetAMaterial.get(aid)
+        .then((response) => {
+          this.aMaterial = response.record;
+        })
+        .catch((err) => {});
     },
-    gotoProgress() {
+    gotoProgress(aid) {
       this.$router.push({
-        path:
-          "/check_assignment/course=301 English/type=Assignment/assignment=1234567",
+        path: `/check_assignment/course=${this.$route.params.course}/type=${this.$route.params.type}/${aid}`,
       });
     },
   },

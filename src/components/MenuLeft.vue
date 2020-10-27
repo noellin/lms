@@ -75,7 +75,13 @@ export default {
       //   name: "Amanda",
       //   email: "support@authenticgoods.co",
       // },
-      typeList: ["Material", "Assignment", "Student", "Dashboard"],
+      typeList: [
+        "Material",
+        "Assignment",
+        "Student",
+        "Dashboard",
+        "Weekly quiz",
+      ],
       coursePage: this.$route.params.course,
       courseType: this.$route.params.type,
       iconStatus: this.$route.params.course,
@@ -163,6 +169,13 @@ export default {
           this.$router
             .push({
               path: `/course_dashboard/course=${course}/type=${type}/${id}`,
+            })
+            .catch((err) => err);
+          break;
+        case "Weekly quiz":
+          this.$router
+            .push({
+              path: `/course_weekly_quiz/course=${course}/type=${type}/${id}`,
             })
             .catch((err) => err);
           break;
