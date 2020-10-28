@@ -9,7 +9,8 @@
       <div class="content page-aside-left">
         <menu-left></menu-left>
         <div class="main-content">
-          <router-view></router-view>
+          <!-- //利用KEY 在同Components但URL改變時重新渲染 -->
+          <router-view :key="$route.params.courseid"></router-view>
         </div>
       </div>
       <footer class="bg-secondary bg-dk d-flex justify-content-center">
@@ -35,7 +36,7 @@ export default {
   data() {
     return {};
   },
-
+  created() {},
   computed: {},
   methods: {},
 };

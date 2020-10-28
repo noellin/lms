@@ -17,10 +17,10 @@ const courseInfo = {
         forSelectStudentList: [],
         tempAList: {},
         tempAIDList: {},
-        courseid:'',
-        caList:[],
-        caidList:[],
-        aKeyList:[]
+        courseid: '',
+        caList: [],
+        caidList: [],
+        aKeyList: []
     },
     // getters:{
     //     tempA(state){
@@ -32,7 +32,7 @@ const courseInfo = {
             state.courseInfo = data
             state.courseid = data.courseid
 
-            if(state.aKeyList.includes(data.courseid) === false){
+            if (state.aKeyList.includes(data.courseid) === false) {
                 //初始 course KEY
                 Vue.set(state.tempAIDList, data.courseid, []);
                 Vue.set(state.tempAList, data.courseid, []);
@@ -65,13 +65,13 @@ const courseInfo = {
         SET_ASSIGNMENT(state, data) {
             // state.tempAIDList = []
             // state.tempAList = []
-            
+
             if (state.tempAIDList[state.courseid].includes(data.id) === false) {
-                let tempa = [...state.tempAList[state.courseid]] 
+                let tempa = [...state.tempAList[state.courseid]]
                 tempa.push(data.assignment)
                 Vue.set(state.tempAList, state.courseid, tempa);
 
-                                let tempaid = [...state.tempAIDList[state.courseid]] 
+                let tempaid = [...state.tempAIDList[state.courseid]]
                 tempaid.push(data.id)
                 Vue.set(state.tempAIDList, state.courseid, tempaid);
 
@@ -95,7 +95,7 @@ const courseInfo = {
         CLEAR_ALL_ASSIGNMENT(state) {
             state.tempAIDList = {}
             state.tempAList = {}
-            state.aKeyList=[]
+            state.aKeyList = []
         }
     },
     actions: {

@@ -1,4 +1,9 @@
-import { get, post, put, remove } from "../https.js";
+import {
+  get,
+  post,
+  put,
+  remove
+} from "../https.js";
 
 export const ApiGetAList = {
   get: (courseid, uid) => {
@@ -44,6 +49,6 @@ export const ApiCheckAllA = {
 
 export const ApiGetADetail = {
   get: (aid, sid) => {
-    return get(`/asgmt/datail/${aid}/${sid}`);
+    return get(`/asgmt/detail/${aid}/${sid}`);
   },
 };

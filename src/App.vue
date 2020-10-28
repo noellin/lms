@@ -17,6 +17,8 @@
 </template>
 <script>
 import Alert from "./components/AlertMessage";
+import $ from "jquery";
+
 export default {
   data() {
     return {};
@@ -29,6 +31,7 @@ export default {
       return this.$store.state.common.isLoading;
     },
   },
+  created() {},
   methods: {
     // doAjax() {
     //   this.isLoading = true;

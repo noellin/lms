@@ -153,11 +153,13 @@
                                 <input
                                   type="checkbox"
                                   class="custom-control-input"
-                                  id="customCheck2"
+                                  :id="ap.stuid"
+                                  v-model="selectedStudend"
+                                  :value="ap.stuid"
                                 />
                                 <label
                                   class="custom-control-label"
-                                  for="customCheck2"
+                                  :for="ap.stuid"
                                 ></label>
                               </div>
                             </td>
@@ -166,17 +168,34 @@
                                 class="btn btn-nostyle text-primary"
                                 data-toggle="modal"
                                 data-target="#CheckedModal"
-                                @click="getADetail(ap.stuid)"
+                                @click="
+                                  getADetail(ap.stuid);
+                                  sid=ap.stuid
+                                  tempSname = ap.username;
+                                  evaluate = {
+                                    comment: '',
+                                    score: '',
+                                  };
+                                "
                               >
+                                <!-- getSpeakScore(ap.stuid); -->
                                 {{ ap.username }}
                               </button>
                             </td>
                             <td>{{ ap.completed }}/{{ ap.totalq }}</td>
                             <td>{{ ap.complete_time | dateConversion }}</td>
                             <td>
-                              <span class="text-danger" v-if="checked"
+                              <span
+                                class="text-warning"
+                                v-if="ap.complete_time === ''"
+                                >Incomplete</span
+                              >
+                              <span
+                                class="text-danger"
+                                v-else-if="ap.check !== true"
                                 >Unchecked</span
                               >
+                              <span v-else>checked</span>
                             </td>
                             <!-- <span class="text-warning">Incomplete</span> -->
                             <!-- <td>checked</td> -->
@@ -268,10 +287,13 @@
       aria-hidden="true"
       data-modal="scroll"
     >
-      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div
+        class="modal-dialog modal-dialog-centered modal-full modal-xl"
+        role="document"
+      >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">201 English</h5>
+            <h5 class="modal-title">{{ $route.params.course }}</h5>
             <button
               type="button"
               class="close"
@@ -282,7 +304,7 @@
             </button>
           </div>
           <div class="modal-body bg-light pl-4 pr-4">
-            <h2 class="pl-2">Aaron</h2>
+            <h2 class="pl-2">{{ tempSname }}</h2>
             <div class="row">
               <div
                 class="col-9"
@@ -310,135 +332,55 @@
                           ></a>
                         </div>
                         <div class="media-body mr-3 mt-3 h-75">
-                          <span class="badge badge-pill badge-primary"
+                          <span
+                            class="badge badge-pill badge-primary"
+                            v-if="sa.type === 'reading' || sa.type === 'mcq'"
                             >Reading</span
                           >
-                          <span class="badge badge-pill badge-warning"
+                          <span
+                            class="badge badge-pill badge-warning"
+                            v-else-if="sa.type === 'video'"
                             >Watching</span
                           >
-                          <span class="badge badge-pill badge-accent"
+                          <span
+                            class="badge badge-pill badge-accent"
+                            v-else-if="sa.type === 'speaking'"
                             >Speaking Quiz</span
                           >
-                          <p class="mb-0 mt-1">A Pocket Park for Tiny</p>
+                          <p class="mb-0 mt-1">{{ sa.resource_name }}</p>
                         </div>
                       </div>
-                      <div class="border-top pt-2">
+                      <!-- 完成與否 -->
+                      <div class="border-top pt-3">
+                        <h5 class="text-danger" v-if="sa.complete_time === ''">
+                          <span class="btn-rounded-icon btn-danger rounded mr-2"
+                            ><i
+                              class="zmdi zmdi-close zmdi-hc-fw text-white"
+                            ></i></span
+                          >incomplete
+                        </h5>
+                        <h5 class="text-success" v-else>
+                          <span
+                            class="btn-rounded-icon btn-success rounded mr-2"
+                            ><i
+                              class="zmdi zmdi-close zmdi-hc-fw text-white"
+                            ></i></span
+                          >complete
+                        </h5>
+                      </div>
+
+                      <!-- 完成與否 -->
+                      <!-- 題目內容 -->
+                      <div class="border-top pt-2" v-if="sa.type === 'mcq'">
                         <p>
                           Total number of incorrect answers
                           <strong class="text-danger display-6">5</strong>
                         </p>
-                        <ul class="d-flex justify-content-start mb-0">
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              1
-                            </div>
-                            <p class="text-center text-danger pb-0">
-                              <strong>1</strong>
-                            </p>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              2
-                            </div>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              3
-                            </div>
-                            <p class="text-center text-danger pb-0">
-                              <strong>1</strong>
-                            </p>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              4
-                            </div>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              5
-                            </div>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              6
-                            </div>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              7
-                            </div>
-                            <p class="text-center text-danger pb-0">
-                              <strong>2</strong>
-                            </p>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              8
-                            </div>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              9
-                            </div>
-                          </li>
-                          <li class="mr-3">
-                            <div
-                              class="number-block bg-primary text-white rounded-circle"
-                            >
-                              10
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="media rounded pb-2">
-                        <div
-                          class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
+                        <!-- 判定是全正確 -->
+                        <h5
+                          class="text-success"
+                          v-if="sa.supplement.error_status === undefined"
                         >
-                          <a
-                            href="#"
-                            title=""
-                            class="overlay-img"
-                            style="
-                              background-image: url(../assets/img/avatars/3.jpg);
-                            "
-                          ></a>
-                        </div>
-                        <div class="media-body mr-3 mt-3 h-75">
-                          <span class="badge badge-pill badge-primary"
-                            >Reading</span
-                          >
-                          <p class="mb-0 mt-1">A Pocket Park for Tiny</p>
-                        </div>
-                      </div>
-                      <div class="border-top pt-2">
-                        <p>
-                          Total number of incorrect answers
-                          <strong class="text-success display-6">0</strong>
-                        </p>
-                        <h5 class="text-success">
                           <span
                             class="btn-rounded-icon btn-success rounded mr-2"
                             ><i
@@ -446,84 +388,28 @@
                             ></i></span
                           >Perfact!
                         </h5>
-                      </div>
-                      <div class="border-top pt-3">
-                        <h5 class="text-danger">
-                          <span class="btn-rounded-icon btn-danger rounded mr-2"
-                            ><i
-                              class="zmdi zmdi-close zmdi-hc-fw text-white"
-                            ></i></span
-                          >incomplete
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="media rounded pb-2">
-                        <div
-                          class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                        >
-                          <a
-                            href="#"
-                            title=""
-                            class="overlay-img"
-                            style="
-                              background-image: url(../assets/img/avatars/3.jpg);
-                            "
-                          ></a>
-                        </div>
-                        <div class="media-body mr-3 mt-3 h-75">
-                          <span class="badge badge-pill badge-warning"
-                            >Watching</span
+                        <ul class="d-flex justify-content-start mb-0">
+                          <li
+                            class="mr-3"
+                            v-for="(answerError, index) in sa.supplement
+                              .error_status"
+                            :key="index"
                           >
-                          <p class="mb-0 mt-1">Unit4 NUMBER RUMBA SONG</p>
-                        </div>
+                            <div
+                              class="number-block bg-primary text-white rounded-circle"
+                            >
+                              {{ index }}
+                            </div>
+                            <p class="text-center text-danger pb-0">
+                              <strong>{{ answerError }}</strong>
+                            </p>
+                          </li>
+                        </ul>
                       </div>
-                      <div class="border-top pt-3">
-                        <h5 class="text-success">
-                          <span
-                            class="btn-rounded-icon btn-success rounded mr-2"
-                            ><i
-                              class="zmdi zmdi-check zmdi-hc-fw text-white"
-                            ></i></span
-                          >complete
-                        </h5>
-                      </div>
-                      <div class="border-top pt-3">
-                        <h5 class="text-danger">
-                          <span class="btn-rounded-icon btn-danger rounded mr-2"
-                            ><i
-                              class="zmdi zmdi-close zmdi-hc-fw text-white"
-                            ></i></span
-                          >incomplete
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="media rounded p-2">
-                        <div
-                          class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                        >
-                          <a
-                            href="#"
-                            title=""
-                            class="overlay-img"
-                            style="
-                              background-image: url(../assets/img/avatars/3.jpg);
-                            "
-                          ></a>
-                        </div>
-                        <div class="media-body mr-3 mt-3 h-75">
-                          <span class="badge badge-pill badge-accent"
-                            >Speaking Quiz</span
-                          >
-                          <p class="mb-0 mt-1">Unit4 NUMBER RUMBA SONG</p>
-                        </div>
-                      </div>
-                      <div class="border-top pt-2">
+                      <div
+                        class="border-top pt-2"
+                        v-if="sa.type === 'speaking'"
+                      >
                         <ul class="quiz-list">
                           <li>
                             <strong class="text-primary mr-2">Q1.</strong>She
@@ -577,15 +463,6 @@
                           <div class="w-50 text-left text-primary">25</div>
                         </div>
                       </div>
-                      <div class="border-top pt-3">
-                        <h5 class="text-danger">
-                          <span class="btn-rounded-icon btn-danger rounded mr-2"
-                            ><i
-                              class="zmdi zmdi-close zmdi-hc-fw text-white"
-                            ></i></span
-                          >incomplete
-                        </h5>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -624,57 +501,41 @@
                       id="exampleFormControlTextarea1"
                       rows="6"
                       placeholder="Leave a message to student..."
+                      v-model="evaluate.comment"
                     ></textarea>
                     <div class="pt-2">
                       <button
+                        @click="quickNewComments(qc)"
+                        v-for="qc in quickComments"
+                        :key="qc"
                         class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
                       >
-                        Good Job!
-                      </button>
-                      <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
-                      >
-                        Awesome!
-                      </button>
-                      <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
-                      >
-                        Go for it!
-                      </button>
-                      <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
-                      >
-                        You nailed it!
-                      </button>
-                      <button
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
-                      >
-                        You are almost there!
+                        {{ qc }}
                       </button>
                     </div>
-                  </div>
-                  <div class="card-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary btn-outline btn-rounded mr-2"
-                      data-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-primary btn-rounded"
-                      data-dismiss="modal"
-                      data-toggle="modal"
-                      data-target="#AssignmentModal-2"
-                      @click="setEvaluate()"
-                    >
-                      Check
-                    </button>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded mr-2"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              data-toggle="modal"
+              data-target="#AssignmentModal-2"
+              @click="setEvaluate()"
+            >
+              Check
+            </button>
           </div>
         </div>
       </div>
@@ -697,12 +558,22 @@ export default {
   data() {
     return {
       aid: this.$route.params.aid,
+      sid:'',
       aProgressList: [],
       studendAssignmentList: [],
       evaluate: {
         score: "",
         comment: "",
       },
+      tempSname: "",
+      quickComments: [
+        "Good Job!",
+        "Awesome!",
+        "Go for it!",
+        "You nailed it!",
+        "You are almost there!",
+      ],
+      selectedStudend: [],
     };
   },
   created() {
@@ -716,15 +587,28 @@ export default {
         })
         .catch((err) => {});
     },
-    checkAllA() {
-      ApiCheckAllA.get()
-        .then((response) => {})
+    quickNewComments(c) {
+      this.evaluate.comment = this.evaluate.comment + c;
+      console.log(this.evaluate.comment);
+    },
+    async checkAllA() {
+      let result = await ApiCheckAllA.get(this.selectedStudend)
+        .then((response) => {
+          if (response.status === "success") {
+            return true;
+          }
+        })
         .catch((err) => {});
+      if (result) {
+        this.getAProgress();
+      }
     },
     getADetail(sid) {
-      ApiGetADetail.get()
+      ApiGetADetail.get(this.aid, sid)
         .then((response) => {
-          this.studendAssignmentList = response.record;
+          if (response.status !== "failed") {
+            this.studendAssignmentList = response.record;
+          }
         })
         .catch((err) => {});
     },
@@ -734,12 +618,12 @@ export default {
         .catch((err) => {});
     },
     setEvaluate() {
-      ApiSetEvaluate.post(this.aid, sid)
+      ApiSetEvaluate.post(this.aid, this.sid)
         .then((response) => {})
         .catch((err) => {});
     },
-    getSpeakScore() {
-      ApiGetSpeakScore.get(asgmtid, ais, std)
+    getSpeakScore(sid) {
+      ApiGetSpeakScore.get(asgmtid, aid, std)
         .then((response) => {})
         .catch((err) => {});
     },
@@ -751,8 +635,44 @@ export default {
 #exampleFormControlTextarea1 {
   height: 100px;
 }
+.modal-dialog {
+  max-width: 100%;
+  margin: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 100vh;
+  display: flex;
+  position: fixed;
+  z-index: 100000;
+}
+
+.modal[data-modal="scroll"] .modal-body {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+// .modal-full {
+//   min-width: 100%;
+//   margin: 0;
+// }
+
+// .modal-full .modal-content {
+//   min-height: 100vh;
+// }
 // .main-content {
 //   overflow-y: hidden !important;
 // }
 //@import '../assets/css/igroup.css';
+
+.modal-footer {
+  background: #fff;
+  // display: flex;
+  // align-items: flex-start;
+  // justify-content: space-between;
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
 </style>

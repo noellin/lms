@@ -103,7 +103,10 @@ export default {
     } else {
       this.getActiveCourseList(this.userid);
     }
-    this.$store.dispatch("courseInfo/getCouseInfo", this.courseID);
+    this.$store.dispatch(
+      "courseInfo/getCouseInfo",
+      this.$route.params.courseid
+    );
   },
   mounted() {},
   computed: {

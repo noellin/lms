@@ -29,15 +29,22 @@ export default {
       rname: this.$route.params.rname,
       mname: this.$route.params.mname,
       course_name: this.$route.params.course,
+      courseInfo: {},
     };
   },
   created() {
     if (this.$route.params.mname === "undefined") {
       this.mname = "";
     }
+    this.courseInfo = this.courseInfos;
+  },
+  watch: {
+    courseInfos() {
+      this.courseInfo = this.courseInfos;
+    },
   },
   computed: {
-    courseInfo() {
+    courseInfos() {
       return this.$store.state.courseInfo.courseInfo;
     },
   },

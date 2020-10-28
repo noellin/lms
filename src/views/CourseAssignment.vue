@@ -239,9 +239,10 @@ export default {
   created() {
     this.getAList();
   },
-  computed: {
-    userid() {
-      return this.$store.state.auth.userid;
+  computed: {},
+  watch: {
+    courseid() {
+      this.reload();
     },
   },
   methods: {
@@ -262,7 +263,7 @@ export default {
     },
     gotoProgress(aid) {
       this.$router.push({
-        path: `/check_assignment/course=${this.$route.params.course}/type=${this.$route.params.type}/${aid}`,
+        path: `/check_assignment/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}/${aid}`,
       });
     },
   },
