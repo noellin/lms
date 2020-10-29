@@ -31,7 +31,10 @@
                         <tbody>
                           <tr v-for="a in aList" :key="a.asgmtid">
                             <td class="pl-5">
-                              <i class="ig-notice"></i
+                              <i
+                                class="ig-notice"
+                                v-if="a.check_status !== 'true'"
+                              ></i
                               >{{ a.publish_date | dateConversion }}
                             </td>
                             <td>{{ a.expiry_date | dateConversion }}</td>

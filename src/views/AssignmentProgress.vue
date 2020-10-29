@@ -77,13 +77,19 @@
               <div class="pb-3">
                 <div class="form-row">
                   <div class="form-group form-rounded mb-0 mr-3">
-                    <select class="form-control" id="s2_demo2">
+                    <select2
+                      id="s2_student"
+                      :options="statusList"
+                      v-model="selectStatus"
+                    >
+                    </select2>
+                    <!-- <select class="form-control" id="s2_demo2">
                       <option>All students</option>
                       <option>Incomplete</option>
                       <option>Unchecked</option>
                       <option>Checked</option>
                       } option
-                    </select>
+                    </select> -->
                   </div>
                   <div class="form-group form-rounded mb-0">
                     <div class="input-group">
@@ -91,6 +97,7 @@
                         type="text"
                         class="form-control"
                         placeholder="Search..."
+                        v-model="searchSname"
                       />
                       <div class="input-group-append">
                         <button
@@ -131,6 +138,8 @@
                                   type="checkbox"
                                   class="custom-control-input"
                                   id="customCheck"
+                                  @click="selectAll"
+                                  v-model="selectAllS"
                                 />
                                 <label
                                   class="custom-control-label"
@@ -140,7 +149,7 @@
                             </th>
                             <th>Student name</th>
                             <th>Progress</th>
-                            <th>Complete time</th>
+                            <th>Complete status</th>
                             <th>Status</th>
                           </tr>
                         </thead>
@@ -154,7 +163,7 @@
                                   type="checkbox"
                                   class="custom-control-input"
                                   :id="ap.stuid"
-                                  v-model="selectedStudend"
+                                  v-model="selectedStudent"
                                   :value="ap.stuid"
                                 />
                                 <label
@@ -170,7 +179,7 @@
                                 data-target="#CheckedModal"
                                 @click="
                                   getADetail(ap.stuid);
-                                  sid=ap.stuid
+                                  sid = ap.stuid;
                                   tempSname = ap.username;
                                   evaluate = {
                                     comment: '',
@@ -183,16 +192,16 @@
                               </button>
                             </td>
                             <td>{{ ap.completed }}/{{ ap.totalq }}</td>
-                            <td>{{ ap.complete_time | dateConversion }}</td>
                             <td>
                               <span
-                                class="text-warning"
                                 v-if="ap.complete_time === ''"
+                                class="text-warning"
                                 >Incomplete</span
                               >
-                              <span
-                                class="text-danger"
-                                v-else-if="ap.check !== true"
+                              <span v-else class="text-success">Completed</span>
+                            </td>
+                            <td>
+                              <span class="text-danger" v-if="ap.check !== true"
                                 >Unchecked</span
                               >
                               <span v-else>checked</span>
@@ -558,7 +567,7 @@ export default {
   data() {
     return {
       aid: this.$route.params.aid,
-      sid:'',
+      sid: "",
       aProgressList: [],
       studendAssignmentList: [],
       evaluate: {
@@ -573,13 +582,36 @@ export default {
         "You nailed it!",
         "You are almost there!",
       ],
-      selectedStudend: [],
+      selectedStudent: [],
+      statusList: [
+        { text: "All students", id: "*" },
+        { text: "Completed", id: "Completed" },
+        { text: "Incomplete", id: "Incomplete" },
+        { text: "Checked", id: "Checked" },
+        { text: "Unchecked", id: "Unchecked" },
+      ],
+      selectStatus: "*",
+      searchSname: "",
+      selectAllS: "",
     };
   },
   created() {
     this.getAProgress();
   },
   methods: {
+    selectAll(event) {
+      const vm = this;
+
+      if (!event.currentTarget.checked) {
+        vm.selectedStudent = [];
+      } else {
+        //實現全選
+        vm.selectedStudent = [];
+        vm.aProgressList.forEach(function (item, i) {
+          vm.selectedStudent.push(item.stuid);
+        });
+      }
+    },
     getAProgress() {
       ApiGetAProgress.get(this.aid)
         .then((response) => {
