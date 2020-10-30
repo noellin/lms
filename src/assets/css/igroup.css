@@ -64,8 +64,8 @@
 }
 
 /* Color */
-html body #vueapp {
-  overflow-y: scroll !important;
+html body {
+  overflow-y: hide !important;
   margin: 0;
   padding: 0;
   min-height: 100vh;

@@ -25,8 +25,14 @@
                               id="exampleFormControlTextarea1"
                               placeholder="Please enter a question of the extra quiz..."
                               rows="3"
+                              v-model="newWeeklyQuiz.question"
+                              maxlength="100"
                             ></textarea>
-                            <span class="text-muted"><small>0/100</small></span>
+                            <span class="text-muted"
+                              ><small
+                                >{{ newWeeklyQuiz.question.length }}/100</small
+                              ></span
+                            >
                           </div>
                         </div>
                         <div class="form-group row">
@@ -34,28 +40,34 @@
                             >Publish</label
                           >
                           <div class="col">
-                            <input
+                            <date-picker
+                              v-model="newWeeklyQuiz.publishTime"
+                              valueType="format"
+                            ></date-picker>
+                            <!-- <input
                               type="text"
                               class="form-control date-picker-input"
                               placeholder="Select Date"
                               value=""
-                            />
+                            /> -->
                           </div>
-                          <div class="col-2 pt-2 pl-0">06:00:00</div>
                         </div>
                         <div class="form-group row">
                           <label class="col-form-label col-sm-3 text-right"
                             >Due</label
                           >
                           <div class="col">
-                            <input
+                            <date-picker
+                              v-model="newWeeklyQuiz.dueTime"
+                              valueType="format"
+                            ></date-picker>
+                            <!-- <input
                               type="text"
                               class="form-control date-picker-input"
                               placeholder="Select Date"
                               value=""
-                            />
+                            /> -->
                           </div>
-                          <div class="col-2 pt-2 pl-0">23:59:59</div>
                         </div>
                       </form>
                     </div>
@@ -63,7 +75,7 @@
                   <div class="text-right">
                     <button
                       type="button"
-                      class="btn btn-secondary btn-outline btn-rounded"
+                      class="btn btn-secondary btn-outline btn-rounded mr-2"
                       data-dismiss="modal"
                     >
                       Cancel
@@ -72,6 +84,7 @@
                       type="button"
                       class="btn btn-primary btn-rounded"
                       data-dismiss="modal"
+                      @click="setWeellyQuiz()"
                     >
                       Save
                     </button>
@@ -81,9 +94,6 @@
             </section>
           </div>
         </div>
-        <footer class="bg-secondary bg-dk d-flex justify-content-center">
-          <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-        </footer>
       </div>
     </div>
   </div>
@@ -91,9 +101,23 @@
 
 <script>
 import CourseHeader from "../components/CourseHeader";
+import DatePicker from "vue2-datepicker";
 export default {
   components: {
     CourseHeader,
+    DatePicker,
+  },
+  data() {
+    return {
+      newWeeklyQuiz: {
+        question: "",
+        publishTime: "",
+        dueTime: "",
+      },
+    };
+  },
+  methods: {
+    setWeellyQuiz() {},
   },
 };
 </script>

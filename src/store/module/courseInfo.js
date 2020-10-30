@@ -20,7 +20,8 @@ const courseInfo = {
         courseid: '',
         caList: [],
         caidList: [],
-        aKeyList: []
+        aKeyList: [],
+        assignmentDL: {}
     },
     // getters:{
     //     tempA(state){
@@ -96,9 +97,15 @@ const courseInfo = {
             state.tempAIDList = {}
             state.tempAList = {}
             state.aKeyList = []
+        },
+        SET_ASSIGNMENT_TIME(state, data) {
+            state.assignmentDL = data
         }
     },
     actions: {
+        setAssignmentTime(context, data) {
+            context.commit('SET_ASSIGNMENT_TIME', data)
+        },
         getCouseInfo(context, data) {
             //courseInfo Material
             ApiGetCourseDatail.get(data).then((response) => {

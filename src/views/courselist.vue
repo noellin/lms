@@ -198,7 +198,10 @@
                                 class="btn btn-primary btn-rounded btn-sm ml-2"
                                 data-toggle="modal"
                                 data-target="#AddStudentModal"
-                                @click="resetStdTemp();coursrid=course.courseid"
+                                @click="
+                                  resetStdTemp();
+                                  courseid = course.courseid;
+                                "
                               >
                                 Add student
                               </button>
@@ -542,7 +545,12 @@
         </div>
       </div>
     </div>
-    <add-student id="courseListdrop" ref="addstudent" :courseid="courseid"></add-student>
+    <add-student
+      id="courseListdrop"
+      ref="addstudent"
+      :courseid="courseid"
+      @childemit="init()"
+    ></add-student>
     <!-- AddStudent modal -->
 
     <!-- Add a single student Modal-->
@@ -605,7 +613,7 @@ export default {
           has_next: false,
         },
       },
-      courseid:''
+      courseid: "",
     };
   },
   created() {
@@ -639,6 +647,7 @@ export default {
   },
   methods: {
     init() {
+      console.log(this.userid);
       this.$store.dispatch("common/setLoading", true);
       this.axios
         .all([

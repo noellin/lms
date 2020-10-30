@@ -40,32 +40,6 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td></td>
-                              <td>2020.09.07</td>
-                              <td>2020.09.11</td>
-                              <td>System</td>
-                              <td>0 ／50</td>
-                              <td>
-                                <button
-                                  class="btn btn-nostyle"
-                                  data-toggle="modal"
-                                  data-target="#EditModal"
-                                >
-                                  <i class="la la-edit"></i>
-                                </button>
-                              </td>
-                              <td>
-                                <button
-                                  type=""
-                                  class="btn btn-primary btn-sm btn-rounded"
-                                  onclick="location.href='speaking-record-progress.html'"
-                                  disabled
-                                >
-                                  Progress view
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
                               <td>
                                 <span
                                   class="badge badge-pill badge-secondary mt-2"
@@ -117,37 +91,6 @@
                                   type=""
                                   class="btn btn-primary btn-sm btn-rounded"
                                   @click="gotoWQProgress()"
-                                >
-                                  Progress view
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <span
-                                  class="badge badge-pill badge-secondary mt-2"
-                                  >Extra</span
-                                >
-                              </td>
-                              <td>2020.08.28</td>
-                              <td>2020.08.30</td>
-                              <td>Diana</td>
-                              <td>50 ／50</td>
-                              <td>
-                                <button
-                                  type=""
-                                  class="btn btn-nostyle"
-                                  data-toggle="modal"
-                                  data-target="#ExtraquizModal"
-                                >
-                                  <i class="la la-eye display-6"></i>
-                                </button>
-                              </td>
-                              <td>
-                                <button
-                                  type=""
-                                  class="btn btn-primary btn-sm btn-rounded"
-                                  onclick="location.href='speaking-record-progress.html'"
                                 >
                                   Progress view
                                 </button>
@@ -463,6 +406,7 @@ export default {
     return {};
   },
   methods: {
+    getWeeklyQuiz() {},
     gotoGreateWQuiz() {
       this.$router.push({
         path: "/course_weekly_quiz/create/course=BBC/type=Weekly quiz/123456",

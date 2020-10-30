@@ -13,6 +13,11 @@
           {{ courseInfo.pkg_name }}
         </p>
         <p class="second-title" v-else>{{ rname }} / {{ mname }}</p>
+        <p class="second-title" v-if="$route.name === 'AssignmentProgress'">
+          Assigned {{ assignmentDL.pubDate | dateConversion }} - Due
+          {{ assignmentDL.expDate | dateConversion }}
+        </p>
+        <span></span>
       </div>
     </div>
   </header>
@@ -25,7 +30,7 @@ export default {
   data() {
     return {
       backtag: this.$route.meta.backtag,
-      page: this.$route.params.type,
+      page: "",
       rname: this.$route.params.rname,
       mname: this.$route.params.mname,
       course_name: this.$route.params.course,
@@ -33,6 +38,7 @@ export default {
     };
   },
   created() {
+    this.page = this.$route.name.replaceAll("_", " ");
     if (this.$route.params.mname === "undefined") {
       this.mname = "";
     }
@@ -46,6 +52,9 @@ export default {
   computed: {
     courseInfos() {
       return this.$store.state.courseInfo.courseInfo;
+    },
+    assignmentDL() {
+      return this.$store.state.courseInfo.assignmentDL;
     },
   },
   methods: {},

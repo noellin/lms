@@ -817,7 +817,11 @@
         </div>
       </div>
     </div> -->
-    <add-student id="studentdrop" ref="addstudent" :courseid="courseid"></add-student>
+    <add-student
+      id="studentdrop"
+      ref="addstudent"
+      :courseid="courseid"
+    ></add-student>
     <!-- Reset Password Modal-->
     <div
       class="modal fade"
@@ -962,6 +966,7 @@ export default {
     },
   },
   methods: {
+    init() {},
     resetStdTemp() {
       this.$refs.addstudent.resetStdTemp();
     },

@@ -52,3 +52,9 @@ export const ApiGetADetail = {
     return get(`/asgmt/detail/${aid}/${sid}`);
   },
 };
+
+export const ApiSearchStudent = {
+  get: (aid, keyword) => {
+    return get(`/asgmt/search/${aid}`)
+  }
+};

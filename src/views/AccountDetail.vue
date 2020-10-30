@@ -8,13 +8,13 @@
       <div class="content">
         <header class="page-header">
           <div class="d-flex align-items-center">
-            <div class="mt-2 mr-3">
+            <!-- <div class="mt-2 mr-3">
               <a
                 @click="$back"
                 class="btn-rounded-icon btn-primary ml-2 pointer"
                 ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
               ></a>
-            </div>
+            </div> -->
             <div class="mr-auto">
               <h1>Account</h1>
             </div>

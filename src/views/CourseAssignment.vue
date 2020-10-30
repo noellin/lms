@@ -174,7 +174,8 @@
               <div class="row pb-2 pt-2">
                 <h6 class="col-3 text-right">Date</h6>
                 <div class="col-9">
-                  {{ tempAM.publish_date | dateConversion }}
+                  {{ tempAM.publish_date | dateConversion }} -
+                  {{ tempAM.expiry_date | dateConversion }}
                 </div>
               </div>
               <div class="row pb-2">

@@ -115,7 +115,7 @@
                 <button
                   type="button"
                   class="btn btn-primary btn-rounded"
-                  disabled
+                  :disabled="selectedStudent.length === 0"
                   @click="checkAllA()"
                 >
                   Check
@@ -194,7 +194,7 @@
                             <td>{{ ap.completed }}/{{ ap.totalq }}</td>
                             <td>
                               <span
-                                v-if="ap.complete_time === ''"
+                                v-if="ap.completedflag !== 'true'"
                                 class="text-warning"
                                 >Incomplete</span
                               >
@@ -361,7 +361,10 @@
                       </div>
                       <!-- 完成與否 -->
                       <div class="border-top pt-3">
-                        <h5 class="text-danger" v-if="sa.complete_time === ''">
+                        <h5
+                          class="text-danger"
+                          v-if="sa.completedflag !== 'true'"
+                        >
                           <span class="btn-rounded-icon btn-danger rounded mr-2"
                             ><i
                               class="zmdi zmdi-close zmdi-hc-fw text-white"
@@ -560,6 +563,7 @@ import {
   ApiGetVoice,
   ApiSetEvaluate,
   ApiGetSpeakScore,
+  ApiSearchStudent,
 } from "../http/apis/Assignment";
 export default {
   name: "AssignmentProgress",
@@ -599,6 +603,13 @@ export default {
     this.getAProgress();
   },
   methods: {
+    searchStudent() {
+      ApiSearchStudent.get()
+        .then((response) => {
+          this.aProgressList = response.record;
+        })
+        .catch((err) => {});
+    },
     selectAll(event) {
       const vm = this;
 
@@ -616,6 +627,10 @@ export default {
       ApiGetAProgress.get(this.aid)
         .then((response) => {
           this.aProgressList = response.record;
+          this.$store.dispatch("courseInfo/setAssignmentTime", {
+            pubDate: response.publish_date,
+            expDate: response.expiry_date,
+          });
         })
         .catch((err) => {});
     },

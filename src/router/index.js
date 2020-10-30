@@ -58,7 +58,7 @@ const routes = [{
     },
     children: [{
         path: "/course_material/course=:course/type=:type/:courseid",
-        name: "CourseMaterial",
+        name: "Material",
         component: CourseMaterial,
         meta: {
           header: "course",
@@ -67,7 +67,7 @@ const routes = [{
       },
       {
         path: "/course_assignment/course=:course/type=:type/:courseid",
-        name: "CourseAssignment",
+        name: "Assignment",
         component: CourseAssignment,
         meta: {
           header: "course",
@@ -76,7 +76,7 @@ const routes = [{
       },
       {
         path: "/check_assignment/course=:course/type=:type/:courseid/:aid",
-        name: "AssignmentProgress",
+        name: "Assignment_Progress",
         component: AssignmentProgress,
         meta: {
           header: "course",
@@ -84,7 +84,7 @@ const routes = [{
       },
       {
         path: "/course_student/course=:course/type=:type/:courseid",
-        name: "CourseStudent",
+        name: "Student",
         component: CourseStudent,
         meta: {
           header: "course",
@@ -92,7 +92,7 @@ const routes = [{
       },
       {
         path: "/course_dashboard/course=:course/type=:type/:courseid",
-        name: "CourseDashboard",
+        name: "Dashboard",
         component: CourseDashboard,
         meta: {
           header: "course",
@@ -100,7 +100,7 @@ const routes = [{
       },
       {
         path: "/quiz/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
-        name: "SpeakingQuiz",
+        name: "Speaking_Quiz",
         component: SpeakingQuiz,
         meta: {
           header: "course",
@@ -108,7 +108,7 @@ const routes = [{
       },
       {
         path: "/quizcreate/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
-        name: "QuizCreate",
+        name: "Quiz_Create",
         component: QuizCreate,
         meta: {
           header: "course",
@@ -117,7 +117,7 @@ const routes = [{
       },
       {
         path: "/course_weekly_quiz/course=:course/type=:type/:courseid",
-        name: "WeeklyQuiz",
+        name: "Weekly_Quiz",
         component: RecordList,
         meta: {
           header: "course",
@@ -126,7 +126,7 @@ const routes = [{
       },
       {
         path: "/course_weekly_quiz/create/course=:course/type=:type/:courseid",
-        name: "weeklyQuizCreate",
+        name: "weekly_Quiz_Create",
         component: RecordCreate,
         meta: {
           header: "course",
@@ -135,7 +135,7 @@ const routes = [{
       },
       {
         path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid",
-        name: "WeeklyQuizProgress",
+        name: "Weekly_Quiz_Progress",
         component: RecordProgress,
         meta: {
           header: "course",

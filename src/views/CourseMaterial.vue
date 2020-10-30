@@ -586,14 +586,13 @@
                           <span v-else>
                             <span class="badge badge-pill badge-accent mr-2"
                               >Speaking Quiz</span
-                              
                             >
-                            {{
-                              ta.resource_name
-                            }} - <span v-if="ta.material_name!=='undefined'">{{ta.material_name}}</span>
+                            {{ ta.resource_name }} -
+                            <span v-if="ta.material_name !== 'undefined'">{{
+                              ta.material_name
+                            }}</span>
                             <span v-else>Book</span>
-                            </span
-                          >
+                          </span>
                         </div>
                         <button
                           class="btn btn-nostyle btn-remove"
@@ -809,8 +808,8 @@ export default {
       AssignmentDue: null,
       difficult: "1",
       difficultList: ["1", "2", "3", "4", "5"],
-      tempAIDList:[],
-      tempAList:[]
+      tempAIDList: [],
+      tempAList: [],
     };
   },
   created() {
@@ -818,8 +817,8 @@ export default {
 
     this.textbookList = this.textbookLists;
     this.studentList = this.studentLists;
-          this.tempAIDList = this.tempAIDLists
-              this.tempAList = this.tempALists
+    this.tempAIDList = this.tempAIDLists;
+    this.tempAList = this.tempALists;
   },
   mounted() {
     // this.getStudentList();
@@ -839,11 +838,11 @@ export default {
         this.selectStudent = ["*"];
       }
     },
-    tempAIDLists(){
-      this.tempAIDList = this.tempAIDLists
+    tempAIDLists() {
+      this.tempAIDList = this.tempAIDLists;
     },
-    tempALists(){
-      this.tempAList = this.tempALists
+    tempALists() {
+      this.tempAList = this.tempALists;
     },
     // tempALists:{
     //         deep: true,
@@ -867,15 +866,14 @@ export default {
       return this.$store.state.auth.userid;
     },
     tempAIDLists() {
-      return this.$store.state.courseInfo.caidList
+      return this.$store.state.courseInfo.caidList;
       // return this.$store.state.courseInfo.tempAIDList[this.courseid] === undefined ?  this.tempAIDList : this.$store.state.courseInfo.tempAIDList[this.courseid] ;
     },
     tempALists() {
-      return this.$store.state.courseInfo.caList
-//  return this.$store.state.courseInfo.tempAList[this.courseid] === undefined ?  this.tempAList : this.$store.state.courseInfo.tempAList[this.courseid] ;
+      return this.$store.state.courseInfo.caList;
+      //  return this.$store.state.courseInfo.tempAList[this.courseid] === undefined ?  this.tempAList : this.$store.state.courseInfo.tempAList[this.courseid] ;
       // return this.$store.state.courseInfo.tempAList[this.courseid];
     },
-    
   },
   methods: {
     getCollectionList(rid, obj) {
@@ -1044,7 +1042,7 @@ export default {
       }
       this.tempAList.forEach((el) => {
         if (el.note === "video") {
-          this.$set(el, "assignment_type", "reading");
+          this.$set(el, "assignment_type", "watching");
         } else if (el.note === "book") {
           this.$set(el, "assignment_type", "reading");
         } else {

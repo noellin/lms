@@ -489,6 +489,7 @@ export default {
       if (result && this.dupStudentList.length === 0) {
         $("#CopyModal").modal("hide");
         this.$bus.$emit("messsage:push", "Copy Student Success.", "success");
+        this.$emit("childemit");
       }
     },
     getStudentInfo(courseid) {
@@ -519,13 +520,16 @@ export default {
     async addStudent() {
       let result = await ApiAddStudent.post(this.courseid, this.newStudent)
         .then((response) => {
-          if (response.record === "success") {
+          if (response.status === "success") {
             return true;
           }
         })
         .catch((err) => {});
       if (result) {
+        this.$bus.$emit("messsage:push", "Add Student Success.", "success");
         this.$store.dispatch("courseInfo/updateStudent", this.courseid);
+        //call 父組件更新
+        this.$emit("childemit");
       } else {
         $("#AlreadyExistsModal").modal("show");
       }
@@ -577,6 +581,7 @@ export default {
           this.alreadyStudendList = [];
           $("#ImportCSVModal").modal("hide");
           this.$bus.$emit("messsage:push", "New Student Success.", "success");
+          this.$emit("childemit");
         }
       } else {
         this.showErrorMessage = true;

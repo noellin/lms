@@ -91,10 +91,10 @@
               <h5 class="mt-0 mb-0">{{ userInfo.username }}</h5>
               <span>{{ userInfo.email }}</span>
             </div>
-            <a class="dropdown-item" href="teacher-account-personal.html"
+            <a class="dropdown-item pointer" @click="gotoAccount()"
               ><i class="icon dripicons-user"></i> My account</a
             >
-            <a class="dropdown-item" @click="logout()"
+            <a class="dropdown-item pointer" @click="logout()"
               ><i class="icon dripicons-lock-open"></i> Log Out</a
             >
           </div>

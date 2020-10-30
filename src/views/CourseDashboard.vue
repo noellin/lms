@@ -364,13 +364,13 @@
                     <span class="m-t-10 d-inline-block"
                       >Student activity details</span
                     >
-                    <ul class="actions top-right">
+                    <!-- <ul class="actions top-right">
                       <li>
-                        <a href="javascript:void(0)" data-q-action="card-expand"
+                        <a href="javascript:void(0)" data-q-action="card-expand" 
                           ><i class="icon dripicons-expand-2"></i
                         ></a>
                       </li>
-                    </ul>
+                    </ul> -->
                   </div>
                   <div
                     class="card-body"
@@ -705,6 +705,7 @@
 <script>
 // import Menu
 import CourseHeader from "../components/CourseHeader";
+import $ from "jquery";
 export default {
   name: "CourseDashboard",
   components: {
@@ -799,8 +800,47 @@ export default {
       },
     };
   },
-
-  methods: {},
+  mounted() {
+    //   var output = document.getElementById("myP");
+    // document.addEventListener("fullscreenchange", function() {
+    //   output.innerHTML = "fullscreenchange event fired!";
+    // });
+    // document.addEventListener("mozfullscreenchange", function() {
+    //   output.innerHTML = "mozfullscreenchange event fired!";
+    // });
+    // document.addEventListener("webkitfullscreenchange", function() {
+    //   output.innerHTML = "webkitfullscreenchange event fired!";
+    // });
+    // document.addEventListener("msfullscreenchange", function() {
+    //   output.innerHTML = "msfullscreenchange event fired!";
+    // });
+  },
+  methods: {
+    //   openFullscreen(){
+    //         let elem = document.documentElement
+    //       if (elem.requestFullscreen) {
+    //   elem.requestFullscreen();
+    // } else if (elem.mozRequestFullScreen) { /* Firefox */
+    //   elem.mozRequestFullScreen();
+    // } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    //   elem.webkitRequestFullscreen();
+    // } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    //   elem = window.top.document.body; //To break out of frame in IE
+    //   elem.msRequestFullscreen();
+    // }
+    //   },
+    //   closeFullscreen(){
+    //       if (document.exitFullscreen) {
+    //   document.exitFullscreen();
+    // } else if (document.mozCancelFullScreen) {
+    //   document.mozCancelFullScreen();
+    // } else if (document.webkitExitFullscreen) {
+    //   document.webkitExitFullscreen();
+    // } else if (document.msExitFullscreen) {
+    //   window.top.document.msExitFullscreen();
+    // }
+    //   }
+  },
 };
 </script>
 
