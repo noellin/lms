@@ -9,11 +9,11 @@
       <div class="mr-auto">
         <h1 class="separator">{{ course_name }}</h1>
         <span>{{ page }}</span>
-        <p class="second-title" v-if="page !== 'Speaking Quiz'">
+        <p class="second-title" v-if="page !== 'Speaking_Quiz'">
           {{ courseInfo.pkg_name }}
         </p>
         <p class="second-title" v-else>{{ rname }} / {{ mname }}</p>
-        <p class="second-title" v-if="$route.name === 'AssignmentProgress'">
+        <p class="second-title" v-if="$route.name === 'Assignment_Progress'">
           Assigned {{ assignmentDL.pubDate | dateConversion }} - Due
           {{ assignmentDL.expDate | dateConversion }}
         </p>

@@ -98,11 +98,13 @@
                         class="form-control"
                         placeholder="Search..."
                         v-model="searchSname"
+                        @keyup.enter="searchStudent()"
                       />
                       <div class="input-group-append">
                         <button
                           class="btn btn-secondary btn-outline btn-icon btn-rounded"
                           type="button"
+                          @click="searchStudent()"
                         >
                           <i class="zmdi zmdi-search text-secondary"></i>
                         </button>
@@ -158,6 +160,7 @@
                             <td>
                               <div
                                 class="custom-control custom-checkbox form-check"
+                                v-if="ap.checked !== 'true'"
                               >
                                 <input
                                   type="checkbox"
@@ -201,10 +204,12 @@
                               <span v-else class="text-success">Completed</span>
                             </td>
                             <td>
-                              <span class="text-danger" v-if="ap.check !== true"
+                              <span
+                                class="text-danger"
+                                v-if="ap.checked !== 'true'"
                                 >Unchecked</span
                               >
-                              <span v-else>checked</span>
+                              <span v-else class="text-success">checked</span>
                             </td>
                             <!-- <span class="text-warning">Incomplete</span> -->
                             <!-- <td>checked</td> -->
@@ -324,7 +329,7 @@
                   <div
                     class="card"
                     v-for="sa in studendAssignmentList"
-                    :key="sa.resourceid + sa.resource_name"
+                    :key="sa.resourceid + sa.resource_name + sa.type"
                   >
                     <div class="card-body">
                       <div class="media rounded pb-2">
@@ -361,10 +366,7 @@
                       </div>
                       <!-- 完成與否 -->
                       <div class="border-top pt-3">
-                        <h5
-                          class="text-danger"
-                          v-if="sa.completedflag !== 'true'"
-                        >
+                        <h5 class="text-danger" v-if="sa.complete_time === ''">
                           <span class="btn-rounded-icon btn-danger rounded mr-2"
                             ><i
                               class="zmdi zmdi-close zmdi-hc-fw text-white"
@@ -375,7 +377,7 @@
                           <span
                             class="btn-rounded-icon btn-success rounded mr-2"
                             ><i
-                              class="zmdi zmdi-close zmdi-hc-fw text-white"
+                              class="zmdi zmdi-check zmdi-hc-fw text-white"
                             ></i></span
                           >complete
                         </h5>
@@ -386,7 +388,9 @@
                       <div class="border-top pt-2" v-if="sa.type === 'mcq'">
                         <p>
                           Total number of incorrect answers
-                          <strong class="text-danger display-6">5</strong>
+                          <strong class="text-danger display-6"
+                            >5 (這個現在沒有)</strong
+                          >
                         </p>
                         <!-- 判定是全正確 -->
                         <h5
@@ -423,35 +427,25 @@
                         v-if="sa.type === 'speaking'"
                       >
                         <ul class="quiz-list">
-                          <li>
-                            <strong class="text-primary mr-2">Q1.</strong>She
-                            likes maths and science.<i
-                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-2"
-                            ></i>
-                          </li>
-                          <li>
-                            <strong class="text-primary mr-2">Q2.</strong>Her
-                            favourite colour is pink and her superpower is data
-                            processing.<i
-                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-2"
-                            ></i>
-                          </li>
-                          <li>
-                            <strong class="text-primary mr-2">Q3.</strong>How
-                            old are you?<i
-                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-2 text-primary"
-                            ></i>
-                          </li>
-                          <li>
-                            <strong class="text-primary mr-2">Q4.</strong>I'm
-                            10.<i
-                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-2"
-                            ></i>
-                          </li>
-                          <li>
-                            <strong class="text-primary mr-2">Q5.</strong>10 is
-                            a great number.<i
-                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-2"
+                          <li
+                            v-for="se in sa.sentenceInfo"
+                            :key="se.sentenceid"
+                          >
+                            <strong class="text-primary mr-2"
+                              >Q{{ se.sentenceSeq }}.</strong
+                            >
+                            {{ se.sentenceContent
+                            }}<i
+                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-2 pointer"
+                              @click="
+                                getVoice(se.voiceID);
+                                playVoiceStatus = se.voiceID;
+                              "
+                              :class="
+                                playVoiceStatus === se.voiceID
+                                  ? 'text-success'
+                                  : ''
+                              "
                             ></i>
                           </li>
                         </ul>
@@ -461,7 +455,17 @@
                         </h6>
                         <div class="row mb-4">
                           <div class="col">
-                            <div class="progress mt-2" style="height: 12px">
+                            <div class="slidecontainer">
+                              <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                class="slider"
+                                id="myRange"
+                                v-model="voiceScore"
+                              />
+                            </div>
+                            <!-- <div class="progress mt-2" style="height: 12px">
                               <div
                                 class="progress-bar bg-primary"
                                 role="progressbar"
@@ -470,9 +474,11 @@
                                 aria-valuemin="0"
                                 aria-valuemax="100"
                               ></div>
+                            </div> -->
+                            <div class="w-50 text-left text-primary">
+                              {{ voiceScore }}
                             </div>
                           </div>
-                          <div class="w-50 text-left text-primary">25</div>
                         </div>
                       </div>
                     </div>
@@ -589,22 +595,42 @@ export default {
       selectedStudent: [],
       statusList: [
         { text: "All students", id: "*" },
-        { text: "Completed", id: "Completed" },
-        { text: "Incomplete", id: "Incomplete" },
-        { text: "Checked", id: "Checked" },
-        { text: "Unchecked", id: "Unchecked" },
+        { text: "Completed", id: "complete" },
+        { text: "Incomplete", id: "incomplete" },
+        { text: "Checked", id: "checked" },
+        { text: "Unchecked", id: "unchecked" },
       ],
       selectStatus: "*",
       searchSname: "",
       selectAllS: "",
+      playVoiceStatus: "",
+      voiceScore: "60",
     };
   },
   created() {
     this.getAProgress();
   },
+  mounted() {
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function () {
+      output.innerHTML = this.value;
+    };
+  },
   methods: {
     searchStudent() {
-      ApiSearchStudent.get()
+      let keyword = "*";
+      if (
+        this.searchSname !== "" &&
+        this.searchSname !== undefined &&
+        this.searchSname !== null
+      ) {
+        keyword = this.searchSname;
+      }
+      ApiSearchStudent.get(this.aid, this.selectStatus, keyword)
         .then((response) => {
           this.aProgressList = response.record;
         })
@@ -639,7 +665,9 @@ export default {
       console.log(this.evaluate.comment);
     },
     async checkAllA() {
-      let result = await ApiCheckAllA.get(this.selectedStudend)
+      // console.log(this.selectedStudent);
+      let checkSList = this.selectedStudent.join(";");
+      let result = await ApiCheckAllA.post(this.aid, checkSList)
         .then((response) => {
           if (response.status === "success") {
             return true;
@@ -655,13 +683,22 @@ export default {
         .then((response) => {
           if (response.status !== "failed") {
             this.studendAssignmentList = response.record;
+            if (
+              response.score !== undefined &&
+              response.comment !== undefined
+            ) {
+              this.evaluate.score = response.score;
+              this.evaluate.comment = response.comment;
+            }
           }
         })
         .catch((err) => {});
     },
-    getVoice() {
+    getVoice(voiceid) {
       ApiGetVoice.get(voiceid)
-        .then((response) => {})
+        .then((response) => {
+          console.log(object);
+        })
         .catch((err) => {});
     },
     setEvaluate() {
@@ -721,5 +758,47 @@ export default {
   border-top: 1px solid #e9ecef;
   border-bottom-left-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  // -webkit-appearance: none; /* Override default CSS styles */
+  // appearance: none;
+  width: 60%; /* Full-width */
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
 }
 </style>

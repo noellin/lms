@@ -42,8 +42,8 @@ export const ApiGetSpeakScore = {
 };
 
 export const ApiCheckAllA = {
-  get: (aid) => {
-    return get(`/asgmt/checkall/${aid}`);
+  post: (aid, paramObj) => {
+    return post(`/asgmt/checkall/${aid}`, paramObj);
   },
 };
 
@@ -54,7 +54,7 @@ export const ApiGetADetail = {
 };
 
 export const ApiSearchStudent = {
-  get: (aid, keyword) => {
-    return get(`/asgmt/search/${aid}`)
+  get: (aid, type, keyword) => {
+    return get(`/asgmt/search/${aid}/${type}/${keyword}`)
   }
 };
