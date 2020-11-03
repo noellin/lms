@@ -253,7 +253,6 @@ export default {
     getAList() {
       ApiGetAList.get(this.courseid, this.userid)
         .then((response) => {
-          console.log(response.record);
           this.aList = response.record;
         })
         .catch((err) => {});

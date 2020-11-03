@@ -388,9 +388,9 @@
                       <div class="border-top pt-2" v-if="sa.type === 'mcq'">
                         <p>
                           Total number of incorrect answers
-                          <strong class="text-danger display-6"
-                            >5 (這個現在沒有)</strong
-                          >
+                          <strong class="text-danger display-6">{{
+                            sa.supplement.errno
+                          }}</strong>
                         </p>
                         <!-- 判定是全正確 -->
                         <h5
@@ -461,9 +461,15 @@
                                 min="0"
                                 max="100"
                                 class="slider"
-                                id="myRange"
-                                v-model="voiceScore"
+                                :id="sa.asgmt_mid + 'myRange'"
+                                v-model="speakingList[sa.asgmt_mid]"
                               />
+                              <span
+                                class="w-50 text-left text-primary"
+                                :id="sa.asgmt_mid + 'demo'"
+                              >
+                                {{ speakingList[sa.asgmt_mid] }}
+                              </span>
                             </div>
                             <!-- <div class="progress mt-2" style="height: 12px">
                               <div
@@ -475,9 +481,6 @@
                                 aria-valuemax="100"
                               ></div>
                             </div> -->
-                            <div class="w-50 text-left text-primary">
-                              {{ voiceScore }}
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -568,7 +571,7 @@ import {
   ApiGetADetail,
   ApiGetVoice,
   ApiSetEvaluate,
-  ApiGetSpeakScore,
+  ApiSetSpeakScore,
   ApiSearchStudent,
 } from "../http/apis/Assignment";
 export default {
@@ -604,22 +607,13 @@ export default {
       searchSname: "",
       selectAllS: "",
       playVoiceStatus: "",
-      voiceScore: "60",
+      speakingList: {},
     };
   },
   created() {
     this.getAProgress();
   },
-  mounted() {
-    var slider = document.getElementById("myRange");
-    var output = document.getElementById("demo");
-    output.innerHTML = slider.value; // Display the default slider value
-
-    // Update the current slider value (each time you drag the slider handle)
-    slider.oninput = function () {
-      output.innerHTML = this.value;
-    };
-  },
+  mounted() {},
   methods: {
     searchStudent() {
       let keyword = "*";
@@ -690,6 +684,22 @@ export default {
               this.evaluate.score = response.score;
               this.evaluate.comment = response.comment;
             }
+            response.record.forEach((item) => {
+              if (item.type === "speaking") {
+                this.$set(this.speakingList, item.asgmt_mid, item.score);
+                //
+                var slider = document.getElementById(
+                  `${item.asgmt_mid}myRange`
+                );
+                // var output = document.getElementById(`${item.asgmt_mid}demo`);
+                // output.innerHTML = slider.value; // Display the default slider value
+
+                // // Update the current slider value (each time you drag the slider handle)
+                // slider.oninput = function () {
+                //   output.innerHTML = this.value;
+                // };
+              }
+            });
           }
         })
         .catch((err) => {});
@@ -701,13 +711,22 @@ export default {
         })
         .catch((err) => {});
     },
-    setEvaluate() {
-      ApiSetEvaluate.post(this.aid, this.sid)
-        .then((response) => {})
+    async setEvaluate() {
+      let result = await ApiSetEvaluate.post(this.aid, this.sid, this.evaluate)
+        .then((response) => {
+          if (response.status === "success") {
+            return true;
+          }
+        })
         .catch((err) => {});
+      if (result) {
+        for (const [key, value] of Object.entries(this.speakingList)) {
+          this.setSpeakScore(key, value);
+        }
+      }
     },
-    getSpeakScore(sid) {
-      ApiGetSpeakScore.get(asgmtid, aid, std)
+    setSpeakScore(amid, score) {
+      ApiSetSpeakScore.get(this.aid, amid, this.sid, score)
         .then((response) => {})
         .catch((err) => {});
     },

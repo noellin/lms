@@ -96,3 +96,9 @@ export const ApideleteResource = {
         return get(`/collection/deleteresource/${uid}/${colid}/${rid}`)
     }
 };
+
+export const ApiUpdateCollection = {
+    put: (colid, paramObj) => {
+        return put(`/collection/update/${colid}`, paramObj)
+    }
+};

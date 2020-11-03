@@ -12,6 +12,11 @@
         <header class="page-header">
           <div class="d-flex align-items-center">
             <div class="mr-auto">
+              <a
+                @click="$back"
+                class="btn-rounded-icon btn-primary mr-2 pointer"
+                ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
+              ></a>
               <h1 class="separator">Collection</h1>
               <span>Create</span>
             </div>
@@ -80,7 +85,9 @@
                   type="button"
                   class="btn btn-primary btn-rounded btn-outline"
                   data-toggle="modal"
-                  data-target="#addMaterial"
+                  :data-target="
+                    tempPkgName !== pkgname ? '#ClearTipsModal' : '#addMaterial'
+                  "
                   @click="getPkgMaterial()"
                 >
                   <i class="la la-plus"></i>Material
@@ -89,50 +96,67 @@
               <div class="card">
                 <h5 class="card-header">Sequence</h5>
                 <div class="card-body">
-                  <li
-                    class="d-flex justify-content-between"
-                    v-for="(m, index) in materialSequence"
-                    :key="m.id"
+                  <draggable
+                    class="list-group"
+                    tag="ul"
+                    v-model="materialSequence"
+                    v-bind="dragOptions"
+                    @start="drag = true"
+                    @end="drag = false"
                   >
-                    <div class="d-flex justify-content-start">
-                      <button class="btn btn-nostyle btn-move mr-3">
-                        <i class="la la-ellipsis-v"></i
-                        ><i class="la la-ellipsis-v"></i>
-                      </button>
-                      <div
-                        class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                      >
-                        <span class="overlay-icon"
-                          ><i class="fas fa-video" v-if="m.type === 'video'"></i
-                          ><i class="fas fa-book-open" v-else></i>
-                        </span>
-                        <div
-                          href="#"
-                          title=""
-                          class="overlay-img"
-                          style="
-                            background-image: url(../assets/img/avatars/3.jpg);
-                          "
-                        ></div>
-                      </div>
-                      <div>
-                        <span
-                          class="badge badge-pill badge-secondary mt-2"
-                        ></span>
-                        <h4 class="d-flex align-self-center mt-2">
-                          {{ m.resource_name }}
-                        </h4>
-                      </div>
-                    </div>
-                    <button
-                      class="btn btn-nostyle btn-remove"
-                      @click="removeFromSequence(index)"
+                    <!-- <transition-group
+                      type="transition"
+                      :name="!drag ? 'flip-list' : null"
+                    > -->
+                    <li
+                      class="d-flex justify-content-between"
+                      v-for="(m, index) in materialSequence"
+                      :key="m.id"
                     >
-                      <i
-                        class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                      ></i>
-                    </button>
-                  </li>
+                      <div class="d-flex justify-content-start">
+                        <button class="btn btn-nostyle btn-move mr-3">
+                          <i class="la la-ellipsis-v"></i
+                          ><i class="la la-ellipsis-v"></i>
+                        </button>
+                        <div
+                          class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
+                        >
+                          <span class="overlay-icon"
+                            ><i
+                              class="fas fa-video"
+                              v-if="m.type === 'video'"
+                            ></i
+                            ><i class="fas fa-book-open" v-else></i>
+                          </span>
+                          <div
+                            href="#"
+                            title=""
+                            class="overlay-img"
+                            style="
+                              background-image: url(../assets/img/avatars/3.jpg);
+                            "
+                          ></div>
+                        </div>
+                        <div>
+                          <span
+                            class="badge badge-pill badge-secondary mt-2"
+                          ></span>
+                          <h4 class="d-flex align-self-center mt-2">
+                            {{ m.resource_name }}
+                          </h4>
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-nostyle btn-remove"
+                        @click="removeFromSequence(index)"
+                      >
+                        <i
+                          class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
+                        ></i>
+                      </button>
+                    </li>
+                    <!-- </transition-group> -->
+                  </draggable>
                   <!-- <div
                     class="bg-secondary text-center p-15 text-light rounded mb-2"
                   >
@@ -204,6 +228,51 @@
               type="button"
               class="btn btn-primary btn-rounded"
               @click="setCollection()"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 提示清空 -->
+    <div
+      class="modal fade"
+      id="ClearTipsModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Change packages will clear the current collection list.</p>
+            <p>Would you like to save your changes?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-rounded btn-outline"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-target="#addMaterial"
+              @click="clearSequence()"
             >
               Save
             </button>
@@ -338,7 +407,10 @@
               type="button"
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
-              @click="addtoSequence()"
+              @click="
+                addtoSequence();
+                tempPkgName = pkgname;
+              "
             >
               <i class="la la-plus"></i>Material
             </button>
@@ -350,6 +422,7 @@
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import $ from "jquery";
 import CustomHeader from "../components/CustomHeader";
 import Select2 from "v-select2-component";
@@ -365,6 +438,7 @@ export default {
     CustomHeader,
     Select2,
     Alert,
+    draggable,
   },
   data() {
     return {
@@ -384,12 +458,25 @@ export default {
       seleceType: "all",
       tempSearch: "",
       searchRName: "",
+      tempPkgName: "",
+      defaultPkgName: "",
+      //
+      drag: false,
     };
   },
   created() {
     this.getPkgList();
   },
   computed: {
+    //
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+      };
+    },
     userid() {
       return this.$store.state.auth.userid;
     },
@@ -418,12 +505,25 @@ export default {
   },
 
   methods: {
+    clearSequence() {
+      this.materialSequence = [];
+      this.tempMaterial = [];
+      this.tempPkgName = this.pkgname;
+      $("#ClearTipsModal").modal("hide");
+      $("#addMaterial").modal("show");
+    },
     getPkgList() {
       ApiGetPkgList.get(this.userid).then((response) => {
         this.pkgList = response.record;
         this.pkgid = response.record[0].pkgid;
 
-        this.selectPkgList = response.record.map((o) => {
+        this.selectPkgList = response.record.map((o, index) => {
+          console.log(index);
+          if (index === 0) {
+            this.pkgname = o.pkg_name;
+            this.tempPkgName = o.pkg_name;
+            this.defaultPkgName = o.pkg_name;
+          }
           return { id: o.pkgid, text: o.pkg_name };
         });
       });
@@ -436,6 +536,9 @@ export default {
         .catch((err) => {});
     },
     mySelectEvent({ id, text }) {
+      if (this.materialSequence.length === 0) {
+        this.tempPkgName = text;
+      }
       this.pkgname = text;
     },
     addtoSequence() {
@@ -458,7 +561,6 @@ export default {
         $("#SaveChangeModal").modal("hide");
         return;
       }
-      console.log("ff");
       let obj = {};
       let resourceList = [];
       obj.collection_name = this.collectionName;
@@ -469,6 +571,7 @@ export default {
       });
       obj.resource = obj.list.join(";");
       obj.userid = this.userid;
+      console.log(obj);
       ApiSetCollection.post(obj)
         .then((response) => {})
         .catch((err) => {});

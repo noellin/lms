@@ -1,9 +1,4 @@
-import {
-  get,
-  post,
-  put,
-  remove
-} from "../https.js";
+import { get, post, put, remove } from "../https.js";
 
 export const ApiGetAList = {
   get: (courseid, uid) => {
@@ -24,8 +19,8 @@ export const ApiGetAProgress = {
 };
 
 export const ApiSetEvaluate = {
-  post: (aid, sid) => {
-    return post(`/asgmt/evaluate/${aid}/${sid}`);
+  post: (aid, sid, paramObj) => {
+    return post(`/asgmt/evaluate/${aid}/${sid}`, paramObj);
   },
 };
 
@@ -35,9 +30,9 @@ export const ApiGetVoice = {
   },
 };
 
-export const ApiGetSpeakScore = {
-  get: (aid, sid) => {
-    return get(`/asgmt/score/speaking/${aid}/${sid}`);
+export const ApiSetSpeakScore = {
+  get: (aid, amid, sid, score) => {
+    return get(`/asgmt/score/${aid}/${amid}/${sid}/${score}`);
   },
 };
 
@@ -55,6 +50,6 @@ export const ApiGetADetail = {
 
 export const ApiSearchStudent = {
   get: (aid, type, keyword) => {
-    return get(`/asgmt/search/${aid}/${type}/${keyword}`)
-  }
+    return get(`/asgmt/search/${aid}/${type}/${keyword}`);
+  },
 };

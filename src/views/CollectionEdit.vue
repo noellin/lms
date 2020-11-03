@@ -84,59 +84,68 @@
                     class="collection-scroll"
                   >
                     <ul class="sequence">
-                      <li
-                        class="d-flex justify-content-between"
-                        v-for="(cr, index) in materialSequence"
-                        :key="cr.resourceid"
+                      <draggable
+                        class="list-group"
+                        tag="ul"
+                        v-model="materialSequence"
+                        v-bind="dragOptions"
+                        @start="drag = true"
+                        @end="drag = false"
                       >
-                        <div class="d-flex justify-content-start">
-                          <button class="btn btn-nostyle btn-move mr-3">
-                            <i class="la la-ellipsis-v"></i
-                            ><i class="la la-ellipsis-v"></i>
-                          </button>
-                          <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                          >
-                            <span class="overlay-icon">
-                              <i
-                                class="fas fa-video"
-                                v-if="cr.note === 'video'"
-                              ></i
-                              ><i class="fas fa-book-open" v-else></i>
-                            </span>
-                            <div
-                              href="#"
-                              title=""
-                              class="overlay-img"
-                              style="
-                                background-image: url(../assets/img/avatars/3.jpg);
-                              "
-                            ></div>
-                          </div>
-                          <div>
-                            <span
-                              class="badge badge-pill badge-secondary mt-2"
-                            ></span>
-                            <h4 class="d-flex align-self-center mt-2">
-                              {{ cr.resource_name }}
-                            </h4>
-                          </div>
-                        </div>
-                        <button
-                          class="btn btn-nostyle btn-remove"
-                          data-toggle="modal"
-                          data-target="#deleteModal"
-                          @click="
-                            tempRname = cr.resource_name;
-                            tempRid = cr.resourceid;
-                            tempIndex = index;
-                          "
+                        <li
+                          class="d-flex justify-content-between"
+                          v-for="(cr, index) in materialSequence"
+                          :key="cr.resourceid"
                         >
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
+                          <div class="d-flex justify-content-start">
+                            <button class="btn btn-nostyle btn-move mr-3">
+                              <i class="la la-ellipsis-v"></i
+                              ><i class="la la-ellipsis-v"></i>
+                            </button>
+                            <div
+                              class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
+                            >
+                              <span class="overlay-icon">
+                                <i
+                                  class="fas fa-video"
+                                  v-if="cr.note === 'video'"
+                                ></i
+                                ><i class="fas fa-book-open" v-else></i>
+                              </span>
+                              <div
+                                href="#"
+                                title=""
+                                class="overlay-img"
+                                style="
+                                  background-image: url(../assets/img/avatars/3.jpg);
+                                "
+                              ></div>
+                            </div>
+                            <div>
+                              <span
+                                class="badge badge-pill badge-secondary mt-2"
+                              ></span>
+                              <h4 class="d-flex align-self-center mt-2">
+                                {{ cr.resource_name }}
+                              </h4>
+                            </div>
+                          </div>
+                          <button
+                            class="btn btn-nostyle btn-remove"
+                            data-toggle="modal"
+                            data-target="#deleteModal"
+                            @click="
+                              tempRname = cr.resource_name;
+                              tempRid = cr.resourceid;
+                              tempIndex = index;
+                            "
+                          >
+                            <i
+                              class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
+                            ></i>
+                          </button>
+                        </li>
+                      </draggable>
                     </ul>
                   </div>
                 </div>
@@ -204,7 +213,7 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded"
-              @click="setCollection()"
+              @click="updateCollection()"
             >
               Save
             </button>
@@ -407,19 +416,21 @@
   </div>
 </template>
 <script>
+import draggable from "vuedraggable";
 import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetCollectionContent,
   ApiDeleteResource,
   ApiGetCollectionInfo,
   ApiGetPkgMaterial,
-  ApiSetCollection,
+  ApiUpdateCollection,
 } from "../http/apis/Collection";
 // import Menu
 export default {
   name: "CollectionDetail",
   components: {
     CustomHeader,
+    draggable,
   },
   data() {
     return {
@@ -441,9 +452,22 @@ export default {
       tempMidList: [],
       tempMaterialList: [],
       courseList: [],
+      pkgid: this.$route.params.pid,
+      colid: this.$route.params.cid,
+      //
+      drag: false,
     };
   },
   computed: {
+    //
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+      };
+    },
     userid() {
       return this.$store.state.auth.userid;
     },
@@ -539,10 +563,10 @@ export default {
       //   });
       // });
     },
-    setCollection() {
+    async updateCollection() {
       let obj = {};
       let resourceList = [];
-      obj.collection_name = this.collectionName;
+      obj.collection_name = this.cName;
       obj.pkgid = this.pkgid;
       obj.list = [];
       this.materialSequence.forEach((item) => {
@@ -550,11 +574,21 @@ export default {
       });
       obj.resource = obj.list.join(";");
       obj.userid = this.userid;
-      ApiSetCollection.post(obj)
-        .then((response) => {})
+      let result = await ApiUpdateCollection.put(this.colid, obj)
+        .then((response) => {
+          if (response.status === "success") {
+            return true;
+          }
+        })
         .catch((err) => {});
-      this.$bus.$emit("messsage:push", "New Collection Success.", "success");
-      $("#SaveChangeModal").modal("hide");
+      if (result) {
+        this.$bus.$emit(
+          "messsage:push",
+          "Update Collection Success.",
+          "success"
+        );
+        $("#SaveChangeModal").modal("hide");
+      }
     },
   },
 };

@@ -392,7 +392,6 @@ export default {
             .catch((err) => {});
           // 證成功後的行為包含 AJAX傳送、重製表單等等
         } else {
-          console.log("not ok");
           // 驗證失敗產生的行為
         }
       });
