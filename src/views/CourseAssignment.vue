@@ -172,14 +172,18 @@
           <div class="modal-body">
             <div class="mb-3">
               <div class="row pb-2 pt-2">
-                <h6 class="col-3 text-right">Date</h6>
+                <div class="col-3 text-right fw-400 fs-h6 xstitie-color">
+                  Date
+                </div>
                 <div class="col-9">
                   {{ tempAM.publish_date | dateConversion }} -
                   {{ tempAM.expiry_date | dateConversion }}
                 </div>
               </div>
               <div class="row pb-2">
-                <h6 class="col-3 text-right">Students</h6>
+                <div class="col-3 text-right fw-400 fs-h6 xstitie-color">
+                  Students
+                </div>
                 <div class="col-9">{{ tempAM.target }}</div>
               </div>
             </div>

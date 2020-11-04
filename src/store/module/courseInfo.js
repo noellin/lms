@@ -120,6 +120,12 @@ const courseInfo = {
                 .catch((err) => {});
 
         },
+        updateTextbookList(context, data) {
+            ApiGetCourseDatail.get(data).then((response) => {
+                context.commit('SET_COURSEINFO', response.csrInfo)
+                context.commit('SET_TEXTBOOKLIST', response.record)
+            });
+        },
         updateStudent(context, data) {
             ApiGetStudentList.get(data)
                 .then((response) => {

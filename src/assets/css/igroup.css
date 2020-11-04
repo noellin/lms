@@ -1,4 +1,19 @@
 /* custom */
+
+/* //字體 */
+.fw-400 {
+  font-weight: 400;
+}
+
+.fs-h6 {
+  font-size: 1rem;
+}
+
+.xstitie-color {
+  color: #4d5a68;
+}
+
+
 .mx-input {
   font-size: 0.875rem;
   height: 38px;

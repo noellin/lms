@@ -80,6 +80,7 @@ const routes = [{
         component: AssignmentProgress,
         meta: {
           header: "course",
+          backtag: true,
         },
       },
       {
@@ -104,6 +105,7 @@ const routes = [{
         component: SpeakingQuiz,
         meta: {
           header: "course",
+          backtag: true,
         },
       },
       {
@@ -121,7 +123,6 @@ const routes = [{
         component: RecordList,
         meta: {
           header: "course",
-          backtag: true,
         },
       },
       {

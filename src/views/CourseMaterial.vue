@@ -335,6 +335,7 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
               @click="
                 getOpenResource(
                   tempResource.colid,
@@ -819,6 +820,7 @@ export default {
     this.studentList = this.studentLists;
     this.tempAIDList = this.tempAIDLists;
     this.tempAList = this.tempALists;
+    console.log(this.textbookLists);
   },
   mounted() {
     // this.getStudentList();
@@ -983,22 +985,6 @@ export default {
           });
         }
       });
-      // result.forEach((id) => {
-      //   if (this.tempAIDList.includes(id)) {
-      //     this.$store.dispatch("courseInfo/removeAssignment", {
-      //       id: id,
-      //     });
-      //   } else {
-      //     vmList.forEach((o) => {
-      //       if (o.materialid === id) {
-      //         this.$store.dispatch("courseInfo/setAssignment", {
-      //           assignment: o,
-      //           id: id,
-      //         });
-      //       }
-      //     });
-      //   }
-      // });
     },
     removeAssignment(type, obj) {
       if (type === "book") {
@@ -1064,22 +1050,35 @@ export default {
         this.difficult = "";
       }
     },
-    getOpenResource(colid, rid, status) {
+    async getOpenResource(colid, rid, status) {
       let openStatus = "true";
       if (status === "true") {
         openStatus = "false";
       }
       colid = colid.split(";")[0];
-      ApiGetOpenResource.get(
+      console.log(colid);
+      console.log(rid);
+      console.log(status);
+      let result = await ApiGetOpenResource.get(
         colid,
         this.$route.params.courseid,
         rid,
         openStatus
       )
         .then((response) => {
-          // console.log(response);
+          if (response.status === "success") {
+            return true;
+          }
+          console.log(response);
         })
         .catch((err) => {});
+
+      if (result) {
+        this.$store.dispatch(
+          "courseInfo/updateTextbookList",
+          this.$route.params.courseid
+        );
+      }
     },
     gotoSpeakingQuiz(m, rname = "") {
       $("#addSpeakingquiz").modal("hide");
