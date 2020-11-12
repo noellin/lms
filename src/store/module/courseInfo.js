@@ -12,6 +12,7 @@ const courseInfo = {
     state: {
         courseInfo: {},
         textbookList: [],
+        openedTextbookList: [],
         studentList: [],
         courseStudentInfo: {},
         forSelectStudentList: [],
@@ -21,7 +22,8 @@ const courseInfo = {
         caList: [],
         caidList: [],
         aKeyList: [],
-        assignmentDL: {}
+        assignmentDL: {},
+
     },
     // getters:{
     //     tempA(state){
@@ -45,7 +47,14 @@ const courseInfo = {
             state.caidList = [...state.tempAIDList[data.courseid]]
         },
         SET_TEXTBOOKLIST(state, data) {
+            state.openedTextbookList = []
             state.textbookList = data
+            data.forEach(item => {
+                console.log(item);
+                if (item.openflag === 'true') {
+                    state.openedTextbookList.push(item.colid + item.resourceid)
+                }
+            })
         },
         SET_STUDENT(state, data) {
             state.studentList = data.record

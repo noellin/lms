@@ -112,6 +112,15 @@
           <div class="text-right">
             <button
               type="button"
+              class="btn btn-primary btn-rounded btn-outline mr-2"
+              data-toggle="modal"
+              data-target="#OpenSettingsModal"
+            >
+              <i class="la la-gear"></i>Open Settings
+            </button>
+
+            <button
+              type="button"
               class="btn btn-primary btn-rounded btn-outline"
               data-toggle="modal"
               data-target="#AssignmentModal"
@@ -537,6 +546,68 @@
         </div>
       </div>
     </div>
+    <!-- openSetting Modal -->
+    <div
+      class="modal fade"
+      id="OpenSettingsModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalTitle1">Open Settings</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>Check which courses you want to open</div>
+            <div
+              v-for="(tb, index) in textbookList"
+              :key="tb.resourceid + index"
+            >
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  :id="tb.resourceid"
+                  :value="tb.colid + tb.resourceid"
+                  v-model="openedTextbookList"
+                />
+                <label class="custom-control-label" :for="tb.resourceid">{{
+                  tb.resource_name
+                }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="materialOpenSetting()"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
     <!-- Assignment MODAL -->
     <div
       class="modal fade"
@@ -748,8 +819,6 @@
   </div>
 </template>
 <script>
-// import CustomHeader from "../components/CustomHeader";
-// import MenuLeft from "../components/MenuLeft";
 import {
   ApiGetCourseDatail,
   ApiSearchCourseResource,
@@ -811,24 +880,25 @@ export default {
       difficultList: ["1", "2", "3", "4", "5"],
       tempAIDList: [],
       tempAList: [],
+      openedTextbookList: [],
     };
   },
   created() {
     //列表資訊從menulift call (為了重複使用)
 
     this.textbookList = this.textbookLists;
+    this.openedTextbookList = this.openedTextbookLists;
     this.studentList = this.studentLists;
     this.tempAIDList = this.tempAIDLists;
     this.tempAList = this.tempALists;
-    console.log(this.textbookLists);
   },
   mounted() {
     // this.getStudentList();
   },
   watch: {
-    // courseid(){
-    //   this.reload()
-    // },
+    openedTextbookLists() {
+      this.openedTextbookList = this.openedTextbookLists;
+    },
     textbookLists() {
       this.textbookList = this.textbookLists;
     },
@@ -846,15 +916,11 @@ export default {
     tempALists() {
       this.tempAList = this.tempALists;
     },
-    // tempALists:{
-    //         deep: true,
-    //               handler () {
-    //           console.log("changed");
-    //            this.tempAList = this.tempALists
-    //         },
-    // },
   },
   computed: {
+    openedTextbookLists() {
+      return this.$store.state.courseInfo.openedTextbookList;
+    },
     textbookLists() {
       return this.$store.state.courseInfo.textbookList;
     },
@@ -931,6 +997,7 @@ export default {
       let colid = Ncolid.split(";")[0];
       let result = await ApiGetVideoMaterial.get(colid, this.courseid, rid)
         .then((response) => {
+          console.log(response.record);
           this.videoMaterialList = response.record;
           if (response.status === "success") {
             return true;
@@ -1050,15 +1117,14 @@ export default {
         this.difficult = "";
       }
     },
+    async materialOpenSetting() {},
     async getOpenResource(colid, rid, status) {
       let openStatus = "true";
       if (status === "true") {
         openStatus = "false";
       }
       colid = colid.split(";")[0];
-      console.log(colid);
-      console.log(rid);
-      console.log(status);
+
       let result = await ApiGetOpenResource.get(
         colid,
         this.$route.params.courseid,
@@ -1069,7 +1135,6 @@ export default {
           if (response.status === "success") {
             return true;
           }
-          console.log(response);
         })
         .catch((err) => {});
 
