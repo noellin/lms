@@ -266,7 +266,17 @@
                         </button>
                       </div>
                       <div>
-                        <button
+                        <small
+                          v-if="textbook.openflag !== 'true'"
+                          class="badge badge-secondary badge-pill fw300"
+                          >Closed Material</small
+                        >
+                        <small
+                          v-else
+                          class="badge badge-primary badge-pill fw300"
+                          >Opened Material</small
+                        >
+                        <!-- <button
                           v-if="textbook.openflag !== 'true'"
                           type="button"
                           class="btn btn-sm btn-secondary btn-rounded btn-outline"
@@ -274,7 +284,7 @@
                           data-target="#OpenMaterial"
                           @click="tempResource = textbook"
                         >
-                          Open Material
+                          Unopened Material
                         </button>
                         <button
                           v-else
@@ -284,8 +294,8 @@
                           data-target="#OpenMaterial"
                           @click="tempResource = textbook"
                         >
-                          Close Material
-                        </button>
+                          Opened Material
+                        </button> -->
                       </div>
                     </div>
                   </div>
@@ -578,7 +588,7 @@
                   type="checkbox"
                   class="custom-control-input"
                   :id="tb.resourceid"
-                  :value="tb.colid + tb.resourceid"
+                  :value="`${tb.colid}_${tb.resourceid}`"
                   v-model="openedTextbookList"
                 />
                 <label class="custom-control-label" :for="tb.resourceid">{{
@@ -997,7 +1007,6 @@ export default {
       let colid = Ncolid.split(";")[0];
       let result = await ApiGetVideoMaterial.get(colid, this.courseid, rid)
         .then((response) => {
-          console.log(response.record);
           this.videoMaterialList = response.record;
           if (response.status === "success") {
             return true;
@@ -1117,33 +1126,71 @@ export default {
         this.difficult = "";
       }
     },
-    async materialOpenSetting() {},
-    async getOpenResource(colid, rid, status) {
-      let openStatus = "true";
-      if (status === "true") {
-        openStatus = "false";
-      }
-      colid = colid.split(";")[0];
+    async materialOpenSetting() {
+      let result1 = null;
+      let result2 = null;
+      let promises = [];
+      this.openedTextbookList.forEach((item, index) => {
+        //如果新增OPEN
+        //if NEW NOT INCLUEDS OLD
+        if (!this.openedTextbookLists.includes(item)) {
+          promises.push(
+            this.getOpenResource(item.split(";")[0], item.split("_")[1], "true")
+          );
+        }
+      });
+      // 如果新增CLOSE
+      // if OLD NOT INCLUEDS NEW
+      this.openedTextbookLists.forEach((item, index) => {
+        if (!this.openedTextbookList.includes(item)) {
+          promises.push(
+            this.getOpenResource(
+              item.split(";")[0],
+              item.split("_")[1],
+              "false"
+            )
+          );
+        }
+      });
 
+      this.axios
+        .all(promises)
+        .then(
+          await this.axios.spread((func1) => {
+            this.$store.dispatch(
+              "courseInfo/updateTextbookList",
+              this.$route.params.courseid
+            );
+          })
+        )
+        .catch((err) => {});
+    },
+    async getOpenResource(colid, rid, status) {
+      // let openStatus = "true";
+      // if (status === "true") {
+      //   openStatus = "false";
+      // }
+      // colid = colid.split(";")[0];
       let result = await ApiGetOpenResource.get(
         colid,
         this.$route.params.courseid,
         rid,
-        openStatus
+        status
       )
         .then((response) => {
+          console.log(response);
           if (response.status === "success") {
             return true;
           }
         })
         .catch((err) => {});
-
-      if (result) {
-        this.$store.dispatch(
-          "courseInfo/updateTextbookList",
-          this.$route.params.courseid
-        );
-      }
+      return result;
+      // if (result) {
+      //   this.$store.dispatch(
+      //     "courseInfo/updateTextbookList",
+      //     this.$route.params.courseid
+      //   );
+      // }
     },
     gotoSpeakingQuiz(m, rname = "") {
       $("#addSpeakingquiz").modal("hide");

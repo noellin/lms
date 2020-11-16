@@ -198,11 +198,58 @@
           </div>
         </form>
       </div>
+      <div class="col-sm-12 row justify-content-end">
+        <a
+          href="https://www.iubenda.com/privacy-policy/32601846"
+          class="iubenda-nostyle no-brand iubenda-embed mr-4"
+          title="Privacy Policy "
+        >
+          <small>Privacy Policy</small>
+        </a>
+        <a
+          href="https://www.iubenda.com/privacy-policy/32601846/cookie-policy"
+          class="iubenda-nostyle no-brand iubenda-embed mr-4"
+          title="Cookie Policy "
+        >
+          <small>Cookie Policy</small></a
+        >
+        <a
+          href="https://www.iubenda.com/terms-and-conditions/32601846"
+          class="iubenda-nostyle no-brand iubenda-embed"
+          title="Terms and Conditions "
+          ><small>Terms and Conditions</small></a
+        >
+        <!-- <button
+          href="https://www.iubenda.com/privacy-policy/32601846"
+          class="btn btn-outline-primary btn-sm iubenda-white no-brand iubenda-embed"
+          title="Privacy Policy "
+          type="button"
+        >
+          Privacy Policy
+        </button> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// privacy policy
+(function (w, d) {
+  var loader = function () {
+    var s = d.createElement("script"),
+      tag = d.getElementsByTagName("script")[0];
+    s.src = "https://cdn.iubenda.com/iubenda.js";
+    tag.parentNode.insertBefore(s, tag);
+  };
+  if (w.addEventListener) {
+    w.addEventListener("load", loader, false);
+  } else if (w.attachEvent) {
+    w.attachEvent("onload", loader);
+  } else {
+    w.onload = loader;
+  }
+})(window, document);
+//
 import dayjs from "dayjs";
 import {
   ApiLogin,

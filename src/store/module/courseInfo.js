@@ -50,9 +50,9 @@ const courseInfo = {
             state.openedTextbookList = []
             state.textbookList = data
             data.forEach(item => {
-                console.log(item);
+
                 if (item.openflag === 'true') {
-                    state.openedTextbookList.push(item.colid + item.resourceid)
+                    state.openedTextbookList.push(item.colid.toString() + '_' + item.resourceid.toString())
                 }
             })
         },

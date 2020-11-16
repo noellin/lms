@@ -329,7 +329,7 @@
                   <div
                     class="card"
                     v-for="sa in studendAssignmentList"
-                    :key="sa.resourceid + sa.resource_name + sa.type"
+                    :key="sa.asgmt_mid"
                   >
                     <div class="card-body">
                       <div class="media rounded pb-2">
@@ -675,6 +675,7 @@ export default {
     getADetail(sid) {
       ApiGetADetail.get(this.aid, sid)
         .then((response) => {
+          // console.log(response.record);
           if (response.status !== "failed") {
             this.studendAssignmentList = response.record;
             if (
@@ -720,9 +721,10 @@ export default {
         })
         .catch((err) => {});
       if (result) {
-        for (const [key, value] of Object.entries(this.speakingList)) {
+        for await (const [key, value] of Object.entries(this.speakingList)) {
           this.setSpeakScore(key, value);
         }
+        await this.getAProgress();
       }
     },
     setSpeakScore(amid, score) {

@@ -13,9 +13,10 @@
           <router-view :key="$route.params.courseid"></router-view>
         </div>
       </div>
-      <footer class="bg-secondary bg-dk d-flex justify-content-center">
+      <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer>
+      </footer> -->
+      <lms-footer></lms-footer>
     </div>
     <!-- END CONTENT WRAPPER -->
     <!-- Open material MODAL -->
@@ -25,6 +26,7 @@
 import CustomHeader from "../components/CustomHeader";
 import MenuLeft from "../components/MenuLeft";
 import Alert from "../components/AlertMessage";
+import LmsFooter from "../components/Footer";
 // import Menu
 export default {
   name: "CourseMaterial",
@@ -32,6 +34,7 @@ export default {
     CustomHeader,
     MenuLeft,
     Alert,
+    LmsFooter,
   },
   data() {
     return {};
