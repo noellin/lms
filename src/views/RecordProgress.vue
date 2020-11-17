@@ -40,6 +40,36 @@
                   </div>
                 </div>
               </div>
+              <!--  -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <p>
+                        The questions of the weekly quiz are selected by the
+                        system based on material. You can also enter the
+                        question yourself.
+                      </p>
+                      <div class="custom-control p-0">
+                        <!-- <input
+                          type="radio"
+                          id="customRadio2"
+                          name="customRadio"
+                          class="custom-control-input"
+                          checked
+                        /> -->
+                        <textarea
+                          class="form-control"
+                          id="exampleFormControlTextarea1"
+                          placeholder="Please enter a question of the weekly quiz..."
+                          rows="3"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--  -->
               <div class="row">
                 <div class="col-12">
                   <div class="card">
@@ -172,9 +202,6 @@
             </section>
           </div>
         </div>
-        <footer class="bg-secondary bg-dk d-flex justify-content-center">
-          <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-        </footer>
       </div>
     </div>
   </div>
