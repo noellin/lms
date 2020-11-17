@@ -8,12 +8,12 @@ import {
   ValidationObserver,
   ValidationProvider,
   extend,
-  localize
-} from 'vee-validate';
+  localize,
+} from "vee-validate";
 // import {
 //   required
 // } from "vee-validate/dist/rules";
-import * as rules from 'vee-validate/dist/rules';
+import * as rules from "vee-validate/dist/rules";
 import Vuex from "vuex";
 import "bootstrap";
 import Select2 from "v-select2-component";
@@ -23,44 +23,43 @@ import "@/utils/mixins";
 import expiredDate from "./filter/ExpiredDate";
 import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
-import VCharts from 'v-charts'
-
-Vue.component('Loading', Loading)
-Vue.use(VCharts)
+import VCharts from "v-charts";
+import Print from "./plugins/print/print";
+Vue.use(Print);
+Vue.component("Loading", Loading);
+Vue.use(VCharts);
 //輸入驗證
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);
 });
-Vue.component('ValidationProvider', ValidationProvider);
-Vue.component('ValidationObserver', ValidationObserver);
+Vue.component("ValidationProvider", ValidationProvider);
+Vue.component("ValidationObserver", ValidationObserver);
 // extend("required", {
 //   ...required,
 //   message: "This field is required",
 // });
 //輸入驗證 END
 
-
 Vue.use(Loading, {
-  color: 'red'
-})
+  color: "red",
+});
 Vue.use(VueAxios, axios);
 Vue.component("Select2", Select2);
 Vue.use(Vuex);
 Vue.filter("dateConversion", expiredDate);
 
 Vue.config.productionTip = false;
-(Vue.prototype.$back = function (distance) {
+(Vue.prototype.$back = function(distance) {
   if (window.history.length <= 1) {
     router.push({
       path: "/",
     });
-    return false
+    return false;
   } else {
     router.go(-1);
   }
-
 }),
-(Vue.prototype.$bus = new Vue());
+  (Vue.prototype.$bus = new Vue());
 new Vue({
   router,
   store,
@@ -70,7 +69,7 @@ new Vue({
   data: () => ({
     value: "",
   }),
-  render: function (h) {
+  render: function(h) {
     return h(App);
   },
 }).$mount("#vueapp");

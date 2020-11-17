@@ -268,15 +268,15 @@
                       <div>
                         <small
                           v-if="textbook.openflag !== 'true'"
-                          class="badge badge-secondary badge-pill fw300"
+                          class="badge badge-secondary badge-pill fw300 mr-2"
                           >Closed Material</small
                         >
                         <small
                           v-else
-                          class="badge badge-primary badge-pill fw300"
+                          class="badge badge-primary badge-pill fw300 mr-2"
                           >Opened Material</small
                         >
-                        <!-- <button
+                        <button
                           v-if="textbook.openflag !== 'true'"
                           type="button"
                           class="btn btn-sm btn-secondary btn-rounded btn-outline"
@@ -284,7 +284,7 @@
                           data-target="#OpenMaterial"
                           @click="tempResource = textbook"
                         >
-                          Unopened Material
+                          Open Material
                         </button>
                         <button
                           v-else
@@ -294,8 +294,8 @@
                           data-target="#OpenMaterial"
                           @click="tempResource = textbook"
                         >
-                          Opened Material
-                        </button> -->
+                          Close Material
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -351,21 +351,32 @@
             >
               Cancel
             </button>
-            <button
+            <button 
+            v-if="tempResource.openflag==='true'"
               type="button"
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
               @click="
                 getOpenResource(
-                  tempResource.colid,
+                  tempResource.colid.split(';')[0],
                   tempResource.resourceid,
-                  tempResource.openflag
+                  'false'
                 )
               "
-            >
-              <span v-if="tempResource.openflag !== 'true'">Open</span>
-              <span v-else>Close</span>
-            </button>
+            >Close</button>
+                        <button 
+            v-else
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="
+                getOpenResource(
+                  tempResource.colid.split(';')[0],
+                  tempResource.resourceid,
+                  'true'
+                )
+              "
+            >Open</button>
           </div>
         </div>
       </div>
@@ -706,22 +717,40 @@
                 </div>
                 <!-- <div class="col-2 pt-2 pl-0">{{ AssignmentDue }}</div> -->
               </div>
+               <div class="form-group row align-items-start m-0">
+                 <label class="control-label text-right col-sm-3"></label>
+                 <small class="col-sm-7"><span class="text-danger">*</span>
+  Press and hold the Ctrl key for multiple selections.</small>
+                 </div>
               <div
                 class="form-group row align-items-start"
                 :style="{
-                  height: [parseInt(selectStudent.length / 3) + 1] * 25 + 'px',
+                  height: [parseInt(selectStudent.length / 3)+2 ] * 20 + 'px',
                 }"
               >
-                <label class="control-label text-right col-sm-3">For</label>
+                              
+                <label class="control-label text-right col-sm-3">For students</label>
                 <div class="col-sm-7">
+
                   <select2
                     id="s2_student"
                     :options="studentList"
                     v-model="selectStudent"
                     :disabled="selectAllS"
                     :settings="{ multiple: true }"
+                    
                   >
                   </select2>
+              
+                    <!-- <multiselect v-model="selectStudent" tag-placeholder="Add this as new tag" 
+                    placeholder="Add students" 
+                    label="username"  :options="studentList.map((item) => item.id)" 
+                    :custom-label="
+                (opt) => studentList.find((x) => x.id == opt).text"
+                    :multiple="true" :taggable="true" :closeOnSelect="false"
+                    :disabled="selectAllS"
+                    @tag="addTag"></multiselect> -->
+
                 </div>
                 <div class="col-sm-2">
                   <input
@@ -848,16 +877,16 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import dayjs from "dayjs";
 import $ from "jquery";
-// import {mapGetters} from 'vuex';
-// import Select2 from "v-select2-component";
-$("#mySelect2").select2({
-  dropdownParent: $("#s2_student"),
-});
+// import Multiselect from 'vue-multiselect'
+// $("#mySelect2").select2({
+//   dropdownParent: $("#s2_student"),
+// });
 export default {
   name: "CourseMaterial",
   components: {
     CourseHeader,
     DatePicker,
+    // Multiselect
   },
   data() {
     return {
@@ -954,6 +983,16 @@ export default {
     },
   },
   methods: {
+    // multiple select
+        addTag (newTag) {
+          console.log(newTag);
+      const tag = {
+        text: newTag,
+        id: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+      }
+      // this.options.push(tag)
+      // this.value.push(tag)
+    },
     getCollectionList(rid, obj) {
       this.tempResource = obj;
       this.collectionList = [];
@@ -1184,13 +1223,14 @@ export default {
           }
         })
         .catch((err) => {});
-      return result;
-      // if (result) {
-      //   this.$store.dispatch(
-      //     "courseInfo/updateTextbookList",
-      //     this.$route.params.courseid
-      //   );
-      // }
+   
+      if (result) {
+        this.$store.dispatch(
+          "courseInfo/updateTextbookList",
+          this.$route.params.courseid
+        );
+      }
+         return result;
     },
     gotoSpeakingQuiz(m, rname = "") {
       $("#addSpeakingquiz").modal("hide");

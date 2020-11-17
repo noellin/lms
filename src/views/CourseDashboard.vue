@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div >
     <!-- END MENU SIDEBAR WRAPPER -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="print" ref="print">
       <!-- TOP TOOLBAR WRAPPER -->
 
       <!-- END TOP TOOLBAR WRAPPER -->

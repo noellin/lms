@@ -432,7 +432,8 @@
                   />
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row"
+              style="min-height:76px;">
                 <label
                   class="control-label text-right col-sm-4 text-height-form-control"
                   >Multi Select</label

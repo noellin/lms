@@ -8,7 +8,7 @@
       </div>
       <div class="mr-auto">
         <h1 class="separator">{{ course_name }}</h1>
-        <span>{{ page }}</span>
+        <span >{{ page }}</span><span v-if="type==='Dashboard'" class="pointer" @click="print()"><i class="zmdi zmdi-print"></i></span>
         <p class="second-title" v-if="page !== 'Speaking_Quiz'">
           {{ courseInfo.pkg_name }}
         </p>
@@ -34,6 +34,7 @@ export default {
       rname: this.$route.params.rname,
       mname: this.$route.params.mname,
       course_name: this.$route.params.course,
+      type: this.$route.params.type,
       courseInfo: {},
     };
   },
@@ -57,6 +58,10 @@ export default {
       return this.$store.state.courseInfo.assignmentDL;
     },
   },
-  methods: {},
+  methods: {
+    print(){
+      this.$print(this.$parent.$refs.print)
+    }
+  },
 };
 </script>
