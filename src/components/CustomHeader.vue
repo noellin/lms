@@ -135,7 +135,7 @@ export default {
       this.$router.push({ path: "/" });
     },
     gotoLogin() {
-      this.$router.push({ path: "/course" });
+      this.$router.push({ path: "/course" }).catch(() => {});
     },
     gotoAccount() {
       if (this.userInfo.permit === "admin") {

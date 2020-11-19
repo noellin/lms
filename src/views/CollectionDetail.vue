@@ -179,10 +179,11 @@
             <p>This material can only be viewed in the following course.</p>
             <a
               title=""
-              class="btn btn-primary btn-outline btn-rounded mr-3"
+              class="btn btn-primary btn-outline btn-rounded mr-3 mb-3"
               v-for="course in courseList"
               :key="course.resourceid"
-              @click="gotoCourse()"
+              data-dismiss="modal"
+              @click="gotoCourse(course)"
               >{{ course.resource_name }}</a
             >
           </div>
@@ -269,7 +270,13 @@ export default {
         path: `/collection/edit/${this.$route.params.pid}/${this.$route.params.cname}/${this.$route.params.cid}`,
       });
     },
-    gotoCourse() {},
+    gotoCourse(course) {
+      // console.log(course);
+      // http://localhost:8080/web/course_material/course=test%20Course/type=Material/CRSfuqFSTo8pycu7vqtpVz9Xe
+      this.$router.push({
+        path: `/course_material/course=${course.resource_name}/type=Material/${course.resourceid}`,
+      });
+    },
     getAvailableCourse(rid) {
       ApiGetAvailableCourse.get(this.userid, this.$route.params.cid, rid)
         .then((response) => {
