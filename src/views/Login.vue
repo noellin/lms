@@ -274,6 +274,9 @@ export default {
         // 測試帳號B teacher權限
         email: "kevin.chen@igroupnet.com",
         password: "123456",
+        //測試帳號C
+        // email: "sp.wang@igroupnet.com",
+        // password: "123456",
       },
       userEmail: "jolin123@gmail.com",
       ErrorMessage: "Your email or password is incorrect. please try again.",
@@ -289,6 +292,7 @@ export default {
     });
   },
   mounted() {
+    console.log(this.$route.params.id);
     if (this.$route.params.id !== undefined) {
       this.activateUser(this.$route.params.id);
       this.loginShow = "resetPassword";
@@ -301,12 +305,12 @@ export default {
   },
   methods: {
     forgotPassword() {
-      ForgotPassword.get(this.loginForm.email).then((response) => {});
+      ApiForgotPassword.get(this.loginForm.email).then((response) => {});
     },
     sendEmailResetPWD() {
       this.loginShow = "sendEmail";
     },
-    login(data) {
+    login() {
       const todayTimestamp = Math.floor(Date.now() / 1000);
       ApiLogin.post(this.loginForm).then((response) => {
         window.localStorage.setItem("token", response.record);
@@ -340,9 +344,14 @@ export default {
       this.loginShow = "resetPasswordSuccess";
     },
     activateUser(activeid) {
-      ApiActivateUser.get(activeid).then((response) => {
-        this.loginForm.email = response.record.email;
-      });
+      ApiActivateUser.get(activeid)
+        .then((response) => {
+          console.log(response);
+          this.loginForm.email = response.record.email;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

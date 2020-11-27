@@ -24,7 +24,6 @@ export const ApiResetPassword = {
 };
 export const ApiActivateUser = {
     get: (paramObj) => {
-        console.log("dd");
-        return post(`info/activate/${paramObj}`);
+        return get(`info/activate/${paramObj}`);
     },
 };
