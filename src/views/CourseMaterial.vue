@@ -351,8 +351,8 @@
             >
               Cancel
             </button>
-            <button 
-            v-if="tempResource.openflag==='true'"
+            <button
+              v-if="tempResource.openflag === 'true'"
               type="button"
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
@@ -363,9 +363,11 @@
                   'false'
                 )
               "
-            >Close</button>
-                        <button 
-            v-else
+            >
+              Close
+            </button>
+            <button
+              v-else
               type="button"
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
@@ -376,7 +378,9 @@
                   'true'
                 )
               "
-            >Open</button>
+            >
+              Open
+            </button>
           </div>
         </div>
       </div>
@@ -717,32 +721,33 @@
                 </div>
                 <!-- <div class="col-2 pt-2 pl-0">{{ AssignmentDue }}</div> -->
               </div>
-               <div class="form-group row align-items-start m-0">
-                 <label class="control-label text-right col-sm-3"></label>
-                 <small class="col-sm-7"><span class="text-danger">*</span>
-  Press and hold the Ctrl key for multiple selections.</small>
-                 </div>
+              <div class="form-group row align-items-start m-0">
+                <label class="control-label text-right col-sm-3"></label>
+                <small class="col-sm-7"
+                  ><span class="text-danger">*</span> Press and hold the Ctrl
+                  key for multiple selections.</small
+                >
+              </div>
               <div
                 class="form-group row align-items-start"
                 :style="{
-                  height: [parseInt(selectStudent.length / 3)+2 ] * 20 + 'px',
+                  height: [parseInt(selectStudent.length / 3) + 2] * 20 + 'px',
                 }"
               >
-                              
-                <label class="control-label text-right col-sm-3">For students</label>
+                <label class="control-label text-right col-sm-3"
+                  >For students</label
+                >
                 <div class="col-sm-7">
-
                   <select2
                     id="s2_student"
                     :options="studentList"
                     v-model="selectStudent"
                     :disabled="selectAllS"
                     :settings="{ multiple: true }"
-                    
                   >
                   </select2>
-              
-                    <!-- <multiselect v-model="selectStudent" tag-placeholder="Add this as new tag" 
+
+                  <!-- <multiselect v-model="selectStudent" tag-placeholder="Add this as new tag" 
                     placeholder="Add students" 
                     label="username"  :options="studentList.map((item) => item.id)" 
                     :custom-label="
@@ -750,7 +755,6 @@
                     :multiple="true" :taggable="true" :closeOnSelect="false"
                     :disabled="selectAllS"
                     @tag="addTag"></multiselect> -->
-
                 </div>
                 <div class="col-sm-2">
                   <input
@@ -950,6 +954,7 @@ export default {
       }
     },
     tempAIDLists() {
+      console.log(this.$store.state.courseInfo.caidList);
       this.tempAIDList = this.tempAIDLists;
     },
     tempALists() {
@@ -984,12 +989,12 @@ export default {
   },
   methods: {
     // multiple select
-        addTag (newTag) {
-          console.log(newTag);
+    addTag(newTag) {
+      console.log(newTag);
       const tag = {
         text: newTag,
-        id: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
-      }
+        id: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
+      };
       // this.options.push(tag)
       // this.value.push(tag)
     },
@@ -1158,11 +1163,22 @@ export default {
           }
         })
         .catch((err) => {});
+      //新增作業成功
       if (result) {
-        this.$store.dispatch("courseInfo/clearAllAssignment");
+        //移除INDEX
+        this.$store.dispatch(
+          "courseInfo/clearCourseTempAssignment",
+          this.$route.params.courseid
+        );
+        //新增更新回去
+        this.$store.dispatch(
+          "courseInfo/updateTextbookList",
+          this.$route.params.courseid
+        );
         this.selectStudent = "";
         this.AssignmentDue = null;
         this.difficult = "";
+        this.$bus.$emit("messsage:push", "New assignment success.", "success");
       }
     },
     async materialOpenSetting() {
@@ -1217,20 +1233,19 @@ export default {
         status
       )
         .then((response) => {
-          console.log(response);
           if (response.status === "success") {
             return true;
           }
         })
         .catch((err) => {});
-   
+
       if (result) {
         this.$store.dispatch(
           "courseInfo/updateTextbookList",
           this.$route.params.courseid
         );
       }
-         return result;
+      return result;
     },
     gotoSpeakingQuiz(m, rname = "") {
       $("#addSpeakingquiz").modal("hide");

@@ -17,9 +17,9 @@ export const ApiForgotPassword = {
         return get(`info/forgotpw/${paramObj}`);
     },
 };
-export const ApiResetPassword = {
-    post: (paramObj) => {
-        return post(`info/confirmpw/${paramObj}`);
+export const ApiConfirmPassword = {
+    post: (uid, paramObj) => {
+        return post(`info/confirmpw/${uid}`, paramObj);
     },
 };
 export const ApiActivateUser = {

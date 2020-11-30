@@ -26,10 +26,10 @@ axios.interceptors.request.use(
         if (config.url.includes('stu/importfromfile/')) {
             config.headers['Content-Type'] = "multipart/form-data"
         }
-        // export封裝
-        // if (config.url.includes('/stu/export/')) {
-        //     config.headers["responseType"] = "blob"
-        // }
+        // get voice封裝
+        if (config.url.includes('play/voice')) {
+            config.headers["responseType"] = "blob"
+        }
 
 
         return config;

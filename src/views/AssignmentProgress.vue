@@ -449,6 +449,7 @@
                             ></i>
                           </li>
                         </ul>
+                        <audio id="showAudio" src="" controls></audio>
                         <h6 class="mt-4">
                           Speaking quiz score
                           <small class="text-muted">(optional)</small>
@@ -608,6 +609,7 @@ export default {
       selectAllS: "",
       playVoiceStatus: "",
       speakingList: {},
+      sentence: {},
     };
   },
   created() {
@@ -708,9 +710,21 @@ export default {
     getVoice(voiceid) {
       ApiGetVoice.get(voiceid)
         .then((response) => {
-          console.log(object);
+          const blob = new Blob([response], { type: "audio/wav" });
+          console.log(blob);
+          const blobUrl = URL.createObjectURL(response);
+          console.log(blobUrl);
+          const audio = new Audio(blobUrl);
+          console.log(audio);
+          audio.play();
+
+          //
+          // const url = window.URL.createObjectURL(new Blob([response]));
+          // console.log(url);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     },
     async setEvaluate() {
       let result = await ApiSetEvaluate.post(this.aid, this.sid, this.evaluate)

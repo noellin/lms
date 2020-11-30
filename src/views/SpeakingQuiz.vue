@@ -158,7 +158,7 @@
           class="alert alert-success alert-dismissible fade show"
           role="alert"
         >
-          已加入
+          Adding to the Assignment List
           <button
             type="button"
             class="close"
@@ -240,7 +240,7 @@ export default {
       tempSname: "",
       tempStime: new Date(),
       tempQid: "",
-      courseid:this.$route.params.courseid
+      courseid: this.$route.params.courseid,
     };
   },
   mounted() {
@@ -253,14 +253,16 @@ export default {
   },
   computed: {
     tempAIDList() {
-                  if(this.$store.state.courseInfo.tempAIDList[this.courseid]===undefined){
-       return [];
+      if (
+        this.$store.state.courseInfo.tempAIDList[this.courseid] === undefined
+      ) {
+        return [];
       }
       return this.$store.state.courseInfo.tempAIDList[this.courseid];
     },
     tempAList() {
-            if(this.$store.state.courseInfo.tempAList[this.courseid]===undefined){
-       return [];
+      if (this.$store.state.courseInfo.tempAList[this.courseid] === undefined) {
+        return [];
       }
       return this.$store.state.courseInfo.tempAList[this.courseid];
     },
@@ -292,7 +294,7 @@ export default {
       }
     },
     addtoAssignment(q) {
-      q.resourceid = this.rid
+      q.resourceid = this.rid;
       this.$store.dispatch("courseInfo/setAssignment", {
         assignment: q,
         id: q.quizid,

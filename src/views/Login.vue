@@ -66,7 +66,7 @@
         </div>
       </div>
       <div v-if="loginShow === 'resetPasswordSuccess'">
-        <form class="sign-in-form">
+        <div class="sign-in-form">
           <div class="card">
             <div class="card-body">
               <a class="brand text-center d-block m-b-20 m-t-20">
@@ -86,15 +86,16 @@
               </p>
               <button
                 class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                @click="loginShow = 'login'"
               >
-                Log in
+                Return to Login
               </button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <div v-if="loginShow === 'forgetPassword'">
-        <form class="sign-in-form">
+        <div class="sign-in-form">
           <div class="card">
             <div class="card-body">
               <a class="brand text-center d-block m-b-20 m-t-20">
@@ -126,10 +127,10 @@
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <div class="" v-if="loginShow === 'resetPassword'">
-        <form class="sign-in-form">
+        <div class="sign-in-form">
           <div class="card">
             <div class="card-body">
               <a class="brand text-center d-block m-b-20 m-t-20">
@@ -139,7 +140,7 @@
               <p class="text-center m-b-40">iGroup LMS</p>
 
               <p class="text-primary text-center">E-mail: {{ userEmail }}</p>
-              <h5 class="sign-in-heading">Reset your password</h5>
+              <h5 class="sign-in-heading">Confirm your password</h5>
               <div class="form-group">
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input
@@ -168,10 +169,10 @@
               </button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <div class="" v-if="loginShow === 'sendEmail'">
-        <form class="sign-in-form">
+        <div class="sign-in-form">
           <div class="card">
             <div class="card-body">
               <a class="brand text-center d-block m-b-20 m-t-20">
@@ -191,12 +192,13 @@
               </p>
               <button
                 class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                @click="loginShow = 'login'"
               >
                 OK
               </button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <div class="col-sm-12 row justify-content-end">
         <a
@@ -254,7 +256,7 @@ import dayjs from "dayjs";
 import {
   ApiLogin,
   ApiForgotPassword,
-  ApiResetPassword,
+  ApiConfirmPassword,
   ApiActivateUser,
 } from "../http/apis/Login";
 import Alert from "../components/AlertMessage";
@@ -292,7 +294,6 @@ export default {
     });
   },
   mounted() {
-    console.log(this.$route.params.id);
     if (this.$route.params.id !== undefined) {
       this.activateUser(this.$route.params.id);
       this.loginShow = "resetPassword";
@@ -304,8 +305,22 @@ export default {
     },
   },
   methods: {
-    forgotPassword() {
-      ApiForgotPassword.get(this.loginForm.email).then((response) => {});
+    async forgotPassword() {
+      let result = await ApiForgotPassword.get(this.loginForm.email).then(
+        (response) => {
+          if (response.record === "Done") {
+            this.$bus.$emit(
+              "messsage:push",
+              "Password reset information has been sent to your email, please check your email!",
+              "success"
+            );
+            return true;
+          }
+        }
+      );
+      if (result) {
+        this.loginShow = "sendEmail";
+      }
     },
     sendEmailResetPWD() {
       this.loginShow = "sendEmail";
@@ -341,7 +356,13 @@ export default {
     },
 
     resetPassword() {
-      this.loginShow = "resetPasswordSuccess";
+      let obj = { password: this.loginForm.password };
+      ApiConfirmPassword.post(this.$route.params.id, obj)
+        .then((response) => {
+          console.log(response);
+          this.loginShow = "resetPasswordSuccess";
+        })
+        .catch((err) => {});
     },
     activateUser(activeid) {
       ApiActivateUser.get(activeid)

@@ -25,11 +25,6 @@ const courseInfo = {
         assignmentDL: {},
 
     },
-    // getters:{
-    //     tempA(state){
-    //         return state.tempAList
-    //     }
-    // },
     mutations: {
         SET_COURSEINFO(state, data) {
             state.courseInfo = data
@@ -107,6 +102,9 @@ const courseInfo = {
             state.tempAList = {}
             state.aKeyList = []
         },
+        CLERAR_COURSE_TEMP_ASSIGNMENT(state, courseid) {
+            state.aKeyList.splice(state.aKeyList.indexOf(courseid), 1)
+        },
         SET_ASSIGNMENT_TIME(state, data) {
             state.assignmentDL = data
         }
@@ -150,6 +148,9 @@ const courseInfo = {
         },
         clearAllAssignment(context) {
             context.commit('CLEAR_ALL_ASSIGNMENT')
+        },
+        clearCourseTempAssignment(context, courseid) {
+            context.commit('CLERAR_COURSE_TEMP_ASSIGNMENT', courseid)
         }
 
     },
