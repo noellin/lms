@@ -712,9 +712,8 @@ export default {
         .then((response) => {
           const blob = new Blob([response], { type: "audio/wav" });
           console.log(blob);
-          const blobUrl = URL.createObjectURL(response);
-          console.log(blobUrl);
-          const audio = new Audio(blobUrl);
+          this.sentence.srcObject = URL.createObjectURL(blob);
+          const audio = new Audio(this.sentence.srcObject);
           console.log(audio);
           audio.play();
 
