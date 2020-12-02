@@ -122,8 +122,7 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded btn-outline"
-              data-toggle="modal"
-              data-target="#AssignmentModal"
+              @click="openAssignmentModal()"
             >
               <i class="la la-clipboard"></i>Assignment
               <span class="badge badge-primary">{{ tempAList.length }}</span>
@@ -170,7 +169,9 @@
                         <h4
                           class="mb-0 mt-3 d-flex align-self-center text-primary"
                         >
-                          <a href="" title="">{{ textbook.resource_name }}</a>
+                          <div title="">
+                            {{ textbook.resource_name }}
+                          </div>
                         </h4>
                         <p class="text-muted mt-1">
                           <small class="fw300"
@@ -783,6 +784,7 @@
               data-dismiss="modal"
               data-toggle="modal"
               data-target="#AssignmentModal-2"
+              :disabled="AssignmentSetting"
             >
               Next
             </button>
@@ -917,6 +919,7 @@ export default {
       textbookList: [],
       studentList: [],
       selectStudent: [],
+      tempSelectStudent: [],
       selectAllS: false,
       AssignmentDue: null,
       difficult: "1",
@@ -924,6 +927,7 @@ export default {
       tempAIDList: [],
       tempAList: [],
       openedTextbookList: [],
+      setStudent: false,
     };
   },
   created() {
@@ -935,9 +939,7 @@ export default {
     this.tempAIDList = this.tempAIDLists;
     this.tempAList = this.tempALists;
   },
-  mounted() {
-    // this.getStudentList();
-  },
+  mounted() {},
   watch: {
     openedTextbookLists() {
       this.openedTextbookList = this.openedTextbookLists;
@@ -949,8 +951,13 @@ export default {
       this.studentList = this.studentLists;
     },
     selectAllS() {
+      console.log(this.selectAllS);
       if (this.selectAllS) {
-        this.selectStudent = ["*"];
+        this.tempSelectStudent = this.selectStudent;
+        this.selectStudent = [];
+        this.selectStudent.push("*");
+      } else {
+        this.selectStudent = this.tempSelectStudent;
       }
     },
     tempAIDLists() {
@@ -962,6 +969,17 @@ export default {
     },
   },
   computed: {
+    AssignmentSetting() {
+      if (this.AssignmentDue === null || this.selectStudent.length <= 0) {
+        return true;
+      } else {
+        if (this.AssignmentDue.includes(null)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    },
     openedTextbookLists() {
       return this.$store.state.courseInfo.openedTextbookList;
     },
@@ -988,6 +1006,17 @@ export default {
     },
   },
   methods: {
+    openAssignmentModal() {
+      if (this.studentList.length <= 0) {
+        this.$bus.$emit(
+          "messsage:push",
+          "Please add students to the course first.",
+          "danger"
+        );
+      } else {
+        $("#AssignmentModal").modal("show");
+      }
+    },
     // multiple select
     addTag(newTag) {
       console.log(newTag);
@@ -1159,7 +1188,14 @@ export default {
       let result = await ApiSetAssignment.post(this.courseid, obj)
         .then((response) => {
           if (response.status === "success") {
+            this.$bus.$emit(
+              "messsage:push",
+              "New assignment success!",
+              "success"
+            );
             return true;
+          } else {
+            this.$bus.$emit("messsage:push", "Unknown error!!", "danger");
           }
         })
         .catch((err) => {});

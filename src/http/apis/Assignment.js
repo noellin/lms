@@ -1,4 +1,4 @@
-import { get, post, put, remove } from "../https.js";
+import { get, post, put, remove, fetchget } from "../https.js";
 
 export const ApiGetAList = {
   get: (courseid, uid) => {
@@ -26,7 +26,7 @@ export const ApiSetEvaluate = {
 
 export const ApiGetVoice = {
   get: (vid) => {
-    return get(`/asgmt/play/voice/${vid}`);
+    return fetchget(`/asgmt/play/voice/${vid}`);
   },
 };
 

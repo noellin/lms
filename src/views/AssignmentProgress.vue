@@ -449,7 +449,7 @@
                             ></i>
                           </li>
                         </ul>
-                        <audio id="showAudio" src="" controls></audio>
+                        <!-- <audio id="showAudio" src="" controls></audio> -->
                         <h6 class="mt-4">
                           Speaking quiz score
                           <small class="text-muted">(optional)</small>
@@ -708,18 +708,25 @@ export default {
         .catch((err) => {});
     },
     getVoice(voiceid) {
+      //注意 裡層是用fetch
       ApiGetVoice.get(voiceid)
         .then((response) => {
-          const blob = new Blob([response], { type: "audio/wav" });
-          console.log(blob);
-          this.sentence.srcObject = URL.createObjectURL(blob);
-          const audio = new Audio(this.sentence.srcObject);
-          console.log(audio);
-          audio.play();
-
-          //
-          // const url = window.URL.createObjectURL(new Blob([response]));
-          // console.log(url);
+          if (response.type == "image/jpeg" || response.type == "image/png") {
+            var url = URL.createObjectURL(response);
+            $("#showImg").attr("src", url);
+          } else if (
+            response.type == "audio/mpeg" ||
+            response.type == "audio/wav"
+          ) {
+            //會進到這裡
+            console.log(response);
+            var url = URL.createObjectURL(response);
+            const audio = new Audio(url);
+            console.log(audio);
+            audio.play();
+          } else {
+            console.log(response);
+          }
         })
         .catch((err) => {
           console.log(err);

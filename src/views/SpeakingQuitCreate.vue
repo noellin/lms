@@ -268,7 +268,7 @@ export default {
   },
   methods: {
     getSubtitleList() {
-      console.log(this.pkgid);
+      //video
       if (this.$route.params.note === "video") {
         ApiGetSubtitileByVideo.get(this.pkgid, this.colid, this.rid, this.mid)
           .then((response) => {
@@ -279,8 +279,10 @@ export default {
             console.log("err = ", err);
           });
       } else {
+        //book
         ApiGetSubtitleByBook.get(this.pkgid, this.colid, this.rid)
           .then((response) => {
+            console.log(response);
             this.sList = response.record;
           })
           .catch((err) => {});

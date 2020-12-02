@@ -36,6 +36,7 @@ export const ApiGetSubtitileByVideo = {
 
 export const ApiGetSubtitleByBook = {
     get: (pkgid, colid, rid) => {
+
         return get(`/cms/resdl/subtitlebyres/${pkgid}/${colid}/${rid}`)
     }
 };
@@ -47,7 +48,7 @@ export const ApiSetSByVideo = {
 };
 
 export const ApiSetSByBook = {
-    post: (rid, courseid, ) => {
+    post: (rid, courseid, paramObj) => {
         return post(`/quiz/create/book/${rid}/${courseid}`, paramObj)
     }
 };
