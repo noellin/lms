@@ -49,7 +49,7 @@ Vue.use(Vuex);
 Vue.filter("dateConversion", expiredDate);
 
 Vue.config.productionTip = false;
-(Vue.prototype.$back = function(distance) {
+(Vue.prototype.$back = function (distance) {
   if (window.history.length <= 1) {
     router.push({
       path: "/",
@@ -59,7 +59,7 @@ Vue.config.productionTip = false;
     router.go(-1);
   }
 }),
-  (Vue.prototype.$bus = new Vue());
+(Vue.prototype.$bus = new Vue());
 new Vue({
   router,
   store,
@@ -69,7 +69,7 @@ new Vue({
   data: () => ({
     value: "",
   }),
-  render: function(h) {
+  render: function (h) {
     return h(App);
   },
 }).$mount("#vueapp");

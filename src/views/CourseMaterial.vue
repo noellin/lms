@@ -176,7 +176,9 @@
                         <p class="text-muted mt-1">
                           <small class="fw300"
                             >Last played
-                            <span>{{ textbook.last_access }}</span></small
+                            <span>{{
+                              textbook.last_access | dateConversion
+                            }}</span></small
                           >
                         </p>
                       </div>
@@ -270,12 +272,12 @@
                         <small
                           v-if="textbook.openflag !== 'true'"
                           class="badge badge-secondary badge-pill fw300 mr-2"
-                          >Closed Material</small
+                          >Closed</small
                         >
                         <small
                           v-else
                           class="badge badge-primary badge-pill fw300 mr-2"
-                          >Opened Material</small
+                          >Opened</small
                         >
                         <button
                           v-if="textbook.openflag !== 'true'"
@@ -430,14 +432,15 @@
                 >
                 <div class="col-sm-9">
                   <div class="" style="max-height: 300px" data-scroll="dark">
-                    <ul class="sequence border">
-                      <li class="d-flex justify-content-between">
-                        <button class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i
-                          >{{ tempResource.resource_name }}
-                        </button>
-                        <!-- <div
+                    <!-- <ul class="sequence border"> -->
+                    <li class="d-flex justify-content-between">
+                      <div class="btn btn-nostyle btn-move mr-3">
+                        <!-- <i class="la la-ellipsis-v"></i
+                        ><i class="la la-ellipsis-v"></i
+                        > -->
+                        {{ tempResource.resource_name }}
+                      </div>
+                      <!-- <div
                           class="btn btn-nostyle btn-remove"
                           @click="deleteResource(r.colid, r.resourceid)"
                         >
@@ -445,8 +448,8 @@
                             class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
                           ></i>
                         </div> -->
-                      </li>
-                    </ul>
+                    </li>
+                    <!-- </ul> -->
                   </div>
                 </div>
               </div>
@@ -1080,6 +1083,7 @@ export default {
       let colid = Ncolid.split(";")[0];
       let result = await ApiGetVideoMaterial.get(colid, this.courseid, rid)
         .then((response) => {
+          console.log(response);
           this.videoMaterialList = response.record;
           if (response.status === "success") {
             return true;
@@ -1193,6 +1197,7 @@ export default {
               "New assignment success!",
               "success"
             );
+
             return true;
           } else {
             this.$bus.$emit("messsage:push", "Unknown error!!", "danger");
@@ -1211,6 +1216,7 @@ export default {
           "courseInfo/updateTextbookList",
           this.$route.params.courseid
         );
+        this.selectAllS = false;
         this.selectStudent = "";
         this.AssignmentDue = null;
         this.difficult = "";

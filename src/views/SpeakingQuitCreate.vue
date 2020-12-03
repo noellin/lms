@@ -19,7 +19,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div
-                      class="custom-control custom-checkbox form-check"
+                      class="custom-control custom-checkbox form-check mb-4"
                       v-for="s in sList"
                       :key="s.sentenceid"
                     >

@@ -36,7 +36,7 @@ export const ApiGetSubtitileByVideo = {
 
 export const ApiGetSubtitleByBook = {
     get: (pkgid, colid, rid) => {
-
+        console.log(`/cms/resdl/subtitlebyres/${pkgid}/${colid}/${rid}`);
         return get(`/cms/resdl/subtitlebyres/${pkgid}/${colid}/${rid}`)
     }
 };

@@ -12,55 +12,86 @@
                 <!-- <span class="display-4">School Name</span> -->
               </a>
               <p class="text-center m-b-40">iGroup LMS</p>
-              <div id="login-Page">
-                <h5 class="sign-in-heading">Log in to your account</h5>
-                <div class="form-group">
-                  <label for="inputEmail" class="sr-only">Email address</label>
-                  <input
-                    type="email"
-                    id="inputEmail"
-                    class="form-control form-control-lg"
-                    placeholder="Enter your Email address"
-                    required=""
-                    v-model="loginForm.email"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword" class="sr-only">Password</label>
-                  <input
-                    type="password"
-                    id="inputPassword"
-                    class="form-control form-control-lg"
-                    placeholder="Enter your password"
-                    required=""
-                    v-model="loginForm.password"
-                  />
-                </div>
-                <div class="checkbox m-t-20">
-                  <div class="custom-control custom-checkbox checkbox-primary">
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="stateCheck1"
-                      checked=""
-                    />
-                    <label class="custom-control-label" for="stateCheck1">
-                      Remember me</label
+              <ValidationObserver ref="loginForm">
+                <div id="login-Page">
+                  <h5 class="sign-in-heading">Log in to your account</h5>
+                  <ValidationProvider
+                    rules="required"
+                    v-slot="{ failed, errors }"
+                    name="Account"
+                  >
+                    <div class="form-group">
+                      <label for="inputEmail" class="sr-only"
+                        >Email address</label
+                      >
+                      <input
+                        type="email"
+                        id="inputEmail"
+                        class="form-control form-control-lg"
+                        placeholder="Enter your Email address"
+                        required=""
+                        v-model="loginForm.email"
+                        :class="{ 'is-invalid': failed }"
+                        :autocomplete="remember === true ? '' : 'new-password'"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+                  </ValidationProvider>
+                  <ValidationProvider
+                    rules="required"
+                    v-slot="{ failed, errors }"
+                    name="Password"
+                  >
+                    <div class="form-group">
+                      <label for="inputPassword" class="sr-only"
+                        >Password</label
+                      >
+                      <input
+                        type="password"
+                        id="inputPassword"
+                        class="form-control form-control-lg"
+                        placeholder="Enter your password"
+                        required=""
+                        v-model="loginForm.password"
+                        :class="{ 'is-invalid': failed }"
+                        :autocomplete="remember === true ? '' : 'new-password'"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+                  </ValidationProvider>
+                  <div class="checkbox m-t-20">
+                    <div
+                      class="custom-control custom-checkbox checkbox-primary"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="stateCheck1"
+                        checked=""
+                        v-model="remember"
+                      />
+                      <label class="custom-control-label" for="stateCheck1">
+                        Remember me</label
+                      >
+                    </div>
+                    <a
+                      class="float-right blue pointer"
+                      @click="loginShow = 'forgetPassword'"
+                      >Forgot Password?</a
                     >
                   </div>
-                  <a
-                    class="float-right blue pointer"
-                    @click="loginShow = 'forgetPassword'"
-                    >Forgot Password?</a
+                  <button
+                    class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                    @click="login()"
                   >
+                    Log In
+                  </button>
                 </div>
-                <button
-                  class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-                  @click="login()"
-                >
-                  Log In
-                </button>
-              </div>
+              </ValidationObserver>
             </div>
           </div>
         </div>
@@ -269,13 +300,16 @@ export default {
     return {
       showErrorMessage: false,
       loginShow: "login",
+      remember: false,
       loginForm: {
+        email: "",
+        password: "",
         // // 測試帳號A admin權限
         // email: "bkbjava@mhsh.ptc.edu.tw",
         // password: "123456",
         // 測試帳號B teacher權限
-        email: "kevin.chen@igroupnet.com",
-        password: "123456",
+        // email: "kevin.chen@igroupnet.com",
+        // password: "123456",
         //測試帳號C
         // email: "sp.wang@igroupnet.com",
         // password: "123456",
@@ -327,32 +361,37 @@ export default {
     },
     login() {
       const todayTimestamp = Math.floor(Date.now() / 1000);
-      ApiLogin.post(this.loginForm).then((response) => {
-        window.localStorage.setItem("token", response.record);
-        //vuex
-        this.$store.dispatch("auth/setAuth", {
-          token: response.record,
-          isLogin: response.status === "success" ? true : false,
-          userid: response.userID,
-          username: response.username,
-          email: response.email,
-          permit: response.permit,
-          todayTimestamp: todayTimestamp,
-        });
-        this.$store.dispatch("courseInfo/clearAllAssignment");
-        // response.status === "success"
-        if (response.status === "success") {
-          this.$router.push({
-            path: "/course",
+      ApiLogin.post(this.loginForm)
+        .then((response) => {
+          console.log(response);
+          window.localStorage.setItem("token", response.record);
+          //vuex
+          this.$store.dispatch("auth/setAuth", {
+            token: response.record,
+            isLogin: response.status === "success" ? true : false,
+            userid: response.userID,
+            username: response.username,
+            email: response.email,
+            permit: response.permit,
+            todayTimestamp: todayTimestamp,
           });
-        } else {
-          this.$bus.$emit(
-            "messsage:push",
-            "Oh snap ! Your email or password is incorrect. please try again.",
-            "danger"
-          );
-        }
-      });
+          this.$store.dispatch("courseInfo/clearAllAssignment");
+          // response.status === "success"
+          if (response.status === "success") {
+            this.$router.push({
+              path: "/course",
+            });
+          } else {
+            this.$bus.$emit(
+              "messsage:push",
+              "Oh snap ! Your email or password is incorrect. please try again.",
+              "danger"
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     resetPassword() {

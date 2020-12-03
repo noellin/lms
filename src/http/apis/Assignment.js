@@ -1,4 +1,10 @@
-import { get, post, put, remove, fetchget } from "../https.js";
+import {
+  get,
+  post,
+  put,
+  remove,
+  fetchget
+} from "../https.js";
 
 export const ApiGetAList = {
   get: (courseid, uid) => {
@@ -53,3 +59,9 @@ export const ApiSearchStudent = {
     return get(`/asgmt/search/${aid}/${type}/${keyword}`);
   },
 };
+
+export const ApiDeleteAssignment = {
+  get: (aid) => {
+    return get(`/asgmt/delete/${aid}`)
+  }
+}

@@ -432,8 +432,8 @@
                             :key="se.sentenceid"
                           >
                             <strong class="text-primary mr-2"
-                              >Q{{ se.sentenceSeq }}.</strong
-                            >
+                              >Q{{ se.sentenceSeq }}. <br
+                            /></strong>
                             {{ se.sentenceContent
                             }}<i
                               class="zmdi zmdi-volume-up zmdi-hc-fw ml-2 pointer"
@@ -688,8 +688,14 @@ export default {
               this.evaluate.comment = response.comment;
             }
             response.record.forEach((item) => {
+              console.log(item);
               if (item.type === "speaking") {
-                this.$set(this.speakingList, item.asgmt_mid, item.score);
+                if (item.score === "") {
+                  this.$set(this.speakingList, item.asgmt_mid, 0);
+                } else {
+                  this.$set(this.speakingList, item.asgmt_mid, item.score);
+                }
+
                 //
                 var slider = document.getElementById(
                   `${item.asgmt_mid}myRange`

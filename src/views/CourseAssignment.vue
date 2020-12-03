@@ -11,6 +11,18 @@
         <div class="main-content">
           <course-header></course-header>
           <section class="page-content container-fluid">
+            <div class="d-flex justify-content-end mb-3">
+              <div class="text-right">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-outline btn-rounded"
+                  data-toggle="modal"
+                  data-target="#DeleteAModal"
+                >
+                  Delete Assignment
+                </button>
+              </div>
+            </div>
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -19,6 +31,23 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
+                            <th>
+                              <div
+                                class="custom-control custom-checkbox form-check"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  id="customCheck"
+                                  @click="selectAll"
+                                  v-model="selectAllA"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="customCheck"
+                                ></label>
+                              </div>
+                            </th>
                             <th>Assigned date</th>
                             <th>Due</th>
                             <th>For</th>
@@ -30,6 +59,23 @@
                         </thead>
                         <tbody>
                           <tr v-for="a in aList" :key="a.asgmtid">
+                            <td>
+                              <div
+                                class="custom-control custom-checkbox form-check"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  :id="a.asgmtid"
+                                  v-model="selectedAssignment"
+                                  :value="a.asgmtid"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  :for="a.asgmtid"
+                                ></label>
+                              </div>
+                            </td>
                             <td class="pl-5">
                               <i
                                 class="ig-notice"
@@ -226,11 +272,59 @@
         </div>
       </div>
     </div>
+    <!-- DeleteAModal MODAL-->
+    <div
+      class="modal fade"
+      id="DeleteAModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalTitle1">Delete Assignment</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Want to delete a checked assignment?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="deleteAssignment()"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import CourseHeader from "../components/CourseHeader";
-import { ApiGetAList, ApiGetAMaterial } from "../http/apis/Assignment";
+import {
+  ApiGetAList,
+  ApiGetAMaterial,
+  ApiDeleteAssignment,
+} from "../http/apis/Assignment";
 export default {
   name: "CourseAssignment",
   components: {
@@ -242,6 +336,8 @@ export default {
       aList: [],
       aMaterial: [],
       tempAM: {},
+      selectAllA: "",
+      selectedAssignment: [],
     };
   },
   created() {
@@ -254,6 +350,19 @@ export default {
     },
   },
   methods: {
+    selectAll(event) {
+      const vm = this;
+
+      if (!event.currentTarget.checked) {
+        vm.selectedAssignment = [];
+      } else {
+        //實現全選
+        vm.selectedAssignment = [];
+        vm.aList.forEach(function (item, i) {
+          vm.selectedAssignment.push(item.asgmtid);
+        });
+      }
+    },
     getAList() {
       ApiGetAList.get(this.courseid, this.userid)
         .then((response) => {
@@ -272,6 +381,22 @@ export default {
       this.$router.push({
         path: `/check_assignment/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}/${aid}`,
       });
+    },
+    deleteAssignment() {
+      if (this.selectedAssignment.length !== 0) {
+        this.selectedAssignment.forEach((aid, index) => {
+          ApiDeleteAssignment.get(aid)
+            .then((response) => {
+              if (response.status === "success") {
+                return true;
+              }
+            })
+            .catch((err) => {});
+          if (index + 1 === this.selectedAssignment.length) {
+            this.getAList();
+          }
+        });
+      }
     },
   },
 };
