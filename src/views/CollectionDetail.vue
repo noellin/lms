@@ -261,6 +261,7 @@ export default {
     getCollectionContent() {
       ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
         .then((response) => {
+          console.log(response.record);
           this.cResourceList = response.record;
         })
         .catch((err) => {});

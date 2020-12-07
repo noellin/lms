@@ -87,6 +87,7 @@ export const ApiGetResource = {
 
 export const ApiAddResource = {
     get: (colid, rid) => {
+        console.log(`/collection/addresource/${colid}/${rid}`);
         return get(`/collection/addresource/${colid}/${rid}`)
     }
 };

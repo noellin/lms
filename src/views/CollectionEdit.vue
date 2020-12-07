@@ -98,10 +98,10 @@
                           :key="cr.resourceid"
                         >
                           <div class="d-flex justify-content-start">
-                            <button class="btn btn-nostyle btn-move mr-3">
+                            <div class="btn btn-nostyle btn-move mr-3">
                               <i class="la la-ellipsis-v"></i
                               ><i class="la la-ellipsis-v"></i>
-                            </button>
+                            </div>
                             <div
                               class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
                             >

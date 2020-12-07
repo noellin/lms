@@ -34,7 +34,7 @@
                               <th>Due</th>
                               <th>Author</th>
                               <th>Completed ／Total students</th>
-                              <th>Action</th>
+                              <!-- <th>Action</th> -->
                               <th>Check progress</th>
                             </tr>
                           </thead>
@@ -50,7 +50,7 @@
                               <td>2020.09.06</td>
                               <td>Diana</td>
                               <td>0 ／50</td>
-                              <td>
+                              <!-- <td>
                                 <button
                                   class="btn btn-nostyle"
                                   data-toggle="modal"
@@ -58,7 +58,7 @@
                                 >
                                   <i class="la la-edit"></i>
                                 </button>
-                              </td>
+                              </td> -->
                               <td>
                                 <button
                                   type=""
@@ -76,7 +76,7 @@
                               <td>2020.09.04</td>
                               <td>Diana</td>
                               <td>50 ／50</td>
-                              <td>
+                              <!-- <td>
                                 <button
                                   type=""
                                   class="btn btn-nostyle"
@@ -85,7 +85,7 @@
                                 >
                                   <i class="la la-eye display-6"></i>
                                 </button>
-                              </td>
+                              </td> -->
                               <td>
                                 <button
                                   type=""

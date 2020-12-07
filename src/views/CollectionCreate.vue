@@ -109,15 +109,15 @@
                       :name="!drag ? 'flip-list' : null"
                     > -->
                     <li
-                      class="d-flex justify-content-between"
+                      class="d-flex justify-content-between mb-2"
                       v-for="(m, index) in materialSequence"
                       :key="m.id"
                     >
                       <div class="d-flex justify-content-start">
-                        <button class="btn btn-nostyle btn-move mr-3">
+                        <div class="btn btn-nostyle btn-move mr-3">
                           <i class="la la-ellipsis-v"></i
                           ><i class="la la-ellipsis-v"></i>
-                        </button>
+                        </div>
                         <div
                           class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
                         >

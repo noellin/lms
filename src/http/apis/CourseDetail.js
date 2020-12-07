@@ -29,6 +29,7 @@ export const ApiGetStudentList = {
 
 export const ApiGetVideoMaterial = {
     get: (colid, courseid, rid) => {
+        console.log(`/course/getvideomaterial/${colid}/${courseid}/${rid}`);
         return get(`/course/getvideomaterial/${colid}/${courseid}/${rid}`)
     }
 }

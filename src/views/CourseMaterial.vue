@@ -269,16 +269,18 @@
                         </button>
                       </div>
                       <div>
-                        <small
+                        <div
                           v-if="textbook.openflag !== 'true'"
-                          class="badge badge-secondary badge-pill fw300 mr-2"
-                          >Closed</small
+                          class="badge badge-secondary badge-pill fw300 mr-2 font-size-md"
                         >
-                        <small
+                          Closed
+                        </div>
+                        <div
                           v-else
-                          class="badge badge-primary badge-pill fw300 mr-2"
-                          >Opened</small
+                          class="badge badge-primary badge-pill fw300 mr-2 font-size-md"
                         >
+                          Opened
+                        </div>
                         <button
                           v-if="textbook.openflag !== 'true'"
                           type="button"
@@ -411,7 +413,20 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <div>
+              <div class="form-group row">
+                <label class="control-label text-right col-sm-3"
+                  >Existing in Collection</label
+                >
+                <span class="col-sm-9">
+                  <span
+                    class="badge badge-secondary badge-pill mr-1"
+                    v-for="Cname in existCollectionName"
+                    :key="Cname"
+                    >{{ Cname }}</span
+                  ></span
+                >
+              </div>
               <div class="form-group row">
                 <label class="control-label text-right col-sm-3"
                   >Collection</label
@@ -419,7 +434,7 @@
                 <div class="col-sm-9">
                   <select2
                     id="s2_demo1"
-                    :options="collectionList"
+                    :options="filterCollectionList"
                     v-model="selectCol"
                     @select="tempcolid = $event.id"
                   >
@@ -453,7 +468,7 @@
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -466,6 +481,7 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
               @click="addResource()"
             >
               Add
@@ -508,13 +524,17 @@
               <input
                 type="checkbox"
                 class="custom-control-input"
-                :value="vm.materialid"
-                :id="vm.materialid"
+                :value="
+                  vm.materialid.toString() + '_' + vm.resourceid.toString()
+                "
+                :id="vm.materialid.toString() + '_' + vm.resourceid.toString()"
                 v-model="tempVMList"
               />
-              <label class="custom-control-label" :for="vm.materialid">{{
-                vm.material_name
-              }}</label>
+              <label
+                class="custom-control-label"
+                :for="vm.materialid.toString() + '_' + vm.resourceid.toString()"
+                >{{ vm.material_name }}</label
+              >
               <!-- <span>{{ vm.materialid }}</span> -->
             </div>
           </div>
@@ -597,7 +617,24 @@
             </button>
           </div>
           <div class="modal-body">
-            <div>Check which courses you want to open</div>
+            <div>
+              Total of
+              <span class="text-primary bold">{{ textbookList.length }}</span>
+              materials
+            </div>
+            <div>
+              <span class="mr-4"
+                >Opened：<span class="text-primary bold">{{
+                  openedMList.length
+                }}</span></span
+              >
+              <span class=""
+                >Closed：<span class="bold">{{
+                  closedMList.length
+                }}</span></span
+              >
+            </div>
+            <div class="mt-4">Check which materials you want to open</div>
             <div
               v-for="(tb, index) in textbookList"
               :key="tb.resourceid + index"
@@ -668,42 +705,55 @@
                 <div class="col-sm-9">
                   <div class="bg-light rounded" data-scroll="dark">
                     <ul class="sequence a-sequence">
-                      <li
-                        v-for="(ta, index) in tempAList"
-                        :key="index"
-                        class="d-flex justify-content-between border bg-white rounded"
+                      <draggable
+                        class="list-group"
+                        tag="ul"
+                        v-model="tempAList"
+                        v-bind="dragOptions"
+                        @start="drag = true"
+                        @end="drag = false"
                       >
-                        <div class="mr-3">
-                          <span v-if="ta.note === 'book'">
-                            <span class="badge badge-pill badge-primary mr-2"
-                              >Reading</span
-                            >{{ ta.resource_name }}</span
-                          >
-                          <span v-else-if="ta.note === 'video'">
-                            <span class="badge badge-pill badge-warning mr-2"
-                              >Watching</span
-                            >{{ ta.resource_name + " - " + ta.material_name }}
-                          </span>
-                          <span v-else>
-                            <span class="badge badge-pill badge-accent mr-2"
-                              >Speaking Quiz</span
-                            >
-                            {{ ta.resource_name }} -
-                            <span v-if="ta.material_name !== 'undefined'">{{
-                              ta.material_name
-                            }}</span>
-                            <span v-else>Book</span>
-                          </span>
-                        </div>
-                        <button
-                          class="btn btn-nostyle btn-remove"
-                          @click="removeAssignment(ta.note, ta)"
+                        <li
+                          v-for="(ta, index) in tempAList"
+                          :key="index"
+                          class="d-flex justify-content-between border bg-white rounded"
                         >
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </button>
-                      </li>
+                          <div class="mr-3 d-flex justify-content-start">
+                            <div class="btn btn-nostyle btn-move">
+                              <i class="la la-ellipsis-v"></i
+                              ><i class="la la-ellipsis-v"></i>
+                            </div>
+                            <span v-if="ta.note === 'book'">
+                              <span class="badge badge-pill badge-primary mr-2"
+                                >Reading</span
+                              >{{ ta.resource_name }}</span
+                            >
+                            <span v-else-if="ta.note === 'video'">
+                              <span class="badge badge-pill badge-warning mr-2"
+                                >Watching</span
+                              >{{ ta.resource_name + " - " + ta.material_name }}
+                            </span>
+                            <span v-else>
+                              <span class="badge badge-pill badge-accent mr-2"
+                                >Speaking Quiz</span
+                              >
+                              {{ ta.resource_name }} -
+                              <span v-if="ta.material_name !== 'undefined'">{{
+                                ta.material_name
+                              }}</span>
+                              <span v-else>Book</span>
+                            </span>
+                          </div>
+                          <button
+                            class="btn btn-nostyle btn-remove"
+                            @click="removeAssignment(ta.note, ta)"
+                          >
+                            <i
+                              class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
+                            ></i>
+                          </button>
+                        </li>
+                      </draggable>
                     </ul>
                   </div>
                 </div>
@@ -886,6 +936,7 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import dayjs from "dayjs";
 import $ from "jquery";
+import draggable from "vuedraggable";
 // import Multiselect from 'vue-multiselect'
 // $("#mySelect2").select2({
 //   dropdownParent: $("#s2_student"),
@@ -895,6 +946,7 @@ export default {
   components: {
     CourseHeader,
     DatePicker,
+    draggable,
     // Multiselect
   },
   data() {
@@ -931,11 +983,11 @@ export default {
       tempAList: [],
       openedTextbookList: [],
       setStudent: false,
+      existCollectionName: [],
     };
   },
   created() {
     //列表資訊從menulift call (為了重複使用)
-
     this.textbookList = this.textbookLists;
     this.openedTextbookList = this.openedTextbookLists;
     this.studentList = this.studentLists;
@@ -964,7 +1016,6 @@ export default {
       }
     },
     tempAIDLists() {
-      console.log(this.$store.state.courseInfo.caidList);
       this.tempAIDList = this.tempAIDLists;
     },
     tempALists() {
@@ -972,6 +1023,33 @@ export default {
     },
   },
   computed: {
+    openedMList() {
+      return this.textbookList.filter((item) => {
+        return item.openflag === "true";
+      });
+    },
+    closedMList() {
+      return this.textbookList.filter((item) => {
+        return item.openflag !== "true";
+      });
+    },
+    filterCollectionList() {
+      this.existCollectionName = [];
+      return this.collectionList.filter((item) => {
+        if (item.rid === this.tempResource.resourceid) {
+          this.existCollectionName.push(item.text);
+        }
+        return item.rid !== this.tempResource.resourceid;
+      });
+    },
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+      };
+    },
     AssignmentSetting() {
       if (this.AssignmentDue === null || this.selectStudent.length <= 0) {
         return true;
@@ -1035,8 +1113,13 @@ export default {
       this.collectionList = [];
       ApiGetCollectionList.get(this.userid, rid)
         .then((response) => {
+          console.log(response);
           this.collectionList = response.record.map((o) => {
-            return { id: o.collectionid, text: o.collection_name };
+            return {
+              id: o.collectionid,
+              text: o.collection_name,
+              rid: o.resourceid,
+            };
           });
         })
         .catch((err) => {});
@@ -1044,7 +1127,15 @@ export default {
 
     addResource() {
       ApiAddResource.get(this.tempcolid, this.tempResource.resourceid)
-        .then((response) => {})
+        .then((response) => {
+          if (response.status === "success") {
+            this.$bus.$emit(
+              "messsage:push",
+              "Successful addition to the collection.",
+              "success"
+            );
+          }
+        })
         .catch((err) => {});
     },
     async deleteResource(colid, rid) {
@@ -1097,6 +1188,9 @@ export default {
       }
     },
     addtoSequence() {
+      //e現在的格式 => MID_RID
+      //新增一個ASS +  本來就在系統暫存的
+
       let result = this.tempVMList
         .filter((e) => {
           return this.tempAIDList.indexOf(e) === -1;
@@ -1106,13 +1200,22 @@ export default {
             return this.tempVMList.indexOf(f) === -1;
           })
         );
+
       //取絕對差集 補集
       // result = id array
-
+      //SET的時候傳整個OBJECT 所以要從ID列表得到整個OBJET
       //從ID => GET OBJECT
+
+      //只需要MIDLIST 格式轉換 MID_RID => MID
+      let copyVMList = [];
+      result.forEach((item) => {
+        item = item.split("_")[0];
+        copyVMList.push(item);
+      });
+
       let vmList = [];
       this.videoMaterialList.forEach((element) => {
-        if (result.includes(element.materialid)) {
+        if (copyVMList.includes(element.materialid)) {
           vmList.push(element);
         }
       });
@@ -1120,21 +1223,18 @@ export default {
       // result要排序
       vmList.sort((a, b) => {
         return ("" + a.material_name).localeCompare(b.material_name);
-        // return Number(a.material_name.split(".")[0]) >
-        //   Number(b.material_name.split(".")[0])
-        //   ? 1
-        //   : -1;
       });
 
+      //如果變動的本就存在 從暫存移除 不存在則加入暫存
       vmList.forEach((obj) => {
-        if (this.tempAIDList.includes(obj.materialid)) {
+        if (this.tempAIDList.includes(obj.materialid + "_" + obj.resourceid)) {
           this.$store.dispatch("courseInfo/removeAssignment", {
-            id: obj.materialid,
+            id: obj.materialid + "_" + obj.resourceid,
           });
         } else {
           this.$store.dispatch("courseInfo/setAssignment", {
             assignment: obj,
-            id: obj.materialid,
+            id: obj.materialid + "_" + obj.resourceid,
           });
         }
       });
@@ -1189,6 +1289,7 @@ export default {
         }
       });
       obj.content = this.tempAList;
+      console.log(obj);
       let result = await ApiSetAssignment.post(this.courseid, obj)
         .then((response) => {
           if (response.status === "success") {
@@ -1313,5 +1414,12 @@ export default {
 
 .a-sequence {
   overflow-y: scroll !important;
+}
+
+.font-size-md {
+  font-size: 0.75rem;
+}
+.bold {
+  font-weight: bold;
 }
 </style>
