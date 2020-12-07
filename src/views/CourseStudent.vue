@@ -207,6 +207,20 @@
               </div>
               <div class="form-group row">
                 <label for="" class="col-sm-4 col-form-label text-right"
+                  >Unique number</label
+                >
+                <div class="col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    value=""
+                    v-model="tempStudent.uni_info"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="" class="col-sm-4 col-form-label text-right"
                   >Remarks</label
                 >
                 <div class="col-8">
@@ -1031,6 +1045,7 @@ export default {
         .catch((err) => {});
     },
     setTempStudent(s) {
+      console.log(s);
       this.tempStudent = Object.assign({}, s);
       if (s.status === "true") {
         this.tempStudent.status = true;

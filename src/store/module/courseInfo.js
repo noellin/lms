@@ -52,6 +52,7 @@ const courseInfo = {
             })
         },
         SET_STUDENT(state, data) {
+            console.log(data.record);
             state.studentList = data.record
             state.forSelectStudentList = data.record.map((o) => {
                 return {
