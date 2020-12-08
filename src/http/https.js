@@ -7,7 +7,7 @@ axios.defaults.baseURL = process.env.VUE_APP_DOMAIN; // 域名
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded; charset=UTF-8";
 
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+
 // http request 欄截
 axios.interceptors.request.use(
   (config) => {
@@ -60,8 +60,7 @@ axios.interceptors.response.use(
     if (err && err.response) {
       switch (err.response.status) {
         case 401:
-          if (router.currentRoute === "Login") {
-          } else {
+          if (router.currentRoute === "Login") {} else {
             store.dispatch("setAuth", {
               token: "",
               isLogin: false,

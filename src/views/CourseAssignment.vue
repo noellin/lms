@@ -19,6 +19,7 @@
                   data-toggle="modal"
                   data-target="#DeleteAModal"
                 >
+                  <i class="la la-trash"></i>
                   Delete Assignment
                 </button>
               </div>
@@ -393,6 +394,7 @@ export default {
             })
             .catch((err) => {});
           if (index + 1 === this.selectedAssignment.length) {
+            this.selectedAssignment = [];
             this.getAList();
           }
         });

@@ -560,17 +560,24 @@ export default {
       formData.append("stulist", this.files);
       let result = await ApiImportStudent.post(this.courseid, formData)
         .then((response) => {
-          if (response.record.error.length > 0) {
-            this.showAlreadyExist = true;
-            this.alreadyStudendList = response.record.error;
+          console.log(response);
+          if (response.record.error !== undefined) {
+            if (response.record.error.length > 0) {
+              this.showAlreadyExist = true;
+              this.alreadyStudendList = response.record.error;
+            }
           }
           if (response.status === "success") {
             return true;
-          } else {
+          }
+          if (response.status === "failed") {
+            this.showErrorMessage = true;
             this.errorMessage = response.record;
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
 
       if (result) {
         if (this.showAlreadyExist) {

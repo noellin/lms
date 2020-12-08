@@ -52,21 +52,18 @@ const courseInfo = {
             })
         },
         SET_STUDENT(state, data) {
-            console.log(data.record);
+            state.studentList = []
             state.studentList = data.record
+            state.forSelectStudentList = []
             state.forSelectStudentList = data.record.map((o) => {
                 return {
                     id: o.stuid,
                     text: o.username
                 };
             });
-            state.courseStudentInfo = data.info
-            //為了select寫的現在沒有用
-            // let allS = {
-            //     id: "*",
-            //     text: "All Students"
-            // };
-            // state.forSelectStudentList.unshift(allS);
+            //上方資訊列
+            state.courseStudentInfo = Object.assign({}, data.info);
+
         },
         SET_ASSIGNMENT(state, data) {
             // state.tempAIDList = []

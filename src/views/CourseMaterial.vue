@@ -148,12 +148,11 @@
                       ></i
                       ><i class="fas fa-book-open" v-else></i>
                     </span>
-                    <a
-                      href="#"
+                    <div
                       title=""
                       class="overlay-img"
                       style="background-image: url(../assets/img/avatars/3.jpg)"
-                    ></a>
+                    ></div>
                   </div>
                   <div class="media-body">
                     <div class="d-flex justify-content-between">
@@ -414,7 +413,10 @@
           </div>
           <div class="modal-body">
             <div>
-              <div class="form-group row">
+              <div
+                class="form-group row"
+                v-if="existCollectionName.length !== 0"
+              >
                 <label class="control-label text-right col-sm-3"
                   >Existing in Collection</label
                 >
@@ -1256,13 +1258,13 @@ export default {
     },
     gotoWebsite(obj) {
       if (obj.note === "book") {
-        window.open(`${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}
-        &colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}
-        &auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`);
+        window.open(
+          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`
+        );
       } else {
-        window.open(`${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}
-        &colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}
-        &auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`);
+        window.open(
+          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`
+        );
       }
     },
     async setAssignment() {

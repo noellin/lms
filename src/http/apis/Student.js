@@ -2,7 +2,8 @@ import {
     get,
     post,
     put,
-    remove
+    remove,
+    fetchget
 } from "../https.js";
 
 
@@ -65,3 +66,8 @@ export const ApiCopySList = {
         return get(`/stu/copylist/${srcCourseid}/${courseid}`)
     }
 };
+export const ApiDeleteStudent = {
+    get: (sid) => {
+        return get(`/stu/delete/${sid}`)
+    }
+}
