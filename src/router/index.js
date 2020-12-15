@@ -17,9 +17,9 @@ import CollectionDetail from "../views/CollectionDetail.vue";
 import CollectionEdit from "../views/CollectionEdit.vue";
 import ErrorPage from "../views/error.vue";
 import Layout from "../views/CourseLayout.vue";
-import RecordList from '../views/RecordList.vue';
-import RecordProgress from '../views/RecordProgress.vue';
-import RecordCreate from '../views/RecordCreate.vue';
+import WeeklyList from '../views/WeeklyList.vue';
+import WeeklyProgress from '../views/WeeklyProgress.vue';
+import WeeklyCreate from '../views/WeeklyCreate.vue';
 Vue.use(VueRouter);
 const routes = [{
     path: "*",
@@ -120,7 +120,7 @@ const routes = [{
       {
         path: "/course_weekly_quiz/course=:course/type=:type/:courseid",
         name: "Weekly_Quiz",
-        component: RecordList,
+        component: WeeklyList,
         meta: {
           header: "course",
         },
@@ -128,7 +128,7 @@ const routes = [{
       {
         path: "/course_weekly_quiz/create/course=:course/type=:type/:courseid",
         name: "weekly_Quiz_Create",
-        component: RecordCreate,
+        component: WeeklyCreate,
         meta: {
           header: "course",
           backtag: true,
@@ -137,7 +137,7 @@ const routes = [{
       {
         path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid",
         name: "Weekly_Quiz_Progress",
-        component: RecordProgress,
+        component: WeeklyProgress,
         meta: {
           header: "course",
           backtag: true,

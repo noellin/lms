@@ -8,7 +8,10 @@
       </div>
       <div class="mr-auto">
         <h1 class="separator">{{ course_name }}</h1>
-        <span >{{ page }}</span><span v-if="type==='Dashboard'" class="pointer" @click="print()"><i class="zmdi zmdi-print"></i></span>
+        <span>{{ page }}</span
+        ><span v-if="type === 'Dashboard'" class="pointer" @click="print()"
+          ><i class="zmdi zmdi-print"></i
+        ></span>
         <p class="second-title" v-if="page !== 'Speaking_Quiz'">
           {{ courseInfo.pkg_name }}
         </p>
@@ -16,6 +19,10 @@
         <p class="second-title" v-if="$route.name === 'Assignment_Progress'">
           Assigned {{ assignmentDL.pubDate | dateConversion }} - Due
           {{ assignmentDL.expDate | dateConversion }}
+        </p>
+        <p class="second-title" v-if="$route.name === 'Weekly_Quiz_Progress'">
+          Weekly Quiz {{ weeklyQuizDL.pubDate | dateConversion }} - Due
+          {{ weeklyQuizDL.expDate | dateConversion }}
         </p>
         <span></span>
       </div>
@@ -57,11 +64,14 @@ export default {
     assignmentDL() {
       return this.$store.state.courseInfo.assignmentDL;
     },
+    weeklyQuizDL() {
+      return this.$store.state.courseInfo.weeklyQuizDL;
+    },
   },
   methods: {
-    print(){
-      this.$print(this.$parent.$refs.print)
-    }
+    print() {
+      this.$print(this.$parent.$refs.print);
+    },
   },
 };
 </script>

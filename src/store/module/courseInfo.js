@@ -23,6 +23,7 @@ const courseInfo = {
         caidList: [],
         aKeyList: [],
         assignmentDL: {},
+        weeklyQuizDL:{}
 
     },
     mutations: {
@@ -105,9 +106,15 @@ const courseInfo = {
         },
         SET_ASSIGNMENT_TIME(state, data) {
             state.assignmentDL = data
+        }, 
+        SET_WQ_TIME(state, data) {
+            state.weeklyQuizDL = data
         }
     },
     actions: {
+        setWQTime(context, data) {
+            context.commit('SET_WQ_TIME', data)
+        },
         setAssignmentTime(context, data) {
             context.commit('SET_ASSIGNMENT_TIME', data)
         },
