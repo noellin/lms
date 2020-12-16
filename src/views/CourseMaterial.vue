@@ -123,6 +123,7 @@
               type="button"
               class="btn btn-primary btn-rounded btn-outline"
               @click="openAssignmentModal()"
+              :disabled="tempAList.length === 0 ? true : false"
             >
               <i class="la la-clipboard"></i>Assignment
               <span class="badge badge-primary">{{ tempAList.length }}</span>
@@ -148,11 +149,19 @@
                       ></i
                       ><i class="fas fa-book-open" v-else></i>
                     </span>
-                    <div
+                    <img
+                      :src="
+                        'https://lms.mangosteems.com/cms/resdl/cover/' +
+                        textbook.resourceid
+                      "
+                      class="overlay-img"
+                      alt="course image"
+                    />
+                    <!-- <div
                       title=""
                       class="overlay-img"
                       style="background-image: url(../assets/img/avatars/3.jpg)"
-                    ></div>
+                    ></div> -->
                   </div>
                   <div class="media-body">
                     <div class="d-flex justify-content-between">
@@ -990,6 +999,7 @@ export default {
   },
   created() {
     //列表資訊從menulift call (為了重複使用)
+    console.log(this.textbookLists);
     this.textbookList = this.textbookLists;
     this.openedTextbookList = this.openedTextbookLists;
     this.studentList = this.studentLists;

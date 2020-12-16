@@ -135,7 +135,7 @@ const routes = [{
         },
       },
       {
-        path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid",
+        path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid/:echoid",
         name: "Weekly_Quiz_Progress",
         component: WeeklyProgress,
         meta: {

@@ -5,125 +5,124 @@
       <div class="content-wrapper">
         <!-- TOP TOOLBAR WRAPPER -->
         <!-- END TOP TOOLBAR WRAPPER -->
-        <div class="content page-aside-left">
-          <div class="main-content">
-            <course-header></course-header>
-            <section class="page-content container-fluid">
-              <div class="d-flex pb-3 col-sm-12 justify-content-between px-0">
-                <div class="text-right">
-                  <button
-                    class="btn btn-primary btn-outline btn-rounded"
-                    @click="setWQStatus()"
-                  >
-                    <span v-if="wqStatus === 'true'">Close Weekly Quiz</span>
-                    <span v-else>Open Weekly Quiz</span>
-                  </button>
-                </div>
-                <div class="text-right">
-                  <button
-                    class="btn btn-primary btn-outline btn-rounded mr-2"
-                    @click="gotoGreateWQuiz()"
-                  >
-                    Create Quiz
-                    <span class="badge badge-primary">{{ wqQuota }}</span>
-                  </button>
-                  <button
-                    data-toggle="modal"
-                    class="btn btn-primary btn-outline btn-rounded"
-                    data-target="#DeleteModal"
-                    :disabled="selectedWQ.length <= 0 ? true : false"
-                  >
-                    Delete Quiz
-                    <span
-                      class="badge badge-danger"
-                      v-if="selectedWQ.length !== 0"
-                      >{{ selectedWQ.length }}</span
-                    >
-                  </button>
-                </div>
+
+        <div class="main-content">
+          <course-header></course-header>
+          <section class="page-content container-fluid">
+            <div class="d-flex pb-3 col-sm-12 justify-content-between px-0">
+              <div class="text-right">
+                <button
+                  class="btn btn-primary btn-outline btn-rounded"
+                  @click="setWQStatus()"
+                >
+                  <span v-if="wqStatus === 'true'">Close Weekly Quiz</span>
+                  <span v-else>Open Weekly Quiz</span>
+                </button>
               </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="table-responsive">
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>
-                                <div
-                                  class="custom-control custom-checkbox form-check"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    class="custom-control-input"
-                                    id="customCheck"
-                                    @click="selectAll"
-                                    v-model="selectAllWQ"
-                                  />
-                                  <label
-                                    class="custom-control-label"
-                                    for="customCheck"
-                                  ></label>
-                                </div>
-                              </th>
-                              <th>Publish</th>
-                              <th>Due</th>
-                              <th>Author</th>
-                              <th>Completed ／Total students</th>
-                              <!-- <th>Action</th> -->
-                              <th>Check progress</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="wq in wqList" :key="wq.echovalleyid">
-                              <td>
-                                <div
-                                  class="custom-control custom-checkbox form-check"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    class="custom-control-input"
-                                    :id="wq.echovalleyid"
-                                    v-model="selectedWQ"
-                                    :value="wq.echovalleyid"
-                                  />
-                                  <label
-                                    class="custom-control-label"
-                                    :for="wq.echovalleyid"
-                                  ></label>
-                                </div>
-                              </td>
-                              <td>{{ wq.start_date | dateConversion }}</td>
-                              <td>{{ wq.expiry_date | dateConversion }}</td>
-                              <td>
-                                <span
-                                  v-if="wq.designator === 'system'"
-                                  class="badge badge-pill badge-secondary mt-2"
-                                  >Extra</span
-                                >
-                                <span v-else>{{ wq.username }}</span>
-                              </td>
-                              <td>0 ／50</td>
-                              <td>
-                                <button
-                                  type=""
-                                  class="btn btn-primary btn-sm btn-rounded"
-                                  @click="gotoWQProgress()"
-                                >
-                                  Progress view
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+              <div class="text-right">
+                <button
+                  class="btn btn-primary btn-outline btn-rounded mr-2"
+                  @click="gotoGreateWQuiz()"
+                >
+                  Create Quiz
+                  <span class="badge badge-primary">{{ wqQuota }}</span>
+                </button>
+                <button
+                  data-toggle="modal"
+                  class="btn btn-primary btn-outline btn-rounded"
+                  data-target="#DeleteModal"
+                  :disabled="selectedWQ.length <= 0 ? true : false"
+                >
+                  Delete Quiz
+                  <span
+                    class="badge badge-danger"
+                    v-if="selectedWQ.length !== 0"
+                    >{{ selectedWQ.length }}</span
+                  >
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>
+                              <div
+                                class="custom-control custom-checkbox form-check"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  id="customCheck"
+                                  @click="selectAll"
+                                  v-model="selectAllWQ"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="customCheck"
+                                ></label>
+                              </div>
+                            </th>
+                            <th>Publish</th>
+                            <th>Due</th>
+                            <th>Author</th>
+                            <th>Completed ／Total students</th>
+                            <!-- <th>Action</th> -->
+                            <th>Check progress</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="wq in wqList" :key="wq.echovalleyid">
+                            <td>
+                              <div
+                                class="custom-control custom-checkbox form-check"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  :id="wq.echovalleyid"
+                                  v-model="selectedWQ"
+                                  :value="wq.echovalleyid"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  :for="wq.echovalleyid"
+                                ></label>
+                              </div>
+                            </td>
+                            <td>{{ wq.start_date | dateConversion }}</td>
+                            <td>{{ wq.expiry_date | dateConversion }}</td>
+                            <td>
+                              <span
+                                v-if="wq.designator === 'system'"
+                                class="badge badge-pill badge-secondary mt-2"
+                                >Extra</span
+                              >
+                              <span v-else>{{ wq.username }}</span>
+                            </td>
+                            <td>{{ wq.completed_student }} ／{{ stuQuota }}</td>
+                            <td>
+                              <button
+                                type=""
+                                class="btn btn-primary btn-sm btn-rounded"
+                                @click="gotoWQProgress(wq.echovalleyid)"
+                              >
+                                Progress view
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
-            </section>
-          </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -476,6 +475,7 @@ export default {
       wqList: [],
       wqQuota: "",
       wqStatus: "true",
+      stuQuota: 0,
     };
   },
   mounted() {
@@ -529,6 +529,7 @@ export default {
           this.wqList = response.record;
           this.wqQuota = response.course_info.echovalley_quota;
           this.wqStatus = response.course_info.echovalley_flag;
+          this.stuQuota = response.course_info.quota;
         })
         .catch((err) => {});
     },
@@ -537,9 +538,9 @@ export default {
         path: `/course_weekly_quiz/create/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}`,
       });
     },
-    gotoWQProgress() {
+    gotoWQProgress(echoid) {
       this.$router.push({
-        path: `/course_weekly_quiz/progress/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}`,
+        path: `/course_weekly_quiz/progress/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}/${echoid}`,
       });
     },
   },

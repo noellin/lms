@@ -83,13 +83,6 @@
                       v-model="selectStatus"
                     >
                     </select2>
-                    <!-- <select class="form-control" id="s2_demo2">
-                      <option>All students</option>
-                      <option>Incomplete</option>
-                      <option>Unchecked</option>
-                      <option>Checked</option>
-                      } option
-                    </select> -->
                   </div>
                   <div class="form-group form-rounded mb-0">
                     <div class="input-group">
@@ -436,6 +429,7 @@
                             /></strong>
                             {{ se.sentenceContent
                             }}<i
+                              v-if="se.voiceID !== ''"
                               class="zmdi zmdi-volume-up zmdi-hc-fw ml-2 pointer"
                               @click="
                                 getVoice(se.voiceID);
@@ -677,7 +671,8 @@ export default {
     getADetail(sid) {
       ApiGetADetail.get(this.aid, sid)
         .then((response) => {
-          // console.log(response.record);
+          console.log(response.record);
+
           if (response.status !== "failed") {
             this.studendAssignmentList = response.record;
             if (

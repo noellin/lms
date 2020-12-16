@@ -26,11 +26,11 @@
                               placeholder="Please enter a question of the extra quiz..."
                               rows="3"
                               v-model="newWeeklyQuiz.question"
-                              maxlength="100"
+                              maxlength="500"
                             ></textarea>
                             <span class="text-muted"
                               ><small
-                                >{{ newWeeklyQuiz.question.length }}/100</small
+                                >{{ newWeeklyQuiz.question.length }}/500</small
                               ></span
                             >
                           </div>

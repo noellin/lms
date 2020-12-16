@@ -33,3 +33,9 @@ export const ApiSetEchoStatus = {
         return get(`/quiz/echovalley/set/${courseid}/${status}`)
     }
 };
+
+export const ApiGetSentenceDetail = {
+    get:(echoid) => {
+        return get(`/quiz/echovalley/list/detail/${echoid}`)
+    }
+};

@@ -10,36 +10,36 @@
           <div class="main-content">
             <course-header></course-header>
             <section class="page-content container-fluid">
-              <div class="d-flex justify-content-between">
-                <div class="pb-3">
-                  <div class="form-row">
-                    <div class="form-group form-rounded mb-0 mr-3">
-                      <select class="form-control" id="s2_demo2">
-                        <option>All students</option>
-                        <option>Incomplete</option>
-                        <option>Conplete</option>
-                      </select>
-                    </div>
-                    <div class="form-group form-rounded mb-0">
-                      <div class="input-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Search..."
-                        />
-                        <div class="input-group-append">
-                          <button
-                            class="btn btn-secondary btn-outline btn-icon btn-rounded"
-                            type="button"
-                          >
-                            <i class="zmdi zmdi-search text-secondary"></i>
-                          </button>
-                        </div>
+              <div class="pb-3">
+                <div class="d-flex">
+                  <div class="form-group form-rounded mb-0 mr-3">
+                    <select2
+                      id="s2_student"
+                      :options="options"
+                      v-model="selectOption"
+                    >
+                    </select2>
+                  </div>
+                  <div class="form-group form-rounded mb-0">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search..."
+                      />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary btn-outline btn-icon btn-rounded"
+                          type="button"
+                        >
+                          <i class="zmdi zmdi-search text-secondary"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
               <!--  -->
               <div class="row">
                 <div class="col-12">
@@ -84,18 +84,27 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>Aaron</td>
-                              <td>89</td>
+                            <tr
+                              v-for="wqitem in wqStudentList"
+                              :key="wqitem.userid"
+                            >
+                              <td>{{ wqitem.username }}</td>
                               <td>
+                                <span v-if="wqitem.stu_info.length > 0">
+                                  {{ wqitem.stu_info[1] }}
+                                </span>
+                                <span v-else></span>
+                              </td>
+                              <td v-if="wqitem.stu_info.length > 0">
                                 <button class="btn btn-nostyle">
                                   <i
                                     class="zmdi zmdi-volume-up zmdi-hc-fw ml-2 text-primary"
                                   ></i>
                                 </button>
                               </td>
+                              <td v-else>Incomplete</td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                               <td>Alexander</td>
                               <td></td>
                               <td>Incomplete</td>
@@ -126,7 +135,7 @@
                                   ></i>
                                 </button>
                               </td>
-                            </tr>
+                            </tr> -->
                           </tbody>
                         </table>
                         <div class="col-12">
@@ -209,9 +218,35 @@
 
 <script>
 import CourseHeader from "../components/CourseHeader";
+import { ApiGetSentenceDetail } from "../http/apis/WeeklyQuiz";
 export default {
   components: {
     CourseHeader,
+  },
+  data() {
+    return {
+      options: [
+        { text: "All students", id: "*" },
+        { text: "Completed", id: "complete" },
+        { text: "Incomplete", id: "incomplete" },
+      ],
+      selectOption: "*",
+      courseid: this.$route.params.courseid,
+      echoid: this.$route.params.echoid,
+      wqStudentList: [],
+    };
+  },
+  mounted() {
+    this.getDetail();
+  },
+  methods: {
+    getDetail() {
+      ApiGetSentenceDetail.get(this.echoid)
+        .then((response) => {
+          this.wqStudentList = response.record;
+        })
+        .catch((err) => {});
+    },
   },
 };
 </script>
