@@ -1,5 +1,5 @@
 <template>
-  <!-- <div id="app">  20200720 SPWang 如果加入 id="app" 會跑版-->
+  <!-- <div id="app2">  20200720 SPWang 如果加入 id="app2" 會跑版-->
   <div id="vueapp">
     <alert></alert>
     <!-- <loading
@@ -65,6 +65,7 @@ export default {
 html,
 body,
 #vueapp {
+  margin: 0;
   width: 100%;
   height: 100%;
 }

@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-secondary bg-dk d-flex justify-content-center">
+  <footer class="bg-secondary bg-dk d-flex justify-content-center footer">
     <p class="text-light mt-2 mb-2">© iGroup LMS</p>
   </footer>
 </template>

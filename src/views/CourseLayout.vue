@@ -1,23 +1,22 @@
 <template>
-  <div id="app">
+  <div>
     <!-- END MENU SIDEBAR WRAPPER -->
-    <div class="content-wrapper">
-      <!-- TOP TOOLBAR WRAPPER -->
-      <custom-header></custom-header>
-      <alert></alert>
-      <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="content page-aside-left">
-        <menu-left></menu-left>
-        <div class="main-content">
-          <!-- //利用KEY 在同Components但URL改變時重新渲染 -->
-          <router-view :key="$route.params.courseid"></router-view>
-        </div>
-      </div>
-      <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
+    <!-- <div class="content-wrapper layout-wrapper"> -->
+    <!-- TOP TOOLBAR WRAPPER -->
+    <custom-header></custom-header>
+    <alert></alert>
+    <!-- END TOP TOOLBAR WRAPPER -->
+    <div class="content page-aside-left">
+      <menu-left></menu-left>
+
+      <!-- //利用KEY 在同Components但URL改變時重新渲染 -->
+      <router-view :key="$route.params.courseid"></router-view>
+    </div>
+    <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
       </footer> -->
-      <lms-footer></lms-footer>
-    </div>
+    <!-- </div> -->
+    <lms-footer></lms-footer>
     <!-- END CONTENT WRAPPER -->
     <!-- Open material MODAL -->
   </div>

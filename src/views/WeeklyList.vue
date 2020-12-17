@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div id="app">
+  <div id="app2">
+    <div class="main-content">
       <!-- END MENU SIDEBAR WRAPPER -->
       <div class="content-wrapper">
         <!-- TOP TOOLBAR WRAPPER -->

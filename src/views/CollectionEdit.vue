@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app2">
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->

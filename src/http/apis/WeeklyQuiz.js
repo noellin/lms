@@ -39,3 +39,9 @@ export const ApiGetSentenceDetail = {
         return get(`/quiz/echovalley/list/detail/${echoid}`)
     }
 };
+
+export const ApiSearchWQStudent = {
+    get:(echoid,keyword,option) => {
+        return get(`/quiz/echovalley/list/searchdetail/${echoid}/${keyword}/${option}`)
+    }
+};

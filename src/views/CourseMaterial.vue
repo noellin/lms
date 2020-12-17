@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app2">
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="main-content">
       <course-header></course-header>
@@ -1269,11 +1269,11 @@ export default {
     gotoWebsite(obj) {
       if (obj.note === "book") {
         window.open(
-          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`
+          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}&userid=${this.userid}`
         );
       } else {
         window.open(
-          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}`
+          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}&userid=${this.userid}`
         );
       }
     },

@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app2">
     <!-- END MENU SIDEBAR WRAPPER -->
-    <div class="content-wrapper">
+    <div class="main-content">
       <!-- TOP TOOLBAR WRAPPER -->
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content page-aside-left">
@@ -462,7 +462,7 @@ export default {
         name: "",
         status: "",
         remark: "",
-        uni_info:''
+        uni_info: "",
       },
       tempSid: "",
       tempSname: "",
@@ -575,7 +575,7 @@ export default {
       obj.name = this.tempStudent.username;
       obj.status = this.tempStudent.status.toString();
       obj.remark = this.tempStudent.remark;
-      obj.uniinfo = this.tempStudent.uni_info
+      obj.uniinfo = this.tempStudent.uni_info;
       let result = await ApiModifyStudent.post(
         this.courseid,
         this.tempStudent.stuid,

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app2">
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
@@ -432,8 +432,7 @@
                   />
                 </div>
               </div>
-              <div class="form-group row"
-              style="min-height:76px;">
+              <div class="form-group row" style="min-height: 76px">
                 <label
                   class="control-label text-right col-sm-4 text-height-form-control"
                   >Multi Select</label
