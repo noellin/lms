@@ -615,9 +615,9 @@ a:link.btn-danger {
 }
 
 /*form*/
-.form-control {
+/* .form-control {
   height: 38px;
-}
+} */
 
 select.form-control {
   min-width: 200px;

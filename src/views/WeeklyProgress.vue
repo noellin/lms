@@ -59,18 +59,17 @@
                       <div class="col-sm-12">
                         <textarea
                           class="form-control"
-                          id="exampleFormControlTextarea1"
+                          id="exampleFormControlTextarea2"
                           placeholder="Please enter a question of the weekly quiz..."
-                          rows="3"
+                          rows="6"
                           v-model="weeklyQuiz.sentence"
                           disabled
                         ></textarea>
-                        <!-- <span class="text-muted"
+                        <span class="text-muted"
                           ><small
                             >{{ weeklyQuiz.sentence.length }}/500</small
                           ></span
-                        > -->
-
+                        >
                         <div class="col-sm-12 px-0 mt-2">
                           <label class="col-form-label col-sm-12 px-0"
                             >Date of publication</label
@@ -83,7 +82,9 @@
                             range
                             placeholder="Select date range"
                           ></date-picker> -->
-                          <span class="mr-2">{{ weeklyQuiz.time }}</span>
+                          <span class="mr-2">{{
+                            weeklyQuiz.publishTime | arrayToString
+                          }}</span>
                           <!-- <i class="zmdi zmdi-calendar-alt"></i> -->
                         </div>
                         <div
@@ -252,14 +253,13 @@
               class="form-control"
               id="exampleFormControlTextarea1"
               placeholder="Please enter a question of the weekly quiz..."
-              rows="3"
+              rows="6"
               v-model="weeklyQuiz.sentence"
+              maxlength="500"
             ></textarea>
-            <!-- <span class="text-muted"
-                          ><small
-                            >{{ weeklyQuiz.sentence.length }}/500</small
-                          ></span
-                        > -->
+            <span class="text-muted"
+              ><small>{{ weeklyQuiz.sentence.length }}/500</small></span
+            >
 
             <label class="col-form-label col-sm-12 px-0"
               >Date of publication</label
@@ -287,6 +287,12 @@
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
               @click="modifyWQ()"
+              :disabled="
+                weeklyQuiz.sentence !== '' &&
+                weeklyQuiz.publishTime.length === 2
+                  ? false
+                  : true
+              "
             >
               Confirm
             </button>
@@ -330,10 +336,11 @@ export default {
         sentence: "",
         publishTime: [],
       },
-      publishDay: "",
+      // publishSentence: "",
+      // publishDay: "",
     };
   },
-  created() {
+  mounted() {
     this.getDetail();
   },
   computed: {
@@ -356,8 +363,22 @@ export default {
     getDetail() {
       ApiGetSentenceDetail.get(this.echoid)
         .then((response) => {
-          this.weeklyQuiz = response.EchoValleyInfo;
+          let temp = response.EchoValleyInfo;
+          temp.publishTime = [
+            dayjs.unix(response.EchoValleyInfo.start_date).format("YYYY-MM-DD"),
+            dayjs
+              .unix(response.EchoValleyInfo.expiry_date)
+              .format("YYYY-MM-DD"),
+          ];
+          console.log(response);
+          this.weeklyQuiz = Object.assign({}, temp);
           this.wqStudentList = response.record;
+          // this.$set(this.weeklyQuiz, publishTime, [
+          //   dayjs.unix(response.EchoValleyInfo.start_date).format("YYYY-MM-DD"),
+          //   dayjs
+          //     .unix(response.EchoValleyInfo.expiry_date)
+          //     .format("YYYY-MM-DD"),
+          // ]);
           this.weeklyQuiz.time =
             dayjs
               .unix(response.EchoValleyInfo.start_date)
@@ -373,6 +394,7 @@ export default {
           this.publishDay = dayjs
             .unix(response.EchoValleyInfo.start_date)
             .format("YYYY-MM-DD");
+          console.log(this.weeklyQuiz);
         })
         .catch((err) => {});
     },
@@ -392,7 +414,6 @@ export default {
         .catch((err) => {});
     },
     searchWQStudent() {
-      console.log("searchw");
       let keyword = "*";
       if (this.search.keyword !== "") {
         keyword = this.search.keyword;
@@ -402,7 +423,6 @@ export default {
           if (response.status === "success") {
             this.wqStudentList = response.record;
           }
-          console.log(response);
         })
         .catch((err) => {});
     },

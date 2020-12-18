@@ -21,6 +21,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import "@/utils/mixins";
 import expiredDate from "./filter/ExpiredDate";
+import arrayToString from "./filter/arrayToString";
 import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
 import VCharts from "v-charts";
@@ -47,6 +48,7 @@ Vue.use(VueAxios, axios);
 Vue.component("Select2", Select2);
 Vue.use(Vuex);
 Vue.filter("dateConversion", expiredDate);
+Vue.filter("arrayToString", arrayToString);
 
 Vue.config.productionTip = false;
 (Vue.prototype.$back = function (distance) {

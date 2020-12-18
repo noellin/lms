@@ -71,6 +71,7 @@
                             <th>Due</th>
                             <th>Author</th>
                             <th>Completed ／Total students</th>
+                            <th>Status</th>
                             <!-- <th>Action</th> -->
                             <th>Check progress</th>
                           </tr>
@@ -105,6 +106,11 @@
                               <span v-else>{{ wq.username }}</span>
                             </td>
                             <td>{{ wq.completed_student }} ／{{ stuQuota }}</td>
+                            <td>
+                              <span>{{
+                                pubStatus(wq.start_date, wq.expiry_date)
+                              }}</span>
+                            </td>
                             <td>
                               <button
                                 type=""
@@ -481,7 +487,19 @@ export default {
   mounted() {
     this.getWeeklyQuiz();
   },
+  computed: {},
   methods: {
+    pubStatus(start, end) {
+      const dateTime = Date.now();
+      const timestamp = Math.floor(dateTime / 1000);
+      if (timestamp < start) {
+        return "Not yet published";
+      } else if (timestamp >= start && timestamp < end) {
+        return "Executing";
+      } else {
+        return "Finish";
+      }
+    },
     setWQStatus() {
       let status = "true";
       if (this.wqStatus === "true") {
@@ -517,6 +535,7 @@ export default {
             })
             .catch((err) => {});
           if (index + 1 === this.selectedWQ.length) {
+            console.log("reload");
             this.selectedWQ = [];
             this.getWeeklyQuiz();
           }
@@ -524,6 +543,7 @@ export default {
       }
     },
     getWeeklyQuiz() {
+      this.wqList = [];
       ApiGetSentence.get(this.courseid)
         .then((response) => {
           this.wqList = response.record;
