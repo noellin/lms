@@ -1,22 +1,26 @@
 <template>
-  <div>
+  <div class="row col-sm-12 px-0 mx-0">
     <!-- END MENU SIDEBAR WRAPPER -->
     <!-- <div class="content-wrapper layout-wrapper"> -->
     <!-- TOP TOOLBAR WRAPPER -->
-    <custom-header></custom-header>
+    <custom-header class="col-sm-12 px-0"></custom-header>
     <alert></alert>
     <!-- END TOP TOOLBAR WRAPPER -->
-    <div class="content page-aside-left">
-      <menu-left></menu-left>
+    <!-- class="content page-aside-left" -->
+    <div class="d-flex col-sm-12 mx-auto p-0">
+      <menu-left class="col-sm-2 bg-white"></menu-left>
 
       <!-- //利用KEY 在同Components但URL改變時重新渲染 -->
-      <router-view :key="$route.params.courseid"></router-view>
+      <div class="col-sm-10">
+        <router-view :key="$route.params.courseid"></router-view>
+      </div>
     </div>
+    <lms-footer class="col-sm-12"></lms-footer>
     <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
       </footer> -->
     <!-- </div> -->
-    <lms-footer></lms-footer>
+    <!-- <lms-footer></lms-footer> -->
     <!-- END CONTENT WRAPPER -->
     <!-- Open material MODAL -->
   </div>

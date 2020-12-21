@@ -2,11 +2,11 @@
   <div id="app2">
     <div class="main-content">
       <!-- END MENU SIDEBAR WRAPPER -->
-      <div class="content-wrapper">
+      <div class="">
         <!-- TOP TOOLBAR WRAPPER -->
         <!-- END TOP TOOLBAR WRAPPER -->
 
-        <div class="main-content">
+        <div class="">
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="d-flex pb-3 col-sm-12 justify-content-between px-0">
@@ -527,20 +527,26 @@ export default {
       }
     },
     deleteWQ() {
-      if (this.selectedWQ.length !== 0) {
-        this.selectedWQ.forEach((wq, index) => {
-          ApiDeleteSentence.get(wq)
-            .then((response) => {
-              console.log(response);
-            })
-            .catch((err) => {});
-          if (index + 1 === this.selectedWQ.length) {
-            console.log("reload");
-            this.selectedWQ = [];
-            this.getWeeklyQuiz();
-          }
-        });
-      }
+      ApiDeleteSentence.getAxiosAll(this.selectedWQ)
+        .then((result) => {
+          this.selectedWQ = [];
+          this.getWeeklyQuiz();
+          this.$bus.$emit("messsage:push", "Delete completed.", "success");
+        })
+        .catch((err) => {});
+      // if (this.selectedWQ.length !== 0) {
+      //   this.selectedWQ.forEach((wq, index) => {
+      //     ApiDeleteSentence.get(wq)
+      //       .then((response) => {
+      //         console.log(response);
+      //       })
+      //       .catch((err) => {}).finally;
+      //     if (index + 1 === this.selectedWQ.length) {
+      //       this.selectedWQ = [];
+      //       this.getWeeklyQuiz();
+      //     }
+      //   });
+      // }
     },
     getWeeklyQuiz() {
       this.wqList = [];

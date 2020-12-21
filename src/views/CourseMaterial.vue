@@ -776,6 +776,7 @@
                     v-model="AssignmentDue"
                     valueType="format"
                     range
+                    :disabled-date="disabledBeforeToday"
                   ></date-picker>
                   <!-- <input
                     type="text"
@@ -1099,6 +1100,12 @@ export default {
     },
   },
   methods: {
+    disabledBeforeToday(date) {
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      return date < today;
+    },
     openAssignmentModal() {
       if (this.studentList.length <= 0) {
         this.$bus.$emit(

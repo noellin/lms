@@ -200,6 +200,17 @@ export function fetchget(url, params = {}) {
   });
 }
 
+// axios all
+export function getAll(url, data = {},array) {
+  return new Promise.all(array.map(item => {
+    axios.get(url,data).then((result) => {
+      return result
+    }).catch((err) => {
+      return err
+    });
+  }));
+}
+
 // 將封裝的方法打包起來
 //範例
 //現在將所有API移至api.js

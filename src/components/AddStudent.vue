@@ -520,11 +520,14 @@ export default {
     async addStudent() {
       let result = await ApiAddStudent.post(this.courseid, this.newStudent)
         .then((response) => {
+          console.log(response);
           if (response.status === "success") {
             return true;
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
       if (result) {
         this.$bus.$emit("messsage:push", "Add Student Success.", "success");
         this.$store.dispatch("courseInfo/updateStudent", this.courseid);

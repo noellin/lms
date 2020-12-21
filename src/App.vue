@@ -1,6 +1,6 @@
 <template>
   <!-- <div id="app2">  20200720 SPWang 如果加入 id="app2" 會跑版-->
-  <div id="vueapp">
+  <div id="app">
     <alert></alert>
     <!-- <loading
       :active.sync="isLoading"
@@ -61,12 +61,4 @@ export default {
 @import "./assets/css/common/main.bundle.css";
 @import "./assets/styles/all.scss";
 // @import "../src/assets/styles/all.scss";
-
-html,
-body,
-#vueapp {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
 </style>

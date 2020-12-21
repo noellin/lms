@@ -5,10 +5,10 @@
       <!-- TOP TOOLBAR WRAPPER -->
       <!-- <custom-header></custom-header> -->
       <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="content page-aside-left">
+      <div class="">
         <!-- <menu-left></menu-left> -->
 
-        <div class="main-content">
+        <div class="">
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="d-flex justify-content-end mb-3">
@@ -18,9 +18,15 @@
                   class="btn btn-primary btn-outline btn-rounded"
                   data-toggle="modal"
                   data-target="#DeleteAModal"
+                  :disabled="selectedAssignment.length === 0"
                 >
                   <i class="la la-trash"></i>
                   Delete Assignment
+                  <span
+                    class="badge badge-danger"
+                    v-if="selectedAssignment.length !== 0"
+                    >{{ selectedAssignment.length }}</span
+                  >
                 </button>
               </div>
             </div>
@@ -309,7 +315,7 @@
               type="button"
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
-              @click="deleteAssignment()"
+              @click="deleteAssignmentAll()"
             >
               Confirm
             </button>
@@ -365,6 +371,7 @@ export default {
       }
     },
     getAList() {
+      this.aList = [];
       ApiGetAList.get(this.courseid, this.userid)
         .then((response) => {
           this.aList = response.record;
@@ -383,22 +390,30 @@ export default {
         path: `/check_assignment/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}/${aid}`,
       });
     },
-    deleteAssignment() {
-      if (this.selectedAssignment.length !== 0) {
-        this.selectedAssignment.forEach((aid, index) => {
-          ApiDeleteAssignment.get(aid)
-            .then((response) => {
-              if (response.status === "success") {
-                return true;
-              }
-            })
-            .catch((err) => {});
-          if (index + 1 === this.selectedAssignment.length) {
-            this.selectedAssignment = [];
-            this.getAList();
-          }
-        });
-      }
+    deleteAssignmentAll() {
+      ApiDeleteAssignment.getAxiosAll(this.selectedAssignment)
+        .then((response) => {
+          this.selectedAssignment = [];
+          this.getAList();
+          this.$bus.$emit("messsage:push", "Delete completed.", "success");
+        })
+        .catch((err) => {});
+      // if (this.selectedAssignment.length !== 0) {
+      //   this.selectedAssignment.forEach((aid, index) => {
+      //     ApiDeleteAssignment.get(aid)
+      //       .then((response) => {
+      //         if (response.status === "success") {
+      //           return true;
+      //         }
+      //       })
+      //       .catch((err) => {});
+      //     if (index + 1 === this.selectedAssignment.length) {
+      //       this.$bus.$emit("messsage:push", "Delete completed.", "success");
+      //       this.selectedAssignment = [];
+      //       this.getAList();
+      //     }
+      //   });
+      // }
     },
   },
 };

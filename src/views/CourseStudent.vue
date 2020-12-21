@@ -4,8 +4,8 @@
     <div class="main-content">
       <!-- TOP TOOLBAR WRAPPER -->
       <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="content page-aside-left">
-        <div class="main-content">
+      <div class="">
+        <div class="">
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row">
@@ -421,7 +421,7 @@
               type="button"
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
-              @click="deleteStudent()"
+              @click="deleteStudentAll()"
             >
               Confirm
             </button>
@@ -528,8 +528,8 @@ export default {
       } else {
         //實現全選
         vm.selectedStudents = [];
-        vm.aList.forEach(function (item, i) {
-          vm.studentList.push(item.stuid);
+        vm.studentList.forEach(function (item, i) {
+          vm.selectedStudents.push(item.stuid);
         });
       }
     },
@@ -598,7 +598,6 @@ export default {
         .catch((err) => {});
     },
     setTempStudent(s) {
-      console.log(s);
       this.tempStudent = Object.assign({}, s);
       if (s.status === "true") {
         this.tempStudent.status = true;
@@ -606,20 +605,20 @@ export default {
         this.tempStudent.status = false;
       }
     },
-    deleteStudent() {
-      this.selectedStudents.forEach((sid, index) => {
-        ApiDeleteStudent.get(sid)
-          .then((response) => {
-            if (response.status === "success") {
-              return true;
-            }
-          })
-          .catch((err) => {});
-        if (index + 1 === this.selectedStudents.length) {
+    async deleteStudentAll() {
+      ApiDeleteStudent.getAxiosAll(this.selectedStudents)
+        .then((response) => {
           this.selectedStudents = [];
           this.$store.dispatch("courseInfo/updateStudent", this.courseid);
-        }
-      });
+          this.$bus.$emit("messsage:push", "Delete completed.", "success");
+        })
+        .catch((err) => {
+          return err;
+        });
+      // for await (let sid of this.selectedStudents) {
+      //   this.deleteStudent(sid);
+      // }
+      // await this.$store.dispatch("courseInfo/updateStudent", this.courseid);
     },
   },
 };

@@ -51,11 +51,11 @@
                   @click="changePage(course.course_name, type, course.courseid)"
                   >{{ type }}</span
                 >
-                <span
+                <!-- <span
                   class="badge badge-pill badge-danger"
                   v-if="type === 'Assignment'"
                   >4</span
-                >
+                > -->
               </a>
             </li>
           </ul>

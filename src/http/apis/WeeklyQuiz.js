@@ -17,11 +17,6 @@ export const ApiModifySentence = {
     }
 }
 
-export const ApiDeleteSentence = {
-    get:(echoid) => {
-        return get(`/quiz/echovalley/delete/${echoid}`)
-    }
-};
 
 export const ApiGetSentence = {
     get:(courseid) => {
@@ -43,5 +38,19 @@ export const ApiGetSentenceDetail = {
 export const ApiSearchWQStudent = {
     get:(echoid,keyword,option) => {
         return get(`/quiz/echovalley/list/searchdetail/${echoid}/${keyword}/${option}`)
+    }
+};
+
+// export const ApiDeleteSentence = {
+//     get:(echoid) => {
+//         return get(`/quiz/echovalley/delete/${echoid}`)
+//     }
+// };
+
+export const ApiDeleteSentence = {
+    getAxiosAll: (echoid) => {
+        return Promise.all(echoid.map(echoidObj => {
+          return get(`/quiz/echovalley/delete/${echoidObj}`)    
+        }))
     }
 };

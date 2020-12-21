@@ -91,14 +91,14 @@
                         <i class="fas fa-video" v-if="cr.note === 'video'"></i
                         ><i class="fas fa-book-open" v-else></i>
                       </span>
-                      <a
-                        href="#"
-                        title=""
-                        class="overlay-img"
-                        style="
-                          background-image: url(../assets/img/avatars/3.jpg);
+                      <img
+                        :src="
+                          'https://lms.mangosteems.com/cms/resdl/cover/' +
+                          cResourceList.resourceid
                         "
-                      ></a>
+                        class="overlay-img"
+                        alt="course image"
+                      />
                     </div>
                     <div class="media-body">
                       <div class="d-flex justify-content-between">

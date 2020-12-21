@@ -3,7 +3,7 @@ import {
     post,
     put,
     remove,
-    fetchget
+    fetchget,
 } from "../https.js";
 
 
@@ -66,8 +66,16 @@ export const ApiCopySList = {
         return get(`/stu/copylist/${srcCourseid}/${courseid}`)
     }
 };
+// export const ApiDeleteStudent = {
+//     get: (sid) => {
+//         return get(`/stu/delete/${sid}`)
+//     }
+// }
+
 export const ApiDeleteStudent = {
-    get: (sid) => {
-        return get(`/stu/delete/${sid}`)
+    getAxiosAll: (sid) => {
+        return Promise.all(sid.map(sidObj => {
+          return get(`/stu/delete/${sidObj}`)    
+        }))
     }
 }

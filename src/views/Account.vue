@@ -89,7 +89,7 @@
                     </tbody>
                   </table>
                   <div class="col-12">
-                    <div
+                    <!-- <div
                       class="dataTables_paginate paging_simple_numbers"
                       id="recent-transaction-table_paginate"
                     >
@@ -151,7 +151,7 @@
                           >
                         </li>
                       </ul>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -192,32 +192,52 @@
               account.
             </p>
             <form>
-              <div class="form-group row">
-                <label class="control-label text-right col-3">Name</label>
-                <div class="col-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder=" Enter teacher's name"
-                    value=""
-                    v-model="tempAccount.username"
-                  />
-                </div>
-                <div class="invalid-feedback">error message</div>
-              </div>
-              <div class="form-group row">
-                <label class="control-label text-right col-3">E-mail</label>
-                <div class="col-9">
-                  <input
-                    type="text"
-                    class="form-control is-invalid"
-                    placeholder=" Enter teacher's E-mail"
-                    value=""
-                    v-model="tempAccount.email"
-                  />
-                </div>
-                <div class="invalid-feedback">E-mail format error</div>
-              </div>
+              <ValidationObserver ref="accountForm">
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="Name"
+                >
+                  <div class="form-group row">
+                    <label class="control-label text-right col-3">Name</label>
+                    <div class="col-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder=" Enter teacher's name"
+                        value=""
+                        v-model="tempAccount.username"
+                      />
+                    </div>
+                    <span class="col-3"></span>
+                    <span v-if="failed" class="text-danger col-9">
+                      {{ errors[0] }}
+                    </span>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="E-mail"
+                >
+                  <div class="form-group row">
+                    <label class="control-label text-right col-3">E-mail</label>
+                    <div class="col-9">
+                      <input
+                        type="email"
+                        class="form-control is-invalid"
+                        placeholder=" Enter teacher's E-mail"
+                        value=""
+                        v-model="tempAccount.email"
+                      />
+                    </div>
+                    <span class="col-3"></span>
+                    <span v-if="failed" class="text-danger col-9">{{
+                      errors[0]
+                    }}</span>
+                  </div>
+                </ValidationProvider>
+              </ValidationObserver>
             </form>
           </div>
           <div class="modal-footer">
@@ -233,7 +253,6 @@
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
               data-toggle="modal"
-              data-target="#InviteEmailSentModal"
               @click="sendInviteMail()"
             >
               Invite
@@ -270,6 +289,7 @@
   </div>
 </template>
 <script>
+import { createLogger } from "vuex";
 import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetAccoutList,
@@ -300,6 +320,9 @@ export default {
     this.getAccoutList();
   },
   methods: {
+    async checkValid() {
+      return this.$refs.accountForm.validate();
+    },
     getAccoutList() {
       ApiGetAccoutList.get()
         .then((response) => {
@@ -307,10 +330,18 @@ export default {
         })
         .catch((err) => {});
     },
-    sendInviteMail() {
-      ApiSendInviteMail.post(this.tempAccount)
-        .then((response) => {})
-        .catch((err) => {});
+    async sendInviteMail() {
+      let check = await this.checkValid();
+      if (check) {
+        ApiSendInviteMail.post(this.tempAccount)
+          .then((response) => {
+            if (response.status === "success") {
+              console.log("show check");
+              $("#InviteEmailSentModal").modal("show");
+            }
+          })
+          .catch((err) => {});
+      }
     },
     searchAccount() {
       let keyword = this.searchAccountName;

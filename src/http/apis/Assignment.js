@@ -60,8 +60,16 @@ export const ApiSearchStudent = {
   },
 };
 
+// export const ApiDeleteAssignment = {
+//   get: (aid) => {
+//     return get(`/asgmt/delete/${aid}`)
+//   }
+// }
+
 export const ApiDeleteAssignment = {
-  get: (aid) => {
-    return get(`/asgmt/delete/${aid}`)
-  }
+  getAxiosAll: (aid) => {
+    return Promise.all(aid.map(aidObj => {
+      return get(`/asgmt/delete/${aidObj}`)    
+    }))
+}
 }
