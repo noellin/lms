@@ -1,4 +1,5 @@
 <template>
+  <!-- class="aside-left" -->
   <aside class="aside-left">
     <nav class="main-menu">
       <!-- class="metismenu" -->

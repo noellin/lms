@@ -159,9 +159,9 @@
           </div>
         </section>
       </div>
-      <footer class="bg-secondary bg-dk d-flex justify-content-center">
+      <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer>
+      </footer> -->
     </div>
     <!-- END CONTENT WRAPPER -->
     <!-- Add teacher Modal-->

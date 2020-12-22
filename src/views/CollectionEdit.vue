@@ -7,10 +7,18 @@
       <!-- END TOP TOOLBAR WRAPPER -->
       <div class="content">
         <header class="page-header">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-start">
+            <div class="mt-2 mr-3">
+              <a
+                @click="$back"
+                class="btn-rounded-icon btn-primary ml-2 pointer"
+                ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
+              ></a>
+            </div>
             <div class="mr-auto">
               <h1 class="separator">Collection</h1>
               <span>Edit</span>
+              <p class="second-title">{{ cname }}</p>
             </div>
           </div>
         </header>
@@ -19,7 +27,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <div class="row">
+                  <div class="row cardsContainer" id="cards-container">
                     <div class="col-6">
                       <div class="form-group">
                         <label>Collection name</label>
@@ -27,7 +35,7 @@
                           class="form-control"
                           type="text"
                           placeholder="Enter collection name"
-                          v-model="cName"
+                          v-model="cname"
                         />
                       </div>
                     </div>
@@ -48,7 +56,7 @@
                     </div>
                     <div class="col-12">
                       <h6>Applicable course</h6>
-                      <p>
+                      <span>
                         <span
                           v-for="(course, index) in courseList"
                           :key="index + course"
@@ -58,7 +66,7 @@
                         <!-- 101 English、102 English、103 English、104 English、105
                         English、106 English、107 English、108 English、109
                         English、110 English、111 English、112 English -->
-                      </p>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -79,7 +87,7 @@
                 <h5 class="card-header">Sequence</h5>
                 <div class="card-body">
                   <div
-                    style="max-height: 600px"
+                    style="max-height: 380px"
                     data-scroll="dark"
                     class="collection-scroll"
                   >
@@ -97,7 +105,9 @@
                           v-for="(cr, index) in materialSequence"
                           :key="cr.resourceid"
                         >
-                          <div class="d-flex justify-content-start">
+                          <div
+                            class="d-flex justify-content-start align-items-center"
+                          >
                             <div class="btn btn-nostyle btn-move mr-3">
                               <i class="la la-ellipsis-v"></i
                               ><i class="la la-ellipsis-v"></i>
@@ -112,14 +122,14 @@
                                 ></i
                                 ><i class="fas fa-book-open" v-else></i>
                               </span>
-                              <div
-                                href="#"
-                                title=""
-                                class="overlay-img"
-                                style="
-                                  background-image: url(../assets/img/avatars/3.jpg);
+                              <img
+                                :src="
+                                  'https://lms.mangosteems.com/cms/resdl/cover/' +
+                                  cr.resourceid
                                 "
-                              ></div>
+                                class="overlay-img"
+                                alt="course image"
+                              />
                             </div>
                             <div>
                               <span
@@ -173,9 +183,9 @@
         </section>
       </div>
     </div>
-    <footer class="bg-secondary bg-dk d-flex justify-content-center footer">
+    <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center footer">
       <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-    </footer>
+    </footer> -->
     <!-- END CONTENT WRAPPER -->
     <!-- SaveChange MODAL -->
     <div
@@ -433,7 +443,7 @@ export default {
   },
   data() {
     return {
-      cName: "",
+      cname: "",
       pName: "",
       tempRname: "",
       tempRid: "",
@@ -506,7 +516,7 @@ export default {
         ])
         .then(this.axios.spread((func1, func2) => {}))
         .catch((err) => {});
-      this.cName = this.$route.params.cname;
+      this.cname = this.$route.params.cname;
     },
     getCollectionContent() {
       return ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
@@ -537,6 +547,7 @@ export default {
     getPkgMaterial() {
       ApiGetPkgMaterial.get(this.$route.params.pid)
         .then((response) => {
+          console.log(response);
           this.pkgMaterialList = response.record;
         })
         .catch((err) => {});
@@ -565,7 +576,7 @@ export default {
     async updateCollection() {
       let obj = {};
       let resourceList = [];
-      obj.collection_name = this.cName;
+      obj.collection_name = this.cname;
       obj.pkgid = this.pkgid;
       obj.list = [];
       this.materialSequence.forEach((item) => {
@@ -575,8 +586,11 @@ export default {
       obj.userid = this.userid;
       let result = await ApiUpdateCollection.put(this.colid, obj)
         .then((response) => {
+          console.log(response);
           if (response.status === "success") {
             return true;
+          } else {
+            this.$bus.$emit("messsage:push", response.record, "danger");
           }
         })
         .catch((err) => {});

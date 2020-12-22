@@ -96,67 +96,74 @@
               <div class="card">
                 <h5 class="card-header">Sequence</h5>
                 <div class="card-body">
-                  <draggable
-                    class="list-group"
-                    tag="ul"
-                    v-model="materialSequence"
-                    v-bind="dragOptions"
-                    @start="drag = true"
-                    @end="drag = false"
+                  <div
+                    style="max-height: 380px"
+                    data-scroll="dark"
+                    class="collection-scroll custom-scroll"
                   >
-                    <!-- <transition-group
-                      type="transition"
-                      :name="!drag ? 'flip-list' : null"
-                    > -->
-                    <li
-                      class="d-flex justify-content-between mb-2"
-                      v-for="(m, index) in materialSequence"
-                      :key="m.id"
-                    >
-                      <div class="d-flex justify-content-start">
-                        <div class="btn btn-nostyle btn-move mr-3">
-                          <i class="la la-ellipsis-v"></i
-                          ><i class="la la-ellipsis-v"></i>
-                        </div>
-                        <div
-                          class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                        >
-                          <span class="overlay-icon"
-                            ><i
-                              class="fas fa-video"
-                              v-if="m.type === 'video'"
-                            ></i
-                            ><i class="fas fa-book-open" v-else></i>
-                          </span>
-                          <div
-                            href="#"
-                            title=""
-                            class="overlay-img"
-                            style="
-                              background-image: url(../assets/img/avatars/3.jpg);
-                            "
-                          ></div>
-                        </div>
-                        <div>
-                          <span
-                            class="badge badge-pill badge-secondary mt-2"
-                          ></span>
-                          <h4 class="d-flex align-self-center mt-2">
-                            {{ m.resource_name }}
-                          </h4>
-                        </div>
-                      </div>
-                      <button
-                        class="btn btn-nostyle btn-remove"
-                        @click="removeFromSequence(index)"
+                    <ul class="sequence">
+                      <draggable
+                        class="list-group"
+                        tag="ul"
+                        v-model="materialSequence"
+                        v-bind="dragOptions"
+                        @start="drag = true"
+                        @end="drag = false"
                       >
-                        <i
-                          class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                        ></i>
-                      </button>
-                    </li>
-                    <!-- </transition-group> -->
-                  </draggable>
+                        <li
+                          class="d-flex justify-content-between mb-2"
+                          v-for="(m, index) in materialSequence"
+                          :key="m.id"
+                        >
+                          <div
+                            class="d-flex justify-content-start align-items-center"
+                          >
+                            <div class="btn btn-nostyle btn-move mr-3">
+                              <i class="la la-ellipsis-v"></i
+                              ><i class="la la-ellipsis-v"></i>
+                            </div>
+                            <div
+                              class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
+                            >
+                              <span class="overlay-icon"
+                                ><i
+                                  class="fas fa-video"
+                                  v-if="m.type === 'video'"
+                                ></i
+                                ><i class="fas fa-book-open" v-else></i>
+                              </span>
+                              <img
+                                :src="
+                                  'https://lms.mangosteems.com/cms/resdl/cover/' +
+                                  m.resourceid
+                                "
+                                class="overlay-img"
+                                alt="course image"
+                              />
+                            </div>
+                            <div>
+                              <span
+                                class="badge badge-pill badge-secondary mt-2"
+                              ></span>
+                              <h4 class="d-flex align-self-center mt-2">
+                                {{ m.resource_name }}
+                              </h4>
+                            </div>
+                          </div>
+                          <button
+                            class="btn btn-nostyle btn-remove"
+                            @click="removeFromSequence(index)"
+                          >
+                            <i
+                              class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
+                            ></i>
+                          </button>
+                        </li>
+                        <!-- </transition-group> -->
+                      </draggable>
+                    </ul>
+                  </div>
+
                   <!-- <div
                     class="bg-secondary text-center p-15 text-light rounded mb-2"
                   >
@@ -170,7 +177,7 @@
                 type="button"
                 class="btn btn-secondary btn-rounded btn-outline mr-2"
                 data-toggle="modal"
-                data-target="#SaveChangeModal"
+                data-target="#ClearAndBackModal"
               >
                 Cancel
               </button>
@@ -186,9 +193,9 @@
           </div>
         </section>
       </div>
-      <footer class="bg-secondary bg-dk d-flex justify-content-center">
+      <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer>
+      </footer> -->
     </div>
 
     <!-- END CONTENT WRAPPER -->
@@ -228,6 +235,50 @@
               type="button"
               class="btn btn-primary btn-rounded"
               @click="setCollection()"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 提示清空並返回上一頁 -->
+    <div
+      class="modal fade"
+      id="ClearAndBackModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Want to clear the list and go back to the previous page?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-rounded btn-outline"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="$back"
             >
               Save
             </button>
@@ -358,6 +409,18 @@
             </div>
           </div>
           <div class="modal-body" data-scroll="dark">
+            <div class="custom-control custom-checkbox form-check pb-2">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="selectPM"
+                @click="selectAll"
+                v-model="selectAllPM"
+              />
+              <label class="custom-control-label text-primary" for="selectPM"
+                >Select All</label
+              >
+            </div>
             <div
               class="custom-control custom-checkbox form-check pb-2"
               v-for="pkgm in resourceFilter"
@@ -374,26 +437,6 @@
                 pkgm.resource_name
               }}</label>
             </div>
-            <!-- <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck1"
-              />
-              <label class="custom-control-label" for="customCheck1"
-                >Unit 8 MY FRIENDS</label
-              >
-            </div>
-            <div class="custom-control custom-checkbox form-check pb-2">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customCheck2"
-              />
-              <label class="custom-control-label" for="customCheck2"
-                >Unit 9 MY FAMILY</label
-              >
-            </div> -->
           </div>
           <div class="modal-footer">
             <button
@@ -444,6 +487,7 @@ export default {
     return {
       pkgList: [],
       selectPkgList: [],
+      selectAllPM: "",
       pkgMaterialList: [],
       pkgid: "",
       pkgname: "",
@@ -505,6 +549,18 @@ export default {
   },
 
   methods: {
+    selectAll(event) {
+      const vm = this;
+      if (!event.currentTarget.checked) {
+        vm.tempMaterial = [];
+      } else {
+        //實現全選
+        vm.tempMaterial = [];
+        vm.resourceFilter.forEach(function (item, i) {
+          vm.tempMaterial.push(item);
+        });
+      }
+    },
     clearSequence() {
       this.materialSequence = [];
       this.tempMaterial = [];

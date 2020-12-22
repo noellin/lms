@@ -2,11 +2,11 @@
   <div id="app2">
     <div class="main-content">
       <!-- END MENU SIDEBAR WRAPPER -->
-      <div class="">
+      <div class="content page-aside-left">
         <!-- TOP TOOLBAR WRAPPER -->
         <!-- END TOP TOOLBAR WRAPPER -->
 
-        <div class="">
+        <div class="main-content">
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="d-flex pb-3 col-sm-12 justify-content-between px-0">
@@ -552,6 +552,7 @@ export default {
       this.wqList = [];
       ApiGetSentence.get(this.courseid)
         .then((response) => {
+          console.log(response);
           this.wqList = response.record;
           this.wqQuota = response.course_info.echovalley_quota;
           this.wqStatus = response.course_info.echovalley_flag;

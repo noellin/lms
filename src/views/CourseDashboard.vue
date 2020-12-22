@@ -5,8 +5,8 @@
       <!-- TOP TOOLBAR WRAPPER -->
 
       <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="">
-        <div class="">
+      <div class="content page-aside-left">
+        <div class="main-content">
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row">

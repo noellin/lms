@@ -13,9 +13,11 @@
             <router-link to="/about">About</router-link>
         </div> -->
     <router-view />
+    <lms-footer class="col-sm-12"></lms-footer>
   </div>
 </template>
 <script>
+import LmsFooter from "../src/components/Footer";
 import Alert from "./components/AlertMessage";
 import $ from "jquery";
 
@@ -25,6 +27,7 @@ export default {
   },
   components: {
     Alert,
+    LmsFooter,
   },
   computed: {
     isLoading() {

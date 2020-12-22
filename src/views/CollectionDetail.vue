@@ -9,7 +9,9 @@
         <header class="page-header">
           <div class="d-flex align-items-start">
             <div class="mt-2 mr-3">
-              <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
+              <a
+                @click="$back"
+                class="btn-rounded-icon btn-primary ml-2 pointer"
                 ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
               ></a>
             </div>
@@ -91,10 +93,11 @@
                         <i class="fas fa-video" v-if="cr.note === 'video'"></i
                         ><i class="fas fa-book-open" v-else></i>
                       </span>
+
                       <img
                         :src="
                           'https://lms.mangosteems.com/cms/resdl/cover/' +
-                          cResourceList.resourceid
+                          cr.resourceid
                         "
                         class="overlay-img"
                         alt="course image"
@@ -146,9 +149,9 @@
           </div>
         </section>
       </div>
-      <footer class="bg-secondary bg-dk d-flex justify-content-center">
+      <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer>
+      </footer> -->
     </div>
 
     <!-- END CONTENT WRAPPER -->

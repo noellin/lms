@@ -7,11 +7,11 @@
     <alert></alert>
     <!-- END TOP TOOLBAR WRAPPER -->
     <!-- class="content page-aside-left" -->
-    <div class="d-flex col-sm-12 mx-auto p-0">
-      <menu-left class="col-sm-2 bg-white"></menu-left>
+    <div class="col-sm-12 mx-auto p-0 d-flex">
+      <menu-left class="col-sm-2 bg-white sidebar"></menu-left>
 
       <!-- //利用KEY 在同Components但URL改變時重新渲染 -->
-      <div class="col-sm-10">
+      <div class="col-sm-10 cusmain px-0">
         <router-view :key="$route.params.courseid"></router-view>
       </div>
     </div>
@@ -49,5 +49,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.sidebar {
+  flex-grow: 0;
+}
+.cusmain {
+  flex-grow: 1;
+}
 //@import '../assets/css/igroup.css';
 </style>

@@ -2,12 +2,12 @@
   <div id="app2">
     <div class="main-content">
       <!-- END MENU SIDEBAR WRAPPER -->
-      <div>
+      <div class="content-wrapper">
         <!-- TOP TOOLBAR WRAPPER -->
 
         <!-- END TOP TOOLBAR WRAPPER -->
-        <div>
-          <div>
+        <div class="content page-aside-left">
+          <div class="main-content">
             <course-header></course-header>
             <section class="page-content container-fluid">
               <div class="pb-3">
@@ -406,8 +406,12 @@ export default {
       };
       ApiModifySentence.post(this.echoid, wq)
         .then((response) => {
+          console.log(response);
           if (response.status === "success") {
             this.$bus.$emit("messsage:push", "Editing Success", "success");
+            this.getDetail();
+          } else {
+            this.$bus.$emit("messsage:push", response.record, "danger");
             this.getDetail();
           }
         })

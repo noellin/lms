@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login row justify-content-center align-items-center col-sm-12">
     <div
       class="loginpage row justify-content-center align-items-center col-sm-12"
     >

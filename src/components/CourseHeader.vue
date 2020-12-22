@@ -2,7 +2,7 @@
   <header class="page-header">
     <div class="d-flex align-items-start">
       <div class="mt-2 mr-3" v-if="backtag === true">
-        <a @click="$back" class="btn-rounded-icon btn-primary ml-2"
+        <a @click="$back" class="btn-rounded-icon btn-primary ml-2 pointer"
           ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
         ></a>
       </div>

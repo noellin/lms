@@ -1,7 +1,10 @@
 /* custom */
 #app2{
-  width:100%
+  width:100%;
+  
+  min-height:100%; 
 }
+
 /* html,body {
   margin: 0;
   padding: 0;
@@ -10,6 +13,7 @@
 html{
   height: 100%;
 }
+
 #vueapp{
   min-height:100%; 
   position:relative; 
@@ -17,19 +21,81 @@ html{
   display: flex;
   flex-direction: column;
 }
+.content{
+  padding-bottom:40px;
+}
+body{
+  min-height:100%; 
+  
+}
 /* body{
+  height: 100%;
   min-height:100%; 
   position:relative; 
+  display: flex;
+  overflow-y: hide !important;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+} */
+/* .layout {
+  min-height:100%; 
+  width: 100%;
   padding-bottom:40px;
+  padding-top:65px;
 } */
 .footer{
   position: absolute; 
   left: 0 ; right: 0; bottom: 0; 
-  height:40px
+  height:40px;
+  z-index: 50;
 }
 .layout-wrapper{
   min-height: 100%;
 }
+.pointer{
+  cursor: pointer;
+}
+
+/* scrollbar 最原始框長高*/
+.collection-scroll::-webkit-scrollbar {
+  position: absolute;
+  height: auto;
+  left: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width:6px;
+  cursor: pointer;
+
+}
+/* .collection-scroll::-webkit-scrollbar:hover  {
+  width:16px;
+} */
+.collection-scroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 4px rgba(200,200,200,1);
+  width: 16px;
+  height: 10%;
+  margin: 0 auto;
+  border-radius: 16px;
+  cursor: pointer;
+
+}
+/* //黑色拉動BAR */
+.collection-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.15);
+  -webkit-box-shadow: inset 0 0 4px rgba(90,90,90,0.7);
+  height:200px;
+  width: 16px;
+  cursor: pointer;
+}
+ .collection-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,.55);
+  cursor: pointer !important; 
+  width:16px;
+}
+
+
 /* //字體 */
 .fw-400 {
   font-weight: 400;
@@ -82,13 +148,13 @@ html{
 
 /* modal 全螢幕END */
 
-.login {
+/* .login {
   height: 100% !important;
-}
+} */
 
-.loginpage {
+/* .loginpage {
   height: 100% !important;
-}
+} */
 
 .download-text {
   font-size: 1rem !important;
@@ -683,6 +749,9 @@ select.form-control {
 }
 
 /*header*/
+.header{
+  height:65px
+}
 .logo-small {
   padding-left: 20px;
   font-size: 0.75em;
@@ -854,14 +923,6 @@ select.form-control {
   height: 100%;
   position: relative;
 }
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  z-index: 50;
-}
-
 /*other*/
 .overlay-wrap {
   border-radius: 6px;

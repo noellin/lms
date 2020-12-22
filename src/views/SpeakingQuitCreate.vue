@@ -5,9 +5,9 @@
       <!-- TOP TOOLBAR WRAPPER -->
       <!-- <custom-header></custom-header> -->
       <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="">
+      <div class="content page-aside-left">
         <!-- <menu-left></menu-left> -->
-        <div class="">
+        <div class="main-content">
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row pb-3">

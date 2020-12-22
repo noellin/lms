@@ -7,10 +7,6 @@
         v-for="(item, i) in messages"
         :key="item + i"
       >
-        <!-- <font-awesome-icon
-          class="mr-1 alert-text"
-          :icon="['far', 'check-circle']"
-        /> -->
         <span class="alert-text">{{ item.message }}</span>
 
         <button

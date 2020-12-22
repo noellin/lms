@@ -2,322 +2,354 @@
   <div id="app2">
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="main-content">
-      <course-header></course-header>
-      <section class="page-content container-fluid">
-        <div class="row">
-          <div class="col-4 col-md">
-            <div class="card bg-secondary" style="height: 150px">
-              <div class="card-body d-flex align-content-between flex-wrap">
-                <h5 class="card-title text-white">Open Material</h5>
-                <div class="w100 text-right">
-                  <p class="card-text text-white">
-                    <span class="display-4 counter" data-count="151">151</span
-                    ><span class="d-none d-xl-inlineblock">/ 400</span>
-                  </p>
+      <div class="content page-aside-left">
+        <div class="main-content">
+          <course-header></course-header>
+          <section class="page-content container-fluid">
+            <div class="row">
+              <div class="col-4 col-md">
+                <div class="card bg-secondary" style="height: 150px">
+                  <div class="card-body d-flex align-content-between flex-wrap">
+                    <h5 class="card-title text-white">Open Material</h5>
+                    <div class="w100 text-right">
+                      <p class="card-text text-white">
+                        <span class="display-4 counter" data-count="151"
+                          >151</span
+                        ><span class="d-none d-xl-inlineblock">/ 400</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 col-md">
+                <div class="card bg-primary" style="height: 150px">
+                  <div class="card-body d-flex align-content-between flex-wrap">
+                    <h5 class="card-title text-white">
+                      Picture Book Views<span class="text-light">Teacher</span>
+                    </h5>
+                    <div class="w100 text-right">
+                      <p class="card-text text-white">
+                        <span class="display-4 counter" data-count="13"
+                          >13</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 col-md">
+                <div class="card bg-success" style="height: 150px">
+                  <div class="card-body d-flex align-content-between flex-wrap">
+                    <h5 class="card-title text-white">
+                      Video Views<span class="text-light">Teacher</span>
+                    </h5>
+                    <div class="w100 text-right">
+                      <p class="card-text text-white">
+                        <span class="display-4 counter" data-count="29"
+                          >29</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-md">
+                <div class="card bg-warning" style="height: 150px">
+                  <div class="card-body d-flex align-content-between flex-wrap">
+                    <h5 class="card-title text-white">
+                      Picture Book Views<span class="text-light">Student</span>
+                    </h5>
+                    <div class="w100 text-right">
+                      <p class="card-text text-white">
+                        <span class="display-4 counter" data-count="173"
+                          >173</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-md">
+                <div class="card bg-danger" style="height: 150px">
+                  <div class="card-body d-flex align-content-between flex-wrap">
+                    <h5 class="card-title text-white">
+                      Video Views<span class="text-light">Student</span>
+                    </h5>
+                    <div class="w100 text-right">
+                      <p class="card-text text-white">
+                        <span class="display-4 counter" data-count="197"
+                          >197</span
+                        >
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-4 col-md">
-            <div class="card bg-primary" style="height: 150px">
-              <div class="card-body d-flex align-content-between flex-wrap">
-                <h5 class="card-title text-white">
-                  Picture Book Views<span class="text-light">Teacher</span>
-                </h5>
-                <div class="w100 text-right">
-                  <p class="card-text text-white">
-                    <span class="display-4 counter" data-count="13">13</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-4 col-md">
-            <div class="card bg-success" style="height: 150px">
-              <div class="card-body d-flex align-content-between flex-wrap">
-                <h5 class="card-title text-white">
-                  Video Views<span class="text-light">Teacher</span>
-                </h5>
-                <div class="w100 text-right">
-                  <p class="card-text text-white">
-                    <span class="display-4 counter" data-count="29">29</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-md">
-            <div class="card bg-warning" style="height: 150px">
-              <div class="card-body d-flex align-content-between flex-wrap">
-                <h5 class="card-title text-white">
-                  Picture Book Views<span class="text-light">Student</span>
-                </h5>
-                <div class="w100 text-right">
-                  <p class="card-text text-white">
-                    <span class="display-4 counter" data-count="173">173</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-md">
-            <div class="card bg-danger" style="height: 150px">
-              <div class="card-body d-flex align-content-between flex-wrap">
-                <h5 class="card-title text-white">
-                  Video Views<span class="text-light">Student</span>
-                </h5>
-                <div class="w100 text-right">
-                  <p class="card-text text-white">
-                    <span class="display-4 counter" data-count="197">197</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between">
-          <div class="pb-3">
-            <div class="form-row">
-              <div class="form-group form-rounded mb-0 mr-3">
-                <select2 id="s2_demo2" :options="typeList" v-model="seleceType">
-                </select2>
-                <!-- <select class="form-control">
+            <div class="d-flex justify-content-between">
+              <div class="pb-3">
+                <div class="form-row">
+                  <div class="form-group form-rounded mb-0 mr-3">
+                    <select2
+                      id="s2_demo2"
+                      :options="typeList"
+                      v-model="seleceType"
+                    >
+                    </select2>
+                    <!-- <select class="form-control">
                   <option>All type</option>
                   <option>Picture Book</option>
                   <option>Video</option>
                 </select> -->
-              </div>
-              <div class="form-group form-rounded mb-0">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search..."
-                    v-model="searchRname"
-                    @keyup.enter="searchCourseResource()"
-                  />
-                  <div class="input-group-append">
-                    <button
-                      class="btn btn-secondary btn-outline btn-icon btn-rounded"
-                      type="button"
-                      @click="searchCourseResource()"
-                    >
-                      <i class="zmdi zmdi-search text-secondary"></i>
-                    </button>
+                  </div>
+                  <div class="form-group form-rounded mb-0">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search..."
+                        v-model="searchRname"
+                        @keyup.enter="searchCourseResource()"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary btn-outline btn-icon btn-rounded"
+                          type="button"
+                          @click="searchCourseResource()"
+                        >
+                          <i class="zmdi zmdi-search text-secondary"></i>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="text-right">
-            <button
-              type="button"
-              class="btn btn-primary btn-rounded btn-outline mr-2"
-              data-toggle="modal"
-              data-target="#OpenSettingsModal"
-            >
-              <i class="la la-gear"></i>Open Settings
-            </button>
+              <div class="text-right">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-rounded btn-outline mr-2"
+                  data-toggle="modal"
+                  data-target="#OpenSettingsModal"
+                >
+                  <i class="la la-gear"></i>Open Settings
+                </button>
 
-            <button
-              type="button"
-              class="btn btn-primary btn-rounded btn-outline"
-              @click="openAssignmentModal()"
-              :disabled="tempAList.length === 0 ? true : false"
-            >
-              <i class="la la-clipboard"></i>Assignment
-              <span class="badge badge-primary">{{ tempAList.length }}</span>
-            </button>
-          </div>
-        </div>
-        <div class="row">
-          <div
-            class="col-12"
-            v-for="textbook in textbookList"
-            :key="textbook.resourceid"
-          >
-            <div class="card">
-              <div class="card-body">
-                <div class="media">
-                  <div
-                    class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
-                  >
-                    <span class="overlay-icon">
-                      <i
-                        class="fas fa-video"
-                        v-if="textbook.note === 'video'"
-                      ></i
-                      ><i class="fas fa-book-open" v-else></i>
-                    </span>
-                    <img
-                      :src="
-                        'https://lms.mangosteems.com/cms/resdl/cover/' +
-                        textbook.resourceid
-                      "
-                      class="overlay-img"
-                      alt="course image"
-                    />
-                    <!-- <div
+                <button
+                  type="button"
+                  class="btn btn-primary btn-rounded btn-outline"
+                  @click="openAssignmentModal()"
+                  :disabled="tempAList.length === 0 ? true : false"
+                >
+                  <i class="la la-clipboard"></i>Assignment
+                  <span class="badge badge-primary">{{
+                    tempAList.length
+                  }}</span>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div
+                class="col-12"
+                v-for="textbook in textbookList"
+                :key="textbook.resourceid"
+              >
+                <div class="card">
+                  <div class="card-body">
+                    <div class="media">
+                      <div
+                        class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
+                      >
+                        <span class="overlay-icon">
+                          <i
+                            class="fas fa-video"
+                            v-if="textbook.note === 'video'"
+                          ></i
+                          ><i class="fas fa-book-open" v-else></i>
+                        </span>
+                        <img
+                          :src="
+                            'https://lms.mangosteems.com/cms/resdl/cover/' +
+                            textbook.resourceid
+                          "
+                          class="overlay-img"
+                          alt="course image"
+                        />
+                        <!-- <div
                       title=""
                       class="overlay-img"
                       style="background-image: url(../assets/img/avatars/3.jpg)"
                     ></div> -->
-                  </div>
-                  <div class="media-body">
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        <!-- <span class="badge badge-pill badge-secondary mt-2 mr-2"
+                      </div>
+                      <div class="media-body">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <!-- <span class="badge badge-pill badge-secondary mt-2 mr-2"
                           >Lavel J</span
                         ><span class="badge badge-pill badge-secondary mt-2"
                           >Topic A</span
                         > -->
-                        <span
-                          class="badge badge-pill badge-secondary mt-2"
-                        ></span>
-                        <h4
-                          class="mb-0 mt-3 d-flex align-self-center text-primary"
-                        >
-                          <div title="">
-                            {{ textbook.resource_name }}
+                            <span
+                              class="badge badge-pill badge-secondary mt-2"
+                            ></span>
+                            <h4
+                              class="mb-0 mt-3 d-flex align-self-center text-primary"
+                            >
+                              <div title="">
+                                {{ textbook.resource_name }}
+                              </div>
+                            </h4>
+                            <p class="text-muted mt-1">
+                              <small class="fw300"
+                                >Last played
+                                <span>{{
+                                  textbook.last_access | dateConversion
+                                }}</span></small
+                              >
+                            </p>
                           </div>
-                        </h4>
-                        <p class="text-muted mt-1">
-                          <small class="fw300"
-                            >Last played
-                            <span>{{
-                              textbook.last_access | dateConversion
-                            }}</span></small
+                          <div
+                            class="text-primary pointer"
+                            @click="gotoWebsite(textbook)"
                           >
-                        </p>
-                      </div>
-                      <div
-                        class="text-primary pointer"
-                        @click="gotoWebsite(textbook)"
-                      >
-                        start<a
-                          class="btn-rounded-icon btn-primary rounded ml-2"
-                          ><i
-                            class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
-                          ></i
-                        ></a>
-                      </div>
-                    </div>
-                    <div class="border-top pt-3 d-flex justify-content-between">
-                      <div>
-                        <button
-                          v-if="textbook.note === 'video'"
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
-                          data-toggle="modal"
-                          data-target="#addAssignment"
-                          @click="
-                            getVideoMaterial(
-                              textbook.colid,
-                              textbook.resourceid
-                            );
-                            tempRname = textbook.resource_name;
-                            tempVMList = tempAIDList;
-                          "
-                        >
-                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
-                        </button>
-                        <button
-                          :disabled="tempAIDList.includes(textbook.resourceid)"
-                          v-else
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
-                          data-toggle="modal"
-                          @click="addToAssignmentList(textbook)"
-                        >
-                          <i
-                            class="zmdi zmdi-plus zmdi-hc-fw"
-                            v-if="!tempAIDList.includes(textbook.resourceid)"
-                          ></i>
-                          <i class="zmdi zmdi-assignment-check" v-else></i>
-                          Assignment
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
-                          data-toggle="modal"
-                          data-target="#addSpeakingquiz"
-                          v-if="textbook.note === 'video'"
-                          @click="
-                            getVideoMaterial(
-                              textbook.colid,
-                              textbook.resourceid
-                            );
-                            tempRname = textbook.resource_name;
-                          "
-                        >
-                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking quiz
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
-                          data-toggle="modal"
-                          data-target="#addSpeakingquiz"
-                          v-else
-                          @click="
-                            gotoSpeakingQuiz(textbook, textbook.resource_name)
-                          "
-                        >
-                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking quiz
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          data-toggle="modal"
-                          data-target="#addtoColletion"
-                          @click="
-                            getCollectionList(textbook.resourceid, textbook)
-                          "
-                        >
-                          <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Collection
-                        </button>
-                      </div>
-                      <div>
-                        <div
-                          v-if="textbook.openflag !== 'true'"
-                          class="badge badge-secondary badge-pill fw300 mr-2 font-size-md"
-                        >
-                          Closed
+                            start<a
+                              class="btn-rounded-icon btn-primary rounded ml-2"
+                              ><i
+                                class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
+                              ></i
+                            ></a>
+                          </div>
                         </div>
                         <div
-                          v-else
-                          class="badge badge-primary badge-pill fw300 mr-2 font-size-md"
+                          class="border-top pt-3 d-flex justify-content-between"
                         >
-                          Opened
+                          <div>
+                            <button
+                              v-if="textbook.note === 'video'"
+                              type="button"
+                              class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                              data-toggle="modal"
+                              data-target="#addAssignment"
+                              @click="
+                                getVideoMaterial(
+                                  textbook.colid,
+                                  textbook.resourceid
+                                );
+                                tempRname = textbook.resource_name;
+                                tempVMList = tempAIDList;
+                              "
+                            >
+                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
+                              >Assignment
+                            </button>
+                            <button
+                              :disabled="
+                                tempAIDList.includes(textbook.resourceid)
+                              "
+                              v-else
+                              type="button"
+                              class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                              data-toggle="modal"
+                              @click="addToAssignmentList(textbook)"
+                            >
+                              <i
+                                class="zmdi zmdi-plus zmdi-hc-fw"
+                                v-if="
+                                  !tempAIDList.includes(textbook.resourceid)
+                                "
+                              ></i>
+                              <i class="zmdi zmdi-assignment-check" v-else></i>
+                              Assignment
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                              data-toggle="modal"
+                              data-target="#addSpeakingquiz"
+                              v-if="textbook.note === 'video'"
+                              @click="
+                                getVideoMaterial(
+                                  textbook.colid,
+                                  textbook.resourceid
+                                );
+                                tempRname = textbook.resource_name;
+                              "
+                            >
+                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
+                              quiz
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                              data-toggle="modal"
+                              data-target="#addSpeakingquiz"
+                              v-else
+                              @click="
+                                gotoSpeakingQuiz(
+                                  textbook,
+                                  textbook.resource_name
+                                )
+                              "
+                            >
+                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
+                              quiz
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                              data-toggle="modal"
+                              data-target="#addtoColletion"
+                              @click="
+                                getCollectionList(textbook.resourceid, textbook)
+                              "
+                            >
+                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
+                              >Collection
+                            </button>
+                          </div>
+                          <div>
+                            <div
+                              v-if="textbook.openflag !== 'true'"
+                              class="badge badge-secondary badge-pill fw300 mr-2 font-size-md"
+                            >
+                              Closed
+                            </div>
+                            <div
+                              v-else
+                              class="badge badge-primary badge-pill fw300 mr-2 font-size-md"
+                            >
+                              Opened
+                            </div>
+                            <button
+                              v-if="textbook.openflag !== 'true'"
+                              type="button"
+                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                              data-toggle="modal"
+                              data-target="#OpenMaterial"
+                              @click="tempResource = textbook"
+                            >
+                              Open Material
+                            </button>
+                            <button
+                              v-else
+                              type="button"
+                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                              data-toggle="modal"
+                              data-target="#OpenMaterial"
+                              @click="tempResource = textbook"
+                            >
+                              Close Material
+                            </button>
+                          </div>
                         </div>
-                        <button
-                          v-if="textbook.openflag !== 'true'"
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          data-toggle="modal"
-                          data-target="#OpenMaterial"
-                          @click="tempResource = textbook"
-                        >
-                          Open Material
-                        </button>
-                        <button
-                          v-else
-                          type="button"
-                          class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                          data-toggle="modal"
-                          data-target="#OpenMaterial"
-                          @click="tempResource = textbook"
-                        >
-                          Close Material
-                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
+      </div>
     </div>
 
     <!-- END CONTENT WRAPPER -->
