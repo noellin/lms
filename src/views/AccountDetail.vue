@@ -64,7 +64,10 @@
                             <label class="tgl-btn" for="cb8"></label>
                           </div>
                           <div class="col">
-                            <span class="text-success mt-1">Active</span>
+                            <span class="text-success mt-1" v-if="accountStatus"
+                              >Active</span
+                            >
+                            <span v-else class="text-danger mt-1">Disable</span>
                           </div>
                         </div>
                         <!-- v-if="permit === 'teacher'" -->
@@ -364,6 +367,11 @@ export default {
     getAccountInfo() {
       ApiGetAccountInfo.get(this.$route.params.uid)
         .then((response) => {
+          if (response.record.status === "enable") {
+            this.accountStatus = true;
+          } else {
+            this.accountStatus = false;
+          }
           this.accountInfo = response.record;
         })
         .catch((err) => {});

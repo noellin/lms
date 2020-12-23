@@ -28,6 +28,7 @@
                   <button
                     class="btn btn-secondary btn-outline btn-icon btn-rounded"
                     type="button"
+                    @click="searchAccount()"
                   >
                     <i class="zmdi zmdi-search text-secondary"></i>
                   </button>
@@ -336,7 +337,6 @@ export default {
         ApiSendInviteMail.post(this.tempAccount)
           .then((response) => {
             if (response.status === "success") {
-              console.log("show check");
               $("#InviteEmailSentModal").modal("show");
             }
           })
