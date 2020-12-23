@@ -369,8 +369,15 @@ export default {
         .catch((err) => {});
     },
     setAccountInfo() {
+      let vm = this;
       ApiSetAccountInfo.post(this.userid, this.accountInfo)
-        .then((response) => {})
+        .then((response) => {
+          if (response.status === "success") {
+            vm.$store.dispatch("auth/updateUserInfo", this.accountInfo);
+            vm.$bus.$emit("messsage:push", "update success", "success");
+            vm.accountShow = "information";
+          }
+        })
         .catch((err) => {});
     },
     setAccountPWD() {

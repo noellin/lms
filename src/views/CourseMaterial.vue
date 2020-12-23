@@ -107,7 +107,7 @@
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Search..."
+                        placeholder="Search material"
                         v-model="searchRname"
                         @keyup.enter="searchCourseResource()"
                       />

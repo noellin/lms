@@ -12,11 +12,18 @@
             <div class="d-flex pb-3 col-sm-12 justify-content-between px-0">
               <div class="text-right">
                 <button
+                  v-if="wqStatus === 'true'"
                   class="btn btn-primary btn-outline btn-rounded"
                   @click="setWQStatus()"
                 >
-                  <span v-if="wqStatus === 'true'">Close Weekly Quiz</span>
-                  <span v-else>Open Weekly Quiz</span>
+                  Close Weekly Quiz
+                </button>
+                <button
+                  v-else
+                  class="btn btn-primary btn-outline btn-rounded"
+                  @click="setWQStatus()"
+                >
+                  Open Weekly Quiz
                 </button>
               </div>
               <div class="text-right">
@@ -72,7 +79,7 @@
                             <th>Author</th>
                             <th>Completed ／Total students</th>
                             <th>Status</th>
-                            <!-- <th>Action</th> -->
+                            <th>Preview</th>
                             <th>Check progress</th>
                           </tr>
                         </thead>
@@ -110,6 +117,16 @@
                               <span>{{
                                 pubStatus(wq.start_date, wq.expiry_date)
                               }}</span>
+                            </td>
+                            <td>
+                              <button
+                                type=""
+                                class="btn btn-nostyle"
+                                data-toggle="modal"
+                                data-target="#PreviewModal"
+                              >
+                                <i class="la la-eye"></i>
+                              </button>
                             </td>
                             <td>
                               <button
@@ -459,6 +476,49 @@ Her favourite colour is pink and her superpower is data processing.</textarea
         </div>
       </div>
     </div>
+    <!-- preview MODAL -->
+    <div
+      class="modal fade"
+      id="PreviewModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+      data-modal="scroll"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Sentence</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-Cancel"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="quiz-list">
+              <!-- <li v-for="s in SList" :key="s.sentenceID">
+                <strong class="text-primary mr-2">Q{{ s.seq }}.</strong
+                >{{ s.content }}
+              </li> -->
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary btn-outline"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
   </div>
 </template>
 

@@ -69,9 +69,7 @@ body{
   cursor: pointer;
 
 }
-/* .collection-scroll::-webkit-scrollbar:hover  {
-  width:16px;
-} */
+
 .collection-scroll::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 4px rgba(200,200,200,1);
   width: 16px;

@@ -129,7 +129,7 @@
                       </tr> -->
                     </tbody>
                   </table>
-                  <div class="col-12">
+                  <!-- <div class="col-12">
                     <div
                       class="dataTables_paginate paging_simple_numbers"
                       id="recent-transaction-table_paginate"
@@ -193,7 +193,7 @@
                         </li>
                       </ul>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

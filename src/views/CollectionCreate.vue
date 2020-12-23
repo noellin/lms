@@ -585,8 +585,10 @@ export default {
       });
     },
     getPkgMaterial() {
+      console.log(this.pkgid);
       ApiGetPkgMaterial.get(this.pkgid)
         .then((response) => {
+          console.log(response);
           this.pkgMaterialList = response.record;
         })
         .catch((err) => {});

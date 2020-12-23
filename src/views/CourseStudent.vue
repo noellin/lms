@@ -191,6 +191,7 @@
                                 @click="
                                   tempSid = s.stuid;
                                   tempSname = s.username;
+                                  selectEmoji = [];
                                 "
                               >
                                 Reset
@@ -576,25 +577,33 @@ export default {
       obj.status = this.tempStudent.status.toString();
       obj.remark = this.tempStudent.remark;
       obj.uniinfo = this.tempStudent.uni_info;
+      console.log(this.courseid, this.tempStudent.stuid, obj);
       let result = await ApiModifyStudent.post(
         this.courseid,
         this.tempStudent.stuid,
         obj
       )
         .then((response) => {
+          console.log(response);
           if (response.status === "success") {
             return true;
+          } else {
+            this.$bus.$emit("messsage:push", response.record, "danger");
           }
         })
         .catch((err) => {});
       if (result) {
+        this.$bus.$emit("messsage:push", "Edit completed.", "success");
         this.$store.dispatch("courseInfo/updateStudent", this.courseid);
       }
     },
     resetPWD() {
       let pwd = { imgpw: this.selectEmoji.toString().replace(",", "") };
-      ApiResetPWD.post(this.tempSid)
-        .then((response) => {})
+      console.log(object);
+      ApiResetPWD.post(this.tempSid, pwd)
+        .then((response) => {
+          console.log(response);
+        })
         .catch((err) => {});
     },
     setTempStudent(s) {

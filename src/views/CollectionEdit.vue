@@ -79,6 +79,7 @@
                   class="btn btn-primary btn-rounded btn-outline"
                   data-toggle="modal"
                   data-target="#addMaterial"
+                  @click="resetSelect()"
                 >
                   <i class="la la-plus"></i>Material
                 </button>
@@ -555,6 +556,7 @@ export default {
     removeFromSequence(index) {
       this.materialSequence.splice(index, 1);
     },
+    resetSelect() {},
     addtoSequence() {
       // this.materialSequence = [];
       let ml = [];
@@ -584,6 +586,7 @@ export default {
       });
       obj.resource = obj.list.join(";");
       obj.userid = this.userid;
+      console.log(obj);
       let result = await ApiUpdateCollection.put(this.colid, obj)
         .then((response) => {
           console.log(response);

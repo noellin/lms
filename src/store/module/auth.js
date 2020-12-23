@@ -20,6 +20,10 @@ const auth = {
                 state.permit = data.permit
             state.todayTimestamp = data.todayTimestamp
         },
+        SET_USERINFO(state, data){
+            state.username = data.username
+            state.email = data.email
+        }
     },
     actions: {
         setAuth(context, data) {
@@ -33,6 +37,9 @@ const auth = {
                 todayTimestamp: data.todayTimestamp
             })
         },
+        updateUserInfo(context,userinfo){
+            context.commit('SET_USERINFO',userinfo)
+        }
 
     },
     // getters: {

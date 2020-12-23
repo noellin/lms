@@ -112,18 +112,20 @@
                           <h4
                             class="mb-0 mt-3 d-flex align-self-center text-primary"
                           >
-                            <a
-                              href=""
-                              title=""
-                              data-toggle="modal"
-                              data-target="#StartModal"
-                              >{{ cr.resource_name }}</a
-                            >
+                            <div title="">
+                              {{ cr.resource_name }}
+                            </div>
                           </h4>
-                          <p class="text-muted mt-1">
-                            <small class="fw300"
+                          <p
+                            class="text-muted mt-1"
+                            v-show="cr.lastplay.length !== 0"
+                          >
+                            <i class="zmdi zmdi-notifications mr-1"></i>
+                            <small
+                              class="fw300 pointer"
+                              @click="showLastPlay(cr.lastplay)"
                               >Last played
-                              <span>{{ cr.last_access | dateConversion }}</span>
+                              <!-- <span>{{ cr.last_access | dateConversion }}</span> -->
                             </small>
                           </p>
                         </div>
@@ -153,7 +155,44 @@
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
       </footer> -->
     </div>
-
+    <!-- Start MODAL -->
+    <div
+      class="modal fade"
+      id="lastPlayModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" v-if="lastPlayList.length !== 0">
+              Last play record (Course ： Date)
+            </h5>
+            <h5 class="modal-title" v-else>No record</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body pb-4" v-if="lastPlayList.length !== 0">
+            <div v-for="lp in lastPlayList" :key="lp.courseid">
+              <span
+                >{{ lp.course_name }} ：
+                {{ lp.last_access | dateConversion }}</span
+              >
+            </div>
+          </div>
+          <div class="modal-body pb-4" v-else>
+            <p>No open or play record.</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- END CONTENT WRAPPER -->
     <!-- Start MODAL -->
     <div
@@ -228,6 +267,7 @@ export default {
       seleceType: "all",
       courseList: [],
       searchRname: "",
+      lastPlayList: [],
     };
   },
   created() {},
@@ -241,6 +281,11 @@ export default {
     },
   },
   methods: {
+    showLastPlay(lp) {
+      this.lastPlayList = [];
+      this.lastPlayList = lp;
+      $("#lastPlayModal").modal("show");
+    },
     searchCollectionResource() {
       let type = this.seleceType;
       let keyword = this.searchRname;
@@ -257,14 +302,33 @@ export default {
         type
       )
         .then((response) => {
+          response.record.forEach((element) => {
+            //重建
+            element.lastplay = [];
+            element.last_access_all.forEach((item) => {
+              if (item.last_access !== "0") {
+                element.lastplay.push(item);
+              }
+            });
+          });
           this.cResourceList = response.record;
         })
         .catch((err) => {});
     },
     getCollectionContent() {
+      console.log(this.userid, this.$route.params.cid);
+
       ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
         .then((response) => {
-          console.log(response.record);
+          response.record.forEach((element) => {
+            //重建
+            element.lastplay = [];
+            element.last_access_all.forEach((item) => {
+              if (item.last_access !== "0") {
+                element.lastplay.push(item);
+              }
+            });
+          });
           this.cResourceList = response.record;
         })
         .catch((err) => {});
