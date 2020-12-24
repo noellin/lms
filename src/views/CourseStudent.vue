@@ -615,8 +615,9 @@ export default {
       }
     },
     async deleteStudentAll() {
-      ApiDeleteStudent.getAxiosAll(this.selectedStudents)
+      ApiDeleteStudent.getAxiosAll(this.courseid, this.selectedStudents)
         .then((response) => {
+          console.log(response);
           this.selectedStudents = [];
           this.$store.dispatch("courseInfo/updateStudent", this.courseid);
           this.$bus.$emit("messsage:push", "Delete completed.", "success");

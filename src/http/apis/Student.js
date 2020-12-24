@@ -73,9 +73,9 @@ export const ApiCopySList = {
 // }
 
 export const ApiDeleteStudent = {
-    getAxiosAll: (sid) => {
+    getAxiosAll: (courseid,sid) => {
         return Promise.all(sid.map(sidObj => {
-          return get(`/stu/delete/${sidObj}`)    
+          return get(`/stu/delete/${courseid}/${sidObj}`)    
         }))
     }
 }

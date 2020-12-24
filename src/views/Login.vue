@@ -305,11 +305,11 @@ export default {
         // email: "",
         // password: "",
         // // 測試帳號A admin權限
-        email: "bkbjava@mhsh.ptc.edu.tw",
-        password: "123456",
-        // 測試帳號B teacher權限
-        // email: "kevin.chen@igroupnet.com",
+        // email: "bkbjava@mhsh.ptc.edu.tw",
         // password: "123456",
+        // 測試帳號B teacher權限
+        email: "kevin.chen@igroupnet.com",
+        password: "123456",
         //測試帳號C
         // email: "sp.wang@igroupnet.com",
         // password: "123456",

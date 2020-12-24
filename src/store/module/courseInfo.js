@@ -53,6 +53,7 @@ const courseInfo = {
             })
         },
         SET_STUDENT(state, data) {
+            console.log(data.info);
             state.studentList = []
             state.studentList = data.record
             state.forSelectStudentList = []
