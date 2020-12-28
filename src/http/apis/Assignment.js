@@ -50,6 +50,7 @@ export const ApiCheckAllA = {
 
 export const ApiGetADetail = {
   get: (aid, sid) => {
+    console.log('std = ',sid);
     return get(`/asgmt/detail/${aid}/${sid}`);
   },
 };

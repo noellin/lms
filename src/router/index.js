@@ -105,7 +105,6 @@ const routes = [{
         component: SpeakingQuiz,
         meta: {
           header: "course",
-          backtag: true,
         },
       },
       {

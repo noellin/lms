@@ -310,17 +310,14 @@
               <span aria-hidden="true" class="zmdi zmdi-close"></span>
             </button>
           </div>
-          <div class="modal-body bg-light pl-4 pr-4">
+          <div class="modal-body bg-light p-5">
             <h2 class="pl-2">{{ tempSname }}</h2>
             <div class="row">
-              <div
-                class="col-9"
-                style="max-height: calc(100vh - 200px)"
-                data-scroll="dark"
-              >
+              <!-- 下 style="max-height: calc(100vh - 210px)" -->
+              <div class="col-9" data-scroll="dark">
                 <div class="mr-2">
                   <div
-                    class="card"
+                    class="card p-5"
                     v-for="sa in studendAssignmentList"
                     :key="sa.asgmt_mid"
                   >
@@ -359,12 +356,19 @@
                       </div>
                       <!-- 完成與否 -->
                       <div class="border-top pt-3">
-                        <h5 class="text-danger" v-if="sa.complete_time === ''">
+                        <h5
+                          class="text-danger"
+                          v-if="
+                            (sa.complete_time !== 'true' &&
+                              sa.type === 'speaking') ||
+                            (sa.type === 'reading' && sa.complete_time === '')
+                          "
+                        >
                           <span class="btn-rounded-icon btn-danger rounded mr-2"
                             ><i
                               class="zmdi zmdi-close zmdi-hc-fw text-white"
                             ></i></span
-                          >incomplete
+                          >Incomplete
                         </h5>
                         <h5 class="text-success" v-else>
                           <span
@@ -372,7 +376,7 @@
                             ><i
                               class="zmdi zmdi-check zmdi-hc-fw text-white"
                             ></i></span
-                          >complete
+                          >Complete
                         </h5>
                       </div>
 
@@ -430,7 +434,7 @@
                             {{ se.sentenceContent
                             }}<i
                               v-if="se.voiceID !== ''"
-                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-2 pointer"
+                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-1 pointer fa-lg"
                               @click="
                                 getVoice(se.voiceID);
                                 playVoiceStatus = se.voiceID;
@@ -651,8 +655,8 @@ export default {
         .catch((err) => {});
     },
     quickNewComments(c) {
+      this.evaluate.comment = "";
       this.evaluate.comment = this.evaluate.comment + c;
-      console.log(this.evaluate.comment);
     },
     async checkAllA() {
       // console.log(this.selectedStudent);
@@ -669,47 +673,64 @@ export default {
       }
     },
     getADetail(sid) {
-      ApiGetADetail.get(this.aid, sid)
-        .then((response) => {
-          console.log(response.record);
-
-          if (response.status !== "failed") {
-            this.studendAssignmentList = response.record;
-            if (
-              response.score !== undefined &&
-              response.comment !== undefined
-            ) {
-              this.evaluate.score = response.score;
-              this.evaluate.comment = response.comment;
-            }
-            response.record.forEach((item) => {
-              console.log(item);
-              if (item.type === "speaking") {
-                if (item.score === "") {
-                  this.$set(this.speakingList, item.asgmt_mid, 0);
-                } else {
-                  this.$set(this.speakingList, item.asgmt_mid, item.score);
+      (this.evaluate = {
+        score: "",
+        comment: "",
+      }),
+        ApiGetADetail.get(this.aid, sid)
+          .then((response) => {
+            if (response.status !== "failed") {
+              let temp = response.record;
+              temp.forEach((item) => {
+                if (item.type === "speaking") {
+                  this.$set(item, "complete_time", "true");
+                  item.complete_time === "true";
+                  item.sentenceInfo.forEach((el) => {
+                    if (el.voiceID === "") {
+                      this.$set(item, "complete_time", "");
+                    }
+                  });
                 }
-
-                //
-                var slider = document.getElementById(
-                  `${item.asgmt_mid}myRange`
-                );
-                // var output = document.getElementById(`${item.asgmt_mid}demo`);
-                // output.innerHTML = slider.value; // Display the default slider value
-
-                // // Update the current slider value (each time you drag the slider handle)
-                // slider.oninput = function () {
-                //   output.innerHTML = this.value;
-                // };
+              });
+              this.studendAssignmentList = temp;
+              console.log(temp);
+              //口說評分BAR
+              if (
+                response.score !== undefined &&
+                response.comment !== undefined
+              ) {
+                this.evaluate.score = response.score;
+                this.evaluate.comment = response.comment;
               }
-            });
-          }
-        })
-        .catch((err) => {});
+              //
+              response.record.forEach((item) => {
+                if (item.type === "speaking") {
+                  if (item.score === "") {
+                    this.$set(this.speakingList, item.asgmt_mid, 0);
+                  } else {
+                    this.$set(this.speakingList, item.asgmt_mid, item.score);
+                  }
+
+                  //
+                  var slider = document.getElementById(
+                    `${item.asgmt_mid}myRange`
+                  );
+                  // var output = document.getElementById(`${item.asgmt_mid}demo`);
+                  // output.innerHTML = slider.value; // Display the default slider value
+
+                  // // Update the current slider value (each time you drag the slider handle)
+                  // slider.oninput = function () {
+                  //   output.innerHTML = this.value;
+                  // };
+                }
+              });
+            }
+          })
+          .catch((err) => {});
     },
     getVoice(voiceid) {
       //注意 裡層是用fetch
+      let vm = this;
       ApiGetVoice.get(voiceid)
         .then((response) => {
           if (response.type == "image/jpeg" || response.type == "image/png") {
@@ -717,14 +738,19 @@ export default {
             $("#showImg").attr("src", url);
           } else if (
             response.type == "audio/mpeg" ||
-            response.type == "audio/wav"
+            response.type == "audio/wav" ||
+            response.type == "audio/x-wav"
           ) {
-            //會進到這裡
-            console.log(response);
+            //會進到這裡\
+            console.log("進入播放");
             var url = URL.createObjectURL(response);
             const audio = new Audio(url);
             console.log(audio);
             audio.play();
+            audio.onended = function () {
+              vm.playVoiceStatus = "";
+            };
+            // audio.addEventListener("ended", this.endPlay());
           } else {
             console.log(response);
           }
@@ -733,11 +759,18 @@ export default {
           console.log(err);
         });
     },
+
     async setEvaluate() {
+      this.evaluate.score = this.evaluate.score.toString();
+      console.log(this.aid, this.sid, this.evaluate);
       let result = await ApiSetEvaluate.post(this.aid, this.sid, this.evaluate)
         .then((response) => {
           if (response.status === "success") {
+            this.$bus.$emit("messsage:push", "Check success", "success");
             return true;
+          } else {
+            console.log(response.record);
+            this.$bus.$emit("messsage:push", response.record, "danger");
           }
         })
         .catch((err) => {});
@@ -750,7 +783,9 @@ export default {
     },
     setSpeakScore(amid, score) {
       ApiSetSpeakScore.get(this.aid, amid, this.sid, score)
-        .then((response) => {})
+        .then((response) => {
+          console.log(response);
+        })
         .catch((err) => {});
     },
   },
@@ -766,16 +801,16 @@ export default {
   margin: 0;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
-  min-height: 100vh;
+  // left: 0;
+  // right: 0;
+  min-height: 99vh;
   display: flex;
   position: fixed;
   z-index: 100000;
 }
 
 .modal[data-modal="scroll"] .modal-body {
-  max-height: 100vh;
+  max-height: 85vh;
   overflow-y: auto;
 }
 // .modal-full {

@@ -470,7 +470,10 @@
                   ></span
                 >
               </div>
-              <div class="form-group row">
+              <div
+                class="form-group row"
+                v-if="filterCollectionList.length !== 0"
+              >
                 <label class="control-label text-right col-sm-3"
                   >Collection</label
                 >
@@ -1032,7 +1035,6 @@ export default {
   },
   created() {
     //列表資訊從menulift call (為了重複使用)
-    console.log(this.textbookLists);
     this.textbookList = this.textbookLists;
     this.openedTextbookList = this.openedTextbookLists;
     this.studentList = this.studentLists;
@@ -1080,8 +1082,10 @@ export default {
     },
     filterCollectionList() {
       this.existCollectionName = [];
+      //有哪些collection可以加入這裡LIST
       return this.collectionList.filter((item) => {
         if (item.rid === this.tempResource.resourceid) {
+          //有哪些resource已經被加入collection
           this.existCollectionName.push(item.text);
         }
         return item.rid !== this.tempResource.resourceid;
@@ -1151,7 +1155,6 @@ export default {
     },
     // multiple select
     addTag(newTag) {
-      console.log(newTag);
       const tag = {
         text: newTag,
         id: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
@@ -1164,7 +1167,6 @@ export default {
       this.collectionList = [];
       ApiGetCollectionList.get(this.userid, rid)
         .then((response) => {
-          console.log(response);
           this.collectionList = response.record.map((o) => {
             return {
               id: o.collectionid,
@@ -1340,7 +1342,6 @@ export default {
         }
       });
       obj.content = this.tempAList;
-      console.log(obj);
       let result = await ApiSetAssignment.post(this.courseid, obj)
         .then((response) => {
           if (response.status === "success") {
