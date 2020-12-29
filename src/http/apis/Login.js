@@ -14,16 +14,16 @@ export const ApiLogin = {
 };
 export const ApiForgotPassword = {
     get: (paramObj) => {
-        return get(`info/forgotpw/${paramObj}`);
+        return get(`/info/forgotpw/${paramObj}`);
     },
 };
 export const ApiConfirmPassword = {
     post: (uid, paramObj) => {
-        return post(`info/confirmpw/${uid}`, paramObj);
+        return post(`/info/confirmpw/${uid}`, paramObj);
     },
 };
 export const ApiActivateUser = {
     get: (paramObj) => {
-        return get(`info/activate/${paramObj}`);
+        return get(`/info/activate/${paramObj}`);
     },
 };

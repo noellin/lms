@@ -20,6 +20,7 @@ import Layout from "../views/CourseLayout.vue";
 import WeeklyList from '../views/WeeklyList.vue';
 import WeeklyProgress from '../views/WeeklyProgress.vue';
 import WeeklyCreate from '../views/WeeklyCreate.vue';
+import $ from "jquery";
 Vue.use(VueRouter);
 const routes = [{
     path: "*",
@@ -212,5 +213,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+router.beforeEach((to, from, next) => {
+  // ...
+  next()
+})
+
 
 export default router;

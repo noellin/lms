@@ -51,7 +51,10 @@
             </li>
             <li
               class="nav-item nav-text"
-              :class="[headerLabel === 'collection' ? 'active' : '']"
+              :class="[
+                headerLabel === 'collection' ? 'active' : '',
+                userInfo.permit === 'admin' ? 'disabled' : '',
+              ]"
             >
               <router-link class="" to="/collection">
                 <a> Collection </a>
@@ -121,7 +124,9 @@ export default {
     //   this.userInfo.email = "support@authenticgoods.co";
     // });
   },
-  mounted() {},
+  mounted() {
+    // console.log(this.userInfo);
+  },
   computed: {
     showPage() {
       return this.$route.name;
@@ -132,6 +137,7 @@ export default {
   },
   methods: {
     logout() {
+      localStorage.clear();
       this.$router.push({ path: "/" });
     },
     gotoLogin() {

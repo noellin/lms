@@ -30,13 +30,13 @@
                         @keyup.enter="searchWQStudent()"
                       />
                       <div class="input-group-append">
-                        <button
+                        <div
                           class="btn btn-secondary btn-outline btn-icon btn-rounded"
                           type="button"
                           @click="searchWQStudent()"
                         >
                           <i class="zmdi zmdi-search text-secondary"></i>
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>

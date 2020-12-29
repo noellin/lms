@@ -25,13 +25,13 @@
                   @keyup.enter="searchAccount()"
                 />
                 <div class="input-group-append">
-                  <button
+                  <div
                     class="btn btn-secondary btn-outline btn-icon btn-rounded"
                     type="button"
                     @click="searchAccount()"
                   >
                     <i class="zmdi zmdi-search text-secondary"></i>
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -336,8 +336,14 @@ export default {
       if (check) {
         ApiSendInviteMail.post(this.tempAccount)
           .then((response) => {
+            console.log("api response = ", response);
             if (response.status === "success") {
-              $("#InviteEmailSentModal").modal("show");
+              this.$bus.$emit(
+                "messsage:push",
+                "An email has been sent to teacher's email.",
+                "success"
+              );
+              // $("#InviteEmailSentModal").modal("show");
             }
           })
           .catch((err) => {});

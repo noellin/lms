@@ -252,14 +252,6 @@
           title="Terms and Conditions "
           ><small>Terms and Conditions</small></a
         >
-        <!-- <button
-          href="https://www.iubenda.com/privacy-policy/32601846"
-          class="btn btn-outline-primary btn-sm iubenda-white no-brand iubenda-embed"
-          title="Privacy Policy "
-          type="button"
-        >
-          Privacy Policy
-        </button> -->
       </div>
     </div>
   </div>
@@ -302,24 +294,30 @@ export default {
       loginShow: "login",
       remember: false,
       loginForm: {
-        // email: "",
-        // password: "",
+        email: "",
+        password: "",
         // // 測試帳號A admin權限
         // email: "bkbjava@mhsh.ptc.edu.tw",
         // password: "123456",
         // 測試帳號B teacher權限
-        email: "kevin.chen@igroupnet.com",
-        password: "123456",
+        // email: "kevin.chen@igroupnet.com",
+        // password: "123456",
         //測試帳號C
         // email: "sp.wang@igroupnet.com",
         // password: "123456",
       },
-      userEmail: "jolin123@gmail.com",
+      userEmail: "",
       ErrorMessage: "Your email or password is incorrect. please try again.",
     };
   },
   created() {
-    //resetpassword用網址
+    localStorage.clear();
+    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+    if (keys) {
+      for (var i = keys.length; i--; )
+        document.cookie = keys[i] + "=0;expires=" + new Date(0).toUTCString();
+    }
+    // //resetpassword用網址
     ///resetpassword/id=0430d89bd1005af68a291b2f980c8dcda8b9f761
     this.$store.dispatch("auth/setAuth", {
       token: "",
@@ -342,6 +340,7 @@ export default {
     async forgotPassword() {
       let result = await ApiForgotPassword.get(this.loginForm.email).then(
         (response) => {
+          console.log(response);
           if (response.record === "Done") {
             this.$bus.$emit(
               "messsage:push",

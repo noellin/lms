@@ -19,7 +19,7 @@ export const ApiSearchAccount = {
 
 export const ApiSendInviteMail = {
     post: (obj) => {
-        return post(`tchr/invite`, obj)
+        return post(`/tchr/invite`, obj)
     }
 }
 

@@ -63,13 +63,13 @@
                     @keyup.enter="searchStudent()"
                   />
                   <div class="input-group-append">
-                    <button
+                    <div
                       class="btn btn-secondary btn-outline btn-icon btn-rounded"
                       type="button"
                       @click="searchStudent()"
                     >
                       <i class="zmdi zmdi-search text-secondary"></i>
-                    </button>
+                    </div>
                   </div>
                 </div>
               </div>

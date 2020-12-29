@@ -324,13 +324,13 @@
                       @keyup.enter="searchRName = tempSearch"
                     />
                     <div class="input-group-append">
-                      <button
+                      <div
                         class="btn btn-secondary btn-outline btn-icon btn-rounded"
                         type="button"
                         @click="searchRName = tempSearch"
                       >
                         <i class="zmdi zmdi-search text-secondary"></i>
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>

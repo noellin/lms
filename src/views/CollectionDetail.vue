@@ -57,13 +57,13 @@
                       @keyup.enter="searchCollectionResource()"
                     />
                     <div class="input-group-append">
-                      <button
+                      <div
                         class="btn btn-secondary btn-outline btn-icon btn-rounded"
                         type="button"
                         @click="searchCollectionResource()"
                       >
                         <i class="zmdi zmdi-search text-secondary"></i>
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -26,6 +26,10 @@ import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
 import VCharts from "v-charts";
 import Print from "./plugins/print/print";
+import jQuery from "jquery";
+global.jQuery = jQuery;
+global.$ = jQuery;
+
 Vue.use(Print);
 Vue.component("Loading", Loading);
 Vue.use(VCharts);
@@ -61,6 +65,7 @@ Vue.config.productionTip = false;
     router.go(-1);
   }
 }),
+
 (Vue.prototype.$bus = new Vue());
 new Vue({
   router,
@@ -71,6 +76,10 @@ new Vue({
   data: () => ({
     value: "",
   }),
+  mounted() {
+    
+  },
+  
   render: function (h) {
     return h(App);
   },

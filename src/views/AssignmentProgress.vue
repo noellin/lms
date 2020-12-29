@@ -94,13 +94,13 @@
                         @keyup.enter="searchStudent()"
                       />
                       <div class="input-group-append">
-                        <button
+                        <div
                           class="btn btn-secondary btn-outline btn-icon btn-rounded"
                           type="button"
                           @click="searchStudent()"
                         >
                           <i class="zmdi zmdi-search text-secondary"></i>
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -312,7 +312,7 @@
           </div>
           <div class="modal-body bg-light p-5">
             <h2 class="pl-2">{{ tempSname }}</h2>
-            <div class="row">
+            <div class="d-flex">
               <!-- 下 style="max-height: calc(100vh - 210px)" -->
               <div class="col-9" data-scroll="dark">
                 <div class="mr-2">
@@ -797,7 +797,7 @@ export default {
   height: 100px;
 }
 .modal-dialog {
-  max-width: 100%;
+  min-width: 99.9%;
   margin: 0;
   top: 0;
   bottom: 0;

@@ -35,13 +35,13 @@
                   @keyup.enter="searchCollection()"
                 />
                 <div class="input-group-append">
-                  <button
+                  <div
                     @click="searchCollection()"
                     class="btn btn-secondary btn-outline btn-icon btn-rounded"
                     type="button"
                   >
                     <i class="zmdi zmdi-search text-secondary"></i>
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

@@ -112,13 +112,13 @@
                         @keyup.enter="searchCourseResource()"
                       />
                       <div class="input-group-append">
-                        <button
+                        <div
                           class="btn btn-secondary btn-outline btn-icon btn-rounded"
                           type="button"
                           @click="searchCourseResource()"
                         >
                           <i class="zmdi zmdi-search text-secondary"></i>
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -294,6 +294,10 @@
                               quiz
                             </button>
                             <button
+                              v-if="
+                                existCollectionName.length !== 0 ||
+                                filterCollectionList.length !== 0
+                              "
                               type="button"
                               class="btn btn-sm btn-secondary btn-rounded btn-outline"
                               data-toggle="modal"
@@ -301,6 +305,16 @@
                               @click="
                                 getCollectionList(textbook.resourceid, textbook)
                               "
+                            >
+                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
+                              >Collection
+                            </button>
+                            <button
+                              v-els
+                              type="button"
+                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                              data-toggle="modal"
+                              data-target="#messageModal"
                             >
                               <i class="zmdi zmdi-plus zmdi-hc-fw"></i
                               >Collection
@@ -956,6 +970,42 @@
               @click="setAssignment()"
             >
               Assign
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- AssignmentModal-2 MODAL-->
+    <div
+      class="modal fade"
+      id="messageModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalTitle1">message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>No related Collection can be added.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              Close
             </button>
           </div>
         </div>
