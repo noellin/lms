@@ -172,7 +172,7 @@
             <div class="modal-body">
               <form>
                 <ValidationProvider
-                  rules="required"
+                  rules="required|min:6"
                   v-slot="{ failed, errors }"
                   name="Current password"
                 >
@@ -183,7 +183,7 @@
 
                     <div class="col-8">
                       <input
-                        type="text"
+                        type="password"
                         class="form-control"
                         placeholder="Enter your current password"
                         value=""
@@ -212,7 +212,7 @@
                     >
                     <div class="col-8">
                       <input
-                        type="text"
+                        type="password"
                         class="form-control is-invalid"
                         placeholder="Password must be at least 6 characters"
                         value=""

@@ -31,10 +31,11 @@
               <a @click="gotoLogin()" class="pointer">
                 <div class="logo">
                   <img
-                    src="../assets/img/avatars/logo_light.png"
+                    src="../assets/img/avatars/MangoSTEEMS_logo.png"
                     alt=""
-                    style="max-height: 35px; max-width: 190px"
+                    style="max-height: 40px; max-width: 190px"
                   />
+                  <!-- style="max-height: 35px; max-width: 190px" -->
                 </div>
               </a>
             </li>

@@ -134,6 +134,7 @@
                 <!-- <span class="display-4">School Name</span> -->
               </a>
               <p class="text-center m-b-40">iGroup LMS</p>
+
               <div id="forget-password-page">
                 <h5 class="sign-in-heading">Forgotten Password?</h5>
                 <p>We'll send you an email with link to reset your password.</p>
@@ -164,40 +165,63 @@
         <div class="sign-in-form">
           <div class="card">
             <div class="card-body">
-              <a class="brand text-center d-block m-b-20 m-t-20">
-                <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
-                <!-- <span class="display-4">School Name</span> -->
-              </a>
-              <p class="text-center m-b-40">iGroup LMS</p>
+              <ValidationObserver ref="resetForm">
+                <a class="brand text-center d-block m-b-20 m-t-20">
+                  <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
+                  <!-- <span class="display-4">School Name</span> -->
+                </a>
+                <p class="text-center m-b-40">iGroup LMS</p>
 
-              <p class="text-primary text-center">E-mail: {{ userEmail }}</p>
-              <h5 class="sign-in-heading">Confirm your password</h5>
-              <div class="form-group">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input
-                  type="password"
-                  id="inputPassword"
-                  class="form-control form-control-lg"
-                  placeholder="Password must be at least 6 characters"
-                  required=""
-                />
-              </div>
-              <div class="form-group">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input
-                  type="password"
-                  id="inputPassword"
-                  class="form-control form-control-lg"
-                  placeholder="Enter your password again"
-                  required=""
-                />
-              </div>
-              <button
-                class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
-                @click="resetPassword()"
-              >
-                Confirm password
-              </button>
+                <p class="text-primary text-center">E-mail: {{ userEmail }}</p>
+                <h5 class="sign-in-heading">Confirm your password</h5>
+                <ValidationProvider
+                  rules="required|min:6"
+                  v-slot="{ failed, errors }"
+                  name="password"
+                  vid="confirmation"
+                >
+                  <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input
+                      type="password"
+                      id="inputPassword"
+                      class="form-control form-control-lg"
+                      placeholder="Password must be at least 6 characters"
+                      required=""
+                      v-model="loginForm.password"
+                    />
+                    <span v-if="failed" class="text-danger">{{
+                      errors[0]
+                    }}</span>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required|confirmed:confirmation"
+                  v-slot="{ failed, errors }"
+                  name="confirm password"
+                >
+                  <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input
+                      type="password"
+                      id="inputPassword"
+                      class="form-control form-control-lg"
+                      placeholder="Enter your password again"
+                      required=""
+                      v-model="loginForm.confirmpw"
+                    />
+                    <span v-if="failed" class="text-danger">{{
+                      errors[0]
+                    }}</span>
+                  </div>
+                </ValidationProvider>
+                <button
+                  class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                  @click="resetPassword()"
+                >
+                  Confirm password
+                </button>
+              </ValidationObserver>
             </div>
           </div>
         </div>
@@ -296,6 +320,7 @@ export default {
       loginForm: {
         email: "",
         password: "",
+        confirmpw: "",
         // // 測試帳號A admin權限
         // email: "bkbjava@mhsh.ptc.edu.tw",
         // password: "123456",
@@ -326,9 +351,12 @@ export default {
     });
   },
   mounted() {
+    let vm = this;
     if (this.$route.params.id !== undefined) {
       this.activateUser(this.$route.params.id);
       this.loginShow = "resetPassword";
+
+      this.userEmail = this.$route.params.email;
     }
   },
   computed: {
@@ -394,13 +422,24 @@ export default {
     },
 
     resetPassword() {
-      let obj = { password: this.loginForm.password };
-      ApiConfirmPassword.post(this.$route.params.id, obj)
-        .then((response) => {
-          console.log(response);
-          this.loginShow = "resetPasswordSuccess";
-        })
-        .catch((err) => {});
+      let vm = this;
+      console.log(this.loginForm);
+      this.$refs.resetForm.validate().then((success) => {
+        if (success) {
+          let obj = { password: this.loginForm.password };
+          ApiConfirmPassword.post(this.$route.params.id, obj)
+            .then((response) => {
+              console.log(response);
+              this.loginShow = "resetPasswordSuccess";
+        vm.loginForm = {
+          email: "",
+          password: "",
+          confirmpw: "",
+        };
+            })
+            .catch((err) => {});
+        }
+      });
     },
     activateUser(activeid) {
       ApiActivateUser.get(activeid)

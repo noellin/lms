@@ -35,7 +35,7 @@ const routes = [{
     },
   },
   {
-    path: "/resetpassword/id=:id",
+    path: "/resetpassword/id=:id/email=:email",
     name: "ResetPassword",
     component: Login,
     meta: {
