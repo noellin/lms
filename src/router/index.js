@@ -155,8 +155,16 @@ const routes = [{
     },
   },
   {
-    path: "/collection/create",
+    path: "/collection/create/",
     name: "CollectionCreate",
+    component: CollectionCreate,
+    meta: {
+      header: "collection",
+    },
+  },
+  {
+    path: "/collection/create/:pkgid",
+    name: "CollectionCreateByID",
     component: CollectionCreate,
     meta: {
       header: "collection",

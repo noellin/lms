@@ -13,7 +13,7 @@
               <div class="text-right">
                 <button
                   v-if="wqStatus === 'true'"
-                  class="btn btn-primary btn-outline btn-rounded"
+                  class="btn btn-danger btn-outline btn-rounded"
                   @click="setWQStatus()"
                 >
                   Close Weekly Quiz
@@ -30,6 +30,7 @@
                 <button
                   class="btn btn-primary btn-outline btn-rounded mr-2"
                   @click="gotoGreateWQuiz()"
+                  :disabled="wqQuota === 0"
                 >
                   Create Quiz
                   <span class="badge badge-primary">{{ wqQuota }}</span>
@@ -74,8 +75,20 @@
                                 ></label>
                               </div>
                             </th>
-                            <th>Publish</th>
-                            <th>Due</th>
+                            <th
+                              @click="sortTable('start_date')"
+                              class="pointer"
+                            >
+                              Publish<i
+                                class="zmdi zmdi-swap-vertical ml-1"
+                              ></i>
+                            </th>
+                            <th
+                              @click="sortTable('expiry_date')"
+                              class="pointer"
+                            >
+                              Due<i class="zmdi zmdi-swap-vertical ml-1"></i>
+                            </th>
                             <th>Author</th>
                             <th>Completed ／Total students</th>
                             <th>Status</th>
@@ -103,7 +116,9 @@
                               </div>
                             </td>
                             <td>{{ wq.start_date | dateConversion }}</td>
-                            <td>{{ wq.expiry_date | dateConversion }}</td>
+                            <td :class="expired(wq.expiry_date)">
+                              {{ wq.expiry_date | dateConversion }}
+                            </td>
                             <td>
                               <span
                                 v-if="wq.designator === 'system'"
@@ -529,6 +544,8 @@ import {
   ApiGetSentence,
   ApiSetEchoStatus,
 } from "../http/apis/WeeklyQuiz";
+import dayjs from "dayjs";
+import _ from "lodash";
 export default {
   components: {
     CourseHeader,
@@ -539,9 +556,11 @@ export default {
       selectAllWQ: "",
       selectedWQ: [],
       wqList: [],
-      wqQuota: "",
+      wqQuota: null,
       wqStatus: "true",
       stuQuota: 0,
+      sortStatus: false,
+      tempSortItem: "",
     };
   },
   mounted() {
@@ -549,6 +568,38 @@ export default {
   },
   computed: {},
   methods: {
+    sortTable(sortItem) {
+      if (this.tempSortItem === "") {
+        this.tempSortItem = sortItem;
+        this.sortStatus = false;
+      } else if (this.tempSortItem !== sortItem) {
+        this.tempSortItem = sortItem;
+        this.sortStatus = false;
+      } else {
+      }
+      this.sortStatus = !this.sortStatus;
+      if (this.sortStatus) {
+        this.wqList = _.sortBy(this.wqList, [sortItem], ["asc"]);
+      } else {
+        this.wqList = this.wqList.reverse();
+      }
+
+      // publish_date
+    },
+    expired(date) {
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+      let yestoday = dayjs(today).subtract(1, "day");
+      if (
+        dayjs(dayjs(yestoday).format("YYYY-MM-DD")).isBefore(
+          dayjs(dayjs.unix(date).format("YYYY-MM-DD"))
+        )
+      ) {
+        return "";
+      } else {
+        return "text-danger";
+      }
+    },
     pubStatus(start, end) {
       const dateTime = Date.now();
       const timestamp = Math.floor(dateTime / 1000);

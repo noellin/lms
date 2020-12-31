@@ -171,7 +171,7 @@
                             'https://lms.mangosteems.com/cms/resdl/cover/' +
                             textbook.resourceid
                           "
-                          class="overlay-img"
+                          class="overlay-img cus-img"
                           alt="course image"
                         />
                         <!-- <div
@@ -294,27 +294,12 @@
                               quiz
                             </button>
                             <button
-                              v-if="
-                                existCollectionName.length !== 0 ||
-                                filterCollectionList.length !== 0
-                              "
                               type="button"
                               class="btn btn-sm btn-secondary btn-rounded btn-outline"
                               data-toggle="modal"
-                              data-target="#addtoColletion"
                               @click="
                                 getCollectionList(textbook.resourceid, textbook)
                               "
-                            >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Collection
-                            </button>
-                            <button
-                              v-els
-                              type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
-                              data-toggle="modal"
-                              data-target="#messageModal"
                             >
                               <i class="zmdi zmdi-plus zmdi-hc-fw"></i
                               >Collection
@@ -539,6 +524,7 @@
               Close
             </button>
             <button
+              v-if="filterCollectionList.length !== 0"
               type="button"
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
@@ -852,15 +838,15 @@
                 <label class="control-label text-right col-sm-3"
                   >For students</label
                 >
-                <div class="col-sm-7">
+                <div class="col-sm-5">
                   <select2
                     id="s2_student"
                     :options="studentList"
                     v-model="selectStudent"
-                    :disabled="selectAllS"
                     :settings="{ multiple: true }"
                   >
                   </select2>
+                  <!-- :disabled="selectAllS" -->
 
                   <!-- <multiselect v-model="selectStudent" tag-placeholder="Add this as new tag" 
                     placeholder="Add students" 
@@ -871,7 +857,30 @@
                     :disabled="selectAllS"
                     @tag="addTag"></multiselect> -->
                 </div>
-                <div class="col-sm-2">
+
+                <div
+                  class="col-sm-2 px-0 align-items-center d-flex hover-expand"
+                >
+                  <i
+                    v-if="showStuTable === false"
+                    class="zmdi zmdi-unfold-more pointer hover-blue mr-1"
+                    @click="showStuTable = !showStuTable"
+                  ></i>
+                  <i
+                    v-else
+                    class="zmdi zmdi-unfold-less pointer hover-blue mr-1"
+                    @click="showStuTable = !showStuTable"
+                  ></i>
+                  <label
+                    @click="showStuTable = !showStuTable"
+                    class="form-check-label pointer hover-blue"
+                    for="expand"
+                  >
+                    <span v-if="showStuTable === false">Expand list</span>
+                    <span v-else>Close list</span>
+                  </label>
+                </div>
+                <!-- <div class="col-sm-2">
                   <input
                     type="checkbox"
                     class="form-check-input"
@@ -880,6 +889,41 @@
                     name="std"
                   />
                   <label class="form-check-label" for="std">All Students</label>
+                </div> -->
+              </div>
+              <div class="form-group row align-items-start" v-if="showStuTable">
+                <label class="control-label text-right col-sm-3"></label>
+                <div class="col-sm-9 row">
+                  <div class="custom-control custom-checkbox col-sm-12 ml-3">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="std"
+                      v-model="selectAllS"
+                      name="std"
+                    />
+                    <label class="custom-control-label" for="std"
+                      >All Students</label
+                    >
+                  </div>
+                  <div
+                    v-for="(stu, index) in studentList"
+                    :key="stu.id + index"
+                    class="px-3"
+                  >
+                    <div class="custom-control custom-checkbox mr-2">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        :id="stu.id"
+                        :value="stu.id"
+                        v-model="selectStudent"
+                      />
+                      <label class="custom-control-label" :for="stu.id">{{
+                        stu.text
+                      }}</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </form>
@@ -998,6 +1042,10 @@
           </div>
           <div class="modal-body">
             <p>No related Collection can be added.</p>
+            <p>
+              Please create a collection of the resource before adding the
+              material
+            </p>
           </div>
           <div class="modal-footer">
             <button
@@ -1006,6 +1054,14 @@
               data-dismiss="modal"
             >
               Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-outline btn-rounded"
+              data-dismiss="modal"
+              @click="gotoCreateCol()"
+            >
+              Create Collection
             </button>
           </div>
         </div>
@@ -1081,6 +1137,8 @@ export default {
       openedTextbookList: [],
       setStudent: false,
       existCollectionName: [],
+      pkgid: {},
+      showStuTable: false,
     };
   },
   created() {
@@ -1090,9 +1148,13 @@ export default {
     this.studentList = this.studentLists;
     this.tempAIDList = this.tempAIDLists;
     this.tempAList = this.tempALists;
+    this.pkgid = this.pkgids;
   },
   mounted() {},
   watch: {
+    pkgids() {
+      this.pkgid = this.pkgids;
+    },
     openedTextbookLists() {
       this.openedTextbookList = this.openedTextbookLists;
     },
@@ -1107,7 +1169,11 @@ export default {
       if (this.selectAllS) {
         this.tempSelectStudent = this.selectStudent;
         this.selectStudent = [];
-        this.selectStudent.push("*");
+        this.studentList.forEach((std) => {
+          this.selectStudent.push(std.id);
+          std;
+        });
+        // this.selectStudent.push("*");
       } else {
         this.selectStudent = this.tempSelectStudent;
       }
@@ -1137,6 +1203,8 @@ export default {
         if (item.rid === this.tempResource.resourceid) {
           //有哪些resource已經被加入collection
           this.existCollectionName.push(item.text);
+          console.log("已加入");
+          console.log(this.existCollectionName);
         }
         return item.rid !== this.tempResource.resourceid;
       });
@@ -1159,6 +1227,9 @@ export default {
           return false;
         }
       }
+    },
+    pkgids() {
+      return this.$store.state.courseInfo.courseInfo.pkgid;
     },
     openedTextbookLists() {
       return this.$store.state.courseInfo.openedTextbookList;
@@ -1212,10 +1283,11 @@ export default {
       // this.options.push(tag)
       // this.value.push(tag)
     },
-    getCollectionList(rid, obj) {
+    async getCollectionList(rid, obj) {
+      let vm = this;
       this.tempResource = obj;
       this.collectionList = [];
-      ApiGetCollectionList.get(this.userid, rid)
+      let result = await ApiGetCollectionList.get(this.userid, rid)
         .then((response) => {
           this.collectionList = response.record.map((o) => {
             return {
@@ -1224,8 +1296,21 @@ export default {
               rid: o.resourceid,
             };
           });
+          if (response.status === "success") {
+            return true;
+          }
         })
         .catch((err) => {});
+      if (result) {
+        if (
+          vm.existCollectionName.length !== 0 ||
+          vm.filterCollectionList.length !== 0
+        ) {
+          $("#addtoColletion").modal("show");
+        } else {
+          $("#messageModal").modal("show");
+        }
+      }
     },
 
     addResource() {
@@ -1277,7 +1362,6 @@ export default {
       let colid = Ncolid.split(";")[0];
       let result = await ApiGetVideoMaterial.get(colid, this.courseid, rid)
         .then((response) => {
-          console.log(response);
           this.videoMaterialList = response.record;
           if (response.status === "success") {
             return true;
@@ -1503,6 +1587,11 @@ export default {
         /Speaking Quiz/${rname}/${m.material_name}/${this.courseid}/${mType}/${m.resourceid}/${m.materialid}`,
       });
     },
+    gotoCreateCol() {
+      this.$router.push({
+        path: `/collection/create/${this.pkgid}`,
+      });
+    },
   },
 };
 </script>
@@ -1523,5 +1612,24 @@ export default {
 }
 .bold {
   font-weight: bold;
+}
+
+.cus-img {
+  max-height: 90%;
+  max-width: 90%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.hover-expand:hover {
+  .hover-blue {
+    color: #32c1db;
+  }
 }
 </style>

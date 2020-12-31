@@ -29,7 +29,7 @@
           <ul class="site-logo">
             <li class="nav-item">
               <a @click="gotoLogin()" class="pointer">
-                <div class="logo">
+                <div class="logo" style="background-col">
                   <img
                     src="../assets/img/avatars/MangoSTEEMS_logo.png"
                     alt=""
@@ -97,6 +97,9 @@
             </div>
             <a class="dropdown-item pointer" @click="gotoAccount()"
               ><i class="icon dripicons-user"></i> My account</a
+            >
+            <a class="dropdown-item pointer"
+              ><i class="icon dripicons-mail"></i> Contact us</a
             >
             <a class="dropdown-item pointer" @click="logout()"
               ><i class="icon dripicons-lock-open"></i> Log Out</a

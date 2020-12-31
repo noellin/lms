@@ -569,12 +569,14 @@ export default {
       $("#addMaterial").modal("show");
     },
     getPkgList() {
+      let vm = this;
       ApiGetPkgList.get(this.userid).then((response) => {
         this.pkgList = response.record;
         this.pkgid = response.record[0].pkgid;
-
+        if (this.$route.params.pkgid !== undefined) {
+          vm.pkgid = vm.$route.params.pkgid;
+        }
         this.selectPkgList = response.record.map((o, index) => {
-          console.log(index);
           if (index === 0) {
             this.pkgname = o.pkg_name;
             this.tempPkgName = o.pkg_name;

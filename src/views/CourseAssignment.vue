@@ -55,11 +55,30 @@
                                 ></label>
                               </div>
                             </th>
-                            <th>Assigned date</th>
-                            <th>Due</th>
+                            <th
+                              @click="sortTable('publish_date')"
+                              class="pointer"
+                            >
+                              Assigned date<i
+                                class="zmdi zmdi-swap-vertical ml-1"
+                              ></i>
+                            </th>
+                            <th
+                              @click="sortTable('expiry_date')"
+                              class="pointer"
+                            >
+                              Due<i class="zmdi zmdi-swap-vertical ml-1"></i>
+                            </th>
                             <th>For</th>
                             <th>Completed ／Total students</th>
-                            <th>Degree of difficulty</th>
+                            <th
+                              @click="sortTable('difficult_level')"
+                              class="pointer"
+                            >
+                              Degree of difficulty<i
+                                class="zmdi zmdi-swap-vertical ml-1"
+                              ></i>
+                            </th>
                             <th>Preview</th>
                             <th>Check progress</th>
                           </tr>
@@ -90,7 +109,9 @@
                               ></i
                               >{{ a.publish_date | dateConversion }}
                             </td>
-                            <td>{{ a.expiry_date | dateConversion }}</td>
+                            <td :class="expired(a.expiry_date)">
+                              {{ a.expiry_date | dateConversion }}
+                            </td>
                             <!-- <td>All students</td> -->
                             <td>{{ a.target }}</td>
                             <td>{{ a.completedStu }} ／{{ a.totalStu }}</td>
@@ -332,6 +353,8 @@ import {
   ApiGetAMaterial,
   ApiDeleteAssignment,
 } from "../http/apis/Assignment";
+import dayjs from "dayjs";
+import _ from "lodash";
 export default {
   name: "CourseAssignment",
   components: {
@@ -345,6 +368,8 @@ export default {
       tempAM: {},
       selectAllA: "",
       selectedAssignment: [],
+      sortStatus: false,
+      tempSortItem: "",
     };
   },
   created() {
@@ -357,6 +382,38 @@ export default {
     },
   },
   methods: {
+    sortTable(sortItem) {
+      if (this.tempSortItem === "") {
+        this.tempSortItem = sortItem;
+        this.sortStatus = false;
+      } else if (this.tempSortItem !== sortItem) {
+        this.tempSortItem = sortItem;
+        this.sortStatus = false;
+      } else {
+      }
+      this.sortStatus = !this.sortStatus;
+      if (this.sortStatus) {
+        this.aList = _.sortBy(this.aList, [sortItem], ["asc"]);
+      } else {
+        this.aList = this.aList.reverse();
+      }
+
+      // publish_date
+    },
+    expired(date) {
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+      let yestoday = dayjs(today).subtract(1, "day");
+      if (
+        dayjs(dayjs(yestoday).format("YYYY-MM-DD")).isBefore(
+          dayjs(dayjs.unix(date).format("YYYY-MM-DD"))
+        )
+      ) {
+        return "";
+      } else {
+        return "text-danger";
+      }
+    },
     selectAll(event) {
       const vm = this;
 
