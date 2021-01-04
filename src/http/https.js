@@ -69,7 +69,7 @@ axios.interceptors.response.use(
               router.push({
                 path: "/login",
               });
-            }, 2000);
+            }, 1000);
           }
           break;
         case 404:

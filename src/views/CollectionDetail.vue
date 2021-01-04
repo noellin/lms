@@ -87,7 +87,7 @@
                 <div class="card-body">
                   <div class="media">
                     <div
-                      class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
+                      class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
                     >
                       <span class="overlay-icon">
                         <i class="fas fa-video" v-if="cr.note === 'video'"></i
@@ -99,7 +99,7 @@
                           'https://lms.mangosteems.com/cms/resdl/cover/' +
                           cr.resourceid
                         "
-                        class="overlay-img"
+                        class="overlay-img cus-img"
                         alt="course image"
                       />
                     </div>
@@ -108,7 +108,9 @@
                         <div>
                           <span
                             class="badge badge-pill badge-secondary mt-2"
-                          ></span>
+                            v-if="cr.level !== ''"
+                            >Level {{ cr.level }}</span
+                          >
                           <h4
                             class="mb-0 mt-3 d-flex align-self-center text-primary"
                           >
@@ -358,6 +360,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.cus-img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.overlay-icon {
+  z-index: 999999;
+}
 // a:not([href]):not([tabindex]) {
 //   color: rgba(255, 255, 255, 0.9) !important;
 // }

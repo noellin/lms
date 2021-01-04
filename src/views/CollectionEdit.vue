@@ -72,17 +72,53 @@
                 </div>
               </div>
             </div>
-            <div class="col-12">
-              <div class="text-right pb-3">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-rounded btn-outline"
-                  data-toggle="modal"
-                  data-target="#addMaterial"
-                  @click="resetSelect()"
-                >
-                  <i class="la la-plus"></i>Material
-                </button>
+            <div class="col-sm-12">
+              <div class="d-flex justify-content-end pb-3">
+                <!-- <div class="">
+                  <div class="form-row">
+                    <div class="form-group form-rounded form-custom mb-0 mr-3">
+                      <select2
+                        id="s2_demo1"
+                        class=""
+                        :options="typeList"
+                        v-model="seleceType"
+                      >
+                      </select2>
+                    </div>
+                    <div class="form-group form-rounded mb-0">
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Search..."
+                          v-model="searchRname"
+                          @keyup.enter="searchCollectionResource()"
+                        />
+                        <div class="input-group-append">
+                          <div
+                            class="btn btn-secondary btn-outline btn-icon btn-rounded"
+                            type="button"
+                            @click="searchCollectionResource()"
+                          >
+                            <i class="zmdi zmdi-search text-secondary"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="text-right">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-rounded btn-outline"
+                    data-toggle="modal"
+                    data-target="#addMaterial"
+                    @click="resetSelect()"
+                  >
+                    <!-- <i class="la la-plus"></i> -->
+                    Selection & Management
+                  </button>
+                </div>
               </div>
               <div class="card">
                 <h5 class="card-header">Sequence</h5>
@@ -135,7 +171,9 @@
                             <div>
                               <span
                                 class="badge badge-pill badge-secondary mt-2"
-                              ></span>
+                                v-if="cr.level !== ''"
+                                >Level {{ cr.level }}</span
+                              >
                               <h4 class="d-flex align-self-center mt-2">
                                 {{ cr.resource_name }}
                               </h4>
@@ -370,7 +408,8 @@
               data-dismiss="modal"
               @click="addtoSequence()"
             >
-              <i class="la la-plus"></i>Material
+              <!-- <i class="la la-plus"></i> -->
+              Confirm
             </button>
           </div>
         </div>

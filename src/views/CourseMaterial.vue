@@ -190,7 +190,9 @@
                         > -->
                             <span
                               class="badge badge-pill badge-secondary mt-2"
-                            ></span>
+                              v-if="textbook.level !== ''"
+                              >Level {{ textbook.level }}</span
+                            >
                             <h4
                               class="mb-0 mt-3 d-flex align-self-center text-primary"
                             >
@@ -199,11 +201,11 @@
                               </div>
                             </h4>
                             <p class="text-muted mt-1">
-                              <small class="fw300"
+                              <span class="fw300 text-xs"
                                 >Last played
                                 <span>{{
                                   textbook.last_access | dateConversion
-                                }}</span></small
+                                }}</span></span
                               >
                             </p>
                           </div>
@@ -693,9 +695,11 @@
                   :value="`${tb.colid}_${tb.resourceid}`"
                   v-model="openedTextbookList"
                 />
-                <label class="custom-control-label" :for="tb.resourceid">{{
-                  tb.resource_name
-                }}</label>
+                <label
+                  class="custom-control-label text-xs"
+                  :for="tb.resourceid"
+                  >{{ tb.resource_name }}</label
+                >
               </div>
             </div>
           </div>
@@ -1615,8 +1619,8 @@ export default {
 }
 
 .cus-img {
-  max-height: 90%;
-  max-width: 90%;
+  max-height: 100%;
+  max-width: 100%;
   width: auto;
   height: auto;
   position: absolute;
@@ -1626,10 +1630,19 @@ export default {
   right: 0;
   margin: auto;
 }
-
+.overlay-icon {
+  z-index: 999999;
+}
 .hover-expand:hover {
   .hover-blue {
     color: #32c1db;
   }
+}
+
+.custom-control-label.text-xs {
+  font-size: 16px !important;
+}
+.text-xs.fw300 {
+  font-size: 14px !important;
 }
 </style>

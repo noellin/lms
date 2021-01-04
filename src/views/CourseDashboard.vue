@@ -14,7 +14,7 @@
                 <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Popular map<button
+                      Golden Zone<button
                         type="button"
                         class="btn btn-nostyle ml-1"
                         data-container="body"
@@ -40,7 +40,7 @@
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Deserted & forgotten map<button
+                      Treasure Zone<button
                         type="button"
                         class="btn btn-nostyle ml-1"
                         data-container="body"
@@ -224,7 +224,7 @@
             <div class="row">
               <div class="col-5">
                 <div class="card">
-                  <h5 class="card-header">Popular map</h5>
+                  <h5 class="card-header">Golden Zone</h5>
                   <div class="card-body">
                     <p class="text-primary">
                       Reviewed more than 20 times in the past 7 days
@@ -278,7 +278,7 @@
                   </div>
                 </div>
                 <div class="card">
-                  <h5 class="card-header">Deserted map</h5>
+                  <h5 class="card-header">Treasure Zone</h5>
                   <div class="card-body">
                     <p class="text-primary">
                       Have not been reviewed in the past 21 to 40 days
@@ -328,7 +328,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="card">
+                <!-- <div class="card">
                   <h5 class="card-header">Forgotten map</h5>
                   <div class="card-body">
                     <p class="text-primary">
@@ -356,7 +356,7 @@
                       </table>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="col-7">
                 <div class="card">

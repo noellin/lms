@@ -30,7 +30,7 @@
                       <div class="col-4 text-center">
                         <div class="thumb-lg member-thumb m-b-10 center-block">
                           <img
-                            src="../assets/img/avatars/user.png"
+                            src="../assets/img/avatars/teacher.png"
                             class="w-200 rounded-circle img-thumbnail"
                             alt="profile-image"
                           />

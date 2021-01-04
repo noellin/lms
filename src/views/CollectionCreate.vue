@@ -144,7 +144,9 @@
                             <div>
                               <span
                                 class="badge badge-pill badge-secondary mt-2"
-                              ></span>
+                                v-if="m.level !== ''"
+                                >Level {{ m.level }}</span
+                              >
                               <h4 class="d-flex align-self-center mt-2">
                                 {{ m.resource_name }}
                               </h4>
@@ -645,5 +647,18 @@ export default {
 <style lang="scss" scoped>
 .overlay-wrap .overlay-icon i {
   color: #fff !important;
+}
+
+.cus-img {
+  max-height: 90%;
+  max-width: 90%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 </style>

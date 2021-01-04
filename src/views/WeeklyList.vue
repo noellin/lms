@@ -13,14 +13,14 @@
               <div class="text-right">
                 <button
                   v-if="wqStatus === 'true'"
-                  class="btn btn-danger btn-outline btn-rounded"
+                  class="btn btn-danger btn-rounded"
                   @click="setWQStatus()"
                 >
                   Close Weekly Quiz
                 </button>
                 <button
                   v-else
-                  class="btn btn-primary btn-outline btn-rounded"
+                  class="btn btn-primary btn-rounded"
                   @click="setWQStatus()"
                 >
                   Open Weekly Quiz
@@ -139,6 +139,7 @@
                                 class="btn btn-nostyle"
                                 data-toggle="modal"
                                 data-target="#PreviewModal"
+                                @click="tempSentence = wq.sentence"
                               >
                                 <i class="la la-eye"></i>
                               </button>
@@ -514,12 +515,7 @@ Her favourite colour is pink and her superpower is data processing.</textarea
             </button>
           </div>
           <div class="modal-body">
-            <ul class="quiz-list">
-              <!-- <li v-for="s in SList" :key="s.sentenceID">
-                <strong class="text-primary mr-2">Q{{ s.seq }}.</strong
-                >{{ s.content }}
-              </li> -->
-            </ul>
+            <p>{{ tempSentence }}</p>
           </div>
           <div class="modal-footer">
             <button
@@ -561,6 +557,7 @@ export default {
       stuQuota: 0,
       sortStatus: false,
       tempSortItem: "",
+      tempSentence: "",
     };
   },
   mounted() {

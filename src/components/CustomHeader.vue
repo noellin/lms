@@ -84,7 +84,7 @@
             aria-expanded="false"
           >
             <img
-              src="../assets/img/avatars/user.png"
+              src="../assets/img/avatars/teacher.png"
               class="w-40 rounded-circle"
               alt="Albert Einstein"
             />

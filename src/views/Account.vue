@@ -71,7 +71,7 @@
                             @click="gotoAccountDetail(ac.userid)"
                             class="pointer"
                             ><img
-                              src="../assets/img/avatars/user.png"
+                              src="../assets/img/avatars/teacher.png"
                               class="w-40 rounded-circle mr-3"
                               alt="Albert Einstein"
                             />{{ ac.username }}</a

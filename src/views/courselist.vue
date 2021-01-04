@@ -114,7 +114,15 @@
                       <table class="table table-striped" style="width: 100%">
                         <thead>
                           <tr>
-                            <th style="width: 15%">Course name</th>
+                            <th
+                              style="width: 15%"
+                              @click="sortActiveTable('course_name')"
+                              class="pointer"
+                            >
+                              Course name<i
+                                class="zmdi zmdi-swap-vertical ml-1"
+                              ></i>
+                            </th>
                             <th style="width: 15%">Teacher</th>
                             <th style="width: 15%">Active student／Limit</th>
                             <th style="width: 15%">Package</th>
@@ -283,13 +291,18 @@
                       v-if="showTable === 'expired'"
                     >
                       <!-- id="bs4-table" -->
-                      <table
-                        class="table table-striped table-bordered"
-                        style="width: 100%"
-                      >
+                      <!-- table-bordered -->
+                      <table class="table table-striped" style="width: 100%">
                         <thead>
                           <tr>
-                            <th>Course name</th>
+                            <th
+                              @click="sortExpiredTable('course_name')"
+                              class="pointer"
+                            >
+                              Course name<i
+                                class="zmdi zmdi-swap-vertical ml-1"
+                              ></i>
+                            </th>
                             <th>Teacher</th>
                             <th>Active student／Limit</th>
                             <th>Package</th>
@@ -310,7 +323,7 @@
                             </td>
                             <td>{{ expiredCourse.pkg_name }}</td>
                             <td>
-                              {{ expiredCourse.expiry_date }}
+                              {{ expiredCourse.expiry_date | dateConversion }}
                             </td>
                           </tr>
                         </tbody>
@@ -577,6 +590,7 @@ import {
   ApiSetCourse,
 } from "../http/apis/CourseList";
 import AddStudent from "../components/AddStudent";
+import _ from "lodash";
 export default {
   name: "Course",
   components: {
@@ -614,6 +628,10 @@ export default {
         },
       },
       courseid: "",
+      sortActiveStatus: false,
+      tempActiveSortItem: "",
+      sortExpiredStatus: false,
+      tempExpiredSortItem: "",
     };
   },
   created() {
@@ -646,6 +664,46 @@ export default {
     // },
   },
   methods: {
+    sortActiveTable(sortItem) {
+      if (this.tempActiveSortItem === "") {
+        this.tempActiveSortItem = sortItem;
+        this.sortActiveStatus = false;
+      } else if (this.tempActiveSortItem !== sortItem) {
+        this.tempActiveSortItem = sortItem;
+        this.sortActiveStatus = false;
+      } else {
+      }
+      this.sortActiveStatus = !this.sortActiveStatus;
+      if (this.sortActiveStatus) {
+        this.course.activeCourseList = _.sortBy(
+          this.course.activeCourseList,
+          [sortItem],
+          ["asc"]
+        );
+      } else {
+        this.course.activeCourseList = this.course.activeCourseList.reverse();
+      }
+    },
+    sortExpiredTable(sortItem) {
+      if (this.tempExpiredSortItem === "") {
+        this.tempExpiredSortItem = sortItem;
+        this.sortExpiredStatus = false;
+      } else if (this.tempExpiredSortItem !== sortItem) {
+        this.tempExpiredSortItem = sortItem;
+        this.sortExpiredStatus = false;
+      } else {
+      }
+      this.sortExpiredStatus = !this.sortExpiredStatus;
+      if (this.sortExpiredStatus) {
+        this.course.expiredCourseList = _.sortBy(
+          this.course.expiredCourseList,
+          [sortItem],
+          ["asc"]
+        );
+      } else {
+        this.course.expiredCourseList = this.course.expiredCourseList.reverse();
+      }
+    },
     init() {
       console.log(this.userid);
       this.$store.dispatch("common/setLoading", true);
