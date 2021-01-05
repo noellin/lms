@@ -563,7 +563,7 @@ export default {
       formData.append("stulist", this.files);
       let result = await ApiImportStudent.post(this.courseid, formData)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.record.error !== undefined) {
             if (response.record.error.length > 0) {
               this.showAlreadyExist = true;

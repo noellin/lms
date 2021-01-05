@@ -373,7 +373,7 @@ export default {
   margin: auto;
 }
 .overlay-icon {
-  z-index: 999999;
+  z-index: 99;
 }
 // a:not([href]):not([tabindex]) {
 //   color: rgba(255, 255, 255, 0.9) !important;

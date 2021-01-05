@@ -10,11 +10,11 @@
 (function (window, document, $, undefined) {
   "use strict";
   var QuantumPro = window.QuantumPro || (window.QuantumPro = {});
-  if (Modernizr.touchevents) {
-    QuantumPro.APP_TOUCH = true;
-  } else {
-    QuantumPro.APP_TOUCH = false;
-  }
+  // if (Modernizr.touchevents) {
+  //   QuantumPro.APP_TOUCH = true;
+  // } else {
+  //   QuantumPro.APP_TOUCH = false;
+  // }
   QuantumPro.APP_MEDIAQUERY = {
     XLARGE: "1280px",
     LARGE: "992px",
@@ -169,7 +169,8 @@
 
   init();
 
-})(window, document, window.jQuery);
+})
+// (window, document, window.jQuery);
 
 // -----------------------------------------------------------------------------
 // 2. App Sidebars

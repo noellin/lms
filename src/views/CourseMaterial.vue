@@ -1631,7 +1631,7 @@ export default {
   margin: auto;
 }
 .overlay-icon {
-  z-index: 999999;
+  z-index: 99;
 }
 .hover-expand:hover {
   .hover-blue {

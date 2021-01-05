@@ -1,35 +1,38 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
-import CourseList from "../views/CourseList";
-import CourseMaterial from "../views/CourseMaterial.vue";
-import CourseAssignment from "../views/CourseAssignment.vue";
-import AssignmentProgress from "../views/AssignmentProgress.vue";
-import CourseDashboard from "../views/CourseDashboard.vue";
-import CourseStudent from "../views/CourseStudent.vue";
-import Login from "../views/Login.vue";
-import Account from "../views/Account.vue";
-import AccountDetail from "../views/AccountDetail.vue";
-import SpeakingQuiz from "../views/SpeakingQuiz.vue";
-import QuizCreate from "../views/SpeakingQuitCreate.vue";
-import Collection from "../views/Collection.vue";
-import CollectionCreate from "../views/CollectionCreate.vue";
-import CollectionDetail from "../views/CollectionDetail.vue";
-import CollectionEdit from "../views/CollectionEdit.vue";
-import ErrorPage from "../views/error.vue";
-import Layout from "../views/CourseLayout.vue";
-import WeeklyList from '../views/WeeklyList.vue';
-import WeeklyProgress from '../views/WeeklyProgress.vue';
-import WeeklyCreate from '../views/WeeklyCreate.vue';
-import $ from "jquery";
-Vue.use(VueRouter);
-const routes = [{
+import Router from "vue-router";
+// import CourseList from "../views/CourseList";
+// import CourseMaterial from "../views/CourseMaterial.vue";
+// import CourseAssignment from "../views/CourseAssignment.vue";
+// import AssignmentProgress from "../views/AssignmentProgress.vue";
+// import CourseDashboard from "../views/CourseDashboard.vue";
+// import CourseStudent from "../views/CourseStudent.vue";
+// import Login from "../views/Login.vue";
+// import Account from "../views/Account.vue";
+// import AccountDetail from "../views/AccountDetail.vue";
+// import SpeakingQuiz from "../views/SpeakingQuiz.vue";
+// import QuizCreate from "../views/SpeakingQuitCreate.vue";
+// import Collection from "../views/Collection.vue";
+// import CollectionCreate from "../views/CollectionCreate.vue";
+// import CollectionDetail from "../views/CollectionDetail.vue";
+// import CollectionEdit from "../views/CollectionEdit.vue";
+// import ErrorPage from "../views/error.vue";
+// import Layout from "../views/CourseLayout.vue";
+// import WeeklyList from '../views/WeeklyList.vue';
+// import WeeklyProgress from '../views/WeeklyProgress.vue';
+// import WeeklyCreate from '../views/WeeklyCreate.vue';
+
+Vue.use(Router);
+const router = new Router({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes : [{
     path: "*",
     redirect: "/",
   },
   {
     path: "/",
     name: "Login",
-    component: Login,
+    component:resolve => require(['@/views/Login'], resolve),
     meta: {
       status: "login",
     },
@@ -37,7 +40,7 @@ const routes = [{
   {
     path: "/resetpassword/id=:id/email=:email",
     name: "ResetPassword",
-    component: Login,
+    component: resolve => require(['@/views/Login'], resolve),
     meta: {
       status: "reset",
     },
@@ -45,7 +48,7 @@ const routes = [{
   {
     path: "/course",
     name: "Course",
-    component: CourseList,
+    component: resolve => require(['@/views/CourseList'], resolve),
     meta: {
       header: "course",
     },
@@ -53,14 +56,14 @@ const routes = [{
   {
     path: "/browse",
     name: "Layout",
-    component: Layout,
+    component: resolve => require(['@/views/CourseLayout'], resolve),
     meta: {
       header: "course",
     },
     children: [{
         path: "/course_material/course=:course/type=:type/:courseid",
         name: "Material",
-        component: CourseMaterial,
+        component: resolve => require(['@/views/CourseMaterial'], resolve),
         meta: {
           header: "course",
           backtag: false,
@@ -69,7 +72,7 @@ const routes = [{
       {
         path: "/course_assignment/course=:course/type=:type/:courseid",
         name: "Assignment",
-        component: CourseAssignment,
+        component: resolve => require(['@/views/CourseAssignment'], resolve),
         meta: {
           header: "course",
           backtag: false,
@@ -78,7 +81,7 @@ const routes = [{
       {
         path: "/check_assignment/course=:course/type=:type/:courseid/:aid",
         name: "Assignment_Progress",
-        component: AssignmentProgress,
+        component: resolve => require(['@/views/AssignmentProgress'], resolve),
         meta: {
           header: "course",
           backtag: true,
@@ -87,7 +90,7 @@ const routes = [{
       {
         path: "/course_student/course=:course/type=:type/:courseid",
         name: "Student",
-        component: CourseStudent,
+        component:resolve => require(['@/views/CourseStudent'], resolve) ,
         meta: {
           header: "course",
         },
@@ -95,7 +98,7 @@ const routes = [{
       {
         path: "/course_dashboard/course=:course/type=:type/:courseid",
         name: "Dashboard",
-        component: CourseDashboard,
+        component: resolve => require(['@/views/CourseDashboard'], resolve),
         meta: {
           header: "course",
         },
@@ -103,7 +106,7 @@ const routes = [{
       {
         path: "/quiz/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
         name: "Speaking_Quiz",
-        component: SpeakingQuiz,
+        component: resolve => require(['@/views/SpeakingQuiz'], resolve),
         meta: {
           header: "course",
         },
@@ -111,7 +114,7 @@ const routes = [{
       {
         path: "/quizcreate/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
         name: "Quiz_Create",
-        component: QuizCreate,
+        component: resolve => require(['@/views/SpeakingQuitCreate'], resolve),
         meta: {
           header: "course",
           backtag: true,
@@ -120,7 +123,7 @@ const routes = [{
       {
         path: "/course_weekly_quiz/course=:course/type=:type/:courseid",
         name: "Weekly_Quiz",
-        component: WeeklyList,
+        component: resolve => require(['@/views/WeeklyList'], resolve),
         meta: {
           header: "course",
         },
@@ -128,7 +131,7 @@ const routes = [{
       {
         path: "/course_weekly_quiz/create/course=:course/type=:type/:courseid",
         name: "weekly_Quiz_Create",
-        component: WeeklyCreate,
+        component: resolve => require(['@/views/WeeklyCreate'], resolve),
         meta: {
           header: "course",
           backtag: true,
@@ -137,7 +140,7 @@ const routes = [{
       {
         path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid/:echoid",
         name: "Weekly_Quiz_Progress",
-        component: WeeklyProgress,
+        component: resolve => require(['@/views/WeeklyProgress'], resolve),
         meta: {
           header: "course",
           backtag: true,
@@ -149,7 +152,7 @@ const routes = [{
   {
     path: "/collection",
     name: "Collection",
-    component: Collection,
+    component: resolve => require(['@/views/Collection'], resolve),
     meta: {
       header: "collection",
     },
@@ -157,7 +160,7 @@ const routes = [{
   {
     path: "/collection/create/",
     name: "CollectionCreate",
-    component: CollectionCreate,
+    component: resolve => require(['@/views/CollectionCreate'], resolve),
     meta: {
       header: "collection",
     },
@@ -165,7 +168,7 @@ const routes = [{
   {
     path: "/collection/create/:pkgid",
     name: "CollectionCreateByID",
-    component: CollectionCreate,
+    component: resolve => require(['@/views/CollectionCreate'], resolve),
     meta: {
       header: "collection",
     },
@@ -173,7 +176,7 @@ const routes = [{
   {
     path: "/collection/:pid/:cname/:cid",
     name: "CollectionDetail",
-    component: CollectionDetail,
+    component: resolve => require(['@/views/CollectionDetail'], resolve),
     meta: {
       header: "collection",
     },
@@ -181,7 +184,7 @@ const routes = [{
   {
     path: "/collection/edit/:pid/:cname/:cid/",
     name: "CollectionEdit",
-    component: CollectionEdit,
+    component: resolve => require(['@/views/CollectionEdit'], resolve),
     meta: {
       header: "collection",
     },
@@ -189,7 +192,7 @@ const routes = [{
   {
     path: "/account",
     name: "Account",
-    component: Account,
+    component: resolve => require(['@/views/Account'], resolve),
     meta: {
       header: "account",
     },
@@ -197,7 +200,7 @@ const routes = [{
   {
     path: "/account/:uid",
     name: "AccountDetail",
-    component: AccountDetail,
+    component: resolve => require(['@/views/AccountDetail'], resolve),
     meta: {
       header: "account",
     },
@@ -205,26 +208,12 @@ const routes = [{
   {
     path: "/404",
     name: "404",
-    component: ErrorPage,
+    component: resolve => require(['@/views/error.vue'], resolve),
   },
-  {
-    path: "/about",
-    name: "About",
-    component: function () {
-      return import( /* webpackChunkName: "about" */ "../views/About.vue");
-    },
-  },
-];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
-});
-router.beforeEach((to, from, next) => {
-  // ...
-  next()
+]
 })
+
 
 
 export default router;

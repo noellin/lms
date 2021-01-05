@@ -307,6 +307,7 @@ import {
   ApiActivateUser,
 } from "../http/apis/Login";
 import Alert from "../components/AlertMessage";
+import $ from "jquery";
 export default {
   name: "Login",
   components: {
@@ -431,11 +432,11 @@ export default {
             .then((response) => {
               console.log(response);
               this.loginShow = "resetPasswordSuccess";
-        vm.loginForm = {
-          email: "",
-          password: "",
-          confirmpw: "",
-        };
+              vm.loginForm = {
+                email: "",
+                password: "",
+                confirmpw: "",
+              };
             })
             .catch((err) => {});
         }

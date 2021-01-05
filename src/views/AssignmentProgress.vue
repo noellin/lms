@@ -742,7 +742,7 @@ export default {
             response.type == "audio/x-wav"
           ) {
             //會進到這裡\
-            console.log("進入播放");
+            // console.log("進入播放");
             var url = URL.createObjectURL(response);
             const audio = new Audio(url);
             console.log(audio);
@@ -762,7 +762,7 @@ export default {
 
     async setEvaluate() {
       this.evaluate.score = this.evaluate.score.toString();
-      console.log(this.aid, this.sid, this.evaluate);
+      // console.log(this.aid, this.sid, this.evaluate);
       let result = await ApiSetEvaluate.post(this.aid, this.sid, this.evaluate)
         .then((response) => {
           if (response.status === "success") {

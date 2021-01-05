@@ -5,7 +5,7 @@
       <!-- TOP TOOLBAR WRAPPER -->
 
       <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="content page-aside-left">
+      <div class="content page-aside-left" v-if="dbData !== undefined">
         <div class="main-content">
           <course-header></course-header>
           <section class="page-content container-fluid">
@@ -29,8 +29,10 @@
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="31">31</span
-                        ><span class="d-none d-xl-inlineblock">/ 120</span>
+                        <span class="display-4 counter" data-count="31">{{
+                          dbData.goldenMaterial.record.length
+                        }}</span>
+                        <!-- <span class="d-none d-xl-inlineblock">/ 120</span> -->
                       </p>
                     </div>
                   </div>
@@ -55,8 +57,10 @@
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="29">29</span
-                        ><span class="d-none d-xl-inlineblock">/ 120</span>
+                        <span class="display-4 counter" data-count="29">{{
+                          dbData.treasureMaterial.record.length
+                        }}</span>
+                        <!-- <span class="d-none d-xl-inlineblock">/ 120</span> -->
                       </p>
                     </div>
                   </div>
@@ -66,14 +70,17 @@
                 <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Assignment completion rate<span class="text-light"
+                      Assignment
+                      <!-- Assignment completion rate<span class="text-light"
                         >Comulative</span
-                      >
+                      > -->
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="72">72</span
-                        >%
+                        <span class="display-4 counter" data-count="72">{{
+                          dbData.assignmentNumber.record.length
+                        }}</span>
+                        <!-- % -->
                       </p>
                     </div>
                   </div>
@@ -89,10 +96,13 @@
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="87">87</span
-                        >%<span class="badge badge-pill badge-light ml-1"
+                        <span class="display-4 counter" data-count="87">{{
+                          acRate
+                        }}</span
+                        >%
+                        <!-- %<span class="badge badge-pill badge-light ml-1"
                           >+9%</span
-                        >
+                        > -->
                       </p>
                     </div>
                   </div>
@@ -106,10 +116,12 @@
                   <div class="card-body" style="height: 597px">
                     <p class="text-primary">last 30 days</p>
                     <ve-histogram
-                      :data="chartData"
                       height="540px"
-                      :settings="chartSettings"
+                      :data="acRateChartData"
+                      :setting="acRateSetting"
                     ></ve-histogram>
+                    <!-- height="540px"
+                      width="800px" -->
                   </div>
                 </div>
               </div>
@@ -702,45 +714,54 @@
 <script>
 // import Menu
 import CourseHeader from "../components/CourseHeader";
+import { ApiGetDashboard } from "../http/apis/Dashboard";
 import $ from "jquery";
+import dayjs from "dayjs";
+$(function () {
+  $('[data-toggle="popover"]').popover();
+});
+
 export default {
   name: "CourseDashboard",
   components: {
     CourseHeader,
   },
   data() {
-    this.barextend = {
-      xAxis: {
-        axisTick: {
-          alignWithLabel: true,
-        },
-        // axisLabel: {
-        //   textStyle: {
-        //     fontSize: 14,
-        //   },
+    // this.barextend = {
+    //   xAxis: {
+    //     axisTick: {
+    //       alignWithLabel: true,
+    //     },
+    //     // axisLabel: {
+    //     //   textStyle: {
+    //     //     fontSize: 14,
+    //     //   },
 
-        //   // rotate: 5,
-        // },
-      },
-      // yAxis: {
-      //   axisLabel: {
-      //     textStyle: {
-      //       fontSize: 14,
-      //     },
-      //   },
-      // },
-      series: {
-        // barWidth: 10,
-        label: {
-          // show: true,
-          // position: "right",
-          // textStyle: {
-          //   fontSize: 14,
-          // },
-        },
-      },
-    };
+    //     //   // rotate: 5,
+    //     // },
+    //   },
+    //   // yAxis: {
+    //   //   axisLabel: {
+    //   //     textStyle: {
+    //   //       fontSize: 14,
+    //   //     },
+    //   //   },
+    //   // },
+    //   series: {
+    //     // barWidth: 10,
+    //     label: {
+    //       // show: true,
+    //       // position: "right",
+    //       // textStyle: {
+    //       //   fontSize: 14,
+    //       // },
+    //     },
+    //   },
+    // };
     return {
+      courseid: this.$route.params.courseid,
+      dbData: undefined,
+      acRate: 0,
       chartSettings: {
         // stack: { 用户: ["Total", "Completed"] },
         legendName: {
@@ -750,9 +771,10 @@ export default {
           Complete_materials: "Complete Materials",
         },
       },
-
-      chartData: {
-        columns: ["Date", "Total", "Completed", ""],
+      acRateSetting: { xAxisType: "value" },
+      acRateChartData: {
+        // columns: ["Date", "Total", "Completed", ""],
+        columns: ["Date", "Total", "Completed", "Completion_rate"],
         rows: [
           { Date: "10/21", Total: 43, Completed: 33, completionrate: 100 },
           { Date: "10/22", Total: 30, Completed: 30, completionrate: 1 },
@@ -797,7 +819,9 @@ export default {
       },
     };
   },
+  created() {},
   mounted() {
+    this.getDashboard();
     //   var output = document.getElementById("myP");
     // document.addEventListener("fullscreenchange", function() {
     //   output.innerHTML = "fullscreenchange event fired!";
@@ -813,6 +837,47 @@ export default {
     // });
   },
   methods: {
+    getDashboard() {
+      let vm = this;
+      ApiGetDashboard.get(this.courseid)
+        .then((result) => {
+          this.dbData = result.record;
+          let ascount = 0;
+          let asfinish = 0;
+          let tempChart = [];
+          result.record.assignmentCompletedRate.record.forEach((element) => {
+            ascount = ascount + element.stu_total;
+            asfinish = asfinish + element.stu_finish;
+            tempChart = result.record.assignmentCompletionChart.record;
+          });
+
+          vm.acRate = ((asfinish / ascount) * 100).toFixed(2);
+          //圖表日期轉換
+          tempChart.forEach((item) => {
+            $set(
+              item,
+              "Date",
+              dayjs.unix(item.expiry_date).format("YYYY/MM/DD")
+            );
+            $set(item, "Total", item.stu_total);
+            $set(item, "Completed", item.stu_finish);
+            $set(
+              item,
+              "Completion_rate",
+              (item.stu_finish / item.stu_total).toFixed(2)
+            );
+            // item.Date = dayjs.unix(item.expiry_date).format("YYYY/MM/DD");
+            // item.Total = item.stu_total;
+            // item.Completed = item.stu_finish;
+            // item.Completion_rate = (item.stu_finish / item.stu_total).toFixed(
+            //   2
+            // );
+          });
+          console.log(tempChart);
+          // this.acRateChartData.rows = tempChart;
+        })
+        .catch((err) => {});
+    },
     //   openFullscreen(){
     //         let elem = document.documentElement
     //       if (elem.requestFullscreen) {
