@@ -448,7 +448,7 @@
               <div class="form-group row" style="min-height: 76px">
                 <label
                   class="control-label text-right col-sm-4 text-height-form-control"
-                  >Multi Select</label
+                  >Select Teacher</label
                 >
                 <div class="col-sm-8">
                   <!-- <select

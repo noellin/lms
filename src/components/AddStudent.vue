@@ -91,40 +91,61 @@
           <div class="modal-body">
             <h4 class="text-center mb-4 mt-2">Add a single student</h4>
             <form>
-              <div class="form-group row">
-                <label class="control-label text-right col-sm-4"
-                  >Student name</label
+              <ValidationObserver ref="addStdForm">
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="Studend name"
                 >
-                <div class="col-sm-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter student name"
-                    value=""
-                    v-model="newStudent.name"
-                  />
-                </div>
-                <div class="invalid-feedback">
-                  The student is already exists.
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="control-label text-right col-sm-4"
-                  >Unique number</label
+                  <div class="form-group row">
+                    <label class="control-label text-right col-sm-4"
+                      >Student name</label
+                    >
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter student name"
+                        value=""
+                        v-model="newStudent.name"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+                    <div class="invalid-feedback">
+                      The student is already exists.
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="Unique number"
                 >
-                <div class="col-sm-8">
-                  <input
-                    type="text"
-                    class="form-control is-invalid"
-                    placeholder="Enter unique number"
-                    value=""
-                    v-model="newStudent.phone"
-                  />
-                </div>
-                <div class="invalid-feedback">
-                  The number is already exists.
-                </div>
-              </div>
+                  <div class="form-group row">
+                    <label class="control-label text-right col-sm-4"
+                      >Unique number</label
+                    >
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control is-invalid"
+                        placeholder="Enter unique number"
+                        value=""
+                        v-model="newStudent.phone"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+
+                    <div class="invalid-feedback">
+                      The number is already exists.
+                    </div>
+                  </div>
+                </ValidationProvider>
+              </ValidationObserver>
             </form>
           </div>
           <div class="modal-footer">
@@ -138,8 +159,6 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded"
-              data-dismiss="modal"
-              data-toggle="modal"
               @click="addStudent()"
             >
               Add
@@ -518,23 +537,30 @@ export default {
       this.dupStudentList = [];
     },
     async addStudent() {
-      let result = await ApiAddStudent.post(this.courseid, this.newStudent)
-        .then((response) => {
-          console.log(response);
-          if (response.status === "success") {
-            return true;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      if (result) {
-        this.$bus.$emit("messsage:push", "Add Student Success.", "success");
-        this.$store.dispatch("courseInfo/updateStudent", this.courseid);
-        //call 父組件更新
-        this.$emit("childemit");
-      } else {
-        $("#AlreadyExistsModal").modal("show");
+      let check = await this.$refs.addStdForm.validate().then((success) => {
+        if (success) {
+          $("#SingleStudentModal").modal("hide");
+          return true;
+        }
+      });
+      if (check) {
+        let result = await ApiAddStudent.post(this.courseid, this.newStudent)
+          .then((response) => {
+            if (response.status === "success") {
+              return true;
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        if (result) {
+          this.$bus.$emit("messsage:push", "Add Student Success.", "success");
+          this.$store.dispatch("courseInfo/updateStudent", this.courseid);
+          //call 父組件更新
+          this.$emit("childemit");
+        } else {
+          $("#AlreadyExistsModal").modal("show");
+        }
       }
     },
     downloadSample() {

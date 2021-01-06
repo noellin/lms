@@ -235,71 +235,91 @@
           </div>
           <div class="modal-body">
             <form>
-              <div class="form-group row">
-                <label for="" class="col-sm-4 col-form-label text-right"
-                  >Student Name</label
+              <ValidationObserver ref="editStdForm">
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="Studend name"
                 >
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder=""
-                    value="Constance"
-                    v-model="tempStudent.username"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="" class="col-sm-4 col-form-label text-right"
-                  >Unique number</label
+                  <div class="form-group row">
+                    <label for="" class="col-sm-4 col-form-label text-right"
+                      >Student Name</label
+                    >
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder=""
+                        value="Constance"
+                        v-model="tempStudent.username"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="Unique number"
                 >
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder=""
-                    value=""
-                    v-model="tempStudent.uni_info"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="" class="col-sm-4 col-form-label text-right"
-                  >Remarks</label
-                >
-                <div class="col-8">
-                  <textarea
-                    class="form-control"
-                    name=""
-                    v-model="tempStudent.remark"
-                  ></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label
-                  class="col-sm-4 col-form-label col-form-label-sm text-right"
-                  >Status</label
-                >
-                <div class="switch">
-                  <input
-                    class="tgl tgl-light tgl-success"
-                    id="cb8"
-                    type="checkbox"
-                    checked
-                    v-model="tempStudent.status"
-                  />
-                  <label class="tgl-btn" for="cb8"></label>
-                </div>
-                <div class="col">
-                  <span class="text-success mt-1" v-if="tempStudent.status"
-                    >Active</span
+                  <div class="form-group row">
+                    <label for="" class="col-sm-4 col-form-label text-right"
+                      >Unique number</label
+                    >
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder=""
+                        value=""
+                        v-model="tempStudent.uni_info"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <div class="form-group row">
+                  <label for="" class="col-sm-4 col-form-label text-right"
+                    >Remarks</label
                   >
-                  <span class="text-danger mt-1" v-else>Suspended</span>
+                  <div class="col-8">
+                    <textarea
+                      class="form-control"
+                      name=""
+                      v-model="tempStudent.remark"
+                    ></textarea>
+                  </div>
                 </div>
-              </div>
-              <!-- <p class="text-danger">
+                <div class="form-group row">
+                  <label
+                    class="col-sm-4 col-form-label col-form-label-sm text-right"
+                    >Status</label
+                  >
+                  <div class="switch">
+                    <input
+                      class="tgl tgl-light tgl-success"
+                      id="cb8"
+                      type="checkbox"
+                      checked
+                      v-model="tempStudent.status"
+                    />
+                    <label class="tgl-btn" for="cb8"></label>
+                  </div>
+                  <div class="col">
+                    <span class="text-success mt-1" v-if="tempStudent.status"
+                      >Active</span
+                    >
+                    <span class="text-danger mt-1" v-else>Suspended</span>
+                  </div>
+                </div>
+                <!-- <p class="text-danger">
                 The number of students has reached the upper limit.
               </p> -->
+              </ValidationObserver>
             </form>
           </div>
           <div class="modal-footer">
@@ -314,7 +334,6 @@
               type="button"
               class="btn btn-primary btn-rounded"
               @click="modifyStudent()"
-              data-dismiss="modal"
             >
               Save
             </button>
@@ -577,24 +596,31 @@ export default {
       obj.status = this.tempStudent.status.toString();
       obj.remark = this.tempStudent.remark;
       obj.uniinfo = this.tempStudent.uni_info;
-      console.log(this.courseid, this.tempStudent.stuid, obj);
-      let result = await ApiModifyStudent.post(
-        this.courseid,
-        this.tempStudent.stuid,
-        obj
-      )
-        .then((response) => {
-          console.log(response);
-          if (response.status === "success") {
-            return true;
-          } else {
-            this.$bus.$emit("messsage:push", response.record, "danger");
-          }
-        })
-        .catch((err) => {});
-      if (result) {
-        this.$bus.$emit("messsage:push", "Edit completed.", "success");
-        this.$store.dispatch("courseInfo/updateStudent", this.courseid);
+      let check = await this.$refs.editStdForm.validate().then((success) => {
+        if (success) {
+          $("#SettingModal").modal("hide");
+          return true;
+        }
+      });
+      if (check) {
+        let result = await ApiModifyStudent.post(
+          this.courseid,
+          this.tempStudent.stuid,
+          obj
+        )
+          .then((response) => {
+            console.log(response);
+            if (response.status === "success") {
+              return true;
+            } else {
+              this.$bus.$emit("messsage:push", response.record, "danger");
+            }
+          })
+          .catch((err) => {});
+        if (result) {
+          this.$bus.$emit("messsage:push", "Edit completed.", "success");
+          this.$store.dispatch("courseInfo/updateStudent", this.courseid);
+        }
       }
     },
     resetPWD() {

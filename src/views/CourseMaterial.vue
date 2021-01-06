@@ -198,6 +198,14 @@
                             >
                               <div title="">
                                 {{ textbook.resource_name }}
+                                <a
+                                  target="_blank"
+                                  :href="textbook.information"
+                                  v-if="courseInfo.pkg_name === 'ELT allsong'"
+                                  ><i
+                                    class="fas fa-file-download pointer fa-1x download-icon"
+                                  ></i
+                                ></a>
                               </div>
                             </h4>
                             <p class="text-muted mt-1">
@@ -836,7 +844,7 @@
               <div
                 class="form-group row align-items-start"
                 :style="{
-                  height: [parseInt(selectStudent.length / 3) + 2] * 20 + 'px',
+                  height: [parseInt(selectStudent.length / 3) + 3] * 28 + 'px',
                 }"
               >
                 <label class="control-label text-right col-sm-3"
@@ -1143,6 +1151,7 @@ export default {
       existCollectionName: [],
       pkgid: {},
       showStuTable: false,
+      courseInfo: {},
     };
   },
   created() {
@@ -1153,9 +1162,13 @@ export default {
     this.tempAIDList = this.tempAIDLists;
     this.tempAList = this.tempALists;
     this.pkgid = this.pkgids;
+    this.courseInfo = this.courseInfos;
   },
   mounted() {},
   watch: {
+    courseInfos() {
+      this.courseInfo = this.courseInfos;
+    },
     pkgids() {
       this.pkgid = this.pkgids;
     },
@@ -1190,6 +1203,9 @@ export default {
     },
   },
   computed: {
+    courseInfos() {
+      return this.$store.state.courseInfo.courseInfo;
+    },
     openedMList() {
       return this.textbookList.filter((item) => {
         return item.openflag === "true";
@@ -1448,11 +1464,11 @@ export default {
     gotoWebsite(obj) {
       if (obj.note === "book") {
         window.open(
-          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}&userid=${this.userid}`
+          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${this.courseInfo.courseid}&userid=${this.userid}`
         );
       } else {
         window.open(
-          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crd=${this.courseInfo.courseid}&userid=${this.userid}`
+          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${this.courseInfo.courseid}&userid=${this.userid}`
         );
       }
     },
@@ -1644,5 +1660,8 @@ export default {
 }
 .text-xs.fw300 {
   font-size: 14px !important;
+}
+.download-icon:hover {
+  color: #32c1db;
 }
 </style>

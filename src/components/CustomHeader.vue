@@ -58,7 +58,7 @@
               ]"
             >
               <router-link class="" to="/collection">
-                <a> Collection </a>
+                <a> My Collection </a>
               </router-link>
             </li>
             <li
