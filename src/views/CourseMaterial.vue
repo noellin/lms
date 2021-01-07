@@ -130,6 +130,7 @@
                   class="btn btn-primary btn-rounded btn-outline mr-2"
                   data-toggle="modal"
                   data-target="#OpenSettingsModal"
+                  @click="copyMArray()"
                 >
                   <i class="la la-gear"></i>Open Settings
                 </button>
@@ -201,7 +202,7 @@
                                 <a
                                   target="_blank"
                                   :href="textbook.information"
-                                  v-if="courseInfo.pkg_name === 'ELT allsong'"
+                                  v-if="textbook.link === true"
                                   ><i
                                     class="fas fa-file-download pointer fa-1x download-icon"
                                   ></i
@@ -290,8 +291,6 @@
                             <button
                               type="button"
                               class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
-                              data-toggle="modal"
-                              data-target="#addSpeakingquiz"
                               v-else
                               @click="
                                 gotoSpeakingQuiz(
@@ -659,7 +658,7 @@
       role="dialog"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">Open Settings</h5>
@@ -691,9 +690,70 @@
               >
             </div>
             <div class="mt-4">Check which materials you want to open</div>
-            <div
+            <div class="table-responsive">
+              <h2 v-if="textbookList.length === 0">No relevant records</h2>
+              <table class="table table-striped" v-else>
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="custom-control custom-checkbox form-check">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="customCheck2"
+                          @click="selectAllTBft"
+                          v-model="selectAllTB"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="customCheck2"
+                        ></label>
+                      </div>
+                    </th>
+                    <th @click="sortTable('level')" class="pointer">
+                      Level<i class="zmdi zmdi-swap-vertical ml-1"></i>
+                    </th>
+                    <th>
+                      Material
+                      <!-- <i class="zmdi zmdi-swap-vertical ml-1"></i> -->
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(tb, index) in copyTextbookList"
+                    :key="tb.resourceid + index"
+                  >
+                    <td>
+                      <div class="custom-control custom-checkbox form-check">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          :id="tb.resourceid"
+                          v-model="openedTextbookList"
+                          :value="`${tb.colid}_${tb.resourceid}`"
+                        />
+                        <label
+                          class="custom-control-label"
+                          :for="tb.resourceid"
+                        ></label>
+                      </div>
+                    </td>
+                    <td>
+                      <span v-if="tb.level !== ''">Level {{ tb.level }}</span>
+                      <span v-else></span>
+                    </td>
+                    <td>
+                      {{ tb.resource_name }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <div
               v-for="(tb, index) in textbookList"
               :key="tb.resourceid + index"
+              class="mb-4"
             >
               <div class="custom-control custom-checkbox">
                 <input
@@ -703,13 +763,12 @@
                   :value="`${tb.colid}_${tb.resourceid}`"
                   v-model="openedTextbookList"
                 />
-                <label
-                  class="custom-control-label text-xs"
-                  :for="tb.resourceid"
-                  >{{ tb.resource_name }}</label
+                <label class="custom-control-label text-xs" :for="tb.resourceid"
+                  ><span v-if="tb.level !== ''">Level {{ tb.level }}</span> -
+                  {{ tb.resource_name }}</label
                 >
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="modal-footer">
             <button
@@ -1102,6 +1161,7 @@ import "vue2-datepicker/index.css";
 import dayjs from "dayjs";
 import $ from "jquery";
 import draggable from "vuedraggable";
+import _ from "lodash";
 // import Multiselect from 'vue-multiselect'
 // $("#mySelect2").select2({
 //   dropdownParent: $("#s2_student"),
@@ -1152,6 +1212,10 @@ export default {
       pkgid: {},
       showStuTable: false,
       courseInfo: {},
+      selectAllTB: "",
+      sortStatus: false,
+      tempSortItem: "",
+      copyTextbookList: [],
     };
   },
   created() {
@@ -1260,9 +1324,6 @@ export default {
     studentLists() {
       return this.$store.state.courseInfo.forSelectStudentList;
     },
-    courseInfo() {
-      return this.$store.state.courseInfo.courseInfo;
-    },
     userid() {
       return this.$store.state.auth.userid;
     },
@@ -1277,6 +1338,28 @@ export default {
     },
   },
   methods: {
+    sortTable(sortItem) {
+      if (this.tempSortItem === "") {
+        this.tempSortItem = sortItem;
+        this.sortStatus = false;
+      } else if (this.tempSortItem !== sortItem) {
+        this.tempSortItem = sortItem;
+        this.sortStatus = false;
+      } else {
+      }
+      this.sortStatus = !this.sortStatus;
+      if (this.sortStatus) {
+        this.copyTextbookList = _.sortBy(
+          this.copyTextbookList,
+          [sortItem],
+          ["asc"]
+        );
+      } else {
+        this.copyTextbookList = this.copyTextbookList.reverse();
+      }
+
+      // publish_date
+    },
     disabledBeforeToday(date) {
       let today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -1602,15 +1685,32 @@ export default {
       if (m.note === "book") {
         mType = "book";
       }
+      let url = `/quiz/${this.$route.params.course}/Speaking Quiz/${rname}/${m.material_name}/${this.courseid}/${mType}/${m.resourceid}/${m.materialid}`;
+      url = url.replaceAll("?", "%3F");
       this.$router.push({
-        path: `/quiz/${this.$route.params.course}
-        /Speaking Quiz/${rname}/${m.material_name}/${this.courseid}/${mType}/${m.resourceid}/${m.materialid}`,
+        path: url,
       });
     },
     gotoCreateCol() {
       this.$router.push({
         path: `/collection/create/${this.pkgid}`,
       });
+    },
+    copyMArray() {
+      this.copyTextbookList = [...this.textbookList];
+    },
+    selectAllTBft(event) {
+      const vm = this;
+
+      if (!event.currentTarget.checked) {
+        vm.openedTextbookList = [];
+      } else {
+        //實現全選
+        vm.openedTextbookList = [];
+        vm.textbookList.forEach(function (item, i) {
+          vm.openedTextbookList.push(`${item.colid}_${item.resourceid}`);
+        });
+      }
     },
   },
 };

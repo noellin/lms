@@ -123,7 +123,13 @@ const courseInfo = {
             //courseInfo Material
             ApiGetCourseDatail.get(data).then((response) => {
                 context.commit('SET_COURSEINFO', response.csrInfo)
-                context.commit('SET_TEXTBOOKLIST', response.record)
+                let temp =  []
+                temp = response.record
+                temp.forEach(item => {
+                    item.link = item.information.includes('http')
+                    // Vue.$set(item,'Link',item.information.includes('http'))
+                })
+                context.commit('SET_TEXTBOOKLIST', temp)
             });
             //student
             ApiGetStudentList.get(data)

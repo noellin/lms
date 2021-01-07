@@ -133,7 +133,10 @@
                         </div>
                         <div
                           class="text-primary pointer"
-                          @click="getAvailableCourse(cr.resourceid)"
+                          @click="
+                            getAvailableCourse(cr.resourceid);
+                            tempNote = cr.note;
+                          "
                           data-toggle="modal"
                           data-target="#StartModal"
                         >
@@ -157,7 +160,7 @@
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
       </footer> -->
     </div>
-    <!-- Start MODAL -->
+    <!-- lastplay MODAL -->
     <div
       class="modal fade"
       id="lastPlayModal"
@@ -196,7 +199,7 @@
       </div>
     </div>
     <!-- END CONTENT WRAPPER -->
-    <!-- Start MODAL -->
+    <!-- old Start MODAL -->
     <div
       class="modal fade"
       id="StartModal"
@@ -270,6 +273,7 @@ export default {
       courseList: [],
       searchRname: "",
       lastPlayList: [],
+      tempNote: "book",
     };
   },
   created() {},
@@ -341,11 +345,20 @@ export default {
       });
     },
     gotoCourse(course) {
-      // console.log(course);
+      console.log(course);
       // http://localhost:8080/web/course_material/course=test%20Course/type=Material/CRSfuqFSTo8pycu7vqtpVz9Xe
-      this.$router.push({
-        path: `/course_material/course=${course.resource_name}/type=Material/${course.resourceid}`,
-      });
+      // this.$router.push({
+      //   path: `/course_material/course=${course.resource_name}/type=Material/${course.resourceid}`,
+      // });
+      if (tempNote === "book") {
+        window.open(
+          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${course.pkgid}&colid=${course.colid}&resid=${course.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${course.courseid}&userid=${this.userid}`
+        );
+      } else {
+        window.open(
+          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${course.pkgid}&colid=${course.colid}&resid=${course.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${course.courseid}&userid=${this.userid}`
+        );
+      }
     },
     getAvailableCourse(rid) {
       ApiGetAvailableCourse.get(this.userid, this.$route.params.cid, rid)

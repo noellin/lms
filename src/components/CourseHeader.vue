@@ -24,7 +24,6 @@
           Weekly Quiz {{ weeklyQuizDL.pubDate | dateConversion }} - Due
           {{ weeklyQuizDL.expDate | dateConversion }}
         </p>
-        <span></span>
       </div>
     </div>
   </header>

@@ -312,6 +312,7 @@ import {
 } from "../http/apis/WeeklyQuiz";
 import dayjs from "dayjs";
 import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
 export default {
   components: {
     CourseHeader,
