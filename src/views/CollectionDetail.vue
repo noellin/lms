@@ -1,5 +1,5 @@
 <template>
-  <div id="app2">
+  <div id="app3">
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
@@ -95,7 +95,7 @@
                       </span>
 
                       <img
-                        :src="
+                        v-lazy="
                           'https://lms.mangosteems.com/cms/resdl/cover/' +
                           cr.resourceid
                         "

@@ -1,11 +1,11 @@
 <template>
   <div id="app2">
     <!-- END MENU SIDEBAR WRAPPER -->
-    <div class="main-content" id="print" ref="print">
+    <div id="print" ref="print">
       <!-- TOP TOOLBAR WRAPPER -->
 
       <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="content page-aside-left" v-if="dbData !== undefined">
+      <div class="content page-aside-left" v-show="dbData !== undefined">
         <div class="main-content">
           <course-header></course-header>
           <section class="page-content container-fluid">
@@ -29,7 +29,10 @@
                       </button> -->
                     </h5>
                     <div class="w100 text-right">
-                      <p class="card-text text-white">
+                      <p
+                        class="card-text text-white"
+                        v-if="dbData.goldenMaterial.record !== undefined"
+                      >
                         <span class="display-4 counter" data-count="31">{{
                           dbData.goldenMaterial.record.length
                         }}</span>
@@ -57,7 +60,10 @@
                       </button>
                     </h5>
                     <div class="w100 text-right">
-                      <p class="card-text text-white">
+                      <p
+                        class="card-text text-white"
+                        v-if="dbData.treasureMaterial.record !== undefined"
+                      >
                         <span class="display-4 counter" data-count="29">{{
                           dbData.treasureMaterial.record.length
                         }}</span>
@@ -77,7 +83,10 @@
                       > -->
                     </h5>
                     <div class="w100 text-right">
-                      <p class="card-text text-white">
+                      <p
+                        class="card-text text-white"
+                        v-if="dbData.assignmentNumber.record !== undefined"
+                      >
                         <span class="display-4 counter" data-count="72">{{
                           dbData.assignmentNumber.record.length
                         }}</span>
@@ -479,7 +488,10 @@ export default {
     };
     return {
       courseid: this.$route.params.courseid,
-      dbData: undefined,
+      dbData: {
+        status: "success",
+        record: "",
+      },
       acRate: 0,
       chartSettings: {
         // stack: { 用户: ["Total", "Completed"] },
@@ -625,30 +637,6 @@ export default {
         })
         .catch((err) => {});
     },
-    //   openFullscreen(){
-    //         let elem = document.documentElement
-    //       if (elem.requestFullscreen) {
-    //   elem.requestFullscreen();
-    // } else if (elem.mozRequestFullScreen) { /* Firefox */
-    //   elem.mozRequestFullScreen();
-    // } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-    //   elem.webkitRequestFullscreen();
-    // } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    //   elem = window.top.document.body; //To break out of frame in IE
-    //   elem.msRequestFullscreen();
-    // }
-    //   },
-    //   closeFullscreen(){
-    //       if (document.exitFullscreen) {
-    //   document.exitFullscreen();
-    // } else if (document.mozCancelFullScreen) {
-    //   document.mozCancelFullScreen();
-    // } else if (document.webkitExitFullscreen) {
-    //   document.webkitExitFullscreen();
-    // } else if (document.msExitFullscreen) {
-    //   window.top.document.msExitFullscreen();
-    // }
-    //   }
   },
 };
 </script>

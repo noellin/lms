@@ -1,49 +1,46 @@
 
 <template>
-  <div id="app2">
+  <div id="app3">
     <!-- END MENU SIDEBAR WRAPPER -->
-    <div class="content-wrapper">
-      <!-- TOP TOOLBAR WRAPPER -->
+    <!-- TOP TOOLBAR WRAPPER -->
 
-      <custom-header></custom-header>
-      <!-- END TOP TOOLBAR WRAPPER -->
-      <alert></alert>
-      <div class="content">
-        <header class="page-header">
-          <div class="d-flex align-items-center">
-            <div class="mr-auto">
-              <a
-                @click="$back"
-                class="btn-rounded-icon btn-primary mr-2 pointer"
-                ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
-              ></a>
-              <h1 class="separator">Collection</h1>
-              <span>Create</span>
-            </div>
+    <custom-header></custom-header>
+    <!-- END TOP TOOLBAR WRAPPER -->
+    <alert></alert>
+    <div class="">
+      <header class="page-header">
+        <div class="d-flex align-items-center">
+          <div class="mr-auto">
+            <a @click="$back" class="btn-rounded-icon btn-primary mr-2 pointer"
+              ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
+            ></a>
+            <h1 class="separator">Collection</h1>
+            <span>Create</span>
           </div>
-        </header>
-        <section class="page-content container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label>Collection name</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          placeholder="Enter collection name"
-                          id=""
-                          v-model="collectionName"
-                        />
-                      </div>
+        </div>
+      </header>
+      <section class="page-content container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Collection name</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter collection name"
+                        id=""
+                        v-model="collectionName"
+                      />
                     </div>
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label>Default Select</label>
-                        <!-- <select
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Default Select</label>
+                      <!-- <select
                           class="form-control"
                           id="s2_demo2"
                           v-model="pkgid"
@@ -58,147 +55,146 @@
                             </option>
                           </optgroup>
                         </select> -->
-                        <select2
-                          id="s2_demo2"
-                          class=""
-                          :options="selectPkgList"
-                          v-model="pkgid"
-                          @select="mySelectEvent($event)"
-                        >
-                        </select2>
-                        <!-- @select="mySelectEvent($event)" -->
-                      </div>
+                      <select2
+                        id="s2_demo2"
+                        class=""
+                        :options="selectPkgList"
+                        v-model="pkgid"
+                        @select="mySelectEvent($event)"
+                      >
+                      </select2>
+                      <!-- @select="mySelectEvent($event)" -->
                     </div>
-                    <!-- <div class="col-12">
+                  </div>
+                  <!-- <div class="col-12">
                                             <h6>Applicable course</h6>
                                             <p>
                                                 101 English、102 English、103 English、104 English、105 English、106 English、107 English、108 English、109 English、110 English、111 English、112 English
                                             </p>
                                         </div> -->
-                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-12">
-              <div class="text-right pb-3">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-rounded btn-outline"
-                  data-toggle="modal"
-                  :data-target="
-                    tempPkgName !== pkgname ? '#ClearTipsModal' : '#addMaterial'
-                  "
-                  @click="getPkgMaterial()"
+          </div>
+          <div class="col-12">
+            <div class="text-right pb-3">
+              <button
+                type="button"
+                class="btn btn-primary btn-rounded btn-outline"
+                data-toggle="modal"
+                :data-target="
+                  tempPkgName !== pkgname ? '#ClearTipsModal' : '#addMaterial'
+                "
+                @click="getPkgMaterial()"
+              >
+                <i class="la la-plus"></i>Material
+              </button>
+            </div>
+            <div class="card">
+              <h5 class="card-header">Sequence</h5>
+              <div class="card-body">
+                <div
+                  style="max-height: 380px"
+                  data-scroll="dark"
+                  class="collection-scroll custom-scroll"
                 >
-                  <i class="la la-plus"></i>Material
-                </button>
-              </div>
-              <div class="card">
-                <h5 class="card-header">Sequence</h5>
-                <div class="card-body">
-                  <div
-                    style="max-height: 380px"
-                    data-scroll="dark"
-                    class="collection-scroll custom-scroll"
-                  >
-                    <ul class="sequence">
-                      <draggable
-                        class="list-group"
-                        tag="ul"
-                        v-model="materialSequence"
-                        v-bind="dragOptions"
-                        @start="drag = true"
-                        @end="drag = false"
+                  <ul class="sequence">
+                    <draggable
+                      class="list-group"
+                      tag="ul"
+                      v-model="materialSequence"
+                      v-bind="dragOptions"
+                      @start="drag = true"
+                      @end="drag = false"
+                    >
+                      <li
+                        class="d-flex justify-content-between mb-2"
+                        v-for="(m, index) in materialSequence"
+                        :key="m.id"
                       >
-                        <li
-                          class="d-flex justify-content-between mb-2"
-                          v-for="(m, index) in materialSequence"
-                          :key="m.id"
+                        <div
+                          class="d-flex justify-content-start align-items-center"
                         >
-                          <div
-                            class="d-flex justify-content-start align-items-center"
-                          >
-                            <div class="btn btn-nostyle btn-move mr-3">
-                              <i class="la la-ellipsis-v"></i
-                              ><i class="la la-ellipsis-v"></i>
-                            </div>
-                            <div
-                              class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                            >
-                              <span class="overlay-icon"
-                                ><i
-                                  class="fas fa-video"
-                                  v-if="m.type === 'video'"
-                                ></i
-                                ><i class="fas fa-book-open" v-else></i>
-                              </span>
-                              <img
-                                :src="
-                                  'https://lms.mangosteems.com/cms/resdl/cover/' +
-                                  m.resourceid
-                                "
-                                class="overlay-img"
-                                alt="course image"
-                              />
-                            </div>
-                            <div>
-                              <span
-                                class="badge badge-pill badge-secondary mt-2"
-                                v-if="m.level !== ''"
-                                >Level {{ m.level }}</span
-                              >
-                              <h4 class="d-flex align-self-center mt-2">
-                                {{ m.resource_name }}
-                              </h4>
-                            </div>
+                          <div class="btn btn-nostyle btn-move mr-3">
+                            <i class="la la-ellipsis-v"></i
+                            ><i class="la la-ellipsis-v"></i>
                           </div>
-                          <button
-                            class="btn btn-nostyle btn-remove"
-                            @click="removeFromSequence(index)"
+                          <div
+                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
                           >
-                            <i
-                              class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                            ></i>
-                          </button>
-                        </li>
-                        <!-- </transition-group> -->
-                      </draggable>
-                    </ul>
-                  </div>
+                            <span class="overlay-icon"
+                              ><i
+                                class="fas fa-video"
+                                v-if="m.type === 'video'"
+                              ></i
+                              ><i class="fas fa-book-open" v-else></i>
+                            </span>
+                            <img
+                              v-lazy="
+                                'https://lms.mangosteems.com/cms/resdl/cover/' +
+                                m.resourceid
+                              "
+                              class="overlay-img"
+                              alt="course image"
+                            />
+                          </div>
+                          <div>
+                            <span
+                              class="badge badge-pill badge-secondary mt-2"
+                              v-if="m.level !== ''"
+                              >Level {{ m.level }}</span
+                            >
+                            <h4 class="d-flex align-self-center mt-2">
+                              {{ m.resource_name }}
+                            </h4>
+                          </div>
+                        </div>
+                        <button
+                          class="btn btn-nostyle btn-remove"
+                          @click="removeFromSequence(index)"
+                        >
+                          <i
+                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
+                          ></i>
+                        </button>
+                      </li>
+                      <!-- </transition-group> -->
+                    </draggable>
+                  </ul>
+                </div>
 
-                  <!-- <div
+                <!-- <div
                     class="bg-secondary text-center p-15 text-light rounded mb-2"
                   >
                     You can add materials in this list.
                   </div> -->
-                </div>
               </div>
             </div>
-            <div class="col-12 text-right">
-              <button
-                type="button"
-                class="btn btn-secondary btn-rounded btn-outline mr-2"
-                data-toggle="modal"
-                data-target="#ClearAndBackModal"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary btn-rounded"
-                data-toggle="modal"
-                data-target="#SaveChangeModal"
-              >
-                Save
-              </button>
-            </div>
           </div>
-        </section>
-      </div>
-      <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
+          <div class="col-12 text-right">
+            <button
+              type="button"
+              class="btn btn-secondary btn-rounded btn-outline mr-2"
+              data-toggle="modal"
+              data-target="#ClearAndBackModal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-toggle="modal"
+              data-target="#SaveChangeModal"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
         <p class="text-light mt-2 mb-2">© iGroup LMS</p>
       </footer> -->
-    </div>
 
     <!-- END CONTENT WRAPPER -->
     <!-- SaveChange MODAL -->

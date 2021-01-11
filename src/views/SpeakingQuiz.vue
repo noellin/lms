@@ -313,8 +313,11 @@ export default {
         .catch((err) => {});
     },
     gotoQuitCreate() {
+      let url = `/quizcreate/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.$route.params.courseid}/${this.$route.params.note}/${this.$route.params.rid}/${this.$route.params.mid}`;
+      url = url.replaceAll("?", "%3F");
+
       this.$router.push({
-        path: `/quizcreate/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.$route.params.courseid}/${this.$route.params.note}/${this.$route.params.rid}/${this.$route.params.mid}`,
+        path: url,
       });
     },
     saveQuiz() {

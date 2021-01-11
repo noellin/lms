@@ -1,5 +1,5 @@
 <template>
-  <div id="app2">
+  <div id="app3">
     <!-- END MENU SIDEBAR WRAPPER -->
     <div class="content-wrapper">
       <!-- TOP TOOLBAR WRAPPER -->
@@ -18,7 +18,7 @@
             <div class="col-12">
               <div class="form-row">
                 <div class="form-group form-rounded mb-0 mr-3">
-                  <select
+                  <!-- <select
                     class="form-control"
                     v-model="selectedTeacher"
                     @change="
@@ -34,7 +34,19 @@
                     >
                       {{ teacher.username }}
                     </option>
-                  </select>
+                  </select> -->
+                  <select2
+                    class=""
+                    multiple
+                    :options="filterTeacherList"
+                    @change="
+                      getActiveCourseList(selectedTeacher);
+                      getExpiredCourseList(selectedTeacher);
+                    "
+                    v-model="selectedTeacher"
+                    :disabled="permit === 'teacher'"
+                  >
+                  </select2>
                 </div>
                 <div class="form-group form-rounded mb-0">
                   <div class="input-group">
@@ -129,7 +141,10 @@
                             <th style="width: 15%">Expiry date</th>
                             <!-- <th>Edit</th> -->
                             <th style="width: 15%">Checking assignment</th>
-                            <th style="text-align: center; width: 10%">
+                            <th
+                              style="text-align: center; width: 10%"
+                              v-if="permit === 'admin'"
+                            >
                               Action
                             </th>
                           </tr>
@@ -228,36 +243,27 @@
                                 >expiring</span
                               >
                             </td>
-                            <!-- <td>
-                              <button
-                                class="btn btn-nostyle"
-                                data-toggle="modal"
-                                data-target="#editModal"
-                                @click="
-                                  setTempCourse(
-                                    course.userid,
-                                    course.username,
-                                    course.course_name,
-                                    course.courseid
-                                  )
-                                "
-                              >
-                                <i class="la la-edit"></i>
-                              </button>
-                            </td> -->
                             <td>
-                              <a
+                              <button
                                 @click="
                                   gotoCourseAssignment(
                                     course.course_name,
                                     course.courseid
                                   )
                                 "
-                                class="btn btn-primary btn-rounded btn-sm btn-message btn-link"
-                                >Checking</a
+                                class="btn btn-primary btn-rounded btn-sm"
+                                :disabled="
+                                  course.username === '' ? true : false
+                                "
                               >
+                                Checking
+                              </button>
+                              <!-- btn-message btn-link -->
                             </td>
-                            <td style="text-align: center">
+                            <td
+                              style="text-align: center"
+                              v-if="permit === 'admin'"
+                            >
                               <button
                                 class="btn btn-nostyle"
                                 data-toggle="modal"
@@ -431,21 +437,37 @@
           </div>
           <div class="modal-body">
             <form>
-              <div class="form-group row">
-                <label
-                  class="control-label text-right col-sm-4 text-height-form-control"
-                  >Course Name</label
+              <ValidationObserver ref="editcourseForm">
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="confirm password"
                 >
-                <div class="col-sm-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Course Name"
-                    v-model="tempCourse.course_name"
-                  />
-                </div>
-              </div>
-              <div class="form-group row" style="min-height: 76px">
+                  <div class="form-group row">
+                    <label
+                      class="control-label text-right col-sm-4 text-height-form-control"
+                      >Course Name</label
+                    >
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Course Name"
+                        v-model="tempCourse.course_name"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+                  </div>
+                </ValidationProvider>
+              </ValidationObserver>
+              <div
+                class="form-group row"
+                :style="{
+                  height: [parseInt(tempCourse.id.length) + 2] * 16.5 + 'px',
+                }"
+              >
                 <label
                   class="control-label text-right col-sm-4 text-height-form-control"
                   >Select Teacher</label
@@ -492,9 +514,7 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded"
-              data-dismiss="modal"
-              data-toggle="modal"
-              data-target="#editChangeModal"
+              @click="openEdit()"
             >
               Save changes
             </button>
@@ -608,7 +628,7 @@ export default {
         name: "Amanda",
         email: "support@authenticgoods.co",
       },
-      teacherList: [{ userid: "", username: "All" }],
+      teacherList: [{ userid: "*", username: "All" }],
       selectTeacherList: [],
       tempCourse: {
         id: [],
@@ -616,7 +636,7 @@ export default {
       },
       tempTeacherList: [],
       tempCourseid: "",
-      selectedTeacher: "",
+      selectedTeacher: "*",
       course: {
         activeCourseList: [],
         expiredCourseList: [],
@@ -636,7 +656,7 @@ export default {
   },
   created() {
     if (this.permit === "admin") {
-      this.selectedTeacher = "";
+      this.selectedTeacher = "*";
     } else {
       this.selectedTeacher = this.userid;
     }
@@ -647,6 +667,12 @@ export default {
   },
   mounted() {},
   computed: {
+    filterTeacherList() {
+      let temp = this.teacherList.map((o) => {
+        return { id: o.userid, text: o.username };
+      });
+      return temp;
+    },
     userid() {
       return this.$store.state.auth.userid;
     },
@@ -664,6 +690,14 @@ export default {
     // },
   },
   methods: {
+    openEdit() {
+      this.$refs.editcourseForm.validate().then((success) => {
+        if (success) {
+          $("#editModal").modal("hide");
+          $("#editChangeModal").modal("show");
+        }
+      });
+    },
     sortActiveTable(sortItem) {
       if (this.tempActiveSortItem === "") {
         this.tempActiveSortItem = sortItem;
@@ -742,7 +776,11 @@ export default {
     },
     getActiveCourseList(teacherid = "") {
       // this.course.activeCourseList = [];
-      ApiGetActiveCourseList.get(this.permit, this.userid, teacherid).then(
+      let searchTid = "";
+      if (teacherid !== "*") {
+        searchTid = teacherid;
+      }
+      ApiGetActiveCourseList.get(this.permit, this.userid, searchTid).then(
         (response) => {
           this.course.activeCourseList = response.record;
           this.course.activeCourseList.forEach((item) => {
@@ -756,7 +794,12 @@ export default {
     },
     getExpiredCourseList(teacherid = "") {
       // this.course.expiredCourseList = [];
-      ApiGetExpiredCourseList.get(this.permit, this.userid, teacherid).then(
+      let searchTid = "";
+      if (teacherid !== "*") {
+        searchTid = teacherid;
+      }
+      console.log(this.permit, this.userid, searchTid);
+      ApiGetExpiredCourseList.get(this.permit, this.userid, searchTid).then(
         (response) => {
           this.course.expiredCourseList = response.record;
         }

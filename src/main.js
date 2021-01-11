@@ -27,6 +27,8 @@ import "vue-loading-overlay/dist/vue-loading.css"; //style
 import VCharts from "v-charts";
 import Print from "./plugins/print/print";
 import jQuery from "jquery";
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload)
 global.jQuery = jQuery;
 global.$ = jQuery;
 

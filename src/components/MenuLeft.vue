@@ -1,14 +1,15 @@
 <template>
   <!-- class="aside-left" -->
-  <aside class="aside-left">
+  <aside class="px-0">
     <nav class="main-menu">
       <!-- class="metismenu" -->
-      <ul class="nav metismenu">
+
+      <ul class="nav metismenu content-maxheight">
         <li class="sidebar-header"><span>Active</span></li>
         <li
           id="accordionExample"
           class="nav-dropdown accordion"
-          v-for="course in course.activeCourseList"
+          v-for="course in activeCourse"
           :key="course.courseid"
           :class="coursePage === course.course_name ? 'active' : ''"
         >
@@ -49,7 +50,10 @@
                       : ''
                   "
                   class="pointer"
-                  @click="changePage(course.course_name, type, course.courseid)"
+                  @click="
+                    changePage(course.course_name, type, course.courseid);
+                    courseType = type;
+                  "
                   >{{ type }}</span
                 >
                 <!-- <span
@@ -61,6 +65,9 @@
             </li>
           </ul>
         </li>
+        <!-- 123 -->
+
+        <!-- 123 -->
       </ul>
     </nav>
   </aside>
@@ -111,6 +118,12 @@ export default {
   },
   mounted() {},
   computed: {
+    activeCourse() {
+      let temp = this.course.activeCourseList.filter((item) => {
+        return item.course_name !== "";
+      });
+      return temp;
+    },
     userid() {
       return this.$store.state.auth.userid;
     },
@@ -144,6 +157,10 @@ export default {
       }
     },
     changePage(course, type, id) {
+      this.$store.dispatch("common/setLoading", true);
+      setTimeout(() => {
+        this.$store.dispatch("common/setLoading", false);
+      }, 400);
       if (id !== this.courseID) {
         this.$store.dispatch("courseInfo/getCouseInfo", id);
       }
@@ -197,5 +214,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#app2 {
+  width: 100%;
+
+  min-height: 100%;
+}
+
 //@import '../assets/css/igroup.css';
 </style>

@@ -10,7 +10,7 @@
 
         <div class="main-content">
           <course-header></course-header>
-          <section class="page-content container-fluid">
+          <div class="page-content container-fluid">
             <div class="d-flex justify-content-end mb-3">
               <div class="text-right">
                 <button
@@ -215,7 +215,7 @@
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         </div>
       </div>
     </div>

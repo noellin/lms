@@ -168,7 +168,7 @@
                           ><i class="fas fa-book-open" v-else></i>
                         </span>
                         <img
-                          :src="
+                          v-lazy="
                             'https://lms.mangosteems.com/cms/resdl/cover/' +
                             textbook.resourceid
                           "

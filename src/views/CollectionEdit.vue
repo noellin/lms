@@ -1,80 +1,77 @@
 <template>
-  <div id="app2">
+  <div id="app3">
     <!-- END MENU SIDEBAR WRAPPER -->
-    <div class="content-wrapper">
-      <!-- TOP TOOLBAR WRAPPER -->
-      <custom-header></custom-header>
-      <!-- END TOP TOOLBAR WRAPPER -->
-      <div class="content">
-        <header class="page-header">
-          <div class="d-flex align-items-start">
-            <div class="mt-2 mr-3">
-              <a
-                @click="$back"
-                class="btn-rounded-icon btn-primary ml-2 pointer"
-                ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
-              ></a>
-            </div>
-            <div class="mr-auto">
-              <h1 class="separator">Collection</h1>
-              <span>Edit</span>
-              <p class="second-title">{{ cname }}</p>
-            </div>
+    <!-- TOP TOOLBAR WRAPPER -->
+    <custom-header></custom-header>
+    <!-- END TOP TOOLBAR WRAPPER -->
+    <div class="content py-0">
+      <header class="page-header">
+        <div class="d-flex align-items-start">
+          <div class="mt-2 mr-3">
+            <a @click="$back" class="btn-rounded-icon btn-primary ml-2 pointer"
+              ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
+            ></a>
           </div>
-        </header>
-        <section class="page-content container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row cardsContainer" id="cards-container">
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label>Collection name</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          placeholder="Enter collection name"
-                          v-model="cname"
-                        />
-                      </div>
+          <div class="mr-auto">
+            <h1 class="separator">Collection</h1>
+            <span>Edit</span>
+            <p class="second-title">{{ cname }}</p>
+          </div>
+        </div>
+      </header>
+      <section class="page-content container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row cardsContainer" id="cards-container">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Collection name</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter collection name"
+                        v-model="cname"
+                      />
                     </div>
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label>Default Select</label>
-                        <select class="form-control" id="s2_demo2" disabled>
-                          <optgroup label="select package">
-                            <option selected>{{ pName }}</option>
-                            <option>Second grage</option>
-                            <option>Third grage</option>
-                            <option>Fourth grage</option>
-                            <option>Summer class special</option>
-                            <option>Winter class special</option>
-                          </optgroup>
-                        </select>
-                      </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Default Select</label>
+                      <select class="form-control" id="s2_demo2" disabled>
+                        <optgroup label="select package">
+                          <option selected>{{ pName }}</option>
+                          <option>Second grage</option>
+                          <option>Third grage</option>
+                          <option>Fourth grage</option>
+                          <option>Summer class special</option>
+                          <option>Winter class special</option>
+                        </optgroup>
+                      </select>
                     </div>
-                    <div class="col-12">
-                      <h6>Applicable course</h6>
-                      <span>
-                        <span
-                          v-for="(course, index) in courseList"
-                          :key="index + course"
-                          >{{ course }}
-                          <span v-if="index + 1 < courseList.length">、</span>
-                        </span>
-                        <!-- 101 English、102 English、103 English、104 English、105
+                  </div>
+                  <div class="col-12">
+                    <h6>Applicable course</h6>
+                    <span>
+                      <span
+                        v-for="(course, index) in courseList"
+                        :key="index + course"
+                        >{{ course }}
+                        <span v-if="index + 1 < courseList.length">、</span>
+                      </span>
+                      <!-- 101 English、102 English、103 English、104 English、105
                         English、106 English、107 English、108 English、109
                         English、110 English、111 English、112 English -->
-                      </span>
-                    </div>
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-sm-12">
-              <div class="d-flex justify-content-end pb-3">
-                <!-- <div class="">
+          </div>
+          <div class="col-sm-12">
+            <div class="d-flex justify-content-end pb-3">
+              <!-- <div class="">
                   <div class="form-row">
                     <div class="form-group form-rounded form-custom mb-0 mr-3">
                       <select2
@@ -107,121 +104,121 @@
                     </div>
                   </div>
                 </div> -->
-                <div class="text-right">
-                  <button
-                    type="button"
-                    class="btn btn-primary btn-rounded btn-outline"
-                    data-toggle="modal"
-                    data-target="#addMaterial"
-                    @click="resetSelect()"
-                  >
-                    <!-- <i class="la la-plus"></i> -->
-                    Selection & Management
-                  </button>
-                </div>
-              </div>
-              <div class="card">
-                <h5 class="card-header">Sequence</h5>
-                <div class="card-body">
-                  <div
-                    style="max-height: 380px"
-                    data-scroll="dark"
-                    class="collection-scroll"
-                  >
-                    <ul class="sequence">
-                      <draggable
-                        class="list-group"
-                        tag="ul"
-                        v-model="materialSequence"
-                        v-bind="dragOptions"
-                        @start="drag = true"
-                        @end="drag = false"
-                      >
-                        <li
-                          class="d-flex justify-content-between"
-                          v-for="(cr, index) in materialSequence"
-                          :key="cr.resourceid"
-                        >
-                          <div
-                            class="d-flex justify-content-start align-items-center"
-                          >
-                            <div class="btn btn-nostyle btn-move mr-3">
-                              <i class="la la-ellipsis-v"></i
-                              ><i class="la la-ellipsis-v"></i>
-                            </div>
-                            <div
-                              class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
-                            >
-                              <span class="overlay-icon">
-                                <i
-                                  class="fas fa-video"
-                                  v-if="cr.note === 'video'"
-                                ></i
-                                ><i class="fas fa-book-open" v-else></i>
-                              </span>
-                              <img
-                                :src="
-                                  'https://lms.mangosteems.com/cms/resdl/cover/' +
-                                  cr.resourceid
-                                "
-                                class="overlay-img"
-                                alt="course image"
-                              />
-                            </div>
-                            <div>
-                              <span
-                                class="badge badge-pill badge-secondary mt-2"
-                                v-if="cr.level !== ''"
-                                >Level {{ cr.level }}</span
-                              >
-                              <h4 class="d-flex align-self-center mt-2">
-                                {{ cr.resource_name }}
-                              </h4>
-                            </div>
-                          </div>
-                          <button
-                            class="btn btn-nostyle btn-remove"
-                            data-toggle="modal"
-                            data-target="#deleteModal"
-                            @click="
-                              tempRname = cr.resource_name;
-                              tempRid = cr.resourceid;
-                              tempIndex = index;
-                            "
-                          >
-                            <i
-                              class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                            ></i>
-                          </button>
-                        </li>
-                      </draggable>
-                    </ul>
-                  </div>
-                </div>
+              <div class="text-right">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-rounded btn-outline"
+                  data-toggle="modal"
+                  data-target="#addMaterial"
+                  @click="resetSelect()"
+                >
+                  <!-- <i class="la la-plus"></i> -->
+                  Selection & Management
+                </button>
               </div>
             </div>
-            <div class="col-12 text-right">
-              <button
-                type="button"
-                class="btn btn-secondary btn-rounded btn-outline mr-2"
-                data-toggle="modal"
-                data-target="#SaveChangeModal"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary btn-rounded"
-                data-toggle="modal"
-                data-target="#SaveChangeModal"
-              >
-                Save
-              </button>
+            <div class="card">
+              <h5 class="card-header">Sequence</h5>
+              <div class="card-body">
+                <div
+                  style="max-height: 320px"
+                  data-scroll="dark"
+                  class="collection-scroll"
+                >
+                  <ul class="sequence">
+                    <draggable
+                      class="list-group"
+                      tag="ul"
+                      v-model="materialSequence"
+                      v-bind="dragOptions"
+                      @start="drag = true"
+                      @end="drag = false"
+                    >
+                      <li
+                        class="d-flex justify-content-between"
+                        v-for="(cr, index) in materialSequence"
+                        :key="cr.resourceid"
+                      >
+                        <div
+                          class="d-flex justify-content-start align-items-center"
+                        >
+                          <div class="btn btn-nostyle btn-move mr-3">
+                            <i class="la la-ellipsis-v"></i
+                            ><i class="la la-ellipsis-v"></i>
+                          </div>
+                          <div
+                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
+                          >
+                            <span class="overlay-icon">
+                              <i
+                                class="fas fa-video"
+                                v-if="cr.note === 'video'"
+                              ></i
+                              ><i class="fas fa-book-open" v-else></i>
+                            </span>
+                            <img
+                              v-lazy="
+                                'https://lms.mangosteems.com/cms/resdl/cover/' +
+                                cr.resourceid
+                              "
+                              class="overlay-img"
+                              alt="course image"
+                            />
+                          </div>
+                          <div>
+                            <span
+                              class="badge badge-pill badge-secondary mt-2"
+                              v-if="cr.level !== ''"
+                              >Level {{ cr.level }}</span
+                            >
+                            <h4 class="d-flex align-self-center mt-2">
+                              {{ cr.resource_name }}
+                            </h4>
+                          </div>
+                        </div>
+                        <button
+                          class="btn btn-nostyle btn-remove"
+                          data-toggle="modal"
+                          data-target="#deleteModal"
+                          @click="
+                            tempRname = cr.resource_name;
+                            tempRid = cr.resourceid;
+                            tempIndex = index;
+                          "
+                        >
+                          <i
+                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
+                          ></i>
+                        </button>
+                      </li>
+                    </draggable>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
-        </section>
-      </div>
+          <div class="col-12 text-right">
+            <button
+              type="button"
+              class="btn btn-secondary btn-rounded btn-outline mr-2"
+              data-toggle="modal"
+              data-target="#SaveChangeModal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-toggle="modal"
+              data-target="#SaveChangeModal"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
+
     <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center footer">
       <p class="text-light mt-2 mb-2">© iGroup LMS</p>
     </footer> -->

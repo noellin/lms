@@ -2,6 +2,7 @@
   <!-- <div id="app2">  20200720 SPWang 如果加入 id="app2" 會跑版-->
   <div id="app">
     <alert></alert>
+    <!-- <custom-header class="col-sm-12 px-0"></custom-header> -->
     <!-- <loading
       :active.sync="isLoading"
       :can-cancel="true"
@@ -13,10 +14,11 @@
             <router-link to="/about">About</router-link>
         </div> -->
     <router-view />
-    <lms-footer class="col-sm-12"></lms-footer>
+    <!-- <lms-footer class="col-sm-12"></lms-footer> -->
   </div>
 </template>
 <script>
+import CustomHeader from "../src/components/CustomHeader";
 import LmsFooter from "../src/components/Footer";
 import Alert from "./components/AlertMessage";
 import $ from "jquery";
@@ -25,6 +27,10 @@ export default {
     return {};
   },
   mounted() {
+    this.$store.dispatch("common/setLoading", true);
+    setTimeout(() => {
+      this.$store.dispatch("common/setLoading", false);
+    }, 400);
     //test2
     //
     //網頁跳轉自動關閉MODAL
@@ -61,6 +67,7 @@ export default {
   components: {
     Alert,
     LmsFooter,
+    CustomHeader,
   },
   computed: {
     isLoading() {
