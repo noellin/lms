@@ -127,7 +127,7 @@
           </div>
           <div class="modal-body">
             <ul class="quiz-list">
-              <li v-for="s in SList" :key="s.sentenceID">
+              <li v-for="s in sortSlist" :key="s.sentenceID">
                 <strong class="text-primary mr-2">Q{{ s.seq }}.</strong
                 >{{ s.content }}
               </li>
@@ -224,6 +224,7 @@ import {
   ApiGetSList,
   ApiGetQuizList,
 } from "../http/apis/Quiz";
+import _ from "lodash";
 // import Menu
 export default {
   name: "SpeakingQuiz",
@@ -252,6 +253,12 @@ export default {
     },
   },
   computed: {
+    sortSlist() {
+      let temp = _.sortBy(this.SList, function (obj) {
+        return parseInt(obj.seq, 10);
+      });
+      return temp;
+    },
     tempAIDList() {
       if (
         this.$store.state.courseInfo.tempAIDList[this.courseid] === undefined
@@ -306,6 +313,7 @@ export default {
       });
     },
     getSList(qid) {
+      console.log(qid);
       ApiGetSList.get(qid)
         .then((response) => {
           this.SList = response.record;

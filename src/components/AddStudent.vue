@@ -109,7 +109,7 @@
                         value=""
                         v-model="newStudent.name"
                       />
-                      <span v-if="failed" class="text-danger">{{
+                      <span v-show="failed" class="text-danger">{{
                         errors[0]
                       }}</span>
                     </div>
@@ -135,7 +135,7 @@
                         value=""
                         v-model="newStudent.phone"
                       />
-                      <span v-if="failed" class="text-danger">{{
+                      <span v-show="failed" class="text-danger">{{
                         errors[0]
                       }}</span>
                     </div>

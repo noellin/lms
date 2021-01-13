@@ -231,7 +231,7 @@
               :key="course.resourceid"
               data-dismiss="modal"
               @click="gotoCourse(course)"
-              >{{ course.resource_name }}</a
+              >{{ course.course_name }}</a
             >
           </div>
           <div class="modal-body pb-4" v-else>
@@ -350,7 +350,7 @@ export default {
       // this.$router.push({
       //   path: `/course_material/course=${course.resource_name}/type=Material/${course.resourceid}`,
       // });
-      if (tempNote === "book") {
+      if (this.tempNote === "book") {
         window.open(
           `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${course.pkgid}&colid=${course.colid}&resid=${course.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${course.courseid}&userid=${this.userid}`
         );
@@ -361,6 +361,7 @@ export default {
       }
     },
     getAvailableCourse(rid) {
+      console.log(this.userid, this.$route.params.cid, rid);
       ApiGetAvailableCourse.get(this.userid, this.$route.params.cid, rid)
         .then((response) => {
           this.courseList = response.record;

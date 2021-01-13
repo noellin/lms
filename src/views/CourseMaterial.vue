@@ -13,9 +13,12 @@
                     <h5 class="card-title text-white">Open Material</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="151"
-                          >151</span
-                        ><span class="d-none d-xl-inlineblock">/ 400</span>
+                        <span class="display-4 counter" data-count="151">{{
+                          courseOverview.open
+                        }}</span
+                        ><span class="d-none d-xl-inlineblock"
+                          >/ {{ courseOverview.all }}</span
+                        >
                       </p>
                     </div>
                   </div>
@@ -25,13 +28,14 @@
                 <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Picture Book Views<span class="text-light">Teacher</span>
+                      Open Books
+                      <!-- Picture Book Views<span class="text-light">Teacher</span> -->
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="13"
-                          >13</span
-                        >
+                        <span class="display-4 counter" data-count="13">{{
+                          courseOverview.book
+                        }}</span>
                       </p>
                     </div>
                   </div>
@@ -41,13 +45,14 @@
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Video Views<span class="text-light">Teacher</span>
+                      Open Videos
+                      <!-- Video Views<span class="text-light">Teacher</span> -->
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="29"
-                          >29</span
-                        >
+                        <span class="display-4 counter" data-count="29">{{
+                          courseOverview.video
+                        }}</span>
                       </p>
                     </div>
                   </div>
@@ -61,9 +66,9 @@
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="173"
-                          >173</span
-                        >
+                        <span class="display-4 counter" data-count="173">{{
+                          courseOverview.readBook
+                        }}</span>
                       </p>
                     </div>
                   </div>
@@ -77,9 +82,9 @@
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="197"
-                          >197</span
-                        >
+                        <span class="display-4 counter" data-count="197">{{
+                          courseOverview.watchVideo
+                        }}</span>
                       </p>
                     </div>
                   </div>
@@ -1216,6 +1221,7 @@ export default {
       sortStatus: false,
       tempSortItem: "",
       copyTextbookList: [],
+      courseOverview: [],
     };
   },
   created() {
@@ -1227,9 +1233,13 @@ export default {
     this.tempAList = this.tempALists;
     this.pkgid = this.pkgids;
     this.courseInfo = this.courseInfos;
+    this.courseOverview = this.courseOverviews;
   },
   mounted() {},
   watch: {
+    courseOverviews() {
+      this.courseOverview = this.courseOverviews;
+    },
     courseInfos() {
       this.courseInfo = this.courseInfos;
     },
@@ -1246,7 +1256,6 @@ export default {
       this.studentList = this.studentLists;
     },
     selectAllS() {
-      console.log(this.selectAllS);
       if (this.selectAllS) {
         this.tempSelectStudent = this.selectStudent;
         this.selectStudent = [];
@@ -1267,6 +1276,9 @@ export default {
     },
   },
   computed: {
+    courseOverviews() {
+      return this.$store.state.courseInfo.courseOverview;
+    },
     courseInfos() {
       return this.$store.state.courseInfo.courseInfo;
     },
@@ -1287,8 +1299,6 @@ export default {
         if (item.rid === this.tempResource.resourceid) {
           //有哪些resource已經被加入collection
           this.existCollectionName.push(item.text);
-          console.log("已加入");
-          console.log(this.existCollectionName);
         }
         return item.rid !== this.tempResource.resourceid;
       });

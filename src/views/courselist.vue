@@ -758,6 +758,7 @@ export default {
     },
     getTeacherList() {
       ApiGetTeacherList.get().then((response) => {
+        console.log(this.permit);
         if (this.permit === "admin") {
           response.record.forEach((element) => {
             this.teacherList.push(element);

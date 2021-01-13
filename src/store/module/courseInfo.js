@@ -12,6 +12,7 @@ const courseInfo = {
     state: {
         courseInfo: {},
         textbookList: [],
+        courseOverview:[],
         openedTextbookList: [],
         studentList: [],
         courseStudentInfo: {},
@@ -51,6 +52,10 @@ const courseInfo = {
                     state.openedTextbookList.push(item.colid.toString() + '_' + item.resourceid.toString())
                 }
             })
+        },
+        SET_COURSEOVERVIEW(state, data){
+            state.courseOverview = []
+         state.courseOverview  = data 
         },
         SET_STUDENT(state, data) {
             console.log(data.info);
@@ -130,6 +135,7 @@ const courseInfo = {
                     // Vue.$set(item,'Link',item.information.includes('http'))
                 })
                 context.commit('SET_TEXTBOOKLIST', temp)
+                context.commit('SET_COURSEOVERVIEW',response.courseOverview.record)
             });
             //student
             ApiGetStudentList.get(data)

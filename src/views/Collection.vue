@@ -46,11 +46,12 @@
               </div>
             </div>
             <div class="text-right">
-              <a
+              <button
                 @click="gotoCollectionCreate()"
                 class="btn btn-primary btn-outline btn-rounded"
-                ><i class="la la-plus"></i>Create new Collection</a
               >
+                <i class="la la-plus"></i>Create new Collection
+              </button>
             </div>
           </div>
           <div class="row">
