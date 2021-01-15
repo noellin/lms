@@ -438,6 +438,7 @@ export default {
     getAMaterial(aid) {
       ApiGetAMaterial.get(aid)
         .then((response) => {
+          console.log(response.record);
           this.aMaterial = response.record;
         })
         .catch((err) => {});

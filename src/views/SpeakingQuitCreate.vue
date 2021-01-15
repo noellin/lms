@@ -108,6 +108,43 @@
     <!-- SpeakingQuizPreview MODAL -->
     <div
       class="modal fade"
+      id="ErrorTipmodal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+      data-modal="scroll"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-Cancel"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>System error, please contact your administrator</h5>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary btn-outline"
+              data-dismiss="modal"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SpeakingQuizPreview MODAL -->
+    <div
+      class="modal fade"
       id="SpeakingQuizPreviewModal"
       tabindex="-1"
       role="dialog"
@@ -234,7 +271,7 @@ import {
   ApiSetSByVideo,
   ApiSetSByBook,
 } from "../http/apis/Quiz";
-// import Menu
+import $ from "jquery";
 export default {
   name: "SpeakingQuizCreate",
   components: {
@@ -269,11 +306,17 @@ export default {
   methods: {
     getSubtitleList() {
       //video
+      let vm = this;
       if (this.$route.params.note === "video") {
         ApiGetSubtitileByVideo.get(this.pkgid, this.colid, this.rid, this.mid)
           .then((response) => {
             console.log(response);
-            this.sList = response.record;
+            if (response.status === "success") {
+              vm.sList = response.record;
+              
+            } else {
+              $("#ErrorTipmodal").modal("show");
+            }
           })
           .catch((err) => {
             console.log("err = ", err);
@@ -282,8 +325,11 @@ export default {
         //book
         ApiGetSubtitleByBook.get(this.pkgid, this.colid, this.rid)
           .then((response) => {
-            console.log(response);
-            this.sList = response.record;
+            if (response.status === "success") {
+              vm.sList = response.record;
+            } else {
+              $("#ErrorTipmodal").modal("show");
+            }
           })
           .catch((err) => {});
       }
