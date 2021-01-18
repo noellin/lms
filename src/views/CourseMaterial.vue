@@ -394,11 +394,12 @@
           <div class="modal-body">
             <p v-if="tempResource.openflag !== 'true'">
               Open this material and allow
-              {{ tempResource.resource_name }} students to view it.
+              <em>{{ tempResource.resource_name }}</em>
+               students to view it.
             </p>
             <p v-else>
               Close this material and do not allow
-              {{ tempResource.resource_name }} students to view it.
+              <em>{{ tempResource.resource_name }}</em> students to view it.
             </p>
           </div>
           <div class="modal-footer">

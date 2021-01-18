@@ -282,7 +282,11 @@
                     <span class="badge badge-pill badge-warning" v-else
                       >Watching</span
                     >
-                    {{ am.resource_name }}
+
+                    {{ am.resource_name
+                    }}<span v-show="am.material_name !== ''">
+                      - {{ am.material_name }}</span
+                    >
                   </div>
                 </li>
               </ul>
@@ -436,6 +440,7 @@ export default {
         .catch((err) => {});
     },
     getAMaterial(aid) {
+      console.log(aid);
       ApiGetAMaterial.get(aid)
         .then((response) => {
           console.log(response.record);
