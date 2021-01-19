@@ -121,11 +121,11 @@
                 <ValidationProvider
                   rules="required"
                   v-slot="{ failed, errors }"
-                  name="Unique number"
+                  name="Parents'phone number"
                 >
                   <div class="form-group row">
                     <label class="control-label text-right col-sm-4"
-                      >Unique number</label
+                      >Parents'phone number</label
                     >
                     <div class="col-sm-8">
                       <input
@@ -196,7 +196,7 @@
                 <thead>
                   <tr>
                     <th>Student name</th>
-                    <th>Unique Number</th>
+                    <th>Parents'phone number</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -273,7 +273,7 @@
                 <thead>
                   <tr>
                     <th>Student name</th>
-                    <th>Unique Number</th>
+                    <th>Parents'phone number</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -406,7 +406,7 @@
                   <thead>
                     <tr>
                       <th>Student name</th>
-                      <th>Unique Number</th>
+                      <th>Parents'phone number</th>
                     </tr>
                   </thead>
                   <tbody>

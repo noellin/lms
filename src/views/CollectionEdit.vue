@@ -258,6 +258,7 @@
             <button
               type="button"
               class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
               @click="updateCollection()"
             >
               Save

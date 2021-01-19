@@ -21,7 +21,7 @@
           {{ assignmentDL.expDate | dateConversion }}
         </p>
         <p class="second-title" v-if="$route.name === 'Weekly_Quiz_Progress'">
-          Weekly Quiz {{ weeklyQuizDL.pubDate | dateConversion }} - Due
+          Echo Valley {{ weeklyQuizDL.pubDate | dateConversion }} - Due
           {{ weeklyQuizDL.expDate | dateConversion }}
         </p>
       </div>

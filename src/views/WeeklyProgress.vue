@@ -50,7 +50,7 @@
                     <div class="card-body row col-sm-12">
                       <div class="col-sm-12">
                         <p>
-                          The questions of the weekly quiz are selected by the
+                          The questions of the Echo Valley are selected by the
                           system based on material. You can also enter the
                           question yourself.
                         </p>
@@ -60,7 +60,7 @@
                         <textarea
                           class="form-control"
                           id="exampleFormControlTextarea2"
-                          placeholder="Please enter a question of the weekly quiz..."
+                          placeholder="Please enter a question of the Echo Valley..."
                           rows="6"
                           v-model="weeklyQuiz.sentence"
                           disabled
@@ -238,7 +238,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Modify Weekly Quiz</h5>
+            <h5 class="modal-title" id="ModalTitle1">Modify Echo Valley</h5>
             <button
               type="button"
               class="close"
@@ -252,7 +252,7 @@
             <textarea
               class="form-control"
               id="exampleFormControlTextarea1"
-              placeholder="Please enter a question of the weekly quiz..."
+              placeholder="Please enter a question of the Echo Valley..."
               rows="6"
               v-model="weeklyQuiz.sentence"
               maxlength="500"

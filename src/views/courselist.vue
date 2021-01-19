@@ -132,7 +132,7 @@
                               class="pointer"
                             >
                               Course name<i
-                                class="zmdi zmdi-swap-vertical ml-1"
+                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
                             <th style="width: 15%">Teacher</th>
@@ -306,7 +306,7 @@
                               class="pointer"
                             >
                               Course name<i
-                                class="zmdi zmdi-swap-vertical ml-1"
+                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
                             <th>Teacher</th>

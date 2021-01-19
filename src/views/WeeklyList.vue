@@ -16,14 +16,14 @@
                   class="btn btn-danger btn-rounded"
                   @click="setWQStatus()"
                 >
-                  Close Weekly Quiz
+                  Close Echo Valley
                 </button>
                 <button
                   v-else
                   class="btn btn-primary btn-rounded"
                   @click="setWQStatus()"
                 >
-                  Open Weekly Quiz
+                  Open Echo Valley
                 </button>
               </div>
               <div class="text-right">
@@ -80,14 +80,16 @@
                               class="pointer"
                             >
                               Publish<i
-                                class="zmdi zmdi-swap-vertical ml-1"
+                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
                             <th
                               @click="sortTable('expiry_date')"
                               class="pointer"
                             >
-                              Due<i class="zmdi zmdi-swap-vertical ml-1"></i>
+                              Due<i
+                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                              ></i>
                             </th>
                             <th>Author</th>
                             <th>Completed ／Total students</th>
@@ -458,7 +460,7 @@ Her favourite colour is pink and her superpower is data processing.</textarea
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Delete Weekly Quiz</h5>
+            <h5 class="modal-title" id="ModalTitle1">Delete Echo Valley</h5>
             <button
               type="button"
               class="close"

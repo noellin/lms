@@ -219,7 +219,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Would you like to save your changes?</p>
+            <p>Would you like to save your collection?</p>
           </div>
           <div class="modal-footer">
             <button
@@ -502,6 +502,7 @@ export default {
       searchRName: "",
       tempPkgName: "",
       defaultPkgName: "",
+      tempCollectionName: "",
       //
       drag: false,
     };
@@ -629,11 +630,28 @@ export default {
       });
       obj.resource = obj.list.join(";");
       obj.userid = this.userid;
-      console.log(obj);
       ApiSetCollection.post(obj)
-        .then((response) => {})
+        .then((response) => {
+          console.log(response);
+          if (response.status === "success") {
+            this.$bus.$emit(
+              "messsage:push",
+              "New Collection Success.",
+              "success"
+            );
+          } else {
+            if (response.record === "duplicate collection name") {
+              this.$bus.$emit(
+                "messsage:push",
+                "The collection name already exists, if you want to edit it, please go to the edit page.",
+                "danger"
+              );
+            } else {
+              this.$bus.$emit("messsage:push", "Unknown error.", "danger");
+            }
+          }
+        })
         .catch((err) => {});
-      this.$bus.$emit("messsage:push", "New Collection Success.", "success");
       $("#SaveChangeModal").modal("hide");
     },
   },

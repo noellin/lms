@@ -60,14 +60,16 @@
                               class="pointer"
                             >
                               Assigned date<i
-                                class="zmdi zmdi-swap-vertical ml-1"
+                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
                             <th
                               @click="sortTable('expiry_date')"
                               class="pointer"
                             >
-                              Due<i class="zmdi zmdi-swap-vertical ml-1"></i>
+                              Due<i
+                                class="zmdi zmdi-swap-vertical zmdi-hc-lg ml-1"
+                              ></i>
                             </th>
                             <th>For</th>
                             <th>Completed ／Total students</th>
@@ -76,7 +78,7 @@
                               class="pointer"
                             >
                               Degree of difficulty<i
-                                class="zmdi zmdi-swap-vertical ml-1"
+                                class="zmdi zmdi-swap-vertical zmdi-hc-lg ml-1"
                               ></i>
                             </th>
                             <th>Preview</th>

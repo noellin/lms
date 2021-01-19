@@ -395,7 +395,7 @@
             <p v-if="tempResource.openflag !== 'true'">
               Open this material and allow
               <em>{{ tempResource.resource_name }}</em>
-               students to view it.
+              students to view it.
             </p>
             <p v-else>
               Close this material and do not allow
@@ -717,7 +717,9 @@
                       </div>
                     </th>
                     <th @click="sortTable('level')" class="pointer">
-                      Level<i class="zmdi zmdi-swap-vertical ml-1"></i>
+                      Level<i
+                        class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                      ></i>
                     </th>
                     <th>
                       Material

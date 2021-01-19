@@ -88,7 +88,7 @@ export default {
         "Assignment",
         "Student",
         "Dashboard",
-        "Weekly quiz",
+        "Echo Valley",
       ],
       coursePage: this.$route.params.course,
       courseType: this.$route.params.type,
@@ -193,7 +193,7 @@ export default {
             })
             .catch((err) => err);
           break;
-        case "Weekly quiz":
+        case "Echo Valley":
           this.$router
             .push({
               path: `/course_weekly_quiz/course=${course}/type=${type}/${id}`,
