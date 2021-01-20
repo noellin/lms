@@ -130,6 +130,7 @@
                       </tr> -->
                     </tbody>
                   </table>
+
                   <!-- <div class="col-12">
                     <div
                       class="dataTables_paginate paging_simple_numbers"

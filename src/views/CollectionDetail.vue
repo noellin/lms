@@ -254,6 +254,7 @@ import {
   ApiSearchCollectionResource,
 } from "../http/apis/Collection";
 import Select2 from "v-select2-component";
+import $ from "jquery";
 // import Menu
 export default {
   name: "CollectionDetail",

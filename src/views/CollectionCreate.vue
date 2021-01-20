@@ -278,7 +278,7 @@
               data-dismiss="modal"
               @click="$back"
             >
-              Save
+              Confirm
             </button>
           </div>
         </div>

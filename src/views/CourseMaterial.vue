@@ -98,7 +98,7 @@
                     <select2
                       id="s2_demo2"
                       :options="typeList"
-                      v-model="seleceType"
+                      v-model="selectType"
                     >
                     </select2>
                     <!-- <select class="form-control">
@@ -107,7 +107,7 @@
                   <option>Video</option>
                 </select> -->
                   </div>
-                  <div class="form-group form-rounded mb-0">
+                  <div class="form-group form-rounded mb-0 mr-3">
                     <div class="input-group">
                       <input
                         type="text"
@@ -126,6 +126,14 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div class="form-group form-rounded mb-0 mr-3">
+                    <select2
+                      id="s2_demo3"
+                      :options="sortTypeList"
+                      v-model="selectSortType"
+                    >
+                    </select2>
                   </div>
                 </div>
               </div>
@@ -156,7 +164,7 @@
             <div class="row">
               <div
                 class="col-12"
-                v-for="textbook in textbookList"
+                v-for="textbook in sortMList"
                 :key="textbook.resourceid"
               >
                 <div class="card">
@@ -217,10 +225,11 @@
                             <p class="text-muted mt-1">
                               <span class="fw300 text-xs"
                                 >Last played
-                                <span>{{
+                                <span v-if="textbook.last_access !== '0'">{{
                                   textbook.last_access | dateConversion
-                                }}</span></span
-                              >
+                                }}</span>
+                                <span v-else>--</span>
+                              </span>
                             </p>
                           </div>
                           <div
@@ -1191,7 +1200,14 @@ export default {
         { text: "Picture Book", id: "book" },
         { text: "Video", id: "video" },
       ],
-      seleceType: "all",
+      selectType: "all",
+      sortTypeList: [
+        { text: "By title Asc", id: "title_asc" },
+        { text: "By title Desc", id: "title_desc" },
+        { text: "By level Asc", id: "level_asc" },
+        { text: "By level Desc", id: "level_desc" },
+      ],
+      selectSortType: "title_asc",
       searchStatus: false,
       searchRList: [],
       courseid: this.$route.params.courseid,
@@ -1279,6 +1295,24 @@ export default {
     },
   },
   computed: {
+    sortMList() {
+      let temp = [];
+      if (this.selectSortType === "title_asc") {
+        temp = _.sortBy(
+          this.textbookList,
+          [
+            (obj) => parseInt(obj.resource_name.split(" - ")[0], 10),
+            (obj) => obj.resource_name,
+            (obj) => obj.resource_name.split(" - ")[1],
+          ],
+          ["asc"]
+        );
+        return temp;
+      } else if (this.selectSortType === "title_desc") {
+      } else if (this.selectSortType === "level_asc") {
+      } else if (this.selectSortType === "level_desc") {
+      }
+    },
     courseOverviews() {
       return this.$store.state.courseInfo.courseOverview;
     },
@@ -1460,8 +1494,8 @@ export default {
       });
     },
     searchCourseResource() {
-      let sType = this.seleceType;
-      if (this.seleceType === "all") {
+      let sType = this.selectType;
+      if (this.selectType === "all") {
         sType = "*";
       }
       let searchObj = {

@@ -98,7 +98,7 @@
             <a class="dropdown-item pointer" @click="gotoAccount()"
               ><i class="icon dripicons-user"></i> My account</a
             >
-            <a class="dropdown-item pointer"
+            <a class="dropdown-item pointer" @click="contactUs()"
               ><i class="icon dripicons-mail"></i> Contact us</a
             >
             <a class="dropdown-item pointer" @click="logout()"
@@ -140,6 +140,9 @@ export default {
     },
   },
   methods: {
+    contactUs() {
+      window.open("mailto:windy@igroupnet.com");
+    },
     logout() {
       localStorage.clear();
       this.$router.push({ path: "/" });

@@ -87,6 +87,11 @@
                               </button>
                             </td>
                           </tr>
+                          <tr v-if="quizList.length === 0">
+                            <td colspan="5" class="text-center">
+                              <h5>No Quiz found, please create Quiz first</h5>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
