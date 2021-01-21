@@ -145,6 +145,7 @@
                               >Level {{ m.level }}</span
                             >
                             <h4 class="d-flex align-self-center mt-2">
+                              <span v-if="m.unit !== ''">{{ m.unit }} - </span>
                               {{ m.resource_name }}
                             </h4>
                           </div>
@@ -338,7 +339,7 @@
       aria-hidden="true"
       data-modal="scroll"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">
@@ -359,21 +360,8 @@
               <strong class="ml-1">{{ pkgname }}</strong>
             </h6>
             <div class="row">
-              <div class="col-6">
+              <div class="col-4">
                 <div class="form-group form-rounded">
-                  <!-- <select
-                    class="form-control"
-                    id="s2_demo1"
-                    v-model="seleceType"
-                  >
-                    <option
-                      v-for="type in typeList"
-                      :key="type.value"
-                      :value="type.value"
-                    >
-                      {{ type.text }}
-                    </option>
-                  </select> -->
                   <select2
                     id="s2_demo1"
                     :options="typeList"
@@ -382,7 +370,7 @@
                   </select2>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="form-group form-rounded">
                   <div class="input-group">
                     <input
@@ -404,10 +392,20 @@
                   </div>
                 </div>
               </div>
+              <div class="col-4">
+                <div class="form-group form-rounded">
+                  <select2
+                    id="s2_demo3"
+                    :options="sortTypeList"
+                    v-model="selectSortType"
+                  >
+                  </select2>
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-body" data-scroll="dark">
-            <div class="custom-control custom-checkbox form-check pb-2">
+            <div class="custom-control custom-checkbox form-check pb-3">
               <input
                 type="checkbox"
                 class="custom-control-input"
@@ -420,8 +418,8 @@
               >
             </div>
             <div
-              class="custom-control custom-checkbox form-check pb-2"
-              v-for="pkgm in resourceFilter"
+              class="custom-control custom-checkbox form-check pb-3"
+              v-for="pkgm in sortMList"
               :key="pkgm.resourceid"
             >
               <input
@@ -431,9 +429,15 @@
                 :id="pkgm.resourceid"
                 v-model="tempMaterial"
               />
-              <label class="custom-control-label" :for="pkgm.resourceid">{{
-                pkgm.resource_name
-              }}</label>
+              <label class="custom-control-label" :for="pkgm.resourceid">
+                <span
+                  class="badge badge-pill badge-secondary"
+                  v-if="pkgm.level !== ''"
+                  >Level {{ pkgm.level }}</span
+                >
+                <span v-if="pkgm.unit !== ''">{{ pkgm.unit }} - </span>
+                {{ pkgm.resource_name }}</label
+              >
             </div>
           </div>
           <div class="modal-footer">
@@ -473,6 +477,7 @@ import {
   ApiSetCollection,
   ApiGetPkgMaterial,
 } from "../http/apis/Collection";
+import _ from "lodash";
 export default {
   name: "CollectionCreate",
   components: {
@@ -505,24 +510,13 @@ export default {
       tempCollectionName: "",
       //
       drag: false,
+      selectSortType: "title_asc",
     };
   },
   created() {
     this.getPkgList();
   },
   computed: {
-    //
-    dragOptions() {
-      return {
-        animation: 200,
-        group: "description",
-        disabled: false,
-        ghostClass: "ghost",
-      };
-    },
-    userid() {
-      return this.$store.state.auth.userid;
-    },
     resourceFilter() {
       let result = [];
       if (this.seleceType !== "all") {
@@ -544,6 +538,41 @@ export default {
         });
       }
       return result;
+    },
+    sortMList() {
+      //utils mixins
+      return this.$_sortMaterial(this.resourceFilter, this.selectSortType);
+      // let temp = [...this.textbookList];
+      // if (this.selectSortType === "title_asc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
+      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+      //   return temp;
+      // } else if (this.selectSortType === "title_desc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
+      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+      //   return temp.reverse();
+      // } else if (this.selectSortType === "level_asc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
+      //   return temp;
+      // } else if (this.selectSortType === "level_desc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
+      //   return temp.reverse();
+      // }
+    },
+    //
+    sortTypeList() {
+      return this.$store.state.common.sortTypeList;
+    },
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+      };
+    },
+    userid() {
+      return this.$store.state.auth.userid;
     },
   },
 
@@ -589,7 +618,11 @@ export default {
       console.log(this.pkgid);
       ApiGetPkgMaterial.get(this.pkgid)
         .then((response) => {
-          console.log(response);
+          response.record.forEach((item) => {
+            if (item.unit === undefined) {
+              item.unit = "";
+            }
+          });
           this.pkgMaterialList = response.record;
         })
         .catch((err) => {});

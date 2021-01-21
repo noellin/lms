@@ -78,11 +78,7 @@
             </div>
           </div>
           <div class="row">
-            <div
-              class="col-12"
-              v-for="cr in cResourceList"
-              :key="cr.resourceid"
-            >
+            <div class="col-12" v-for="cr in materialSort" :key="cr.resourceid">
               <div class="card">
                 <div class="card-body">
                   <div class="media">
@@ -115,6 +111,11 @@
                             class="mb-0 mt-3 d-flex align-self-center text-primary"
                           >
                             <div title="">
+                              <span
+                                v-if="cr.unit !== ''"
+                                style="font-size: 18px"
+                                >{{ cr.unit }} -
+                              </span>
                               {{ cr.resource_name }}
                             </div>
                           </h4>
@@ -286,6 +287,15 @@ export default {
     userid() {
       return this.$store.state.auth.userid;
     },
+    materialSort() {
+      let temp = [...this.cResourceList];
+      temp.forEach((item) => {
+        if (item.unit === undefined) {
+          item.unit = "";
+        }
+      });
+      return temp;
+    },
   },
   methods: {
     showLastPlay(lp) {
@@ -318,6 +328,7 @@ export default {
               }
             });
           });
+          response.record.forEach((item) => {});
           this.cResourceList = response.record;
         })
         .catch((err) => {});

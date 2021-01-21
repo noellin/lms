@@ -44,6 +44,7 @@ export const ApiSetCollection = {
 
 export const ApiGetPkgMaterial = {
     get: (pkgid) => {
+        console.log(pkgid);
         return get(`/collection/pkgresource/${pkgid}`);
     }
 }

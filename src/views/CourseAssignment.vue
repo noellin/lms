@@ -56,6 +56,14 @@
                               </div>
                             </th>
                             <th
+                              @click="sortTable('description')"
+                              class="pointer"
+                            >
+                              Assigned name<i
+                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                              ></i>
+                            </th>
+                            <th
                               @click="sortTable('publish_date')"
                               class="pointer"
                             >
@@ -104,6 +112,9 @@
                                 ></label>
                               </div>
                             </td>
+                            <td class="">
+                              {{ a.description }}
+                            </td>
                             <td class="pl-5">
                               <i
                                 class="ig-notice"
@@ -147,7 +158,7 @@
                           </tr>
                         </tbody>
                       </table>
-                      <div class="col-12">
+                      <!-- <div class="col-12">
                         <div
                           class="dataTables_paginate paging_simple_numbers"
                           id="recent-transaction-table_paginate"
@@ -211,7 +222,7 @@
                             </li>
                           </ul>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>

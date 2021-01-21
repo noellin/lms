@@ -136,8 +136,8 @@
                     >
                       <li
                         class="d-flex justify-content-between"
-                        v-for="(cr, index) in materialSequence"
-                        :key="cr.resourceid"
+                        v-for="(m, index) in materialSequence"
+                        :key="m.resourceid"
                       >
                         <div
                           class="d-flex justify-content-start align-items-center"
@@ -152,14 +152,14 @@
                             <span class="overlay-icon">
                               <i
                                 class="fas fa-video"
-                                v-if="cr.note === 'video'"
+                                v-if="m.note === 'video'"
                               ></i
                               ><i class="fas fa-book-open" v-else></i>
                             </span>
                             <img
                               v-lazy="
                                 'https://lms.mangosteems.com/cms/resdl/cover/' +
-                                cr.resourceid
+                                m.resourceid
                               "
                               class="overlay-img"
                               alt="course image"
@@ -168,11 +168,12 @@
                           <div>
                             <span
                               class="badge badge-pill badge-secondary mt-2"
-                              v-if="cr.level !== ''"
-                              >Level {{ cr.level }}</span
+                              v-if="m.level !== ''"
+                              >Level {{ m.level }}</span
                             >
                             <h4 class="d-flex align-self-center mt-2">
-                              {{ cr.resource_name }}
+                              <span v-if="m.unit !== ''">{{ m.unit }} - </span>
+                              {{ m.resource_name }}
                             </h4>
                           </div>
                         </div>
@@ -181,8 +182,8 @@
                           data-toggle="modal"
                           data-target="#deleteModal"
                           @click="
-                            tempRname = cr.resource_name;
-                            tempRid = cr.resourceid;
+                            tempRname = m.resource_name;
+                            tempRid = m.resourceid;
                             tempIndex = index;
                           "
                         >
@@ -318,7 +319,7 @@
       aria-hidden="true"
       data-modal="scroll"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">
@@ -339,7 +340,7 @@
               <strong class="ml-1">{{ pName }}</strong>
             </h6>
             <div class="row">
-              <div class="col-6">
+              <div class="col-4">
                 <div class="form-group form-rounded">
                   <select2
                     id="s2_demo1"
@@ -349,7 +350,7 @@
                   </select2>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="form-group form-rounded">
                   <div class="input-group">
                     <input
@@ -371,12 +372,34 @@
                   </div>
                 </div>
               </div>
+              <div class="col-4">
+                <div class="form-group form-rounded">
+                  <select2
+                    id="s2_demo3"
+                    :options="sortTypeList"
+                    v-model="selectSortType"
+                  >
+                  </select2>
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-body" data-scroll="dark">
+            <div class="custom-control custom-checkbox form-check pb-3">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="selectPM"
+                @click="selectAll"
+                v-model="selectAllPM"
+              />
+              <label class="custom-control-label text-primary" for="selectPM"
+                >Select All</label
+              >
+            </div>
             <div
-              class="custom-control custom-checkbox form-check pb-2"
-              v-for="pkgm in resourceFilter"
+              class="custom-control custom-checkbox form-check pb-3"
+              v-for="pkgm in sortMList"
               :key="pkgm.resourceid"
             >
               <input
@@ -387,9 +410,15 @@
                 v-model="tempMidList"
               />
               <!-- @click="mySelectEvent(pkgm)" -->
-              <label class="custom-control-label" :for="pkgm.resourceid">{{
-                pkgm.resource_name
-              }}</label>
+              <label class="custom-control-label" :for="pkgm.resourceid">
+                <span
+                  class="badge badge-pill badge-secondary"
+                  v-if="pkgm.level !== ''"
+                  >Level {{ pkgm.level }}</span
+                >
+                <span v-if="pkgm.unit !== ''">{{ pkgm.unit }} - </span>
+                {{ pkgm.resource_name }}</label
+              >
             </div>
           </div>
           <div class="modal-footer">
@@ -472,6 +501,7 @@ import {
   ApiGetPkgMaterial,
   ApiUpdateCollection,
 } from "../http/apis/Collection";
+import _ from "lodash";
 // import Menu
 export default {
   name: "CollectionDetail",
@@ -487,6 +517,7 @@ export default {
       tempRid: "",
       tempIndex: 0,
       pkgMaterialList: [],
+      selectAllPM: "",
       typeList: [
         { text: "All type", id: "all" },
         { text: "Picture Book", id: "book" },
@@ -503,21 +534,10 @@ export default {
       colid: this.$route.params.cid,
       //
       drag: false,
+      selectSortType: "title_asc",
     };
   },
   computed: {
-    //
-    dragOptions() {
-      return {
-        animation: 200,
-        group: "description",
-        disabled: false,
-        ghostClass: "ghost",
-      };
-    },
-    userid() {
-      return this.$store.state.auth.userid;
-    },
     resourceFilter() {
       let result = [];
       if (this.seleceType !== "all") {
@@ -540,11 +560,58 @@ export default {
       }
       return result;
     },
+    sortMList() {
+      //utils mixins
+      return this.$_sortMaterial(this.resourceFilter, this.selectSortType);
+      // let temp = [...this.textbookList];
+      // if (this.selectSortType === "title_asc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
+      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+      //   return temp;
+      // } else if (this.selectSortType === "title_desc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
+      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+      //   return temp.reverse();
+      // } else if (this.selectSortType === "level_asc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
+      //   return temp;
+      // } else if (this.selectSortType === "level_desc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
+      //   return temp.reverse();
+      // }
+    },
+    //
+    sortTypeList() {
+      return this.$store.state.common.sortTypeList;
+    },
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+      };
+    },
+    userid() {
+      return this.$store.state.auth.userid;
+    },
   },
   mounted() {
     this.init();
   },
   methods: {
+    selectAll(event) {
+      const vm = this;
+      if (!event.currentTarget.checked) {
+        vm.tempMaterial = [];
+      } else {
+        //實現全選
+        vm.tempMaterial = [];
+        vm.resourceFilter.forEach(function (item, i) {
+          vm.tempMaterial.push(item);
+        });
+      }
+    },
     init() {
       this.axios
         .all([
@@ -559,6 +626,11 @@ export default {
     getCollectionContent() {
       return ApiGetCollectionContent.get(this.userid, this.$route.params.cid)
         .then((response) => {
+          response.record.forEach((item) => {
+            if (item.unit === undefined) {
+              item.unit = "";
+            }
+          });
           this.materialSequence = response.record;
           response.record.forEach((msi) => {
             this.tempMidList.push(msi.resourceid);
@@ -585,7 +657,11 @@ export default {
     getPkgMaterial() {
       ApiGetPkgMaterial.get(this.$route.params.pid)
         .then((response) => {
-          console.log(response);
+          response.record.forEach((item) => {
+            if (item.unit === undefined) {
+              item.unit = "";
+            }
+          });
           this.pkgMaterialList = response.record;
         })
         .catch((err) => {});

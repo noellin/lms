@@ -6,8 +6,23 @@ import Vue from 'vue'
 Vue.mixin({
     methods: {
         // 標註千分位
-        formatComma(str) {
-            return str ? str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : str
-        }
+        $_sortMaterial(materialArray,sortType) {
+            let temp = [...materialArray];
+            if (sortType === "title_asc") {
+              temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
+              temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+              return temp;
+            } else if (sortType === "title_desc") {
+              temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
+              temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+              return temp.reverse();
+            } else if (sortType === "level_asc") {
+              temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
+              return temp;
+            } else if (sortType === "level_desc") {
+              temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
+              return temp.reverse();
+            }
+          },
     }
 })

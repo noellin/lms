@@ -10,7 +10,7 @@
               <div class="col-4 col-md">
                 <div class="card bg-secondary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Open Material</h5>
+                    <h5 class="card-title text-white">Opened Material</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="151">{{
@@ -28,7 +28,7 @@
                 <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Open Books
+                      Opened Books
                       <!-- Picture Book Views<span class="text-light">Teacher</span> -->
                     </h5>
                     <div class="w100 text-right">
@@ -45,7 +45,7 @@
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Open Videos
+                      Opened Videos
                       <!-- Video Views<span class="text-light">Teacher</span> -->
                     </h5>
                     <div class="w100 text-right">
@@ -211,10 +211,15 @@
                               class="mb-0 mt-3 d-flex align-self-center text-primary"
                             >
                               <div title="">
+                                <span
+                                  v-if="textbook.unit !== ''"
+                                  style="font-size: 18px"
+                                  >{{ textbook.unit }} -
+                                </span>
                                 {{ textbook.resource_name }}
                                 <a
                                   target="_blank"
-                                  :href="textbook.information"
+                                  :href="textbook.worksheet"
                                   v-if="textbook.link === true"
                                   ><i
                                     class="fas fa-file-download pointer fa-1x download-icon"
@@ -835,7 +840,23 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label class="control-label text-right col-sm-3">title</label>
+                <label class="col-form-label col-sm-3 text-right"
+                  >Asignment name</label
+                >
+                <div class="col-sm-6">
+                  <input
+                    type="text"
+                    id="agtname"
+                    class="form-control form-control-lg"
+                    placeholder="Asignment name"
+                    v-model="newAgtName"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label text-right col-sm-3"
+                  >Material</label
+                >
                 <div class="col-sm-9">
                   <div class="bg-light rounded" data-scroll="dark">
                     <ul class="sequence a-sequence">
@@ -926,7 +947,7 @@
                 <label class="control-label text-right col-sm-3"
                   >For students</label
                 >
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                   <select2
                     id="s2_student"
                     :options="studentList"
@@ -1201,12 +1222,12 @@ export default {
         { text: "Video", id: "video" },
       ],
       selectType: "all",
-      sortTypeList: [
-        { text: "By title Asc", id: "title_asc" },
-        { text: "By title Desc", id: "title_desc" },
-        { text: "By level Asc", id: "level_asc" },
-        { text: "By level Desc", id: "level_desc" },
-      ],
+      // sortTypeList: [
+      //   { text: "Sort by title Asc", id: "title_asc" },
+      //   { text: "Sort by title Desc", id: "title_desc" },
+      //   { text: "Sort by level Asc", id: "level_asc" },
+      //   { text: "Sort by level Desc", id: "level_desc" },
+      // ],
       selectSortType: "title_asc",
       searchStatus: false,
       searchRList: [],
@@ -1241,6 +1262,7 @@ export default {
       tempSortItem: "",
       copyTextbookList: [],
       courseOverview: [],
+      newAgtName: "",
     };
   },
   created() {
@@ -1296,22 +1318,27 @@ export default {
   },
   computed: {
     sortMList() {
-      let temp = [];
-      if (this.selectSortType === "title_asc") {
-        temp = _.sortBy(
-          this.textbookList,
-          [
-            (obj) => parseInt(obj.resource_name.split(" - ")[0], 10),
-            (obj) => obj.resource_name,
-            (obj) => obj.resource_name.split(" - ")[1],
-          ],
-          ["asc"]
-        );
-        return temp;
-      } else if (this.selectSortType === "title_desc") {
-      } else if (this.selectSortType === "level_asc") {
-      } else if (this.selectSortType === "level_desc") {
-      }
+      //utils mixins
+      return this.$_sortMaterial(this.textbookList, this.selectSortType);
+      // let temp = [...this.textbookList];
+      // if (this.selectSortType === "title_asc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
+      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+      //   return temp;
+      // } else if (this.selectSortType === "title_desc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
+      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+      //   return temp.reverse();
+      // } else if (this.selectSortType === "level_asc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
+      //   return temp;
+      // } else if (this.selectSortType === "level_desc") {
+      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
+      //   return temp.reverse();
+      // }
+    },
+    sortTypeList() {
+      return this.$store.state.common.sortTypeList;
     },
     courseOverviews() {
       return this.$store.state.courseInfo.courseOverview;
@@ -1349,7 +1376,11 @@ export default {
       };
     },
     AssignmentSetting() {
-      if (this.AssignmentDue === null || this.selectStudent.length <= 0) {
+      if (
+        this.AssignmentDue === null ||
+        this.selectStudent.length <= 0 ||
+        this.newAgtName === ""
+      ) {
         return true;
       } else {
         if (this.AssignmentDue.includes(null)) {
@@ -1608,6 +1639,7 @@ export default {
       obj.publish_date = dayjs(this.AssignmentDue[0]).unix();
       obj.expiry_date = dayjs(this.AssignmentDue[1]).unix();
       obj.difficult = this.difficult;
+      obj.description = this.newAgtName;
       if (
         this.selectStudent.includes("*") ||
         this.selectStudent.length === this.studentList
@@ -1634,7 +1666,6 @@ export default {
               "New assignment success!",
               "success"
             );
-
             return true;
           } else {
             this.$bus.$emit("messsage:push", "Unknown error!!", "danger");
@@ -1653,6 +1684,7 @@ export default {
           "courseInfo/updateTextbookList",
           this.$route.params.courseid
         );
+        this.newAgtName = "";
         this.selectAllS = false;
         this.selectStudent = "";
         this.AssignmentDue = null;

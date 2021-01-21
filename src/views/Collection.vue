@@ -30,7 +30,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Search collection name"
+                  placeholder="Search..."
                   v-model="collectionName"
                   @keyup.enter="searchCollection()"
                 />
