@@ -220,7 +220,7 @@
       aria-hidden="true"
       data-modal="scroll"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Setting</h5>
@@ -266,7 +266,7 @@
                 >
                   <div class="form-group row">
                     <label for="" class="col-sm-4 col-form-label text-right"
-                      >Unique number</label
+                      >Parents'phone number</label
                     >
                     <div class="col-8">
                       <input

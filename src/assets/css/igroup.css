@@ -4,7 +4,9 @@
   
   min-height:100%; 
 }
-
+.fix-badge-height {
+  height: 25px;
+}
 /* html,body {
   margin: 0;
   padding: 0;

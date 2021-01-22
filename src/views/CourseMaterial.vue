@@ -13,7 +13,7 @@
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
                     @click="changemfilter('om')"
                   >
-                    <h5 class="card-title text-white">
+                    <h5 class="card-title">
                       Opened Material
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
@@ -39,7 +39,7 @@
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
                     @click="changemfilter('ob')"
                   >
-                    <h5 class="card-title text-white">
+                    <h5 class="card-title">
                       Opened Books
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
@@ -64,7 +64,7 @@
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
                     @click="changemfilter('ov')"
                   >
-                    <h5 class="card-title text-white">
+                    <h5 class="card-title">
                       Opened Videos
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
@@ -897,30 +897,52 @@
                           :key="index"
                           class="d-flex justify-content-between border bg-white rounded"
                         >
-                          <div class="mr-3 d-flex justify-content-start">
+                          <div class="d-flex justify-content-start">
                             <div class="btn btn-nostyle btn-move">
                               <i class="la la-ellipsis-v"></i
                               ><i class="la la-ellipsis-v"></i>
                             </div>
-                            <span v-if="ta.note === 'book'">
-                              <span class="badge badge-pill badge-primary mr-2"
-                                >Reading</span
-                              >{{ ta.resource_name }}</span
+                            <span
+                              v-if="ta.note === 'book'"
+                              class="d-flex col-sm-11 px-0"
                             >
-                            <span v-else-if="ta.note === 'video'">
-                              <span class="badge badge-pill badge-warning mr-2"
-                                >Watching</span
-                              >{{ ta.resource_name + " - " + ta.material_name }}
+                              <span
+                                class="badge badge-pill badge-primary fix-badge-height"
+                                >Reading</span
+                              >
+                              <span
+                                class="col-sm-10 d-flex align-items-center"
+                                >{{ ta.resource_name }}</span
+                              >
                             </span>
-                            <span v-else>
-                              <span class="badge badge-pill badge-accent mr-2"
+                            <div
+                              v-else-if="ta.note === 'video'"
+                              class="d-flex col-sm-11 px-0"
+                            >
+                              <div>
+                                <span
+                                  class="badge badge-pill badge-warning fix-badge-height"
+                                  >Watching</span
+                                >
+                              </div>
+                              <span class="col-sm-10 d-flex align-items-center">
+                                {{
+                                  ta.resource_name + " - " + ta.material_name
+                                }}
+                              </span>
+                            </div>
+                            <span v-else class="d-flex col-sm-11 px-0">
+                              <span
+                                class="badge badge-pill badge-accent fix-badge-height"
                                 >Speaking Quiz</span
                               >
-                              {{ ta.resource_name }} -
-                              <span v-if="ta.material_name !== 'undefined'">{{
-                                ta.material_name
-                              }}</span>
-                              <span v-else>Book</span>
+                              <span class="col-sm-10 d-flex align-items-center"
+                                >{{ ta.resource_name }} -
+                                <span v-if="ta.material_name !== 'undefined'">{{
+                                  ta.material_name
+                                }}</span>
+                                <span v-else>Book</span></span
+                              >
                             </span>
                           </div>
                           <button
@@ -1898,6 +1920,9 @@ export default {
 }
 
 .mfilter-board {
+  .card-title {
+    color: #ffffff;
+  }
   .mfilter-icon {
     color: #ffffff;
   }

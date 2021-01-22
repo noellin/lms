@@ -313,7 +313,6 @@ export default {
             console.log(response);
             if (response.status === "success") {
               vm.sList = response.record;
-              
             } else {
               $("#ErrorTipmodal").modal("show");
             }
@@ -354,10 +353,17 @@ export default {
         ApiSetSByVideo.post(this.rid, this.mid, this.courseid, obj)
           .then((response) => {
             if (response.status === "success") {
+              console.log("video");
+              console.log(
+                `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`
+              );
+              let url = `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`
+              url = url.replaceAll("?", "%3F");
               this.$router.push({
-                path: `/quiz/${this.$route.params.course}
-        /Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`,
+                path: url,
               });
+            } else {
+              console.log(response);
             }
           })
           .catch((err) => {});
@@ -365,10 +371,17 @@ export default {
         ApiSetSByBook.post(this.rid, this.courseid, obj)
           .then((response) => {
             if (response.status === "success") {
+              console.log("book");
+              console.log(
+                `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`
+              );
+              let url = `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`
+               url = url.replaceAll("?", "%3F");
               this.$router.push({
-                path: `/quiz/${this.$route.params.course}
-        /Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`,
+                path: url,
               });
+            } else {
+              console.log(response);
             }
           })
           .catch((err) => {});
