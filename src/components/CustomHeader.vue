@@ -141,7 +141,15 @@ export default {
   },
   methods: {
     contactUs() {
-      window.open("mailto:windy@igroupnet.com");
+      const windowRef = window.open(`mailto:windy@igroupnet.com`, "_blank");
+
+      windowRef.focus();
+
+      setTimeout(function () {
+        if (!windowRef.document.hasFocus()) {
+          windowRef.close();
+        }
+      }, 500);
     },
     logout() {
       localStorage.clear();

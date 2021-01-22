@@ -39,7 +39,7 @@
                   </div>
                   <div class="col-6">
                     <div class="form-group">
-                      <label>Default Select</label>
+                      <label>Available Collections</label>
                       <!-- <select
                           class="form-control"
                           id="s2_demo2"

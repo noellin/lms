@@ -3,6 +3,7 @@
     <div
       class="loginpage row justify-content-center align-items-center col-sm-12"
     >
+      <!-- login -->
       <div v-if="loginShow === 'login'">
         <div class="sign-in-form col-sm-12">
           <div class="card">
@@ -57,6 +58,7 @@
                         v-model="loginForm.password"
                         :class="{ 'is-invalid': failed }"
                         :autocomplete="remember === true ? '' : 'new-password'"
+                        @keyup.enter="login()"
                       />
                       <span v-if="failed" class="text-danger">{{
                         errors[0]
@@ -96,6 +98,7 @@
           </div>
         </div>
       </div>
+      <!-- login reset pwd -->
       <div v-if="loginShow === 'resetPasswordSuccess'">
         <div class="sign-in-form">
           <div class="card">

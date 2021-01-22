@@ -16,6 +16,7 @@ export const ApiGetActiveCourseList = {
             }
             return get(`/course/list/active/${userid}?filter=${paramObj}`);
         }
+        console.log(`/course/list/active/${paramObj}`);
         return get(`/course/list/active/${paramObj}`);
     },
 };

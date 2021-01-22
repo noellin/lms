@@ -9,8 +9,17 @@
             <div class="row">
               <div class="col-4 col-md">
                 <div class="card bg-secondary" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Opened Material</h5>
+                  <div
+                    class="card-body d-flex align-content-between flex-wrap mfilter-board"
+                    @click="changemfilter('om')"
+                  >
+                    <h5 class="card-title text-white">
+                      Opened Material
+                      <i
+                        class="far fa-lightbulb fa-lg mfilter-icon"
+                        :class="mfilter === 'om' ? 'text-warning' : ''"
+                      ></i>
+                    </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="151">{{
@@ -26,9 +35,17 @@
               </div>
               <div class="col-4 col-md">
                 <div class="card bg-primary" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
+                  <div
+                    class="card-body d-flex align-content-between flex-wrap mfilter-board"
+                    @click="changemfilter('ob')"
+                  >
                     <h5 class="card-title text-white">
                       Opened Books
+                      <i
+                        class="far fa-lightbulb fa-lg mfilter-icon"
+                        :class="mfilter === 'ob' ? 'text-warning' : ''"
+                      ></i>
+
                       <!-- Picture Book Views<span class="text-light">Teacher</span> -->
                     </h5>
                     <div class="w100 text-right">
@@ -43,9 +60,16 @@
               </div>
               <div class="col-4 col-md">
                 <div class="card bg-success" style="height: 150px">
-                  <div class="card-body d-flex align-content-between flex-wrap">
+                  <div
+                    class="card-body d-flex align-content-between flex-wrap mfilter-board"
+                    @click="changemfilter('ov')"
+                  >
                     <h5 class="card-title text-white">
                       Opened Videos
+                      <i
+                        class="far fa-lightbulb fa-lg mfilter-icon"
+                        :class="mfilter === 'ov' ? 'text-warning' : ''"
+                      ></i>
                       <!-- Video Views<span class="text-light">Teacher</span> -->
                     </h5>
                     <div class="w100 text-right">
@@ -1263,6 +1287,7 @@ export default {
       copyTextbookList: [],
       courseOverview: [],
       newAgtName: "",
+      mfilter: "",
     };
   },
   created() {
@@ -1318,8 +1343,18 @@ export default {
   },
   computed: {
     sortMList() {
+      //doshboard filter
+      if (this.mfilter === "om") {
+        return this.$_sortMaterial(this.openedMList, this.selectSortType);
+      } else if (this.mfilter === "ob") {
+        return this.$_sortMaterial(this.openedBookList, this.selectSortType);
+      } else if (this.mfilter === "ov") {
+        return this.$_sortMaterial(this.openedVideoList, this.selectSortType);
+      } else {
+        return this.$_sortMaterial(this.textbookList, this.selectSortType);
+      }
       //utils mixins
-      return this.$_sortMaterial(this.textbookList, this.selectSortType);
+      // return this.$_sortMaterial(this.textbookList, this.selectSortType);
       // let temp = [...this.textbookList];
       // if (this.selectSortType === "title_asc") {
       //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
@@ -1349,6 +1384,16 @@ export default {
     openedMList() {
       return this.textbookList.filter((item) => {
         return item.openflag === "true";
+      });
+    },
+    openedBookList() {
+      return this.textbookList.filter((item) => {
+        return item.openflag === "true" && item.note === "book";
+      });
+    },
+    openedVideoList() {
+      return this.textbookList.filter((item) => {
+        return item.openflag === "true" && item.note === "video";
       });
     },
     closedMList() {
@@ -1416,6 +1461,13 @@ export default {
     },
   },
   methods: {
+    changemfilter(filterName) {
+      if (filterName === this.mfilter) {
+        this.mfilter = "";
+      } else {
+        this.mfilter = filterName;
+      }
+    },
     sortTable(sortItem) {
       if (this.tempSortItem === "") {
         this.tempSortItem = sortItem;
@@ -1668,6 +1720,7 @@ export default {
             );
             return true;
           } else {
+            console.log(response);
             this.$bus.$emit("messsage:push", "Unknown error!!", "danger");
           }
         })
@@ -1842,5 +1895,18 @@ export default {
 }
 .download-icon:hover {
   color: #32c1db;
+}
+
+.mfilter-board {
+  .mfilter-icon {
+    color: #ffffff;
+  }
+}
+
+.mfilter-board:hover {
+  cursor: pointer;
+  .mfilter-icon {
+    color: #ffce67;
+  }
 }
 </style>

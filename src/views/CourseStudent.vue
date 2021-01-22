@@ -26,7 +26,7 @@
               <div class="col-sm-3">
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Suspended student</h5>
+                    <h5 class="card-title text-white">Non-Active student</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="2">{{

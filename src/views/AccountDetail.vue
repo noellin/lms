@@ -50,6 +50,19 @@
                             <strong>Email:</strong>
                             <span class="m-l-15">{{ accountInfo.email }}</span>
                           </li>
+                          <li class="text-muted">
+                            <strong>Course:</strong>
+                            <span class="m-l-15">
+                              <span
+                                v-for="(course, i) in courseList"
+                                :key="course.courseid"
+                                >{{ course.course_name }}
+                                <span v-if="i + 1 !== courseList.length"
+                                  >,
+                                </span>
+                              </span>
+                            </span>
+                          </li>
                         </ul>
                         <div class="form-group row" v-if="permit === 'admin'">
                           <div class="switch">
@@ -331,6 +344,7 @@ import {
   ApiSetAccountInfo,
   ApiSetAccountPWD,
 } from "../http/apis/Account";
+import { ApiGetActiveCourseList } from "../http/apis/CourseList";
 import $ from "jquery";
 export default {
   name: "SpeakingQuiz",
@@ -350,10 +364,12 @@ export default {
       },
       resetpwStatus: false,
       errorMessage: "",
+      courseList: [],
     };
   },
   mounted() {
-    this.getAccountInfo();
+    // this.getAccountInfo();
+    this.init();
   },
   computed: {
     userid() {
@@ -364,6 +380,26 @@ export default {
     },
   },
   methods: {
+    init() {
+      this.$store.dispatch("common/setLoading", true);
+      this.axios
+        .all([this.getAccountInfo(), this.getActiveCourseList()])
+        .then((response) => {
+          setTimeout(() => {
+            this.$store.dispatch("common/setLoading", false);
+          }, 400);
+        });
+    },
+    getActiveCourseList(teacherid = "") {
+      // this.course.activeCourseList = [];
+      ApiGetActiveCourseList.get(
+        this.permit,
+        this.userid,
+        this.$route.params.uid
+      ).then((response) => {
+        this.courseList = response.record;
+      });
+    },
     getAccountInfo() {
       ApiGetAccountInfo.get(this.$route.params.uid)
         .then((response) => {
