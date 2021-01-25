@@ -5,10 +5,10 @@ const common = {
         isLoading: false,
         fullPage: true,
         sortTypeList:[
-            { text: "Sort by title Asc", id: "title_asc" },
-            { text: "Sort by title Desc", id: "title_desc" },
-            { text: "Sort by level Asc", id: "level_asc" },
-            { text: "Sort by level Desc", id: "level_desc" },
+            { text: "Sort by title A to Z", id: "title_asc" },
+            { text: "Sort by title Z to A", id: "title_desc" },
+            { text: "Sort by level A to Z", id: "level_asc" },
+            { text: "Sort by level Z to A", id: "level_desc" },
           ],
 
     },

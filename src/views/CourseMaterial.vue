@@ -12,6 +12,9 @@
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
                     @click="changemfilter('om')"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Click to switch filter"
                   >
                     <h5 class="card-title">
                       Opened Material
@@ -38,6 +41,9 @@
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
                     @click="changemfilter('ob')"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Click to switch filter"
                   >
                     <h5 class="card-title">
                       Opened Books
@@ -63,6 +69,9 @@
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
                     @click="changemfilter('ov')"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Click to switch filter"
                   >
                     <h5 class="card-title">
                       Opened Videos
@@ -158,6 +167,15 @@
                       v-model="selectSortType"
                     >
                     </select2>
+                  </div>
+                  <div
+                    class="form-group form-rounded mb-0 mr-3 d-flex align-items-center text-secondary"
+                    v-if="searchType"
+                  >
+                    <span class="mr-1">{{ sortMList.length }}</span>
+                    listings for “
+                    <span>{{ tempSearchName }}</span
+                    >”
                   </div>
                 </div>
               </div>
@@ -360,12 +378,24 @@
                           <div>
                             <div
                               v-if="textbook.openflag !== 'true'"
-                              class="badge badge-secondary badge-pill fw300 mr-2 font-size-md"
+                              class="badge badge-dark badge-pill fw300 mr-2 font-size-md"
                             >
                               Closed
                             </div>
                             <div
-                              v-else
+                              v-if="
+                                textbook.openflag === 'true' &&
+                                textbook.note === 'video'
+                              "
+                              class="badge badge-success badge-pill fw300 mr-2 font-size-md"
+                            >
+                              Opened
+                            </div>
+                            <div
+                              v-else-if="
+                                textbook.openflag === 'true' &&
+                                textbook.note === 'book'
+                              "
                               class="badge badge-primary badge-pill fw300 mr-2 font-size-md"
                             >
                               Opened
@@ -1310,6 +1340,8 @@ export default {
       courseOverview: [],
       newAgtName: "",
       mfilter: "",
+      searchType: false,
+      tempSearchName: "",
     };
   },
   created() {
@@ -1323,7 +1355,11 @@ export default {
     this.courseInfo = this.courseInfos;
     this.courseOverview = this.courseOverviews;
   },
-  mounted() {},
+  mounted() {
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  },
   watch: {
     courseOverviews() {
       this.courseOverview = this.courseOverviews;
@@ -1599,6 +1635,13 @@ export default {
       });
     },
     searchCourseResource() {
+      //判斷是否有搜尋值
+      if (this.searchRname !== "") {
+        this.searchType = true;
+        this.tempSearchName = this.searchRname;
+      } else {
+        this.searchType = false;
+      }
       let sType = this.selectType;
       if (this.selectType === "all") {
         sType = "*";
@@ -1609,6 +1652,12 @@ export default {
       };
       ApiSearchCourseResource.post(this.courseid, searchObj)
         .then((response) => {
+          response.record.forEach((element) => {
+            if (element.unit === undefined) {
+              element.unit = "";
+            }
+            element.link = element.information.includes("http");
+          });
           this.textbookList = response.record;
         })
         .catch((err) => {});
@@ -1933,5 +1982,10 @@ export default {
   .mfilter-icon {
     color: #ffce67;
   }
+}
+
+.tooltip {
+  width: 602px !important;
+  min-width: 602px !important;
 }
 </style>

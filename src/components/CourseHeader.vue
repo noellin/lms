@@ -12,6 +12,14 @@
         ><span v-if="type === 'Dashboard'" class="pointer" @click="print()"
           ><i class="zmdi zmdi-print"></i
         ></span>
+        <!-- echo descriptipn -->
+        <span
+          class="ml-1 pointer"
+          v-if="$route.name === 'Echo_Valley'"
+          data-toggle="modal"
+          data-target="#infoModal"
+          ><i class="fas fa-info-circle fa-sm mfilter-icon"></i
+        ></span>
         <p class="second-title" v-if="page !== 'Speaking_Quiz'">
           {{ courseInfo.pkg_name }}
         </p>
@@ -26,11 +34,54 @@
         </p>
       </div>
     </div>
+    <!--  -->
+    <div
+      class="modal fade"
+      id="infoModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+      data-modal="scroll"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Echo Valley</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-Cancel"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Echo Valley offers weekly oral assignments, or users can create
+              their own oral assignments, which will be automatically scored by
+              the system and provide relevant information.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary btn-outline"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
   </header>
 </template>
 <script>
 // :pages="{ 頁碼資訊 }"
 // @emitPages="更新頁面事件"
+import $ from "jquery";
 export default {
   name: "CourseHeader",
   data() {
@@ -50,6 +101,11 @@ export default {
       this.mname = "";
     }
     this.courseInfo = this.courseInfos;
+  },
+  mounted() {
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
   },
   watch: {
     courseInfos() {

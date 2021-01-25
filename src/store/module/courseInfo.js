@@ -48,6 +48,12 @@ const courseInfo = {
                 if(element.unit===undefined){
                     element.unit = ''
                 }
+                element.link = element.information.includes('http')
+                // let temp =  []
+                // temp = response.record
+                // temp.forEach(item => {
+                //     item.link = item.information.includes('http')
+                // })
                 console.log(element.unit);
             });
             state.openedTextbookList = []
@@ -134,12 +140,6 @@ const courseInfo = {
             //courseInfo Material
             ApiGetCourseDatail.get(data).then((response) => {
                 context.commit('SET_COURSEINFO', response.csrInfo)
-                let temp =  []
-                temp = response.record
-                temp.forEach(item => {
-                    item.link = item.information.includes('http')
-                    // Vue.$set(item,'Link',item.information.includes('http'))
-                })
                 context.commit('SET_TEXTBOOKLIST', temp)
                 context.commit('SET_COURSEOVERVIEW',response.courseOverview.record)
             });

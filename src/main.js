@@ -41,6 +41,14 @@ Object.keys(rules).forEach((rule) => {
 });
 Vue.component("ValidationProvider", ValidationProvider);
 Vue.component("ValidationObserver", ValidationObserver);
+
+// Vue.directive('tooltip', function(el, binding){
+//   $(el).tooltip({
+//            title: binding.value,
+//            placement: binding.arg,
+//            trigger: 'hover'             
+//        })
+// })
 // extend("required", {
 //   ...required,
 //   message: "This field is required",
