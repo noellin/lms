@@ -338,7 +338,7 @@ export default {
         publishTime: [],
       },
       // publishSentence: "",
-      // publishDay: "",
+      publishDay: "",
     };
   },
   mounted() {
@@ -349,6 +349,8 @@ export default {
       if (this.publishDay !== "") {
         let today = new Date();
         today.setHours(0, 0, 0, 0);
+        console.log(this.publishDay);
+        console.log(dayjs(today).isBefore(dayjs(this.publishDay)));
         return dayjs(today).isBefore(dayjs(this.publishDay));
       }
     },
@@ -371,7 +373,7 @@ export default {
               .unix(response.EchoValleyInfo.expiry_date)
               .format("YYYY-MM-DD"),
           ];
-          console.log(response);
+
           this.weeklyQuiz = Object.assign({}, temp);
           this.wqStudentList = response.record;
           // this.$set(this.weeklyQuiz, publishTime, [
@@ -395,7 +397,6 @@ export default {
           this.publishDay = dayjs
             .unix(response.EchoValleyInfo.start_date)
             .format("YYYY-MM-DD");
-          console.log(this.weeklyQuiz);
         })
         .catch((err) => {});
     },

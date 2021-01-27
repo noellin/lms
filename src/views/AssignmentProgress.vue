@@ -324,16 +324,24 @@
                     <div class="card-body">
                       <div class="media rounded pb-2">
                         <div
-                          class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
+                          class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
                         >
-                          <a
+                          <img
+                            v-lazy="
+                              'https://lms.mangosteems.com/cms/resdl/cover/' +
+                              sa.resourceid
+                            "
+                            class="overlay-img cus-img"
+                            alt="course image"
+                          />
+                          <!-- <a
                             href="#"
                             title=""
                             class="overlay-img"
                             style="
                               background-image: url(../assets/img/avatars/3.jpg);
                             "
-                          ></a>
+                          ></a> -->
                         </div>
                         <div class="media-body mr-3 mt-3 h-75">
                           <span
@@ -877,5 +885,18 @@ export default {
   border-radius: 50%;
   background: #4caf50; /* Green background */
   cursor: pointer; /* Cursor on hover */
+}
+
+.cus-img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 </style>

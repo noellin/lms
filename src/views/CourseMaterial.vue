@@ -1087,9 +1087,9 @@
                       v-model="selectAllS"
                       name="std"
                     />
-                    <label class="custom-control-label" for="std"
-                      >All Students</label
-                    >
+                    <label class="custom-control-label" for="std">
+                      <strong>All Students</strong>
+                    </label>
                   </div>
                   <div
                     v-for="(stu, index) in studentList"
@@ -1381,7 +1381,7 @@ export default {
     },
     selectAllS() {
       if (this.selectAllS) {
-        this.tempSelectStudent = this.selectStudent;
+        // this.tempSelectStudent = this.selectStudent;
         this.selectStudent = [];
         this.studentList.forEach((std) => {
           this.selectStudent.push(std.id);
@@ -1403,6 +1403,7 @@ export default {
     sortMList() {
       //doshboard filter
       if (this.mfilter === "om") {
+        console.log(this.textbookList);
         return this.$_sortMaterial(this.openedMList, this.selectSortType);
       } else if (this.mfilter === "ob") {
         return this.$_sortMaterial(this.openedBookList, this.selectSortType);

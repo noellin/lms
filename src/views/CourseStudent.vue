@@ -169,7 +169,7 @@
                                 v-if="s.status === 'true'"
                                 >Active</span
                               >
-                              <span class="text-danger" v-else>Suspended</span>
+                              <span class="text-danger" v-else>Non-Active</span>
                             </td>
                             <td>
                               <button
@@ -313,7 +313,7 @@
                     <span class="text-success mt-1" v-if="tempStudent.status"
                       >Active</span
                     >
-                    <span class="text-danger mt-1" v-else>Suspended</span>
+                    <span class="text-danger mt-1" v-else>Non-Active</span>
                   </div>
                 </div>
                 <!-- <p class="text-danger">

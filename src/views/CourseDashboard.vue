@@ -100,9 +100,10 @@
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Assignment completion rate<span class="text-light"
+                      Assignment completion rate
+                      <!-- <span class="text-light"
                         >30-day comparison</span
-                      >
+                      > -->
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
@@ -345,11 +346,7 @@
                       </li>
                     </ul> -->
                   </div>
-                  <div
-                    class="card-body"
-                    style="max-height: 800px"
-                    data-scroll="dark"
-                  >
+                  <div class="card-body" data-scroll="dark">
                     <!-- <ul
                       class="nav nav-pills nav-pills-primary mb-3"
                       id="pills-demo-1"
@@ -397,10 +394,38 @@
                           >
                             <thead>
                               <tr>
-                                <th>Student</th>
-                                <th>Log in</th>
-                                <th>Complete Assignments</th>
-                                <th>Review</th>
+                                <th
+                                  @click="sortTable('username')"
+                                  class="pointer"
+                                >
+                                  Student<i
+                                    class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                  ></i>
+                                </th>
+                                <th
+                                  @click="sortTable('cnt_checkin')"
+                                  class="pointer"
+                                >
+                                  Log in<i
+                                    class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                  ></i>
+                                </th>
+                                <th
+                                  @click="sortTable('asgmt_finish')"
+                                  class="pointer"
+                                >
+                                  Complete Assignments<i
+                                    class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                  ></i>
+                                </th>
+                                <th
+                                  @click="sortTable('cnt_res_review')"
+                                  class="pointer"
+                                >
+                                  Review<i
+                                    class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                  ></i>
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
@@ -440,6 +465,7 @@ import CourseHeader from "../components/CourseHeader";
 import { ApiGetDashboard } from "../http/apis/Dashboard";
 import $ from "jquery";
 import dayjs from "dayjs";
+import _ from "lodash";
 $(function () {
   $('[data-toggle="popover"]').popover();
 });
@@ -530,6 +556,8 @@ export default {
       gzView: [],
       tzDays: [],
       stdRank: [],
+      tempSortItem: "",
+      sortStatus: false,
     };
   },
   created() {},
@@ -553,6 +581,24 @@ export default {
     // });
   },
   methods: {
+    sortTable(sortItem) {
+      if (this.tempSortItem === "") {
+        this.tempSortItem = sortItem;
+        this.sortStatus = false;
+      } else if (this.tempSortItem !== sortItem) {
+        this.tempSortItem = sortItem;
+        this.sortStatus = false;
+      } else {
+      }
+      this.sortStatus = !this.sortStatus;
+      if (this.sortStatus) {
+        this.stdRank = _.sortBy(this.stdRank, [sortItem], ["asc"]);
+      } else {
+        this.stdRank = this.stdRank.reverse();
+      }
+
+      // publish_date
+    },
     getDashboard() {
       let vm = this;
       ApiGetDashboard.get(this.courseid)

@@ -665,7 +665,6 @@ export default {
       obj.userid = this.userid;
       ApiSetCollection.post(obj)
         .then((response) => {
-          console.log(response);
           if (response.status === "success") {
             this.$bus.$emit(
               "messsage:push",

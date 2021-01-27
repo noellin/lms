@@ -17,6 +17,7 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
+              @click="errorMessage = ''"
             >
               <span aria-hidden="true" class="zmdi zmdi-close"></span>
             </button>
@@ -42,6 +43,7 @@
                   data-dismiss="modal"
                   data-toggle="modal"
                   data-target="#ImportCSVModal"
+                  @click="errorMessage = ''"
                 >
                   <div>
                     <i class="zmdi zmdi-accounts-list zmdi-hc-fw display-5"></i>
@@ -55,6 +57,7 @@
                   data-dismiss="modal"
                   data-toggle="modal"
                   data-target="#CopyModal"
+                  @click="errorMessage = ''"
                 >
                   <div>
                     <i class="zmdi zmdi-copy zmdi-hc-fw display-5"></i>
@@ -251,7 +254,7 @@
           </div>
           <div class="modal-body">
             <h4 class="text-center mb-4 mt-2">Copy</h4>
-            <p>Copy the list of students in other course.</p>
+            <p>Copy student from other course.</p>
             <form>
               <div class="form-group">
                 <select2
@@ -299,7 +302,7 @@
               v-if="dupStudentList.length > 0"
             >
               <p class="text-danger ml-3 mt-3 mb-0">
-                You import students that already exist in course
+                These students already exist in the course.
               </p>
               <div
                 class="table-responsive p-10 mb-2"
@@ -395,7 +398,7 @@
               v-if="showAlreadyExist"
             >
               <p class="text-danger ml-3 mt-3 mb-0">
-                You import students that already exist in else course
+                These students already exist in the course.
               </p>
               <div
                 class="table-responsive p-10 mb-2"

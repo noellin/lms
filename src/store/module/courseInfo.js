@@ -44,6 +44,7 @@ const courseInfo = {
             state.caidList = [...state.tempAIDList[data.courseid]]
         },
         SET_TEXTBOOKLIST(state, data) {
+            console.log('set material');
             data.forEach(element => {
                 if(element.unit===undefined){
                     element.unit = ''
@@ -140,7 +141,7 @@ const courseInfo = {
             //courseInfo Material
             ApiGetCourseDatail.get(data).then((response) => {
                 context.commit('SET_COURSEINFO', response.csrInfo)
-                context.commit('SET_TEXTBOOKLIST', temp)
+                context.commit('SET_TEXTBOOKLIST', response.record)
                 context.commit('SET_COURSEOVERVIEW',response.courseOverview.record)
             });
             //student

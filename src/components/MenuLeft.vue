@@ -162,6 +162,7 @@ export default {
         this.$store.dispatch("common/setLoading", false);
       }, 400);
       if (id !== this.courseID) {
+        console.log("update course content");
         this.$store.dispatch("courseInfo/getCouseInfo", id);
       }
       switch (type) {
