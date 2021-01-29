@@ -44,7 +44,7 @@ const courseInfo = {
             state.caidList = [...state.tempAIDList[data.courseid]]
         },
         SET_TEXTBOOKLIST(state, data) {
-            console.log('set material');
+
             data.forEach(element => {
                 if(element.unit===undefined){
                     element.unit = ''
@@ -55,7 +55,7 @@ const courseInfo = {
                 // temp.forEach(item => {
                 //     item.link = item.information.includes('http')
                 // })
-                console.log(element.unit);
+ 
             });
             state.openedTextbookList = []
             state.textbookList = data

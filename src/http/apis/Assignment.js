@@ -47,6 +47,13 @@ export const ApiCheckAllA = {
     return post(`/asgmt/checkall/${aid}`, paramObj);
   },
 };
+export const ApiUncheckAllA = {
+  getAxiosAll: (aid, stdList) => {
+    return Promise.all(stdList.map(std => {
+      return get(`/asgmt/uncheck/${aid}/${std}`)    
+    }))
+}
+};
 
 export const ApiGetADetail = {
   get: (aid, sid) => {

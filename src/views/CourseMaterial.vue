@@ -1159,11 +1159,25 @@
           <div class="modal-body">
             <h5>How difficult is this assignment?</h5>
             <p>System will send more rewards to more difficult assignment.</p>
+            <p
+              v-for="(reward, index) in rewardList"
+              :key="reward.exp"
+              class="mb-0 monospace"
+            >
+              Level
+              <span :class="`yellow-${index + 1}`">{{ index + 1 }} </span>
+
+              => Exp.
+              <span style="font-weight: bold">{{ reward.exp }}</span>
+
+              , lucky draw ticket
+              <span style="font-weight: bold">{{ reward.ticket }}</span>
+            </p>
             <div class="text-center mt-4 mb-4">
               <div class="form-check form-check-inline text-primary">Easy</div>
               <div
                 class="custom-control custom-radio custom-control-inline mx-2"
-                v-for="d in difficultList"
+                v-for="(d, i) in difficultList"
                 :key="d"
               >
                 <input
@@ -1174,9 +1188,12 @@
                   v-model="difficult"
                   :value="d"
                 />
-                <label class="custom-control-label pointer" :for="d">{{
-                  d
-                }}</label>
+                <label
+                  class="custom-control-label pointer"
+                  :class="`yellow-${i + 1}`"
+                  :for="d"
+                  >{{ d }}</label
+                >
               </div>
 
               <div class="form-check form-check-inline text-primary">
@@ -1342,6 +1359,13 @@ export default {
       mfilter: "",
       searchType: false,
       tempSearchName: "",
+      rewardList: [
+        { exp: "100", ticket: "1" },
+        { exp: "150", ticket: "1" },
+        { exp: "200", ticket: "2" },
+        { exp: "250", ticket: "2" },
+        { exp: "300", ticket: "3" },
+      ],
     };
   },
   created() {
@@ -1988,5 +2012,24 @@ export default {
 .tooltip {
   width: 602px !important;
   min-width: 602px !important;
+}
+
+.monospace {
+  font-family: "Roboto", monospace;
+}
+.yellow-1 {
+  color: #fad961;
+}
+.yellow-2 {
+  color: #f9bc4f;
+}
+.yellow-3 {
+  color: #f8a03d;
+}
+.yellow-4 {
+  color: #f78c30;
+}
+.yellow-5 {
+  color: #f76b1c;
 }
 </style>

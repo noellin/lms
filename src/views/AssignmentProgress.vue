@@ -16,7 +16,9 @@
                     <h5 class="card-title text-white">Degree of difficulty</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="5">5</span>
+                        <span class="display-4 counter" data-count="5">{{
+                          asgmtInfo.level
+                        }}</span>
                       </p>
                     </div>
                   </div>
@@ -28,8 +30,10 @@
                     <h5 class="card-title text-white">Completed</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="47">47</span
-                        ><span class="d-none d-xl-inlineblock">/ 50</span>
+                        <span class="display-4 counter" data-count="47">{{
+                          asgmtInfo.completed
+                        }}</span>
+                        <!-- <span class="d-none d-xl-inlineblock">/ 50</span> -->
                       </p>
                     </div>
                   </div>
@@ -38,16 +42,18 @@
               <div class="col-4 col-md">
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Incomplete</h5>
+                    <h5 class="card-title text-white">Incompleted</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="2">2</span>
+                        <span class="display-4 counter" data-count="2">{{
+                          asgmtInfo.incompleted
+                        }}</span>
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-6 col-md">
+              <!-- <div class="col-6 col-md">
                 <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">Perfect</h5>
@@ -59,14 +65,18 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-6 col-md">
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">Fastest</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-6">Christopher</span>
+                        <span
+                          class="display-6"
+                          v-if="asgmtInfo.fastest !== undefined"
+                          >{{ asgmtInfo.fastest.username }}</span
+                        >
                       </p>
                     </div>
                   </div>
@@ -106,10 +116,19 @@
                   </div>
                 </div>
               </div>
+
               <div class="text-right">
                 <button
                   type="button"
-                  class="btn btn-primary btn-rounded"
+                  class="btn btn-primary btn-rounded btn-outline mr-2"
+                  :disabled="selectedStudent.length === 0"
+                  @click="UncheckAllA()"
+                >
+                  Uncheck
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-rounded btn-outline"
                   :disabled="selectedStudent.length === 0"
                   @click="checkAllA()"
                 >
@@ -153,7 +172,6 @@
                             <td>
                               <div
                                 class="custom-control custom-checkbox form-check"
-                                v-if="ap.checked !== 'true'"
                               >
                                 <input
                                   type="checkbox"
@@ -508,7 +526,7 @@
                           class="la la-gift mr-1 display-6 active pointer"
                           v-for="index in 3"
                           :key="index"
-                          @click="evaluate.score = index"
+                          @click="giveScore(index)"
                           :style="{
                             color: evaluate.score >= index ? 'orange' : '',
                           }"
@@ -575,12 +593,14 @@ import CourseHeader from "../components/CourseHeader";
 import {
   ApiGetAProgress,
   ApiCheckAllA,
+  ApiUncheckAllA,
   ApiGetADetail,
   ApiGetVoice,
   ApiSetEvaluate,
   ApiSetSpeakScore,
   ApiSearchStudent,
 } from "../http/apis/Assignment";
+import _ from "lodash";
 export default {
   name: "AssignmentProgress",
   components: { CourseHeader },
@@ -616,6 +636,12 @@ export default {
       playVoiceStatus: "",
       speakingList: {},
       sentence: {},
+      asgmtInfo: {
+        level: "",
+        completed: 0,
+        incompleted: 0,
+        fastest: "",
+      },
     };
   },
   created() {
@@ -623,6 +649,13 @@ export default {
   },
   mounted() {},
   methods: {
+    giveScore(astscore) {
+      if (this.evaluate.score === "" || this.evaluate.score !== astscore) {
+        this.evaluate.score = astscore;
+      } else {
+        this.evaluate.score = "";
+      }
+    },
     searchStudent() {
       let keyword = "*";
       if (
@@ -652,19 +685,58 @@ export default {
       }
     },
     getAProgress() {
-      ApiGetAProgress.get(this.aid)
+      this.asgmtInfo = {
+        level: "",
+        completed: 0,
+        incompleted: 0,
+        fastest: "",
+      };
+      let vm = this;
+      ApiGetAProgress.get(vm.aid)
         .then((response) => {
-          this.aProgressList = response.record;
-          this.$store.dispatch("courseInfo/setAssignmentTime", {
-            pubDate: response.publish_date,
-            expDate: response.expiry_date,
-          });
+          if (response.status === "success") {
+            vm.aProgressList = response.record;
+            vm.$store.dispatch("courseInfo/setAssignmentTime", {
+              pubDate: response.publish_date,
+              expDate: response.expiry_date,
+            });
+            response.record.forEach((item) => {
+              vm.asgmtInfo.level = item.difficult_level;
+              if (item.completedflag === "true") {
+                vm.asgmtInfo.completed = vm.asgmtInfo.completed + 1;
+              } else {
+                vm.asgmtInfo.incompleted = vm.asgmtInfo.incompleted + 1;
+              }
+            });
+            // let a = [
+            //   { username: "123", complete_time: "10" },
+            //   { username: "456", complete_time: "2" },
+            // ];
+            _.each(
+              response.record,
+              (item) => (item.complete_time = parseInt(item.complete_time, 10))
+            );
+            vm.asgmtInfo.fastest = _.minBy(response.record, "complete_time");
+            console.log(vm.asgmtInfo);
+          } else {
+            console.log(response.record);
+          }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     },
     quickNewComments(c) {
       this.evaluate.comment = "";
       this.evaluate.comment = this.evaluate.comment + c;
+    },
+    async UncheckAllA() {
+      let checkSList = [...this.selectedStudent];
+      ApiUncheckAllA.getAxiosAll(this.aid, checkSList)
+        .then((response) => {
+          this.getAProgress();
+        })
+        .catch((err) => {});
     },
     async checkAllA() {
       // console.log(this.selectedStudent);

@@ -50,10 +50,7 @@
                       : ''
                   "
                   class="pointer"
-                  @click="
-                    changePage(course.course_name, type, course.courseid);
-                    courseType = type;
-                  "
+                  @click="changePage(course.course_name, type, course.courseid)"
                   >{{ type }}</span
                 >
                 <!-- <span
@@ -90,8 +87,8 @@ export default {
         "Dashboard",
         "Echo Valley",
       ],
-      coursePage: this.$route.params.course,
-      courseType: this.$route.params.type,
+      coursePage: "",
+      courseType: "",
       iconStatus: this.$route.params.course,
       courseID: this.$route.params.courseid,
       course: {
@@ -134,6 +131,22 @@ export default {
       return this.$route.name;
     },
   },
+  watch: {
+    "$route.params.course": {
+      handler: function (course) {
+        this.coursePage = course;
+      },
+      deep: true,
+      immediate: true,
+    },
+    "$route.params.type": {
+      handler: function (type) {
+        this.courseType = type;
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
   methods: {
     getActiveCourseList(teacherid = "") {
       // this.course.activeCourseList = [];
@@ -157,12 +170,13 @@ export default {
       }
     },
     changePage(course, type, id) {
+      // this.courseType = type;
+      // this.coursePage = course;
       this.$store.dispatch("common/setLoading", true);
       setTimeout(() => {
         this.$store.dispatch("common/setLoading", false);
       }, 400);
       if (id !== this.courseID) {
-        console.log("update course content");
         this.$store.dispatch("courseInfo/getCouseInfo", id);
       }
       switch (type) {
