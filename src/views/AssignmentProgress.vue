@@ -13,7 +13,9 @@
               <div class="col-4 col-md">
                 <div class="card bg-secondary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Degree of difficulty</h5>
+                    <h5 class="card-title text-white">
+                      {{ $t("degree-of-difficulty") }}
+                    </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="5">{{
@@ -27,7 +29,7 @@
               <div class="col-4 col-md">
                 <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Completed</h5>
+                    <h5 class="card-title text-white">{{ $t("completed") }}</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="47">{{
@@ -42,7 +44,9 @@
               <div class="col-4 col-md">
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Incompleted</h5>
+                    <h5 class="card-title text-white">
+                      {{ $t("incompleted") }}
+                    </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="2">{{
@@ -69,7 +73,7 @@
               <div class="col-6 col-md">
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Fastest</h5>
+                    <h5 class="card-title text-white">{{ $t("fastest") }}</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span
@@ -124,7 +128,7 @@
                   :disabled="selectedStudent.length === 0"
                   @click="UncheckAllA()"
                 >
-                  Uncheck
+                  {{ $t("uncheck") }}
                 </button>
                 <button
                   type="button"
@@ -132,7 +136,7 @@
                   :disabled="selectedStudent.length === 0"
                   @click="checkAllA()"
                 >
-                  Check
+                  {{ $t("check") }}
                 </button>
               </div>
             </div>
@@ -161,10 +165,10 @@
                                 ></label>
                               </div>
                             </th>
-                            <th>Student name</th>
-                            <th>Progress</th>
-                            <th>Complete status</th>
-                            <th>Status</th>
+                            <th>{{ $t("student-name") }}</th>
+                            <th>{{ $t("progress") }}</th>
+                            <th>{{ $t("complete-status") }}</th>
+                            <th>{{ $t("status") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -210,24 +214,28 @@
                               <span
                                 v-if="ap.completedflag !== 'true'"
                                 class="text-warning"
-                                >Incomplete</span
+                                >{{ $t("incomplete") }}</span
                               >
-                              <span v-else class="text-success">Completed</span>
+                              <span v-else class="text-success">{{
+                                $t("completed")
+                              }}</span>
                             </td>
                             <td>
                               <span
                                 class="text-danger"
                                 v-if="ap.checked !== 'true'"
-                                >Unchecked</span
+                                >{{ $t("unchecked") }}</span
                               >
-                              <span v-else class="text-success">checked</span>
+                              <span v-else class="text-success">{{
+                                $t("checked")
+                              }}</span>
                             </td>
                             <!-- <span class="text-warning">Incomplete</span> -->
                             <!-- <td>checked</td> -->
                           </tr>
                         </tbody>
                       </table>
-                      <div class="col-12">
+                      <!-- <div class="col-12">
                         <div
                           class="dataTables_paginate paging_simple_numbers"
                           id="recent-transaction-table_paginate"
@@ -291,7 +299,7 @@
                             </li>
                           </ul>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -365,17 +373,17 @@
                           <span
                             class="badge badge-pill badge-primary"
                             v-if="sa.type === 'reading' || sa.type === 'mcq'"
-                            >Reading</span
+                            >{{ $t("reading") }}</span
                           >
                           <span
                             class="badge badge-pill badge-warning"
                             v-else-if="sa.type === 'video'"
-                            >Watching</span
+                            >{{ $t("watching") }}</span
                           >
                           <span
                             class="badge badge-pill badge-accent"
                             v-else-if="sa.type === 'speaking'"
-                            >Speaking Quiz</span
+                            >{{ $t("speaking-quiz") }}</span
                           >
                           <p class="mb-0 mt-1">{{ sa.resource_name }}</p>
                         </div>
@@ -394,7 +402,7 @@
                             ><i
                               class="zmdi zmdi-close zmdi-hc-fw text-white"
                             ></i></span
-                          >Incomplete
+                          >{{ $t("incomplete") }}
                         </h5>
                         <h5 class="text-success" v-else>
                           <span
@@ -402,7 +410,7 @@
                             ><i
                               class="zmdi zmdi-check zmdi-hc-fw text-white"
                             ></i></span
-                          >Complete
+                          >{{ $t("complete") }}
                         </h5>
                       </div>
 
@@ -410,7 +418,7 @@
                       <!-- 題目內容 -->
                       <div class="border-top pt-2" v-if="sa.type === 'mcq'">
                         <p>
-                          Total number of incorrect answers
+                          {{ $t("total-number-of-incorrect-answers") }}
                           <strong class="text-danger display-6">{{
                             sa.supplement.errno
                           }}</strong>
@@ -425,7 +433,7 @@
                             ><i
                               class="zmdi zmdi-check zmdi-hc-fw text-white"
                             ></i></span
-                          >Perfact!
+                          >{{ $t("perfact") }}!
                         </h5>
                         <ul class="d-flex justify-content-start mb-0">
                           <li
@@ -475,8 +483,10 @@
                         </ul>
                         <!-- <audio id="showAudio" src="" controls></audio> -->
                         <h6 class="mt-4">
-                          Speaking quiz score
-                          <small class="text-muted">(optional)</small>
+                          {{ $t("speaking-quiz-score") }}
+                          <small class="text-muted"
+                            >({{ $t("optional") }})</small
+                          >
                         </h6>
                         <div class="row mb-4">
                           <div class="col">
@@ -515,10 +525,11 @@
               </div>
               <div class="col-3">
                 <div class="card">
-                  <h5 class="card-header">Teacher feedback</h5>
+                  <h5 class="card-header">{{ $t("teacher-feedback") }}</h5>
                   <div class="card-body">
                     <h6>
-                      Extra bonus <small class="text-muted">(optional)</small>
+                      {{ $t("extra-bonus") }}
+                      <small class="text-muted">({{ $t("optional") }})</small>
                     </h6>
                     <div class="mt-3">
                       <a title="" class="bonus">
@@ -540,7 +551,8 @@
                       </a>
                     </div>
                     <h6 class="mt-4">
-                      Comments <small class="text-muted">(optional)</small>
+                      {{ $t("comments") }}
+                      <small class="text-muted">({{ $t("optional") }})</small>
                     </h6>
                     <textarea
                       class="form-control"
@@ -570,7 +582,7 @@
               class="btn btn-secondary btn-outline btn-rounded mr-2"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               type="button"
@@ -580,7 +592,7 @@
               data-target="#AssignmentModal-2"
               @click="setEvaluate()"
             >
-              Check
+              {{ $t("check") }}
             </button>
           </div>
         </div>

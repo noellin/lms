@@ -16,7 +16,7 @@
               ></a>
             </div> -->
             <div class="mr-auto">
-              <h1>Account</h1>
+              <h1>{{ $t("account") }}</h1>
             </div>
           </div>
         </header>
@@ -38,20 +38,22 @@
                       </div>
                       <!--information-->
                       <div class="col-8" v-if="accountShow === 'information'">
-                        <h5 class="m-b-4 p-t-30">Account information</h5>
+                        <h5 class="m-b-4 p-t-30">
+                          {{ $t("account-information") }}
+                        </h5>
                         <ul class="list-reset text-left m-t-20 m-b-30">
                           <li class="text-muted">
-                            <strong>Name:</strong>
+                            <strong>{{ $t("name") }}:</strong>
                             <span class="m-l-15">{{
                               accountInfo.username
                             }}</span>
                           </li>
                           <li class="text-muted">
-                            <strong>Email:</strong>
+                            <strong>{{ $t("email") }}:</strong>
                             <span class="m-l-15">{{ accountInfo.email }}</span>
                           </li>
                           <li class="text-muted">
-                            <strong>Course:</strong>
+                            <strong>{{ $t("course") }}:</strong>
                             <span class="m-l-15">
                               <span
                                 v-for="(course, i) in courseList"
@@ -77,10 +79,14 @@
                             <label class="tgl-btn" for="cb8"></label>
                           </div>
                           <div class="col">
-                            <span class="text-success mt-1" v-if="accountStatus"
-                              >Active</span
+                            <span
+                              class="text-success mt-1"
+                              v-if="accountStatus"
+                              >{{ $t("active") }}</span
                             >
-                            <span v-else class="text-danger mt-1">Disable</span>
+                            <span v-else class="text-danger mt-1">{{
+                              $t("disable")
+                            }}</span>
                           </div>
                         </div>
                         <!-- v-if="permit === 'teacher'" -->
@@ -88,7 +94,7 @@
                           <a
                             @click="accountShow = 'edit'"
                             class="btn btn-primary btn-rounded mr-2"
-                            >Edit</a
+                            >{{ $t("edit") }}</a
                           >
                           <button
                             type="button"
@@ -96,17 +102,19 @@
                             data-toggle="modal"
                             data-target="#ResetPasswordModal"
                           >
-                            Reset password
+                            {{ $t("reset-password") }}
                           </button>
                         </div>
                       </div>
                       <!--information end-->
                       <!--edit page-->
                       <div class="col-8" v-if="accountShow === 'edit'">
-                        <h5 class="m-b-4 p-t-30">Account information</h5>
+                        <h5 class="m-b-4 p-t-30">
+                          {{ $t("account-information") }}
+                        </h5>
                         <div class="form-group row m-t-20">
                           <label class="w-75 pl-3 col-form-label text-right"
-                            >Name：</label
+                            >{{ $t("name") }}：</label
                           >
                           <div class="col-10">
                             <input
@@ -120,7 +128,7 @@
                         </div>
                         <div class="form-group row m-b-30">
                           <label class="w-75 pl-3 col-form-label text-right"
-                            >Email：</label
+                            >{{ $t("email") }}：</label
                           >
                           <div class="col-10">
                             <input
@@ -137,14 +145,14 @@
                           type="button"
                           class="btn btn-secondary btn-outline btn-rounded mr-2"
                         >
-                          Cancel
+                          {{ $t("cancel") }}
                         </button>
                         <button
                           @click="setAccountInfo()"
                           type="button"
                           class="btn btn-primary btn-rounded"
                         >
-                          Save
+                          {{ $t("save") }}
                         </button>
                       </div>
                       <!--edit page end-->
@@ -171,7 +179,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Reset password</h5>
+            <h5 class="modal-title">{{ $t("reset-password") }}</h5>
             <button
               type="button"
               class="close"
@@ -190,9 +198,9 @@
                   name="Current password"
                 >
                   <div class="form-group row">
-                    <label class="control-label text-right col-4"
-                      >Current password</label
-                    >
+                    <label class="control-label text-right col-4">{{
+                      $t("current-password")
+                    }}</label>
 
                     <div class="col-8">
                       <input
@@ -209,7 +217,7 @@
                     </div>
 
                     <div class="invalid-feedback">
-                      Current password is incorrect.
+                      {{ $t("current-password-is-incorrect") }}
                     </div>
                   </div>
                 </ValidationProvider>
@@ -220,9 +228,9 @@
                   vid="confirmation"
                 >
                   <div class="form-group row">
-                    <label class="control-label text-right col-4"
-                      >New password</label
-                    >
+                    <label class="control-label text-right col-4">{{
+                      $t("new-password")
+                    }}</label>
                     <div class="col-8">
                       <input
                         type="password"
@@ -238,7 +246,7 @@
                     </div>
 
                     <div class="invalid-feedback">
-                      Passwords are inconsistent.
+                      {{ $t("passwords-are-inconsistent") }}.
                     </div>
                   </div>
                 </ValidationProvider>
@@ -248,9 +256,9 @@
                   name="Confirm password"
                 >
                   <div class="form-group row">
-                    <label class="control-label text-right col-4"
-                      >Confirm password</label
-                    >
+                    <label class="control-label text-right col-4">{{
+                      $t("confirm-password")
+                    }}</label>
 
                     <div class="col-8">
                       <input
@@ -274,14 +282,14 @@
                 class="btn btn-secondary btn-outline btn-rounded"
                 data-dismiss="modal"
               >
-                Cancel
+                {{ $t("cancel") }}
               </button>
               <button
                 type="submit"
                 class="btn btn-accent btn-rounded"
                 @click="setAccountPWD"
               >
-                Reset
+                {{ $t("reset") }}
               </button>
               <!-- 
                 data-dismiss="modal"
@@ -306,7 +314,7 @@
           class="alert alert-success alert-dismissible fade show"
           role="alert"
         >
-          Your password has now been successfully reset.
+          {{ $t("your-password-has-now-been-successfully-reset") }}
           <button
             type="button"
             class="close"
@@ -321,7 +329,7 @@
           class="alert alert-danger alert-dismissible fade show"
           role="alert"
         >
-          <span>Error：</span>{{ errorMessage }}.
+          <span>{{ $t("error") }}：</span>{{ errorMessage }}.
           <button
             type="button"
             class="close"
@@ -429,7 +437,8 @@ export default {
         if (success) {
           ApiSetAccountPWD.post(this.userid, this.tempPwdInfo)
             .then((response) => {
-              if (response.satus === "success") {
+              console.log(response);
+              if (response.status === "success") {
                 this.resetpwStatus = true;
                 $("#ResetPasswordModal").modal("hide");
                 $("#PasswordResetSuccessModal").modal("show");

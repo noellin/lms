@@ -49,7 +49,7 @@
                     convertS();
                   "
                 >
-                  Next
+                  {{ $t("next") }}
                 </button>
               </div>
             </div>
@@ -86,14 +86,14 @@
                   class="btn btn-primary btn-outline btn-rounded mr-2"
                   @click="quizShow = 'edit'"
                 >
-                  Back
+                  {{ $t("back") }}
                 </button>
                 <button
                   type=""
                   class="btn btn-primary btn-rounded"
                   @click="setS()"
                 >
-                  Create
+                  {{ $t("create") }}
                 </button>
               </div>
             </div>
@@ -117,7 +117,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Message</h5>
+            <h5 class="modal-title">{{ $t("message") }}</h5>
             <button
               type="button"
               class="close"
@@ -128,7 +128,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <h5>System error, please contact your administrator</h5>
+            <h5>{{ $t("system-error-please-contact-your-administrator") }}</h5>
           </div>
           <div class="modal-footer">
             <button
@@ -136,131 +136,15 @@
               class="btn btn-primary btn-outline"
               data-dismiss="modal"
             >
-              OK
+              {{ $t("ok") }}
             </button>
           </div>
         </div>
       </div>
     </div>
     <!-- SpeakingQuizPreview MODAL -->
-    <div
-      class="modal fade"
-      id="SpeakingQuizPreviewModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-      data-modal="scroll"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Diana</h5>
-            <span class="ml-3 text-muted"><small>2020.03.19</small></span>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="zmdi zmdi-Cancel"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <ul class="quiz-list">
-              <li>
-                <strong class="text-primary mr-2">Q1.</strong>She likes maths
-                and science.
-              </li>
-              <li>
-                <strong class="text-primary mr-2">Q2.</strong>Her favourite
-                colour is pink and her superpower is data processing.
-              </li>
-              <li>
-                <strong class="text-primary mr-2">Q3.</strong>How old are you?
-              </li>
-              <li><strong class="text-primary mr-2">Q4.</strong>I'm 10.</li>
-              <li>
-                <strong class="text-primary mr-2">Q5.</strong>10 is a great
-                number.
-              </li>
-            </ul>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary btn-outline"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- Add Modal -->
-    <div
-      class="modal modal-top-frame fade"
-      id="AddModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div
-          class="alert alert-success alert-dismissible fade show"
-          role="alert"
-        >
-          已加入
-          <button
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true" class="la la-close"></span>
-          </button>
-        </div>
-      </div>
-    </div>
     <!-- Added Modal -->
-    <div
-      class="modal fade"
-      id="AddedModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">取消加入assignment</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="zmdi zmdi-close"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>是否取消已加入assignment?</p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary btn-rounded btn-outline"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button type="button" class="btn btn-primary btn-rounded">
-              取消加入
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -357,7 +241,7 @@ export default {
               console.log(
                 `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`
               );
-              let url = `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`
+              let url = `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`;
               url = url.replaceAll("?", "%3F");
               this.$router.push({
                 path: url,
@@ -375,8 +259,8 @@ export default {
               console.log(
                 `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`
               );
-              let url = `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`
-               url = url.replaceAll("?", "%3F");
+              let url = `/quiz/${this.$route.params.course}/Speaking Quiz/${this.$route.params.rname}/${this.$route.params.mname}/${this.courseid}/${this.$route.params.note}/${this.rid}/${this.mid}`;
+              url = url.replaceAll("?", "%3F");
               this.$router.push({
                 path: url,
               });

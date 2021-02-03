@@ -11,7 +11,7 @@
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add student</h5>
+            <h5 class="modal-title">{{ $t("add-student") }}</h5>
             <button
               type="button"
               class="close"
@@ -34,7 +34,7 @@
                   <div>
                     <i class="zmdi zmdi-account-add zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">Add a single student</div>
+                  <div class="mt-3">{{ $t("add-a-single-student") }}</div>
                 </button>
               </div>
               <div>
@@ -48,7 +48,7 @@
                   <div>
                     <i class="zmdi zmdi-accounts-list zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">Import a CSV</div>
+                  <div class="mt-3">{{ $t("import-a-csv") }}</div>
                 </button>
               </div>
               <div>
@@ -62,7 +62,7 @@
                   <div>
                     <i class="zmdi zmdi-copy zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">Copy</div>
+                  <div class="mt-3">{{ $t("copy") }}</div>
                 </button>
               </div>
             </div>
@@ -81,7 +81,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add Student</h5>
+            <h5 class="modal-title">{{ $t("add-student") }}</h5>
             <button
               type="button"
               class="close"
@@ -92,7 +92,9 @@
             </button>
           </div>
           <div class="modal-body">
-            <h4 class="text-center mb-4 mt-2">Add a single student</h4>
+            <h4 class="text-center mb-4 mt-2">
+              {{ $t("add-a-single-student") }}
+            </h4>
             <form>
               <ValidationObserver ref="addStdForm">
                 <ValidationProvider
@@ -101,9 +103,9 @@
                   name="Studend name"
                 >
                   <div class="form-group row">
-                    <label class="control-label text-right col-sm-4"
-                      >Student name</label
-                    >
+                    <label class="control-label text-right col-sm-4">{{
+                      $t("student-name")
+                    }}</label>
                     <div class="col-sm-8">
                       <input
                         type="text"
@@ -117,7 +119,7 @@
                       }}</span>
                     </div>
                     <div class="invalid-feedback">
-                      The student is already exists.
+                      {{ $t("the-student-is-already-exists") }}.
                     </div>
                   </div>
                 </ValidationProvider>
@@ -127,9 +129,9 @@
                   name="Parents'phone number"
                 >
                   <div class="form-group row">
-                    <label class="control-label text-right col-sm-4"
-                      >Parents'phone number</label
-                    >
+                    <label class="control-label text-right col-sm-4">{{
+                      $t("parentsphone-number")
+                    }}</label>
                     <div class="col-sm-8">
                       <input
                         type="text"
@@ -144,7 +146,7 @@
                     </div>
 
                     <div class="invalid-feedback">
-                      The number is already exists.
+                      {{ $t("the-number-is-already-exists") }}.
                     </div>
                   </div>
                 </ValidationProvider>
@@ -157,14 +159,14 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
               class="btn btn-primary btn-rounded"
               @click="addStudent()"
             >
-              Add
+              {{ $t("add") }}
             </button>
           </div>
         </div>
@@ -182,7 +184,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">
-              Student profile already exists
+              {{ $t("student-profile-already-exists") }}
             </h5>
             <button
               type="button"
@@ -198,8 +200,8 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Student name</th>
-                    <th>Parents'phone number</th>
+                    <th>{{ $t("student-name") }}</th>
+                    <th>{{ $t("parentsphone-number") }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -225,7 +227,7 @@
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
             >
-              OK
+              {{ $t("ok") }}
             </button>
           </div>
         </div>
@@ -242,7 +244,9 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Add student</h5>
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("add-student") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -253,8 +257,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <h4 class="text-center mb-4 mt-2">Copy</h4>
-            <p>Copy student from other course.</p>
+            <h4 class="text-center mb-4 mt-2">{{ $t("copy") }}</h4>
+            <p>{{ $t("copy-student-from-other-course") }}.</p>
             <form>
               <div class="form-group">
                 <select2
@@ -275,8 +279,8 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Student name</th>
-                    <th>Parents'phone number</th>
+                    <th>{{ $t("student-name") }}</th>
+                    <th>{{ $t("parentsphone-number") }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -292,7 +296,7 @@
             </div>
             <p class="mb-0" v-if="courseStudentList.length > 0">
               <span class="text-primary">{{ courseStudentList.length }}</span>
-              students
+              {{ $t("all-students") }}
             </p>
             <!-- <p class="text-danger">
               The number of students has reached the upper limit.
@@ -302,7 +306,7 @@
               v-if="dupStudentList.length > 0"
             >
               <p class="text-danger ml-3 mt-3 mb-0">
-                These students already exist in the course.
+                {{ $t("these-students-already-exist-in-the-course") }}.
               </p>
               <div
                 class="table-responsive p-10 mb-2"
@@ -312,7 +316,7 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>Student name</th>
+                      <th>{{ $t("student-name") }}</th>
                       <!-- <th>Unique Number</th> -->
                     </tr>
                   </thead>
@@ -332,14 +336,14 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
               class="btn btn-primary btn-rounded"
               @click="copySList(seleceCourse)"
             >
-              Copy
+              {{ $t("copy") }}
             </button>
           </div>
         </div>
@@ -356,7 +360,9 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Add student</h5>
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("add-student") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -367,12 +373,14 @@
             </button>
           </div>
           <div class="modal-body" data-widget="dropzone">
-            <h4 class="text-center mb-4 mt-2">Import a CSV</h4>
+            <h4 class="text-center mb-4 mt-2">{{ $t("import-a-csv") }}</h4>
             <p class="text-center mb-0">
-              How to make a csv file to import students list？
+              {{ $t("how-to-make-a-csv-file-to-import-students-list") }}?
             </p>
             <p class="text-center" @click="downloadSample()">
-              <a class="download-text pointer">Download sample files</a>
+              <a class="download-text pointer">{{
+                $t("download-sample-files")
+              }}</a>
             </p>
             <vue-dropzone
               ref="myVueDropzone"
@@ -383,13 +391,15 @@
             >
               <!-- @vdropzone-sending="importStdFile" -->
               <i class="icon dripicons-cloud-upload"></i>
-              <h6 class="text-center">Select or drag-and-drop a CSV file.</h6>
+              <h6 class="text-center">
+                {{ $t("select-or-drag-and-drop-a-csv-file") }}.
+              </h6>
               <div class="d-block text-center">
                 <button
                   type="button"
                   class="btn btn-primary btn-rounded btn-floating"
                 >
-                  Upload
+                  {{ $t("upload") }}
                 </button>
               </div>
             </vue-dropzone>
@@ -398,7 +408,7 @@
               v-if="showAlreadyExist"
             >
               <p class="text-danger ml-3 mt-3 mb-0">
-                These students already exist in the course.
+                {{ $t("these-students-already-exist-in-the-course") }}.
               </p>
               <div
                 class="table-responsive p-10 mb-2"
@@ -408,8 +418,8 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>Student name</th>
-                      <th>Parents'phone number</th>
+                      <th>{{ $t("student-name") }}</th>
+                      <th>{{ $t("parentsphone-number") }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -432,7 +442,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -440,7 +450,7 @@
               data-toggle="modal"
               @click="importStdFile()"
             >
-              Import
+              {{ $t("import") }}
             </button>
             <!-- data-dismiss="modal" -->
             <!-- data-target="#StudentExistedModal" -->

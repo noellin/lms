@@ -50,9 +50,11 @@
                     <div class="card-body row col-sm-12">
                       <div class="col-sm-12">
                         <p>
-                          The questions of the Echo Valley are selected by the
-                          system based on material. You can also enter the
-                          question yourself.
+                          {{
+                            $t(
+                              "the-questions-of-the-echo-valley-are-selected-by-the-system-based-on-material-you-can-also-enter-the-question-yourself"
+                            )
+                          }}.
                         </p>
                       </div>
 
@@ -71,9 +73,9 @@
                           ></span
                         >
                         <div class="col-sm-12 px-0 mt-2">
-                          <label class="col-form-label col-sm-12 px-0"
-                            >Date of publication</label
-                          >
+                          <label class="col-form-label col-sm-12 px-0">{{
+                            $t("date-of-publication")
+                          }}</label>
 
                           <!-- <date-picker
                             v-model="weeklyQuiz.publishTime"
@@ -97,7 +99,7 @@
                             data-toggle="modal"
                             data-target="#ModifyModal"
                           >
-                            Modify
+                            {{ $t("modify") }}
                           </button>
                         </div>
                       </div>
@@ -114,9 +116,9 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th>Student name</th>
-                              <th>Score</th>
-                              <th>Record</th>
+                              <th>{{ $t("student-name") }}</th>
+                              <th>{{ $t("score") }}</th>
+                              <th>{{ $t("record") }}</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -148,75 +150,10 @@
                                   ></i>
                                 </button>
                               </td>
-                              <td v-else>Incomplete</td>
+                              <td v-else>{{ $t("incomplete") }}</td>
                             </tr>
                           </tbody>
                         </table>
-                        <!-- <div class="col-12">
-                          <div
-                            class="dataTables_paginate paging_simple_numbers"
-                            id="recent-transaction-table_paginate"
-                          >
-                            <ul class="pagination d-flex justify-content-end">
-                              <li
-                                class="paginate_button page-item previous disabled"
-                                id="recent-transaction-table_previous"
-                              >
-                                <a
-                                  href="#"
-                                  aria-controls="recent-transaction-table"
-                                  data-dt-idx="0"
-                                  tabindex="0"
-                                  class="page-link"
-                                  >Prev</a
-                                >
-                              </li>
-                              <li class="paginate_button page-item active">
-                                <a
-                                  href="#"
-                                  aria-controls="recent-transaction-table"
-                                  data-dt-idx="1"
-                                  tabindex="0"
-                                  class="page-link"
-                                  >1</a
-                                >
-                              </li>
-                              <li class="paginate_button page-item">
-                                <a
-                                  href="#"
-                                  aria-controls="recent-transaction-table"
-                                  data-dt-idx="2"
-                                  tabindex="0"
-                                  class="page-link"
-                                  >2</a
-                                >
-                              </li>
-                              <li class="paginate_button page-item">
-                                <a
-                                  href="#"
-                                  aria-controls="recent-transaction-table"
-                                  data-dt-idx="3"
-                                  tabindex="0"
-                                  class="page-link"
-                                  >3</a
-                                >
-                              </li>
-                              <li
-                                class="paginate_button page-item next"
-                                id="recent-transaction-table_next"
-                              >
-                                <a
-                                  href="#"
-                                  aria-controls="recent-transaction-table"
-                                  data-dt-idx="4"
-                                  tabindex="0"
-                                  class="page-link"
-                                  >Next</a
-                                >
-                              </li>
-                            </ul>
-                          </div>
-                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -238,7 +175,9 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Modify Echo Valley</h5>
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("modify-echo-valley") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -261,9 +200,9 @@
               ><small>{{ weeklyQuiz.sentence.length }}/500</small></span
             >
 
-            <label class="col-form-label col-sm-12 px-0"
-              >Date of publication</label
-            >
+            <label class="col-form-label col-sm-12 px-0">{{
+              $t("date-of-publication")
+            }}</label>
 
             <date-picker
               v-model="weeklyQuiz.publishTime"
@@ -280,7 +219,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -294,7 +233,7 @@
                   : true
               "
             >
-              Confirm
+              {{ $t("confirm") }}
             </button>
           </div>
         </div>

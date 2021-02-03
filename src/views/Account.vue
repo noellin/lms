@@ -9,7 +9,7 @@
         <header class="page-header">
           <div class="d-flex align-items-center">
             <div class="mr-auto">
-              <h1>Account</h1>
+              <h1>{{ $t("account") }}</h1>
             </div>
           </div>
         </header>
@@ -42,7 +42,7 @@
                 data-toggle="modal"
                 data-target="#AddTeacherModal"
               >
-                <i class="la la-plus"></i>Add teacher
+                <i class="la la-plus"></i>{{ $t("add-teacher") }}
               </button>
             </div>
           </div>
@@ -59,9 +59,9 @@
                   <table class="table table-striped" style="width: 100%">
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>E-mail</th>
-                        <th>Status</th>
+                        <th>{{ $t("name") }}</th>
+                        <th>{{ $t("e-mail") }}</th>
+                        <th>{{ $t("status") }}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -82,9 +82,11 @@
                           <span
                             class="text-success"
                             v-if="ac.status === 'enable'"
-                            >Active</span
+                            >{{ $t("active") }}</span
                           >
-                          <span class="text-danger" v-else>Supended</span>
+                          <span class="text-danger" v-else>{{
+                            $t("supended")
+                          }}</span>
                         </td>
                       </tr>
                     </tbody>
@@ -176,7 +178,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add teacher</h5>
+            <h5 class="modal-title">{{ $t("add-teacher") }}</h5>
             <button
               type="button"
               class="close"
@@ -187,10 +189,13 @@
             </button>
           </div>
           <div class="modal-body">
-            <h4 class="text-center mb-4 mt-2">Add teacher</h4>
+            <h4 class="text-center mb-4 mt-2">{{ $t("add-teacher") }}</h4>
             <p>
-              Enter teacher's information, and invite teacher to register
-              account.
+              {{
+                $t(
+                  "enter-teachers-information-and-invite-teacher-to-register-account"
+                )
+              }}
             </p>
             <form>
               <ValidationObserver ref="accountForm">
@@ -200,7 +205,9 @@
                   name="Name"
                 >
                   <div class="form-group row">
-                    <label class="control-label text-right col-3">Name</label>
+                    <label class="control-label text-right col-3">{{
+                      $t("name")
+                    }}</label>
                     <div class="col-9">
                       <input
                         type="text"
@@ -222,7 +229,9 @@
                   name="E-mail"
                 >
                   <div class="form-group row">
-                    <label class="control-label text-right col-3">E-mail</label>
+                    <label class="control-label text-right col-3">{{
+                      $t("e-mail")
+                    }}</label>
                     <div class="col-9">
                       <input
                         type="email"
@@ -247,7 +256,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -256,7 +265,7 @@
               data-toggle="modal"
               @click="sendInviteMail()"
             >
-              Invite
+              {{ $t("invite") }}
             </button>
           </div>
         </div>
@@ -275,7 +284,7 @@
           class="alert alert-success alert-dismissible fade show"
           role="alert"
         >
-          An email has been sent to teacher's email.
+          {{ $t("an-email-has-been-sent-to-teachers-email") }}
           <button
             type="button"
             class="close"

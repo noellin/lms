@@ -5,7 +5,9 @@
       <!-- class="metismenu" -->
 
       <ul class="nav metismenu content-maxheight">
-        <li class="sidebar-header"><span>Active</span></li>
+        <li class="sidebar-header">
+          <span>{{ $t("active") }}</span>
+        </li>
         <li
           id="accordionExample"
           class="nav-dropdown accordion"

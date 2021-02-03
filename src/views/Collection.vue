@@ -16,7 +16,7 @@
               ></a>
             </div> -->
             <div class="mr-auto">
-              <h1>Collection</h1>
+              <h1>{{ $t("collection") }}</h1>
               <!-- <p class="second-title" v-if="collectionShow === 'detail'">
                 First grage
               </p> -->
@@ -50,7 +50,7 @@
                 @click="gotoCollectionCreate()"
                 class="btn btn-primary btn-outline btn-rounded"
               >
-                <i class="la la-plus"></i>Create new Collection
+                <i class="la la-plus"></i>{{ $t("create-new-collection") }}
               </button>
             </div>
           </div>
@@ -67,10 +67,14 @@
                   <table class="table table-striped" style="width: 100%">
                     <thead>
                       <tr>
-                        <th style="width: 30%">Collection name</th>
-                        <th style="width: 30%">Package</th>
-                        <th style="width: 30%">Applicable course</th>
-                        <th style="width: 10%; text-align: center">Action</th>
+                        <th style="width: 30%">{{ $t("collection-name") }}</th>
+                        <th style="width: 30%">{{ $t("package") }}</th>
+                        <th style="width: 30%">
+                          {{ $t("applicable-course") }}
+                        </th>
+                        <th style="width: 10%; text-align: center">
+                          {{ $t("action") }}
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -218,7 +222,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Delete</h5>
+            <h5 class="modal-title">{{ $t("delete") }}</h5>
             <button
               type="button"
               class="close"
@@ -230,7 +234,9 @@
           </div>
           <div class="modal-body">
             <p>
-              Confirm to delete Collection：<strong>{{ tempCname }}</strong
+              {{ $t("confirm-to-delete-collection") }}：<strong>{{
+                tempCname
+              }}</strong
               >?
             </p>
           </div>
@@ -240,7 +246,7 @@
               class="btn btn-secondary btn-rounded btn-outline"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -248,7 +254,7 @@
               data-dismiss="modal"
               @click="deleteCollection(tempCid)"
             >
-              Confirm
+              {{ $t("confirm") }}
             </button>
           </div>
         </div>

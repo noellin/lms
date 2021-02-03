@@ -25,11 +25,13 @@
         </p>
         <p class="second-title" v-else>{{ rname }} / {{ mname }}</p>
         <p class="second-title" v-if="$route.name === 'Assignment_Progress'">
-          Assigned {{ assignmentDL.pubDate | dateConversion }} - Due
+          {{ $t("assigned") }} {{ assignmentDL.pubDate | dateConversion }} -
+          {{ $t("due") }}
           {{ assignmentDL.expDate | dateConversion }}
         </p>
         <p class="second-title" v-if="$route.name === 'Weekly_Quiz_Progress'">
-          Echo Valley {{ weeklyQuizDL.pubDate | dateConversion }} - Due
+          {{ $t("echo-valley") }} {{ weeklyQuizDL.pubDate | dateConversion }} -
+          {{ $t("due") }}
           {{ weeklyQuizDL.expDate | dateConversion }}
         </p>
       </div>
@@ -46,7 +48,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Echo Valley</h5>
+            <h5 class="modal-title">{{ $t("echo-valley") }}</h5>
             <button
               type="button"
               class="close"
@@ -58,9 +60,11 @@
           </div>
           <div class="modal-body">
             <p>
-              Echo Valley offers weekly oral assignments, or users can create
-              their own oral assignments, which will be automatically scored by
-              the system and provide relevant information.
+              {{
+                $t(
+                  "echo-valley-offers-weekly-oral-assignments-or-users-can-create-their-own-oral-assignments-which-will-be-automatically-scored-by-the-system-and-provide-relevant-information"
+                )
+              }}.
             </p>
           </div>
           <div class="modal-footer">
@@ -69,7 +73,7 @@
               class="btn btn-primary btn-outline"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
           </div>
         </div>

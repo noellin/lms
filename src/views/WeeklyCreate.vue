@@ -16,9 +16,9 @@
                     <div class="card-body">
                       <form>
                         <div class="form-group row">
-                          <label class="col-form-label text-right col-sm-3"
-                            >Question</label
-                          >
+                          <label class="col-form-label text-right col-sm-3">{{
+                            $t("question")
+                          }}</label>
                           <div class="col-sm-8">
                             <textarea
                               class="form-control"
@@ -36,9 +36,9 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-form-label col-sm-3 text-right"
-                            >Date of publication</label
-                          >
+                          <label class="col-form-label col-sm-3 text-right">{{
+                            $t("date-of-publication")
+                          }}</label>
                           <div class="col">
                             <date-picker
                               v-model="newWeeklyQuiz.publishTime"
@@ -83,7 +83,7 @@
                       data-dismiss="modal"
                       @click="back()"
                     >
-                      Cancel
+                      {{ $t("cancel") }}
                     </button>
                     <button
                       type="button"
@@ -97,7 +97,7 @@
                           : true
                       "
                     >
-                      Save
+                      {{ $t("save") }}
                     </button>
                   </div>
                 </div>

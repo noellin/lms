@@ -15,16 +15,18 @@
               <p class="text-center m-b-40">iGroup LMS</p>
               <ValidationObserver ref="loginForm">
                 <div id="login-Page">
-                  <h5 class="sign-in-heading">Log in to your account</h5>
+                  <h5 class="sign-in-heading">
+                    {{ $t("log-in-to-your-account") }}
+                  </h5>
                   <ValidationProvider
                     rules="required"
                     v-slot="{ failed, errors }"
                     name="Account"
                   >
                     <div class="form-group">
-                      <label for="inputEmail" class="sr-only"
-                        >Email address</label
-                      >
+                      <label for="inputEmail" class="sr-only">{{
+                        $t("email-address")
+                      }}</label>
                       <input
                         type="email"
                         id="inputEmail"
@@ -46,9 +48,9 @@
                     name="Password"
                   >
                     <div class="form-group">
-                      <label for="inputPassword" class="sr-only"
-                        >Password</label
-                      >
+                      <label for="inputPassword" class="sr-only">{{
+                        $t("password")
+                      }}</label>
                       <input
                         type="password"
                         id="inputPassword"
@@ -77,20 +79,20 @@
                         v-model="remember"
                       />
                       <label class="custom-control-label" for="stateCheck1">
-                        Remember me</label
+                        {{ $t("remember-me") }}</label
                       >
                     </div>
                     <a
                       class="float-right blue pointer"
                       @click="loginShow = 'forgetPassword'"
-                      >Forgot Password?</a
+                      >{{ $t("forgot-password") }}?</a
                     >
                   </div>
                   <button
                     class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
                     @click="login()"
                   >
-                    Log In
+                    {{ $t("log-in") }}
                   </button>
                 </div>
               </ValidationObserver>
@@ -112,17 +114,20 @@
                 <i class="zmdi zmdi-check-circle zmdi-hc-fw text-success"></i>
               </p>
               <h5 class="sign-in-heading text-center text-success">
-                Password reset success
+                {{ $t("password-reset-success") }}
               </h5>
               <p class="text-center">
-                Your password has now been successfully reset. Please use this
-                new password to log in.
+                {{
+                  $t(
+                    "your-password-has-now-been-successfully-reset-please-use-this-new-password-to-log-in"
+                  )
+                }}.
               </p>
               <button
                 class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
                 @click="loginShow = 'login'"
               >
-                Return to Login
+                {{ $t("return-to-login") }}
               </button>
             </div>
           </div>
@@ -139,10 +144,18 @@
               <p class="text-center m-b-40">iGroup LMS</p>
 
               <div id="forget-password-page">
-                <h5 class="sign-in-heading">Forgotten Password?</h5>
-                <p>We'll send you an email with link to reset your password.</p>
+                <h5 class="sign-in-heading">{{ $t("forgotten-password") }}?</h5>
+                <p>
+                  {{
+                    $t(
+                      "well-send-you-an-email-with-link-to-reset-your-password"
+                    )
+                  }}.
+                </p>
                 <div class="form-group">
-                  <label for="inputEmail" class="sr-only">Email address</label>
+                  <label for="inputEmail" class="sr-only">{{
+                    $t("email-address")
+                  }}</label>
                   <input
                     type="email"
                     id="inputEmail"
@@ -157,7 +170,7 @@
                   class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
                   @click="forgotPassword()"
                 >
-                  Send
+                  {{ $t("send") }}
                 </button>
               </div>
             </div>
@@ -175,8 +188,12 @@
                 </a>
                 <p class="text-center m-b-40">iGroup LMS</p>
 
-                <p class="text-primary text-center">E-mail: {{ userEmail }}</p>
-                <h5 class="sign-in-heading">Confirm your password</h5>
+                <p class="text-primary text-center">
+                  {{ $t("e-mail") }}: {{ userEmail }}
+                </p>
+                <h5 class="sign-in-heading">
+                  {{ $t("confirm-your-password") }}
+                </h5>
                 <ValidationProvider
                   rules="required|min:6"
                   v-slot="{ failed, errors }"
@@ -184,7 +201,9 @@
                   vid="confirmation"
                 >
                   <div class="form-group">
-                    <label for="inputPassword" class="sr-only">Password</label>
+                    <label for="inputPassword" class="sr-only">{{
+                      $t("password")
+                    }}</label>
                     <input
                       type="password"
                       id="inputPassword"
@@ -204,7 +223,9 @@
                   name="confirm password"
                 >
                   <div class="form-group">
-                    <label for="inputPassword" class="sr-only">Password</label>
+                    <label for="inputPassword" class="sr-only">{{
+                      $t("password")
+                    }}</label>
                     <input
                       type="password"
                       id="inputPassword"
@@ -222,7 +243,7 @@
                   class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
                   @click="resetPassword()"
                 >
-                  Confirm password
+                  {{ $t("confirm-password") }}
                 </button>
               </ValidationObserver>
             </div>
@@ -242,17 +263,20 @@
                 <i class="zmdi zmdi-mail-send zmdi-hc-fw text-success"></i>
               </p>
               <h5 class="sign-in-heading text-center text-success">
-                Password reset email sent
+                {{ $t("password-reset-email-sent") }}
               </h5>
               <p class="text-center">
-                An email has been sent to your email. Please follow the
-                directions in the email to reset your password.
+                {{
+                  $t(
+                    "an-email-has-been-sent-to-your-email-please-follow-the-directions-in-the-email-to-reset-your-password"
+                  )
+                }}.
               </p>
               <button
                 class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
                 @click="loginShow = 'login'"
               >
-                OK
+                {{ $t("ok") }}
               </button>
             </div>
           </div>
@@ -264,20 +288,20 @@
           class="iubenda-nostyle no-brand iubenda-embed mr-4"
           title="Privacy Policy "
         >
-          <small>Privacy Policy</small>
+          <small>{{ $t("privacy-policy") }}</small>
         </a>
         <a
           href="https://www.iubenda.com/privacy-policy/32601846/cookie-policy"
           class="iubenda-nostyle no-brand iubenda-embed mr-4"
           title="Cookie Policy "
         >
-          <small>Cookie Policy</small></a
+          <small>{{ $t("cookie-policy") }}</small></a
         >
         <a
           href="https://www.iubenda.com/terms-and-conditions/32601846"
           class="iubenda-nostyle no-brand iubenda-embed"
           title="Terms and Conditions "
-          ><small>Terms and Conditions</small></a
+          ><small>{{ $t("terms-and-conditions") }}</small></a
         >
       </div>
     </div>

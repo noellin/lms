@@ -21,7 +21,7 @@
                   :disabled="selectedAssignment.length === 0"
                 >
                   <i class="la la-trash"></i>
-                  Delete Assignment
+                  {{ $t("delete-assignment") }}
                   <span
                     class="badge badge-danger"
                     v-if="selectedAssignment.length !== 0"
@@ -59,7 +59,8 @@
                               @click="sortTable('description')"
                               class="pointer"
                             >
-                              Assigned name<i
+                              {{ $t("assigned-name")
+                              }}<i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
@@ -67,7 +68,8 @@
                               @click="sortTable('publish_date')"
                               class="pointer"
                             >
-                              Assigned date<i
+                              {{ $t("assigned-date")
+                              }}<i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
@@ -75,22 +77,24 @@
                               @click="sortTable('expiry_date')"
                               class="pointer"
                             >
-                              Due<i
+                              {{ $t("due")
+                              }}<i
                                 class="zmdi zmdi-swap-vertical zmdi-hc-lg ml-1"
                               ></i>
                             </th>
-                            <th>For</th>
-                            <th>Completed ／Total students</th>
+                            <th>{{ $t("for") }}</th>
+                            <th>{{ $t("completed-total-students") }}</th>
                             <th
                               @click="sortTable('difficult_level')"
                               class="pointer"
                             >
-                              Degree of difficulty<i
+                              {{ $t("degree-of-difficulty")
+                              }}<i
                                 class="zmdi zmdi-swap-vertical zmdi-hc-lg ml-1"
                               ></i>
                             </th>
-                            <th>Preview</th>
-                            <th>Check progress</th>
+                            <th>{{ $t("preview") }}</th>
+                            <th>{{ $t("check-progress") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -147,7 +151,7 @@
                               <a
                                 @click="gotoProgress(a.asgmtid)"
                                 class="btn btn-primary btn-sm btn-rounded text-white"
-                                >Progress view</a
+                                >{{ $t("progress-view") }}</a
                               >
                               <!-- <a
                                 href="assignments-progress.html"
@@ -246,7 +250,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">List preview</h5>
+            <h5 class="modal-title">{{ $t("list-preview") }}</h5>
             <button
               type="button"
               class="close"
@@ -260,7 +264,7 @@
             <div class="mb-3">
               <div class="row pb-2 pt-2">
                 <div class="col-3 text-right fw-400 fs-h6 xstitie-color">
-                  Date
+                  {{ $t("date") }}
                 </div>
                 <div class="col-9">
                   {{ tempAM.publish_date | dateConversion }} -
@@ -269,7 +273,7 @@
               </div>
               <div class="row pb-2">
                 <div class="col-3 text-right fw-400 fs-h6 xstitie-color">
-                  Students
+                  {{ $t("students") }}
                 </div>
                 <div class="col-9">{{ tempAM.target }}</div>
               </div>
@@ -285,16 +289,16 @@
                     <span
                       class="badge badge-pill badge-primary"
                       v-if="am.type === 'reading'"
-                      >Reading</span
+                      >{{ $t("reading") }}</span
                     >
                     <span
                       class="badge badge-pill badge-accent"
                       v-else-if="am.type === 'speaking'"
-                      >Speaking Quiz</span
+                      >{{ $t("speaking-quiz") }}</span
                     >
-                    <span class="badge badge-pill badge-warning" v-else
-                      >Watching</span
-                    >
+                    <span class="badge badge-pill badge-warning" v-else>{{
+                      $t("watching")
+                    }}</span>
 
                     {{ am.resource_name
                     }}<span v-show="am.material_name !== ''">
@@ -311,7 +315,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
           </div>
         </div>
@@ -328,7 +332,9 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Delete Assignment</h5>
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("delete-assignment") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -339,7 +345,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Want to delete a checked assignment?</p>
+            <p>{{ $t("want-to-delete-a-checked-assignment") }}?</p>
           </div>
           <div class="modal-footer">
             <button
@@ -347,7 +353,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -355,7 +361,7 @@
               data-dismiss="modal"
               @click="deleteAssignmentAll()"
             >
-              Confirm
+              {{ $t("confirm") }}
             </button>
           </div>
         </div>

@@ -12,7 +12,9 @@
               <div class="col-sm-3">
                 <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Active student</h5>
+                    <h5 class="card-title text-white">
+                      {{ $t("active-student") }}
+                    </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="37">{{
@@ -26,7 +28,9 @@
               <div class="col-sm-3">
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Non-Active student</h5>
+                    <h5 class="card-title text-white">
+                      {{ $t("non-active-student") }}
+                    </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="2">{{
@@ -40,7 +44,7 @@
               <div class="col-sm-3">
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">Limit</h5>
+                    <h5 class="card-title text-white">{{ $t("limit") }}</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="50">{{
@@ -78,15 +82,15 @@
                   type="button"
                   class="btn btn-primary btn-outline btn-rounded mr-2"
                 >
-                  <i class="la la-print"></i>Print notice
+                  <i class="la la-print"></i>{{ $t("print-notice") }}
                 </button>
                 <button
                   type="button"
                   class="btn btn-primary btn-outline btn-rounded mr-2"
                   @click="exportSList()"
                 >
-                  <i class="zmdi zmdi-open-in-new zmdi-hc-fw"></i>Export student
-                  list
+                  <i class="zmdi zmdi-open-in-new zmdi-hc-fw"></i
+                  >{{ $t("export-student-list") }}
                 </button>
                 <button
                   type="button"
@@ -95,7 +99,7 @@
                   data-target="#AddStudentModal"
                   @click="resetStdTemp()"
                 >
-                  <i class="la la-plus"></i>Add student
+                  <i class="la la-plus"></i>{{ $t("add-student") }}
                 </button>
                 <button
                   type="button"
@@ -104,7 +108,7 @@
                   data-target="#DeleteSModal"
                 >
                   <i class="la la-trash"></i>
-                  Delete student
+                  {{ $t("delete-student") }}
                 </button>
               </div>
             </div>
@@ -133,12 +137,12 @@
                                 ></label>
                               </div>
                             </th>
-                            <th>Student name</th>
-                            <th>Parent account</th>
-                            <th>Remarks</th>
-                            <th>Status</th>
-                            <th>Edit</th>
-                            <th>Reset password</th>
+                            <th>{{ $t("student-name") }}</th>
+                            <th>{{ $t("parent-account") }}</th>
+                            <th>{{ $t("remarks") }}</th>
+                            <th>{{ $t("status") }}</th>
+                            <th>{{ $t("edit") }}</th>
+                            <th>{{ $t("reset-password") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -167,9 +171,11 @@
                               <span
                                 class="text-success"
                                 v-if="s.status === 'true'"
-                                >Active</span
+                                >{{ $t("active") }}</span
                               >
-                              <span class="text-danger" v-else>Non-Active</span>
+                              <span class="text-danger" v-else>{{
+                                $t("non-active")
+                              }}</span>
                             </td>
                             <td>
                               <button
@@ -194,7 +200,7 @@
                                   selectEmoji = [];
                                 "
                               >
-                                Reset
+                                {{ $t("reset") }}
                               </button>
                             </td>
                           </tr>
@@ -223,7 +229,7 @@
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Setting</h5>
+            <h5 class="modal-title">{{ $t("setting") }}</h5>
             <button
               type="button"
               class="close"
@@ -242,9 +248,9 @@
                   name="Studend name"
                 >
                   <div class="form-group row">
-                    <label for="" class="col-sm-4 col-form-label text-right"
-                      >Student Name</label
-                    >
+                    <label for="" class="col-sm-4 col-form-label text-right">{{
+                      $t("student-name")
+                    }}</label>
                     <div class="col-8">
                       <input
                         type="text"
@@ -265,9 +271,9 @@
                   name="Unique number"
                 >
                   <div class="form-group row">
-                    <label for="" class="col-sm-4 col-form-label text-right"
-                      >Parents'phone number</label
-                    >
+                    <label for="" class="col-sm-4 col-form-label text-right">{{
+                      $t("parentsphone-number")
+                    }}</label>
                     <div class="col-8">
                       <input
                         type="text"
@@ -283,9 +289,9 @@
                   </div>
                 </ValidationProvider>
                 <div class="form-group row">
-                  <label for="" class="col-sm-4 col-form-label text-right"
-                    >Remarks</label
-                  >
+                  <label for="" class="col-sm-4 col-form-label text-right">{{
+                    $t("remarks")
+                  }}</label>
                   <div class="col-8">
                     <textarea
                       class="form-control"
@@ -297,7 +303,7 @@
                 <div class="form-group row">
                   <label
                     class="col-sm-4 col-form-label col-form-label-sm text-right"
-                    >Status</label
+                    >{{ $t("status") }}</label
                   >
                   <div class="switch">
                     <input
@@ -310,10 +316,12 @@
                     <label class="tgl-btn" for="cb8"></label>
                   </div>
                   <div class="col">
-                    <span class="text-success mt-1" v-if="tempStudent.status"
-                      >Active</span
-                    >
-                    <span class="text-danger mt-1" v-else>Non-Active</span>
+                    <span class="text-success mt-1" v-if="tempStudent.status">{{
+                      $t("active")
+                    }}</span>
+                    <span class="text-danger mt-1" v-else>{{
+                      $t("non-active")
+                    }}</span>
                   </div>
                 </div>
                 <!-- <p class="text-danger">
@@ -328,14 +336,14 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
               class="btn btn-primary btn-rounded"
               @click="modifyStudent()"
             >
-              Save
+              {{ $t("save") }}
             </button>
           </div>
         </div>
@@ -358,7 +366,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Reset Password</h5>
+            <h5 class="modal-title">{{ $t("reset-password") }}</h5>
             <button
               type="button"
               class="close"
@@ -370,7 +378,7 @@
           </div>
           <div class="modal-body">
             <h4 class="mb-4 mt-2">{{ tempSname }}</h4>
-            <p>Choose 2 pictures to reset password</p>
+            <p>{{ $t("choose-2-pictures-to-reset-password") }}</p>
             <ul
               class="reset-password d-flex justify-content-start flex-wrap p-20"
             >
@@ -391,7 +399,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -399,7 +407,7 @@
               data-dismiss="modal"
               @click="resetPWD()"
             >
-              Reset
+              {{ $t("reset") }}
             </button>
           </div>
         </div>
@@ -416,7 +424,9 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Delete Student</h5>
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("delete-student") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -427,7 +437,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Want to delete a checked students?</p>
+            <p>{{ $t("want-to-delete-a-checked-students") }}?</p>
           </div>
           <div class="modal-footer">
             <button
@@ -435,7 +445,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -443,7 +453,7 @@
               data-dismiss="modal"
               @click="deleteStudentAll()"
             >
-              Confirm
+              {{ $t("confirm") }}
             </button>
           </div>
         </div>

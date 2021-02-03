@@ -17,7 +17,7 @@
                     title="Click to switch filter"
                   >
                     <h5 class="card-title">
-                      Opened Material
+                      {{ $t("opened-material") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
                         :class="mfilter === 'om' ? 'text-warning' : ''"
@@ -46,7 +46,7 @@
                     title="Click to switch filter"
                   >
                     <h5 class="card-title">
-                      Opened Books
+                      {{ $t("opened-books") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
                         :class="mfilter === 'ob' ? 'text-warning' : ''"
@@ -74,7 +74,7 @@
                     title="Click to switch filter"
                   >
                     <h5 class="card-title">
-                      Opened Videos
+                      {{ $t("opened-videos") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
                         :class="mfilter === 'ov' ? 'text-warning' : ''"
@@ -95,7 +95,8 @@
                 <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Picture Book Views<span class="text-light">Student</span>
+                      {{ $t("picture-book-views")
+                      }}<span class="text-light">{{ $t("student") }}</span>
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
@@ -111,7 +112,8 @@
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Video Views<span class="text-light">Student</span>
+                      {{ $t("video-views")
+                      }}<span class="text-light">{{ $t("student") }}</span>
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
@@ -173,8 +175,7 @@
                     v-if="searchType"
                   >
                     <span class="mr-1">{{ sortMList.length }}</span>
-                    listings for “
-                    <span>{{ tempSearchName }}</span
+                    {{ $t("listings-for") }} “ <span>{{ tempSearchName }}</span
                     >”
                   </div>
                 </div>
@@ -187,7 +188,7 @@
                   data-target="#OpenSettingsModal"
                   @click="copyMArray()"
                 >
-                  <i class="la la-gear"></i>Open Settings
+                  <i class="la la-gear"></i>{{ $t("open-settings") }}
                 </button>
 
                 <button
@@ -196,7 +197,7 @@
                   @click="openAssignmentModal()"
                   :disabled="tempAList.length === 0 ? true : false"
                 >
-                  <i class="la la-clipboard"></i>Assignment
+                  <i class="la la-clipboard"></i>{{ $t("assignment") }}
                   <span class="badge badge-primary">{{
                     tempAList.length
                   }}</span>
@@ -247,7 +248,7 @@
                             <span
                               class="badge badge-pill badge-secondary mt-2"
                               v-if="textbook.level !== ''"
-                              >Level {{ textbook.level }}</span
+                              >{{ $t("level") }} {{ textbook.level }}</span
                             >
                             <h4
                               class="mb-0 mt-3 d-flex align-self-center text-primary"
@@ -271,7 +272,7 @@
                             </h4>
                             <p class="text-muted mt-1">
                               <span class="fw300 text-xs"
-                                >Last played
+                                >{{ $t("last-played") }}
                                 <span v-if="textbook.last_access !== '0'">{{
                                   textbook.last_access | dateConversion
                                 }}</span>
@@ -283,7 +284,8 @@
                             class="text-primary pointer"
                             @click="gotoWebsite(textbook)"
                           >
-                            start<a
+                            {{ $t("start")
+                            }}<a
                               class="btn-rounded-icon btn-primary rounded ml-2"
                               ><i
                                 class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
@@ -311,7 +313,7 @@
                               "
                             >
                               <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Assignment
+                              >{{ $t("assignment") }}
                             </button>
                             <button
                               :disabled="
@@ -330,7 +332,7 @@
                                 "
                               ></i>
                               <i class="zmdi zmdi-assignment-check" v-else></i>
-                              Assignment
+                              {{ $t("assignment") }}
                             </button>
                             <button
                               type="button"
@@ -346,8 +348,8 @@
                                 tempRname = textbook.resource_name;
                               "
                             >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
-                              quiz
+                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
+                              >{{ $t("speaking-quiz") }}
                             </button>
                             <button
                               type="button"
@@ -360,8 +362,8 @@
                                 )
                               "
                             >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Speaking
-                              quiz
+                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
+                              >{{ $t("speaking-quiz") }}
                             </button>
                             <button
                               type="button"
@@ -372,7 +374,7 @@
                               "
                             >
                               <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >Collection
+                              >{{ $t("collection") }}
                             </button>
                           </div>
                           <div>
@@ -380,7 +382,7 @@
                               v-if="textbook.openflag !== 'true'"
                               class="badge badge-dark badge-pill fw300 mr-2 font-size-md"
                             >
-                              Closed
+                              {{ $t("closed") }}
                             </div>
                             <div
                               v-if="
@@ -389,7 +391,7 @@
                               "
                               class="badge badge-success badge-pill fw300 mr-2 font-size-md"
                             >
-                              Opened
+                              {{ $t("opened") }}
                             </div>
                             <div
                               v-else-if="
@@ -398,7 +400,7 @@
                               "
                               class="badge badge-primary badge-pill fw300 mr-2 font-size-md"
                             >
-                              Opened
+                              {{ $t("opened") }}
                             </div>
                             <button
                               v-if="textbook.openflag !== 'true'"
@@ -408,7 +410,7 @@
                               data-target="#OpenMaterial"
                               @click="tempResource = textbook"
                             >
-                              Open Material
+                              {{ $t("open-material") }}
                             </button>
                             <button
                               v-else
@@ -418,7 +420,7 @@
                               data-target="#OpenMaterial"
                               @click="tempResource = textbook"
                             >
-                              Close Material
+                              {{ $t("close-material") }}
                             </button>
                           </div>
                         </div>
@@ -447,9 +449,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" v-if="tempResource.openflag !== 'true'">
-              Open material
+              {{ $t("open-material") }}
             </h5>
-            <h5 class="modal-title" v-else>Close material</h5>
+            <h5 class="modal-title" v-else>{{ $t("close-material") }}</h5>
             <button
               type="button"
               class="close"
@@ -461,13 +463,14 @@
           </div>
           <div class="modal-body">
             <p v-if="tempResource.openflag !== 'true'">
-              Open this material and allow
+              {{ $t("open-this-material-and-allow") }}
               <em>{{ tempResource.resource_name }}</em>
-              students to view it.
+              {{ $t("students-to-view-it") }}.
             </p>
             <p v-else>
-              Close this material and do not allow
-              <em>{{ tempResource.resource_name }}</em> students to view it.
+              {{ $t("close-this-material-and-do-not-allow") }}
+              <em>{{ tempResource.resource_name }}</em>
+              {{ $t("students-to-view-it") }}
             </p>
           </div>
           <div class="modal-footer">
@@ -476,7 +479,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               v-if="tempResource.openflag === 'true'"
@@ -491,7 +494,7 @@
                 )
               "
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               v-else
@@ -506,7 +509,7 @@
                 )
               "
             >
-              Open
+              {{ $t("open") }}
             </button>
           </div>
         </div>
@@ -524,7 +527,7 @@
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add to collection</h5>
+            <h5 class="modal-title">{{ $t("add-to-collection") }}</h5>
             <button
               type="button"
               class="close"
@@ -540,9 +543,9 @@
                 class="form-group row"
                 v-if="existCollectionName.length !== 0"
               >
-                <label class="control-label text-right col-sm-3"
-                  >Existing in Collection</label
-                >
+                <label class="control-label text-right col-sm-3">{{
+                  $t("existing-in-collection")
+                }}</label>
                 <span class="col-sm-9">
                   <span
                     class="badge badge-secondary badge-pill mr-1"
@@ -556,9 +559,9 @@
                 class="form-group row"
                 v-if="filterCollectionList.length !== 0"
               >
-                <label class="control-label text-right col-sm-3"
-                  >Collection</label
-                >
+                <label class="control-label text-right col-sm-3">{{
+                  $t("collection")
+                }}</label>
                 <div class="col-sm-9">
                   <select2
                     id="s2_demo1"
@@ -570,9 +573,9 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label text-right col-sm-3"
-                  >Sequence</label
-                >
+                <label class="control-label text-right col-sm-3">{{
+                  $t("sequence")
+                }}</label>
                 <div class="col-sm-9">
                   <div class="" style="max-height: 300px" data-scroll="dark">
                     <!-- <ul class="sequence border"> -->
@@ -583,14 +586,6 @@
                         > -->
                         {{ tempResource.resource_name }}
                       </div>
-                      <!-- <div
-                          class="btn btn-nostyle btn-remove"
-                          @click="deleteResource(r.colid, r.resourceid)"
-                        >
-                          <i
-                            class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                          ></i>
-                        </div> -->
                     </li>
                     <!-- </ul> -->
                   </div>
@@ -604,7 +599,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               v-if="filterCollectionList.length !== 0"
@@ -613,7 +608,7 @@
               data-dismiss="modal"
               @click="addResource()"
             >
-              Add
+              {{ $t("add") }}
             </button>
           </div>
         </div>
@@ -632,7 +627,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">
-              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Assignment
+              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>{{ $t("assignment") }}
             </h5>
             <button
               type="button"
@@ -673,7 +668,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               type="button"
@@ -681,7 +676,7 @@
               @click="addtoSequence()"
               data-dismiss="modal"
             >
-              Save changes
+              {{ $t("save-changes") }}
             </button>
           </div>
         </div>
@@ -699,7 +694,9 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Speaking quiz</h5>
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("speaking-quiz") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -735,7 +732,9 @@
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Open Settings</h5>
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("open-settings") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -747,25 +746,29 @@
           </div>
           <div class="modal-body">
             <div>
-              Total of
+              {{ $t("total-of") }}
               <span class="text-primary bold">{{ textbookList.length }}</span>
-              materials
+              {{ $t("materials") }}
             </div>
             <div>
               <span class="mr-4"
-                >Opened：<span class="text-primary bold">{{
+                >{{ $t("opened") }}：<span class="text-primary bold">{{
                   openedMList.length
                 }}</span></span
               >
               <span class=""
-                >Closed：<span class="bold">{{
+                >{{ $t("closed") }}：<span class="bold">{{
                   closedMList.length
                 }}</span></span
               >
             </div>
-            <div class="mt-4">Check which materials you want to open</div>
+            <div class="mt-4">
+              {{ $t("check-which-materials-you-want-to-open") }}
+            </div>
             <div class="table-responsive">
-              <h2 v-if="textbookList.length === 0">No relevant records</h2>
+              <h2 v-if="textbookList.length === 0">
+                {{ $t("no-relevant-records") }}
+              </h2>
               <table class="table table-striped" v-else>
                 <thead>
                   <tr>
@@ -785,12 +788,11 @@
                       </div>
                     </th>
                     <th @click="sortTable('level')" class="pointer">
-                      Level<i
-                        class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
-                      ></i>
+                      {{ $t("level")
+                      }}<i class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"></i>
                     </th>
                     <th>
-                      Material
+                      {{ $t("material") }}
                       <!-- <i class="zmdi zmdi-swap-vertical ml-1"></i> -->
                     </th>
                   </tr>
@@ -816,7 +818,9 @@
                       </div>
                     </td>
                     <td>
-                      <span v-if="tb.level !== ''">Level {{ tb.level }}</span>
+                      <span v-if="tb.level !== ''"
+                        >{{ $t("level") }} {{ tb.level }}</span
+                      >
                       <span v-else></span>
                     </td>
                     <td>
@@ -852,7 +856,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -860,7 +864,7 @@
               data-dismiss="modal"
               @click="materialOpenSetting()"
             >
-              Save
+              {{ $t("save") }}
             </button>
           </div>
         </div>
@@ -881,7 +885,7 @@
       >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Assignment</h5>
+            <h5 class="modal-title">{{ $t("assignment") }}</h5>
             <button
               type="button"
               class="close"
@@ -894,9 +898,9 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label class="col-form-label col-sm-3 text-right"
-                  >Asignment name</label
-                >
+                <label class="col-form-label col-sm-3 text-right">{{
+                  $t("asignment-name")
+                }}</label>
                 <div class="col-sm-6">
                   <input
                     type="text"
@@ -908,9 +912,9 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label text-right col-sm-3"
-                  >Material</label
-                >
+                <label class="control-label text-right col-sm-3">{{
+                  $t("material")
+                }}</label>
                 <div class="col-sm-9">
                   <div class="bg-light rounded" data-scroll="dark">
                     <ul class="sequence a-sequence">
@@ -938,7 +942,7 @@
                             >
                               <span
                                 class="badge badge-pill badge-primary fix-badge-height"
-                                >Reading</span
+                                >{{ $t("reading") }}</span
                               >
                               <span
                                 class="col-sm-10 d-flex align-items-center"
@@ -952,7 +956,7 @@
                               <div>
                                 <span
                                   class="badge badge-pill badge-warning fix-badge-height"
-                                  >Watching</span
+                                  >{{ $t("watching") }}</span
                                 >
                               </div>
                               <span class="col-sm-10 d-flex align-items-center">
@@ -964,14 +968,14 @@
                             <span v-else class="d-flex col-sm-11 px-0">
                               <span
                                 class="badge badge-pill badge-accent fix-badge-height"
-                                >Speaking Quiz</span
+                                >{{ $t("speaking-quiz") }}</span
                               >
                               <span class="col-sm-10 d-flex align-items-center"
                                 >{{ ta.resource_name }} -
                                 <span v-if="ta.material_name !== 'undefined'">{{
                                   ta.material_name
                                 }}</span>
-                                <span v-else>Book</span></span
+                                <span v-else>{{ $t("book") }}</span></span
                               >
                             </span>
                           </div>
@@ -990,7 +994,9 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-form-label col-sm-3 text-right">Due</label>
+                <label class="col-form-label col-sm-3 text-right">{{
+                  $t("due")
+                }}</label>
                 <div class="col-sm-8">
                   <date-picker
                     v-model="AssignmentDue"
@@ -1010,8 +1016,10 @@
               <div class="form-group row align-items-start m-0">
                 <label class="control-label text-right col-sm-3"></label>
                 <small class="col-sm-7"
-                  ><span class="text-danger">*</span> Press and hold the Ctrl
-                  key for multiple selections.</small
+                  ><span class="text-danger">*</span>
+                  {{
+                    $t("press-and-hold-the-ctrl-key-for-multiple-selections")
+                  }}.</small
                 >
               </div>
               <div
@@ -1020,9 +1028,9 @@
                   height: [parseInt(selectStudent.length / 3) + 3] * 28 + 'px',
                 }"
               >
-                <label class="control-label text-right col-sm-3"
-                  >For students</label
-                >
+                <label class="control-label text-right col-sm-3">{{
+                  $t("for-students")
+                }}</label>
                 <div class="col-sm-6">
                   <select2
                     id="s2_student"
@@ -1061,8 +1069,10 @@
                     class="form-check-label pointer hover-blue"
                     for="expand"
                   >
-                    <span v-if="showStuTable === false">Expand list</span>
-                    <span v-else>Close list</span>
+                    <span v-if="showStuTable === false">{{
+                      $t("expand-list")
+                    }}</span>
+                    <span v-else>{{ $t("close-list") }}</span>
                   </label>
                 </div>
                 <!-- <div class="col-sm-2">
@@ -1088,7 +1098,7 @@
                       name="std"
                     />
                     <label class="custom-control-label" for="std">
-                      <strong>All Students</strong>
+                      <strong>{{ $t("all-students") }}</strong>
                     </label>
                   </div>
                   <div
@@ -1119,7 +1129,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               type="button"
@@ -1129,7 +1139,7 @@
               data-target="#AssignmentModal-2"
               :disabled="AssignmentSetting"
             >
-              Next
+              {{ $t("next") }}
             </button>
           </div>
         </div>
@@ -1146,7 +1156,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Assignment</h5>
+            <h5 class="modal-title" id="ModalTitle1">{{ $t("assignment") }}</h5>
             <button
               type="button"
               class="close"
@@ -1157,24 +1167,32 @@
             </button>
           </div>
           <div class="modal-body">
-            <h5>How difficult is this assignment?</h5>
-            <p>System will send more rewards to more difficult assignment.</p>
+            <h5>{{ $t("how-difficult-is-this-assignment") }}?</h5>
+            <p>
+              {{
+                $t(
+                  "system-will-send-more-rewards-to-more-difficult-assignment"
+                )
+              }}.
+            </p>
             <p
               v-for="(reward, index) in rewardList"
               :key="reward.exp"
               class="mb-0 monospace"
             >
-              Level
+              {{ $t("level") }}
               <span :class="`yellow-${index + 1}`">{{ index + 1 }} </span>
 
-              => Exp.
+              => {{ $t("exp") }}.
               <span style="font-weight: bold">{{ reward.exp }}</span>
 
-              , lucky draw ticket
+              , {{ $t("lucky-draw-ticket") }}
               <span style="font-weight: bold">{{ reward.ticket }}</span>
             </p>
             <div class="text-center mt-4 mb-4">
-              <div class="form-check form-check-inline text-primary">Easy</div>
+              <div class="form-check form-check-inline text-primary">
+                {{ $t("easy") }}
+              </div>
               <div
                 class="custom-control custom-radio custom-control-inline mx-2"
                 v-for="(d, i) in difficultList"
@@ -1197,7 +1215,7 @@
               </div>
 
               <div class="form-check form-check-inline text-primary">
-                Difficult
+                {{ $t("difficult") }}
               </div>
             </div>
           </div>
@@ -1207,7 +1225,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -1215,7 +1233,7 @@
               data-dismiss="modal"
               @click="setAssignment()"
             >
-              Assign
+              {{ $t("assign") }}
             </button>
           </div>
         </div>
@@ -1232,7 +1250,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">message</h5>
+            <h5 class="modal-title" id="ModalTitle1">{{ $t("message") }}</h5>
             <button
               type="button"
               class="close"
@@ -1243,10 +1261,13 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>No related Collection can be added.</p>
+            <p>{{ $t("no-related-collection-can-be-added") }}.</p>
             <p>
-              Please create a collection of the resource before adding the
-              material
+              {{
+                $t(
+                  "please-create-a-collection-of-the-resource-before-adding-the-material"
+                )
+              }}
             </p>
           </div>
           <div class="modal-footer">
@@ -1255,7 +1276,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               type="button"
@@ -1263,7 +1284,7 @@
               data-dismiss="modal"
               @click="gotoCreateCol()"
             >
-              Create Collection
+              {{ $t("create-collection") }}
             </button>
           </div>
         </div>

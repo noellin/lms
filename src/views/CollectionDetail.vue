@@ -16,7 +16,7 @@
               ></a>
             </div>
             <div class="mr-auto">
-              <h1>Collection</h1>
+              <h1>{{ $t("collection") }}</h1>
               <p class="second-title">{{ cname }}</p>
             </div>
           </div>
@@ -73,7 +73,7 @@
               <a
                 @click="gotoCollectionEdit()"
                 class="btn btn-primary btn-rounded btn-outline"
-                ><i class="la la-edit"></i>Edit</a
+                ><i class="la la-edit"></i>{{ $t("edit") }}</a
               >
             </div>
           </div>
@@ -105,7 +105,7 @@
                           <span
                             class="badge badge-pill badge-secondary mt-2"
                             v-if="cr.level !== ''"
-                            >Level {{ cr.level }}</span
+                            >{{ $t("level") }} {{ cr.level }}</span
                           >
                           <h4
                             class="mb-0 mt-3 d-flex align-self-center text-primary"
@@ -127,7 +127,7 @@
                             <small
                               class="fw300 pointer"
                               @click="showLastPlay(cr.lastplay)"
-                              >Last played
+                              >{{ $t("last-played") }}
                               <!-- <span>{{ cr.last_access | dateConversion }}</span> -->
                             </small>
                           </p>
@@ -141,8 +141,8 @@
                           data-toggle="modal"
                           data-target="#StartModal"
                         >
-                          start<a
-                            class="btn-rounded-icon btn-primary rounded ml-2"
+                          {{ $t("start")
+                          }}<a class="btn-rounded-icon btn-primary rounded ml-2"
                             ><i
                               class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
                             ></i
@@ -173,9 +173,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" v-if="lastPlayList.length !== 0">
-              Last play record (Course ： Date)
+              {{ $t("last-play-record-course-date") }}
             </h5>
-            <h5 class="modal-title" v-else>No record</h5>
+            <h5 class="modal-title" v-else>{{ $t("no-record") }}</h5>
             <button
               type="button"
               class="close"
@@ -194,7 +194,7 @@
             </div>
           </div>
           <div class="modal-body pb-4" v-else>
-            <p>No open or play record.</p>
+            <p>{{ $t("no-open-or-play-record") }}.</p>
           </div>
         </div>
       </div>
@@ -211,8 +211,10 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" v-if="courseList.length !== 0">Start</h5>
-            <h5 class="modal-title" v-else>No course</h5>
+            <h5 class="modal-title" v-if="courseList.length !== 0">
+              {{ $t("start") }}
+            </h5>
+            <h5 class="modal-title" v-else>{{ $t("no-course") }}</h5>
             <button
               type="button"
               class="close"
@@ -223,8 +225,12 @@
             </button>
           </div>
           <div class="modal-body pb-4" v-if="courseList.length !== 0">
-            <h5>What is your ongoing course?</h5>
-            <p>This material can only be viewed in the following course.</p>
+            <h5>{{ $t("what-is-your-ongoing-course") }}?</h5>
+            <p>
+              {{
+                $t("this-material-can-only-be-viewed-in-the-following-course")
+              }}.
+            </p>
             <a
               title=""
               class="btn btn-primary btn-outline btn-rounded mr-3 mb-3"
@@ -237,8 +243,11 @@
           </div>
           <div class="modal-body pb-4" v-else>
             <p>
-              The course you can use this collection has expired. If you wish to
-              continue using it, you must renew your contract.
+              {{
+                $t(
+                  "the-course-you-can-use-this-collection-has-expired-if-you-wish-to-continue-using-it-you-must-renew-your-contract"
+                )
+              }}.
             </p>
           </div>
         </div>

@@ -16,7 +16,8 @@
                   class="btn btn-primary btn-outline btn-rounded"
                   v-if="quizShow === 'home'"
                   @click="gotoQuitCreate()"
-                  ><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Create New Quiz</a
+                  ><i class="zmdi zmdi-plus zmdi-hc-fw"></i
+                  >{{ $t("create-new-quiz") }}</a
                 >
               </div>
             </div>
@@ -30,14 +31,14 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th>Creation date</th>
-                            <th>Author</th>
-                            <th>Number of questions</th>
+                            <th>{{ $t("creation-date") }}</th>
+                            <th>{{ $t("author") }}</th>
+                            <th>{{ $t("number-of-questions") }}</th>
                             <!-- <th>Assignment times</th>
                             <th>Student number</th>
                             <th>Completion rate</th> -->
-                            <th>Preview</th>
-                            <th>Add to assignment</th>
+                            <th>{{ $t("preview") }}</th>
+                            <th>{{ $t("add-to-assignment") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -73,7 +74,7 @@
                                 v-if="!q.added"
                                 @click="addtoAssignment(q)"
                               >
-                                Add
+                                {{ $t("add") }}
                               </button>
                               <button
                                 type=""
@@ -83,13 +84,17 @@
                                 v-else
                                 @click="tempQid = q.quizid"
                               >
-                                Added
+                                {{ $t("added") }}
                               </button>
                             </td>
                           </tr>
                           <tr v-if="quizList.length === 0">
                             <td colspan="5" class="text-center">
-                              <h5>No Quiz found, please create Quiz first</h5>
+                              <h5>
+                                {{
+                                  $t("no-quiz-found-please-create-quiz-first")
+                                }}
+                              </h5>
                             </td>
                           </tr>
                         </tbody>
@@ -144,7 +149,7 @@
               class="btn btn-primary btn-outline"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
           </div>
         </div>
@@ -163,7 +168,7 @@
           class="alert alert-success alert-dismissible fade show"
           role="alert"
         >
-          Adding to the Assignment List
+          {{ $t("adding-to-the-assignment-list") }}
           <button
             type="button"
             class="close"
@@ -186,7 +191,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Remove</h5>
+            <h5 class="modal-title">{{ $t("remove") }}</h5>
             <button
               type="button"
               class="close"
@@ -197,7 +202,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Does it cancel an assignment that has been added?</p>
+            <p>{{ $t("does-it-cancel-an-assignment-that-has-been-added") }}?</p>
           </div>
           <div class="modal-footer">
             <button
@@ -205,7 +210,7 @@
               class="btn btn-secondary btn-rounded btn-outline"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -213,7 +218,7 @@
               @click="removeAssignment(tempQid)"
               data-dismiss="modal"
             >
-              Confirm
+              {{ $t("confirm") }}
             </button>
           </div>
         </div>

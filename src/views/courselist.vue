@@ -9,7 +9,7 @@
         <header class="page-header">
           <div class="d-flex align-items-start">
             <div class="mr-auto">
-              <h1>Course</h1>
+              <h1>{{ $t("course") }}</h1>
             </div>
           </div>
         </header>
@@ -86,7 +86,7 @@
                         class="nav-link active show"
                         data-toggle="tab"
                         aria-expanded="true"
-                        >Active</a
+                        >{{ $t("active") }}</a
                       >
                     </li>
                     <li
@@ -99,7 +99,7 @@
                         class="nav-link"
                         data-toggle="tab"
                         aria-expanded="true"
-                        >Expired</a
+                        >{{ $t("expired") }}</a
                       >
                     </li>
                   </ul>
@@ -131,21 +131,26 @@
                               @click="sortActiveTable('course_name')"
                               class="pointer"
                             >
-                              Course name<i
+                              {{ $t("course-name")
+                              }}<i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
-                            <th style="width: 15%">Teacher</th>
-                            <th style="width: 15%">Active student／Limit</th>
-                            <th style="width: 15%">Package</th>
-                            <th style="width: 15%">Expiry date</th>
+                            <th style="width: 15%">{{ $t("teacher") }}</th>
+                            <th style="width: 15%">
+                              {{ $t("active-student-limit") }}
+                            </th>
+                            <th style="width: 15%">{{ $t("package") }}</th>
+                            <th style="width: 15%">{{ $t("expiry-date") }}</th>
                             <!-- <th>Edit</th> -->
-                            <th style="width: 15%">Checking assignment</th>
+                            <th style="width: 15%">
+                              {{ $t("checking-assignment") }}
+                            </th>
                             <th
                               style="text-align: center; width: 10%"
                               v-if="permit === 'admin'"
                             >
-                              Action
+                              {{ $t("action") }}
                             </th>
                           </tr>
                         </thead>
@@ -187,29 +192,7 @@
                               >
                             </td>
                             <td>
-                              <span>
-                                <!-- <button
-                                  v-if="
-                                    course.username === '' ||
-                                    course.username === undefined
-                                  "
-                                  type=""
-                                  class="btn btn-primary btn-rounded btn-sm"
-                                  data-toggle="modal"
-                                  data-target="#editModal"
-                                  @click="
-                                    setTempCourse(
-                                      course.userid,
-                                      course.username,
-                                      course.course_name,
-                                      course.courseid
-                                    )
-                                  "
-                                >
-                                  Setting
-                                </button> -->
-                                {{ course.username }}</span
-                              >
+                              <span> {{ course.username }}</span>
                             </td>
                             <td>
                               <span class="tdwidth-sm text-right"
@@ -226,7 +209,7 @@
                                   courseid = course.courseid;
                                 "
                               >
-                                Add student
+                                {{ $t("add-student") }}
                               </button>
                             </td>
                             <td>{{ course.pkg_name }}</td>
@@ -240,7 +223,7 @@
                               <span
                                 class="badge badge-pill badge-secondary"
                                 v-if="course.expiry"
-                                >expiring</span
+                                >{{ $t("expiring") }}</span
                               >
                             </td>
                             <td>
@@ -256,7 +239,7 @@
                                   course.username === '' ? true : false
                                 "
                               >
-                                Checking
+                                {{ $t("checking") }}
                               </button>
                               <!-- btn-message btn-link -->
                             </td>
@@ -305,14 +288,15 @@
                               @click="sortExpiredTable('course_name')"
                               class="pointer"
                             >
-                              Course name<i
+                              {{ $t("course-name")
+                              }}<i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
-                            <th>Teacher</th>
-                            <th>Active student／Limit</th>
-                            <th>Package</th>
-                            <th>Expiry date</th>
+                            <th>{{ $t("teacher") }}</th>
+                            <th>{{ $t("active-student-limit") }}</th>
+                            <th>{{ $t("package") }}</th>
+                            <th>{{ $t("expiry-date") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -334,7 +318,7 @@
                           </tr>
                         </tbody>
                       </table>
-                      <div class="col-12">
+                      <!-- <div class="col-12">
                         <div
                           class="dataTables_paginate paging_simple_numbers"
                           id="recent-transaction-table_paginate"
@@ -398,7 +382,7 @@
                             </li>
                           </ul>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                     <!-- expired的table -->
                   </div>
@@ -408,9 +392,6 @@
           </div>
         </section>
       </div>
-      <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
-        <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer> -->
     </div>
 
     <!-- END CONTENT WRAPPER -->
@@ -425,7 +406,7 @@
       <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit</h5>
+            <h5 class="modal-title">{{ $t("edit") }}</h5>
             <button
               type="button"
               class="close"
@@ -446,7 +427,7 @@
                   <div class="form-group row">
                     <label
                       class="control-label text-right col-sm-4 text-height-form-control"
-                      >Course Name</label
+                      >{{ $t("course-name") }}</label
                     >
                     <div class="col-sm-8">
                       <input
@@ -470,7 +451,7 @@
               >
                 <label
                   class="control-label text-right col-sm-4 text-height-form-control"
-                  >Select Teacher</label
+                  >{{ $t("select-teacher") }}</label
                 >
                 <div class="col-sm-8">
                   <!-- <select
@@ -509,14 +490,14 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               type="button"
               class="btn btn-primary btn-rounded"
               @click="openEdit()"
             >
-              Save changes
+              {{ $t("save-changes") }}
             </button>
           </div>
         </div>
@@ -533,7 +514,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit</h5>
+            <h5 class="modal-title">{{ $t("edit") }}</h5>
             <button
               type="button"
               class="close"
@@ -545,7 +526,7 @@
           </div>
           <div class="modal-body">
             <p>
-              Confirm to change the teacher to
+              {{ $t("confirm-to-change-the-teacher-to") }}
               <!-- <strong v-for="teacher in tempCourse.id" :key="teacher.id"
                 >{{ teacher }} </strong
               >. -->
@@ -564,7 +545,7 @@
               class="btn btn-secondary btn-rounded btn-outline"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -572,7 +553,7 @@
               data-dismiss="modal"
               @click="setCourse(tempCourse)"
             >
-              Confirm
+              {{ $t("confirm") }}
             </button>
           </div>
         </div>

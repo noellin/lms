@@ -14,7 +14,7 @@
                 <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Golden Zone
+                      {{ $t("golden-zone") }}
                       <!-- <button
                         type="button"
                         class="btn btn-nostyle ml-1"
@@ -46,7 +46,8 @@
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Treasure Zone<button
+                      {{ $t("treasure-zone")
+                      }}<button
                         type="button"
                         class="btn btn-nostyle ml-1"
                         data-container="body"
@@ -77,7 +78,7 @@
                 <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Assignment
+                      {{ $t("assignment") }}
                       <!-- Assignment completion rate<span class="text-light"
                         >Comulative</span
                       > -->
@@ -100,7 +101,7 @@
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      Assignment completion rate
+                      {{ $t("assignment-completion-rate") }}
                       <!-- <span class="text-light"
                         >30-day comparison</span
                       > -->
@@ -124,11 +125,13 @@
             <div class="row">
               <div class="col-9">
                 <div class="card">
-                  <h5 class="card-header">Assignments completion rate</h5>
+                  <h5 class="card-header">
+                    {{ $t("assignments-completion-rate") }}
+                  </h5>
                   <div class="card-body" style="height: 597px">
-                    <p class="text-primary">last 6 records</p>
+                    <p class="text-primary">{{ $t("last-6-records") }}</p>
                     <h2 v-if="acRateChartData.rows.length === 0">
-                      No relevant records
+                      {{ $t("no-relevant-records") }}
                     </h2>
                     <ve-histogram
                       v-else
@@ -143,16 +146,18 @@
               </div>
               <div class="col-3">
                 <div class="card">
-                  <h5 class="card-header">Missed assignments</h5>
+                  <h5 class="card-header">{{ $t("missed-assignments") }}</h5>
                   <div class="card-body" style="height: 597px">
-                    <p class="text-primary">last 30 days</p>
+                    <p class="text-primary">{{ $t("last-30-days") }}</p>
                     <div class="table-responsive">
-                      <h2 v-if="missA.length === 0">No relevant records</h2>
+                      <h2 v-if="missA.length === 0">
+                        {{ $t("no-relevant-records") }}
+                      </h2>
                       <table class="table table-striped" v-else>
                         <thead>
                           <tr>
-                            <th>Student name</th>
-                            <th>Missed</th>
+                            <th>{{ $t("student-name") }}</th>
+                            <th>{{ $t("missed") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -170,11 +175,13 @@
             <div class="row">
               <div class="col-4">
                 <div class="card">
-                  <h5 class="card-header border-none">Student login</h5>
+                  <h5 class="card-header border-none">
+                    {{ $t("student-login") }}
+                  </h5>
                   <div class="card-body pt-0" style="height: 500px">
-                    <p class="text-primary">last 30 days</p>
+                    <p class="text-primary">{{ $t("last-30-days") }}</p>
                     <h2 v-if="stdLoginchartData.rows.length === 0">
-                      No relevant records
+                      {{ $t("no-relevant-records") }}
                     </h2>
                     <ve-line
                       v-else
@@ -189,11 +196,13 @@
               </div>
               <div class="col-4">
                 <div class="card">
-                  <h5 class="card-header border-none">Parent login</h5>
+                  <h5 class="card-header border-none">
+                    {{ $t("parent-login") }}
+                  </h5>
                   <div class="card-body pt-0" style="height: 500px">
-                    <p class="text-primary">last 30 days</p>
+                    <p class="text-primary">{{ $t("last-30-days") }}</p>
                     <h2 v-if="pLoginchartData.rows.length === 0">
-                      No relevant records
+                      {{ $t("no-relevant-records") }}
                     </h2>
                     <ve-line
                       v-else
@@ -208,11 +217,13 @@
               </div>
               <div class="col-4">
                 <div class="card">
-                  <h5 class="card-header border-none">Complete materials</h5>
+                  <h5 class="card-header border-none">
+                    {{ $t("complete-materials") }}
+                  </h5>
                   <div class="card-body pt-0" style="height: 500px">
-                    <p class="text-primary">last 30 days</p>
+                    <p class="text-primary">{{ $t("last-30-days") }}</p>
                     <h2 v-if="mwchartData.rows.length === 0">
-                      No relevant records
+                      {{ $t("no-relevant-records") }}
                     </h2>
                     <ve-line
                       v-else
@@ -229,18 +240,20 @@
             <div class="row">
               <div class="col-5">
                 <div class="card">
-                  <h5 class="card-header">Golden Zone</h5>
+                  <h5 class="card-header">{{ $t("golden-zone") }}</h5>
                   <div class="card-body">
                     <!-- <p class="text-primary">
                       Reviewed more than 20 times in the past 7 days
                     </p> -->
                     <div class="table-responsive">
-                      <h2 v-if="gzView.length === 0">No relevant records</h2>
+                      <h2 v-if="gzView.length === 0">
+                        {{ $t("no-relevant-records") }}
+                      </h2>
                       <table class="table" v-else>
                         <thead>
                           <tr>
-                            <th>Material</th>
-                            <th>Review</th>
+                            <th>{{ $t("material") }}</th>
+                            <th>{{ $t("review") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -261,18 +274,20 @@
                   </div>
                 </div>
                 <div class="card">
-                  <h5 class="card-header">Treasure Zone</h5>
+                  <h5 class="card-header">{{ $t("treasure-zone") }}</h5>
                   <div class="card-body">
                     <!-- <p class="text-primary">
                       Have not been reviewed in the past 21 to 40 days
                     </p> -->
                     <div class="table-responsive">
-                      <h2 v-if="tzDays.length === 0">No relevant records</h2>
+                      <h2 v-if="tzDays.length === 0">
+                        {{ $t("no-relevant-records") }}
+                      </h2>
                       <table class="table" v-else>
                         <thead>
                           <tr>
-                            <th>Material</th>
-                            <th>Days</th>
+                            <th>{{ $t("material") }}</th>
+                            <th>{{ $t("days") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -335,9 +350,9 @@
               <div class="col-7">
                 <div class="card">
                   <div class="card-header">
-                    <span class="m-t-10 d-inline-block"
-                      >Student activity details</span
-                    >
+                    <span class="m-t-10 d-inline-block">{{
+                      $t("student-activity-details")
+                    }}</span>
                     <!-- <ul class="actions top-right">
                       <li>
                         <a href="javascript:void(0)" data-q-action="card-expand" 
@@ -386,7 +401,7 @@
                       >
                         <div class="table-responsive">
                           <h2 v-if="stdRank.length === 0">
-                            No relevant records
+                            {{ $t("no-relevant-records") }}
                           </h2>
                           <table
                             class="table table-striped v-align-middle"
@@ -398,7 +413,8 @@
                                   @click="sortTable('username')"
                                   class="pointer"
                                 >
-                                  Student<i
+                                  {{ $t("student")
+                                  }}<i
                                     class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                                   ></i>
                                 </th>
@@ -406,7 +422,8 @@
                                   @click="sortTable('cnt_checkin')"
                                   class="pointer"
                                 >
-                                  Log in<i
+                                  {{ $t("log-in")
+                                  }}<i
                                     class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                                   ></i>
                                 </th>
@@ -414,7 +431,8 @@
                                   @click="sortTable('asgmt_finish')"
                                   class="pointer"
                                 >
-                                  Complete Assignments<i
+                                  {{ $t("complete-assignments")
+                                  }}<i
                                     class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                                   ></i>
                                 </th>
@@ -422,7 +440,8 @@
                                   @click="sortTable('cnt_res_review')"
                                   class="pointer"
                                 >
-                                  Review<i
+                                  {{ $t("review")
+                                  }}<i
                                     class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                                   ></i>
                                 </th>

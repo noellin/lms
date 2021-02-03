@@ -16,14 +16,14 @@
                   class="btn btn-danger btn-rounded"
                   @click="setWQStatus()"
                 >
-                  Close Echo Valley
+                  {{ $t("close-echo-valley") }}
                 </button>
                 <button
                   v-else
                   class="btn btn-primary btn-rounded"
                   @click="setWQStatus()"
                 >
-                  Open Echo Valley
+                  {{ $t("open-echo-valley") }}
                 </button>
               </div>
               <div class="text-right">
@@ -32,7 +32,7 @@
                   @click="gotoGreateWQuiz()"
                   :disabled="wqQuota === 0"
                 >
-                  Create Quiz
+                  {{ $t("create-quiz") }}
                   <span class="badge badge-primary">{{ wqQuota }}</span>
                 </button>
                 <button
@@ -41,7 +41,11 @@
                   data-target="#DeleteModal"
                   :disabled="selectedWQ.length <= 0 ? true : false"
                 >
-                  Delete Quiz
+                  ｛{{
+                    $t(
+                      "courses-that-can-use-this-collection-have-expired-less-than-br-greater-than-if-you-want-to-continue-using-you-must-renew-the-contract"
+                    )
+                  }}
                   <span
                     class="badge badge-danger"
                     v-if="selectedWQ.length !== 0"
@@ -79,7 +83,8 @@
                               @click="sortTable('start_date')"
                               class="pointer"
                             >
-                              Publish<i
+                              {{ $t("publish")
+                              }}<i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
@@ -87,15 +92,18 @@
                               @click="sortTable('expiry_date')"
                               class="pointer"
                             >
-                              Due<i
+                              {{ $t("due")
+                              }}<i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
-                            <th>Author</th>
-                            <th>Completed ／Total students</th>
-                            <th>Status</th>
-                            <th>Preview</th>
-                            <th>Check progress</th>
+                            <th>{{ $t("author") }}</th>
+                            <th>
+                              {{ $t("completed") }} ／{{ $t("total-students") }}
+                            </th>
+                            <th>{{ $t("status") }}</th>
+                            <th>{{ $t("preview") }}</th>
+                            <th>{{ $t("check-progress") }}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -125,7 +133,7 @@
                               <span
                                 v-if="wq.designator === 'system'"
                                 class="badge badge-pill badge-secondary mt-2"
-                                >Extra</span
+                                >{{ $t("extra") }}</span
                               >
                               <span v-else>{{ wq.username }}</span>
                             </td>
@@ -152,7 +160,7 @@
                                 class="btn btn-primary btn-sm btn-rounded"
                                 @click="gotoWQProgress(wq.echovalleyid)"
                               >
-                                Progress view
+                                {{ $t("progress-view") }}
                               </button>
                             </td>
                           </tr>
@@ -180,7 +188,7 @@
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Extra quiz</h5>
+            <h5 class="modal-title">{{ $t("extra-quiz") }}</h5>
             <button
               type="button"
               class="close"
@@ -193,9 +201,9 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label class="col-form-label text-right col-sm-3"
-                  >Question</label
-                >
+                <label class="col-form-label text-right col-sm-3">{{
+                  $t("question")
+                }}</label>
                 <div class="col-sm-8">
                   <input
                     type="text"
@@ -207,9 +215,9 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-form-label col-sm-3 text-right"
-                  >Publish</label
-                >
+                <label class="col-form-label col-sm-3 text-right">{{
+                  $t("publish")
+                }}</label>
                 <div class="col">
                   <input
                     type="text"
@@ -222,7 +230,9 @@
                 <div class="col-2 pt-2 pl-0">06:00:00</div>
               </div>
               <div class="form-group row">
-                <label class="col-form-label col-sm-3 text-right">Due</label>
+                <label class="col-form-label col-sm-3 text-right">{{
+                  $t("due")
+                }}</label>
                 <div class="col">
                   <input
                     type="text"
@@ -242,7 +252,7 @@
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
           </div>
         </div>
@@ -460,7 +470,9 @@ Her favourite colour is pink and her superpower is data processing.</textarea
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">Delete Echo Valley</h5>
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("delete-echo-valley") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -471,8 +483,10 @@ Her favourite colour is pink and her superpower is data processing.</textarea
             </button>
           </div>
           <div class="modal-body">
-            <p>Want to delete a checked quiz?</p>
-            <p class="text-danger">The published QUIZ cannot be deleted</p>
+            <p>{{ $t("want-to-delete-a-checked-quiz") }}?</p>
+            <p class="text-danger">
+              {{ $t("the-published-quiz-cannot-be-deleted") }}
+            </p>
           </div>
           <div class="modal-footer">
             <button
@@ -480,7 +494,7 @@ Her favourite colour is pink and her superpower is data processing.</textarea
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -488,7 +502,7 @@ Her favourite colour is pink and her superpower is data processing.</textarea
               data-dismiss="modal"
               @click="deleteWQ()"
             >
-              Confirm
+              {{ $t("confirm") }}
             </button>
           </div>
         </div>
@@ -506,7 +520,7 @@ Her favourite colour is pink and her superpower is data processing.</textarea
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Sentence</h5>
+            <h5 class="modal-title">{{ $t("sentence") }}</h5>
             <button
               type="button"
               class="close"
@@ -525,7 +539,7 @@ Her favourite colour is pink and her superpower is data processing.</textarea
               class="btn btn-primary btn-outline"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
           </div>
         </div>

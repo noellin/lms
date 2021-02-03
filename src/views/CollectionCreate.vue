@@ -14,8 +14,8 @@
             <a @click="$back" class="btn-rounded-icon btn-primary mr-2 pointer"
               ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
             ></a>
-            <h1 class="separator">Collection</h1>
-            <span>Create</span>
+            <h1 class="separator">{{ $t("collection") }}</h1>
+            <span>{{ $t("create") }}</span>
           </div>
         </div>
       </header>
@@ -27,7 +27,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group">
-                      <label>Collection name</label>
+                      <label>{{ $t("collection-name") }}</label>
                       <input
                         class="form-control"
                         type="text"
@@ -39,7 +39,7 @@
                   </div>
                   <div class="col-6">
                     <div class="form-group">
-                      <label>Available Collections</label>
+                      <label>{{ $t("available-collections") }}</label>
                       <!-- <select
                           class="form-control"
                           id="s2_demo2"
@@ -87,11 +87,11 @@
                 "
                 @click="getPkgMaterial()"
               >
-                <i class="la la-plus"></i>Material
+                <i class="la la-plus"></i>{{ $t("material") }}
               </button>
             </div>
             <div class="card">
-              <h5 class="card-header">Sequence</h5>
+              <h5 class="card-header">{{ $t("sequence") }}</h5>
               <div class="card-body">
                 <div
                   style="max-height: 380px"
@@ -142,7 +142,7 @@
                             <span
                               class="badge badge-pill badge-secondary mt-2"
                               v-if="m.level !== ''"
-                              >Level {{ m.level }}</span
+                              >{{ $t("level") }} {{ m.level }}</span
                             >
                             <h4 class="d-flex align-self-center mt-2">
                               <span v-if="m.unit !== ''">{{ m.unit }} - </span>
@@ -179,7 +179,7 @@
               data-toggle="modal"
               data-target="#ClearAndBackModal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -187,7 +187,7 @@
               data-toggle="modal"
               data-target="#SaveChangeModal"
             >
-              Save
+              {{ $t("save") }}
             </button>
           </div>
         </div>
@@ -209,7 +209,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Save change</h5>
+            <h5 class="modal-title">{{ $t("save-change") }}</h5>
             <button
               type="button"
               class="close"
@@ -220,7 +220,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Would you like to save your collection?</p>
+            <p>{{ $t("would-you-like-to-save-your-collection") }}?</p>
           </div>
           <div class="modal-footer">
             <button
@@ -228,14 +228,14 @@
               class="btn btn-secondary btn-rounded btn-outline"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
               class="btn btn-primary btn-rounded"
               @click="setCollection()"
             >
-              Save
+              {{ $t("save") }}
             </button>
           </div>
         </div>
@@ -252,7 +252,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Message</h5>
+            <h5 class="modal-title">{{ $t("message") }}</h5>
             <button
               type="button"
               class="close"
@@ -263,7 +263,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Want to clear the list and go back to the previous page?</p>
+            <p>
+              {{
+                $t("want-to-clear-the-list-and-go-back-to-the-previous-page")
+              }}?
+            </p>
           </div>
           <div class="modal-footer">
             <button
@@ -271,7 +275,7 @@
               class="btn btn-secondary btn-rounded btn-outline"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -279,7 +283,7 @@
               data-dismiss="modal"
               @click="$back"
             >
-              Confirm
+              {{ $t("confirm") }}
             </button>
           </div>
         </div>
@@ -296,7 +300,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Message</h5>
+            <h5 class="modal-title">{{ $t("message") }}</h5>
             <button
               type="button"
               class="close"
@@ -307,8 +311,12 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Change packages will clear the current collection list.</p>
-            <p>Would you like to save your changes?</p>
+            <p>
+              {{
+                $t("change-packages-will-clear-the-current-collection-list")
+              }}.
+            </p>
+            <p>{{ $t("would-you-like-to-save-your-changes") }}?</p>
           </div>
           <div class="modal-footer">
             <button
@@ -316,7 +324,7 @@
               class="btn btn-secondary btn-rounded btn-outline"
               data-dismiss="modal"
             >
-              Cancel
+              {{ $t("cancel") }}
             </button>
             <button
               type="button"
@@ -324,7 +332,7 @@
               data-target="#addMaterial"
               @click="clearSequence()"
             >
-              Save
+              {{ $t("save") }}
             </button>
           </div>
         </div>
@@ -343,7 +351,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">
-              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Material
+              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>{{ $t("material") }}
             </h5>
             <button
               type="button"
@@ -356,7 +364,7 @@
           </div>
           <div class="modal-body">
             <h6 class="pb-2">
-              <span class="text-muted">package</span>
+              <span class="text-muted">{{ $t("package") }}</span>
               <strong class="ml-1">{{ pkgname }}</strong>
             </h6>
             <div class="row">
@@ -413,9 +421,9 @@
                 @click="selectAll"
                 v-model="selectAllPM"
               />
-              <label class="custom-control-label text-primary" for="selectPM"
-                >Select All</label
-              >
+              <label class="custom-control-label text-primary" for="selectPM">{{
+                $t("select-all")
+              }}</label>
             </div>
             <div
               class="custom-control custom-checkbox form-check pb-3"
@@ -433,7 +441,7 @@
                 <span
                   class="badge badge-pill badge-secondary"
                   v-if="pkgm.level !== ''"
-                  >Level {{ pkgm.level }}</span
+                  >{{ $t("level") }} {{ pkgm.level }}</span
                 >
                 <span v-if="pkgm.unit !== ''">{{ pkgm.unit }} - </span>
                 {{ pkgm.resource_name }}</label
@@ -446,7 +454,7 @@
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               type="button"
@@ -457,7 +465,7 @@
                 tempPkgName = pkgname;
               "
             >
-              <i class="la la-plus"></i>Material
+              <i class="la la-plus"></i>{{ $t("material") }}
             </button>
           </div>
         </div>

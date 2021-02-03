@@ -47,7 +47,7 @@
               :class="[headerLabel === 'course' ? 'active' : '']"
             >
               <router-link class="" to="/course">
-                <a> Course </a>
+                <a> {{ $t("course") }} </a>
               </router-link>
             </li>
             <li
@@ -58,7 +58,7 @@
               ]"
             >
               <router-link class="" to="/collection">
-                <a> My Collection </a>
+                <a> {{ $t("my-collection") }} </a>
               </router-link>
             </li>
             <li
@@ -67,7 +67,7 @@
               @click="gotoAccount()"
             >
               <!-- <router-link class="" to="/accountlist"> -->
-              <a> Account </a>
+              <a> {{ $t("account") }} </a>
               <!-- </router-link> -->
             </li>
           </ul>
@@ -96,13 +96,13 @@
               <span>{{ userInfo.email }}</span>
             </div>
             <a class="dropdown-item pointer" @click="gotoAccount()"
-              ><i class="icon dripicons-user"></i> My account</a
+              ><i class="icon dripicons-user"></i> {{ $t("my-account") }}</a
             >
             <a class="dropdown-item pointer" @click="contactUs()"
-              ><i class="icon dripicons-mail"></i> Contact us</a
+              ><i class="icon dripicons-mail"></i> {{ $t("contact-us") }}</a
             >
             <a class="dropdown-item pointer" @click="logout()"
-              ><i class="icon dripicons-lock-open"></i> Log Out</a
+              ><i class="icon dripicons-lock-open"></i> {{ $t("log-out") }}</a
             >
           </div>
         </li>
