@@ -30,18 +30,18 @@ import Print from "./plugins/print/print";
 import VueLazyload from 'vue-lazyload'
 import VueI18n from "vue-i18n";
 Vue.use(VueI18n);
-// const i18n = new VueI18n({
-//   locale: "en-US", // 語言標識
-//   //this.$i18n.locale // 通過切換locale的值來實現語言切換
+const i18n = new VueI18n({
+  locale: "en-US", // 語言標識
+  //this.$i18n.locale // 通過切換locale的值來實現語言切換
 
-//   messages: {
-//     // "zh-TW": require("../src/lang/zh-tw"), // 繁體中文語言包
+  messages: {
+    // "zh-TW": require("../src/lang/zh-tw"), // 繁體中文語言包
 
-//     // "zh-CN": require("../src/lang/zh-cn"), // 簡體中文語言包
+    // "zh-CN": require("../src/lang/zh-cn"), // 簡體中文語言包
 
-//     "en-US": require("../src/lang/en.json"), // 英文語言包
-//   },
-// });
+    "en-US": require("../src/lang/en.json"), // 英文語言包
+  },
+});
 Vue.use(VueLazyload)
 
 // global.jQuery = jQuery;
