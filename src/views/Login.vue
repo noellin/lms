@@ -297,6 +297,7 @@
         >
           <small>{{ $t("cookie-policy") }}</small></a
         >
+
         <a
           href="https://www.iubenda.com/terms-and-conditions/32601846"
           class="iubenda-nostyle no-brand iubenda-embed"

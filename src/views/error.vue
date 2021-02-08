@@ -10,7 +10,7 @@
       <div class="col-12 col-md-6 align-self-center error-page-text">
         <h1 class="display-4 text-white mb-2">404</h1>
         <p class="text-white">
-          {{ $t("we-cant-seem-to-find-the-page-youre-looking-for") }}.
+          {{ $t("we-cant-seem-to-find-the-page-your-looking-for") }}.
         </p>
         <button
           class="btn btn-primary btn-rounded btn-outline btn-lg"

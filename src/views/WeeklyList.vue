@@ -41,11 +41,7 @@
                   data-target="#DeleteModal"
                   :disabled="selectedWQ.length <= 0 ? true : false"
                 >
-                  ｛{{
-                    $t(
-                      "courses-that-can-use-this-collection-have-expired-less-than-br-greater-than-if-you-want-to-continue-using-you-must-renew-the-contract"
-                    )
-                  }}
+                  {{ $t("delete-quiz") }}
                   <span
                     class="badge badge-danger"
                     v-if="selectedWQ.length !== 0"
@@ -99,7 +95,7 @@
                             </th>
                             <th>{{ $t("author") }}</th>
                             <th>
-                              {{ $t("completed") }} ／{{ $t("total-students") }}
+                              {{ $t("completed") }} ／{{ $t("totals-tudents") }}
                             </th>
                             <th>{{ $t("status") }}</th>
                             <th>{{ $t("preview") }}</th>

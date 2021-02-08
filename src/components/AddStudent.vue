@@ -48,7 +48,7 @@
                   <div>
                     <i class="zmdi zmdi-accounts-list zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">{{ $t("import-a-csv") }}</div>
+                  <div class="mt-3">{{ $t("import-csv") }}</div>
                 </button>
               </div>
               <div>
@@ -373,7 +373,7 @@
             </button>
           </div>
           <div class="modal-body" data-widget="dropzone">
-            <h4 class="text-center mb-4 mt-2">{{ $t("import-a-csv") }}</h4>
+            <h4 class="text-center mb-4 mt-2">{{ $t("import-csv") }}</h4>
             <p class="text-center mb-0">
               {{ $t("how-to-make-a-csv-file-to-import-students-list") }}?
             </p>

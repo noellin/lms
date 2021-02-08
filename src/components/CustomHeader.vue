@@ -58,7 +58,7 @@
               ]"
             >
               <router-link class="" to="/collection">
-                <a> {{ $t("my-collection") }} </a>
+                <a>{{ $t("my-collection") }}</a>
               </router-link>
             </li>
             <li
