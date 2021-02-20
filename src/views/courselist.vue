@@ -267,10 +267,10 @@
                         </tbody>
                       </table>
                       <div class="col-12">
-                        <pagination
+                        <!-- <pagination
                           :pages="course.coursePagination"
                           @emitPages="getActiveCourseList"
-                        ></pagination>
+                        ></pagination> -->
                       </div>
                     </div>
                     <!-- expired的table -->

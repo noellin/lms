@@ -130,7 +130,7 @@
                 >
                   <div class="form-group row">
                     <label class="control-label text-right col-sm-4">{{
-                      $t("parentsphone-number")
+                      $t("parents-phone-number")
                     }}</label>
                     <div class="col-sm-8">
                       <input

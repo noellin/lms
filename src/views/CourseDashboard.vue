@@ -15,18 +15,11 @@
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
                       {{ $t("golden-zone") }}
-                      <!-- <button
-                        type="button"
-                        class="btn btn-nostyle ml-1"
-                        data-container="body"
-                        data-toggle="popover"
-                        data-placement="bottom"
-                        data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-                      >
-                        <i
-                          class="zmdi zmdi-alert-circle zmdi-hc-fw text-white"
-                        ></i>
-                      </button> -->
+                      <i
+                        data-toggle="modal"
+                        data-target="#InformationModal"
+                        class="zmdi-hc-lg pointer zmdi zmdi-alert-circle zmdi-hc-fw text-white"
+                      ></i>
                     </h5>
                     <div class="w100 text-right">
                       <p
@@ -46,19 +39,12 @@
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      {{ $t("treasure-zone")
-                      }}<button
-                        type="button"
-                        class="btn btn-nostyle ml-1"
-                        data-container="body"
-                        data-toggle="popover"
-                        data-placement="bottom"
-                        data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-                      >
-                        <!-- <i
-                          class="zmdi zmdi-alert-circle zmdi-hc-fw text-white"
-                        ></i> -->
-                      </button>
+                      {{ $t("treasure-zone") }}
+                      <i
+                        data-toggle="modal"
+                        data-target="#InformationModal"
+                        class="zmdi-hc-lg pointer zmdi zmdi-alert-circle zmdi-hc-fw text-white"
+                      ></i>
                     </h5>
                     <div class="w100 text-right">
                       <p
@@ -218,7 +204,7 @@
               <div class="col-4">
                 <div class="card">
                   <h5 class="card-header border-none">
-                    {{ $t("complete-materials") }}
+                    {{$t('watch-read-times')}}
                   </h5>
                   <div class="card-body pt-0" style="height: 500px">
                     <p class="text-primary">{{ $t("last-30-days") }}</p>
@@ -476,6 +462,53 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      id="InformationModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("information") }}
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-2">
+              <h5 class="text-primary">Golden zone</h5>
+              <p>See the most popular books of the past 14 days.</p>
+            </div>
+            <div class="mb-2">
+              <h5 class="text-primary">Treasure zone</h5>
+              <p>
+                See the hidden treasure books that have been overlooked for the
+                past 14 days.
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              {{ $t("close") }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -544,7 +577,7 @@ export default {
           completionrate: "Completion rate",
           Student_Login: "Student Login",
           Parent_Login: "Parent Login",
-          Complete_materials: "Complete Materials",
+          Complete_materials: "Watch/Read times",
         },
       },
       acRateChartData: {
@@ -585,19 +618,6 @@ export default {
       $('[data-toggle="popover"]').popover();
     });
     this.getDashboard();
-    //   var output = document.getElementById("myP");
-    // document.addEventListener("fullscreenchange", function() {
-    //   output.innerHTML = "fullscreenchange event fired!";
-    // });
-    // document.addEventListener("mozfullscreenchange", function() {
-    //   output.innerHTML = "mozfullscreenchange event fired!";
-    // });
-    // document.addEventListener("webkitfullscreenchange", function() {
-    //   output.innerHTML = "webkitfullscreenchange event fired!";
-    // });
-    // document.addEventListener("msfullscreenchange", function() {
-    //   output.innerHTML = "msfullscreenchange event fired!";
-    // });
   },
   methods: {
     sortTable(sortItem) {

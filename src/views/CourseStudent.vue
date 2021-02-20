@@ -635,7 +635,6 @@ export default {
     },
     resetPWD() {
       let pwd = { imgpw: this.selectEmoji.toString().replace(",", "") };
-      console.log(object);
       ApiResetPWD.post(this.tempSid, pwd)
         .then((response) => {
           console.log(response);

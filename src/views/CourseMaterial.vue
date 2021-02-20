@@ -188,7 +188,7 @@
                   data-target="#OpenSettingsModal"
                   @click="copyMArray()"
                 >
-                  <i class="la la-gear"></i>{{ $t("open-settings") }}
+                  <i class="la la-gear"></i>{{ $t("quick-open") }}
                 </button>
 
                 <button
@@ -527,7 +527,7 @@
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ $t("add-to-collection") }}</h5>
+            <h5 class="modal-title">{{ $t("Add-to-collection") }}</h5>
             <button
               type="button"
               class="close"
@@ -539,6 +539,7 @@
           </div>
           <div class="modal-body">
             <div>
+              <!-- 有已存在於collection -->
               <div
                 class="form-group row"
                 v-if="existCollectionName.length !== 0"
@@ -555,6 +556,8 @@
                   ></span
                 >
               </div>
+              <!-- 選擇要存在哪個collection -->
+
               <div
                 class="form-group row"
                 v-if="filterCollectionList.length !== 0"
@@ -591,16 +594,37 @@
                   </div>
                 </div>
               </div>
+              <!-- <div class="form-group">
+                <div class="col-sm-3">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-outline btn-rounded"
+                    data-dismiss="modal"
+                    @click="gotoCreateCol()"
+                  >
+                    {{ $t("create-collection") }}
+                  </button>
+                </div>
+                <div class="col-sm-9"></div>
+              </div> -->
             </div>
           </div>
           <div class="modal-footer">
             <button
               type="button"
+              class="btn btn-primary btn-outline btn-rounded"
+              data-dismiss="modal"
+              @click="gotoCreateCol()"
+            >
+              {{ $t("create-new-collection") }}
+            </button>
+            <!-- <button
+              type="button"
               class="btn btn-secondary btn-outline btn-rounded"
               data-dismiss="modal"
             >
               {{ $t("close") }}
-            </button>
+            </button> -->
             <button
               v-if="filterCollectionList.length !== 0"
               type="button"
@@ -608,7 +632,7 @@
               data-dismiss="modal"
               @click="addResource()"
             >
-              {{ $t("add") }}
+              {{ $t("add-to-collection") }}
             </button>
           </div>
         </div>
@@ -899,7 +923,7 @@
             <form>
               <div class="form-group row">
                 <label class="col-form-label col-sm-3 text-right">{{
-                  $t("asignment-name")
+                  $t("assignment-name")
                 }}</label>
                 <div class="col-sm-6">
                   <input
@@ -1509,8 +1533,10 @@ export default {
       this.existCollectionName = [];
       //有哪些collection可以加入這裡LIST
       return this.collectionList.filter((item) => {
+        console.log(item);
+        console.log(this.tempResource.resourceid);
         if (item.rid === this.tempResource.resourceid) {
-          //有哪些resource已經被加入collection
+          //排除已經被加入collection
           this.existCollectionName.push(item.text);
         }
         return item.rid !== this.tempResource.resourceid;
@@ -1651,14 +1677,19 @@ export default {
     },
 
     addResource() {
+      this.tempcolid = this.tempcolid.toString();
+      this.tempResource.resourceid = this.tempResource.resourceid.toString();
       ApiAddResource.get(this.tempcolid, this.tempResource.resourceid)
         .then((response) => {
+          console.log(response);
           if (response.status === "success") {
             this.$bus.$emit(
               "messsage:push",
               "Successful addition to the collection.",
               "success"
             );
+          } else {
+            this.$bus.$emit("messsage:push", "Unknown error.", "danger");
           }
         })
         .catch((err) => {});

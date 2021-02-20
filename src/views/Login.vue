@@ -148,7 +148,7 @@
                 <p>
                   {{
                     $t(
-                      "well-send-you-an-email-with-link-to-reset-your-password"
+                      "will-send-you-an-email-with-link-to-reset-your-password"
                     )
                   }}.
                 </p>

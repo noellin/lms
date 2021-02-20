@@ -38,7 +38,7 @@
                   </div>
                   <div class="col-6">
                     <div class="form-group">
-                      <label>{{ $t("available-collections") }}</label>
+                      <label>{{ $t("available-packages") }}</label>
                       <select class="form-control" id="s2_demo2" disabled>
                         <optgroup label="select package">
                           <option selected>{{ pName }}</option>
