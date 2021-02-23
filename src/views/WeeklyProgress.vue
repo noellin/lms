@@ -298,9 +298,10 @@ export default {
     disabledBeforeToday(date) {
       let today = new Date();
       today.setHours(0, 0, 0, 0);
-      let tomorrow = today.setTime(today.getTime() + 24 * 60 * 60 * 1000);
+      // let tomorrow = today.setTime(today.getTime() + 24 * 60 * 60 * 1000);
 
-      return date < tomorrow;
+      // return date < tomorrow;
+      return date < today;
     },
     getDetail() {
       ApiGetSentenceDetail.get(this.echoid)

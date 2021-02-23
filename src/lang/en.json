@@ -209,7 +209,6 @@
   "your-password-has-now-been-successfully-reset-please-use-this-new-password-to-log-in": "Your password has now been successfully reset please use this new password to log in",
   "return-to-login": "Return to login",
   "forgotten-password": "Forgotten password",
-  "well-send-you-an-email-with-link-to-reset-your-password": "Will send you an email with link to reset your password",
   "send": "Send",
   "confirm-your-password": "Confirm your password",
   "password-reset-email-sent": "Password reset email sent",
@@ -257,5 +256,6 @@
   "available-packages": "Available Packages",
   "add-to-collection": "Add to collection",
   "information": "Information",
-  "watch-read-times": "Watch/Read times"
+  "watch-read-times": "Watch/Read times",
+  "will-send-you-an-email-with-link-to-reset-your-password": "Will send you an email with link to reset your password"
 }

@@ -107,6 +107,7 @@
                             <td>
                               <div
                                 class="custom-control custom-checkbox form-check"
+                                v-if="!wq.canDelete"
                               >
                                 <input
                                   type="checkbox"
@@ -254,207 +255,7 @@
         </div>
       </div>
     </div>
-    <!-- Insufficient Quota Modal -->
-    <!-- <div
-      class="modal fade"
-      id="InsufficientQuotaModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Insufficient quota</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="zmdi zmdi-close"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>
-              Extra Quiz quota is based on the package contract. If you need to
-              use Extra Quiz, please purchase separately?
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary btn-rounded"
-              data-dismiss="modal"
-            >
-              Ok
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- Edit Quota Modal -->
-    <!-- <div
-      class="modal fade"
-      id="EditModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              <span class="text-secondary">Publish</span>
-              <strong>2020.09.07</strong> 06:00:00 -
-              <span class="text-secondary">Due</span>
-              <strong>2020.09.11</strong> 23:59:59
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="zmdi zmdi-close"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>
-              The questions of the weekly quiz are selected by the system based
-              on material. You can also enter the question yourself.
-            </p>
-            <div class="custom-control custom-radio form-check">
-              <input
-                type="radio"
-                id="customRadio1"
-                name="customRadio"
-                class="custom-control-input"
-              />
-              <label class="custom-control-label" for="customRadio1"
-                >She likes maths and science.</label
-              >
-            </div>
-            <div class="custom-control custom-radio form-check">
-              <input
-                type="radio"
-                id="customRadio2"
-                name="customRadio"
-                class="custom-control-input"
-                checked
-              />
-              <label
-                class="custom-control-label"
-                for="customRadio2"
-                style="display: block; height: auto"
-              >
-                <textarea
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  placeholder="Please enter a question of the weekly quiz..."
-                  rows="3"
-                ></textarea>
-              </label>
-            </div>
-            <p class="text-muted text-right"><small>0/100</small></p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary btn-rounded btn-outline"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary btn-rounded"
-              data-dismiss="modal"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- Preview Modal -->
-    <!-- <div
-      class="modal fade"
-      id="PreviewModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              <span class="text-secondary">Publish</span>
-              <strong>2020.09.07</strong> 06:00:00 -
-              <span class="text-secondary">Due</span>
-              <strong>2020.09.11</strong> 23:59:59
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="zmdi zmdi-close"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>
-              The questions of the weekly quiz are selected by the system based
-              on material. You can also enter the question yourself.
-            </p>
-            <div class="custom-control custom-radio form-check">
-              <input
-                type="radio"
-                id="customRadio1"
-                name="customRadio"
-                class="custom-control-input"
-              />
-              <label class="custom-control-label" for="customRadio1"
-                >She likes maths and science.</label
-              >
-            </div>
-            <div class="custom-control custom-radio form-check">
-              <input
-                type="radio"
-                id="customRadio2"
-                name="customRadio"
-                class="custom-control-input"
-                checked
-              />
-              <label
-                class="custom-control-label"
-                for="customRadio2"
-                style="display: block; height: auto"
-              >
-                <textarea
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  placeholder="Please enter a question of the weekly quiz..."
-                  rows="3"
-                >
-Her favourite colour is pink and her superpower is data processing.</textarea
-                >
-              </label>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary btn-rounded btn-outline"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
+
     <!-- DeleteAModal MODAL-->
     <div
       class="modal fade"
@@ -576,6 +377,7 @@ export default {
     this.getWeeklyQuiz();
   },
   computed: {},
+
   methods: {
     sortTable(sortItem) {
       if (this.tempSortItem === "") {
@@ -642,7 +444,9 @@ export default {
         //實現全選
         vm.selectedWQ = [];
         vm.wqList.forEach(function (item, i) {
-          vm.selectedWQ.push(item.echovalleyid);
+          if (!item.canDelete) {
+            vm.selectedWQ.push(item.echovalleyid);
+          }
         });
       }
     },
@@ -672,7 +476,21 @@ export default {
       this.wqList = [];
       ApiGetSentence.get(this.courseid)
         .then((response) => {
-          console.log(response);
+          var rightNow = new Date();
+          let today = dayjs(rightNow).format("YYYY-MM-DD");
+          // console.log(today);
+          response.record.forEach((item) => {
+            dayjs(today).isBefore(
+              dayjs(dayjs.unix(item.start_date).format("YYYY-MM-DD"))
+            );
+            item.canDelete = !dayjs(today).isBefore(
+              dayjs(dayjs.unix(item.start_date).format("YYYY-MM-DD"))
+            );
+          });
+          //           let today = new Date();
+          // today.setHours(0, 0, 0, 0);
+          // console.log(wqList.start_date);
+          // console.log(today);
           this.wqList = response.record;
           this.wqQuota = response.course_info.echovalley_quota;
           this.wqStatus = response.course_info.echovalley_flag;
