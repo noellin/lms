@@ -135,7 +135,7 @@
                     <div class="col-sm-8">
                       <input
                         type="text"
-                        class="form-control is-invalid"
+                        class="form-control"
                         placeholder="Enter unique number"
                         value=""
                         v-model="newStudent.phone"
@@ -548,9 +548,11 @@ export default {
       this.showAlreadyExist = false;
       this.alreadyStudendList = [];
       this.dupStudentList = [];
+      this.$nextTick(() => this.$refs.addStdForm.reset());
     },
     async addStudent() {
       let check = await this.$refs.addStdForm.validate().then((success) => {
+        console.log(success);
         if (success) {
           $("#SingleStudentModal").modal("hide");
           return true;
@@ -574,6 +576,7 @@ export default {
         } else {
           $("#AlreadyExistsModal").modal("show");
         }
+        // this.resetStdTemp();
       }
     },
     downloadSample() {

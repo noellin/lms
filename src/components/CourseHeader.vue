@@ -15,7 +15,7 @@
         <!-- echo descriptipn -->
         <span
           class="ml-1 pointer"
-          v-if="$route.name === 'Echo_Valley'"
+          v-if="$route.name === 'Echo_Valley_Quiz'"
           data-toggle="modal"
           data-target="#infoModal"
           ><i class="fas fa-info-circle fa-sm mfilter-icon"></i

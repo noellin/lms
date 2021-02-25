@@ -122,7 +122,7 @@ const router = new Router({
       },
       {
         path: "/course_weekly_quiz/course=:course/type=:type/:courseid",
-        name: "Echo_Valley",
+        name: "Echo_Valley_Quiz",
         component: resolve => require(['@/views/WeeklyList'], resolve),
         meta: {
           header: "course",
@@ -139,7 +139,7 @@ const router = new Router({
       },
       {
         path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid/:echoid",
-        name: "Echo_Valley_Progress",
+        name: "Echo_Valley_Quiz_Progress",
         component: resolve => require(['@/views/WeeklyProgress'], resolve),
         meta: {
           header: "course",

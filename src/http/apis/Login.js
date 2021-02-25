@@ -27,3 +27,9 @@ export const ApiActivateUser = {
         return get(`/info/activate/${paramObj}`);
     },
 };
+
+export const ApiSaveLOG = {
+    get:(uid) => {
+        return get(`/stu/log/setlogin/${uid}`)
+    }
+}

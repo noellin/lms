@@ -109,7 +109,7 @@
   "delete-assignment": "Delete assignment",
   "assigned-name": "Assigned name",
   "assigned-date": "Assigned date",
-  "due": "Due",
+  "due": "Assignment period",
   "for": "For",
   "completed-total-students": "Completed total students",
   "preview": "Preview",
@@ -150,7 +150,7 @@
   "save-changes": "Save changes",
   "confirm-to-change-the-teacher-to": "Confirm to change the teacher to",
   "opened-material": "Opened material",
-  "opened-books": "Ppened books",
+  "opened-books": "Opened books",
   "opened-videos": "Opened videos",
   "picture-book-views": "Picture book views",
   "video-views": "Video views",
@@ -257,5 +257,6 @@
   "add-to-collection": "Add to collection",
   "information": "Information",
   "watch-read-times": "Watch/Read times",
-  "will-send-you-an-email-with-link-to-reset-your-password": "Will send you an email with link to reset your password"
+  "will-send-you-an-email-with-link-to-reset-your-password": "Will send you an email with link to reset your password",
+  "quick-open": "Quick open"
 }

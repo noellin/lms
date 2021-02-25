@@ -590,6 +590,7 @@ import {
   ApiSearchCourse,
   ApiSetCourse,
 } from "../http/apis/CourseList";
+import { ApiSaveLOG } from "../http/apis/Login";
 import AddStudent from "../components/AddStudent";
 import _ from "lodash";
 export default {
@@ -671,6 +672,13 @@ export default {
     // },
   },
   methods: {
+    saveLog(id) {
+      ApiSaveLOG.get(id)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {});
+    },
     openEdit() {
       this.$refs.editcourseForm.validate().then((success) => {
         if (success) {
@@ -727,6 +735,7 @@ export default {
           this.getActiveCourseList(this.selectedTeacher),
           this.getExpiredCourseList(this.selectedTeacher),
           this.getTeacherList(),
+          this.saveLog(this.userid),
         ])
         .then((response) => {
           setTimeout(() => {
@@ -739,7 +748,6 @@ export default {
     },
     getTeacherList() {
       ApiGetTeacherList.get().then((response) => {
-        console.log(this.permit);
         if (this.permit === "admin") {
           response.record.forEach((element) => {
             this.teacherList.push(element);
@@ -780,7 +788,6 @@ export default {
       if (teacherid !== "*") {
         searchTid = teacherid;
       }
-      console.log(this.permit, this.userid, searchTid);
       ApiGetExpiredCourseList.get(this.permit, this.userid, searchTid).then(
         (response) => {
           this.course.expiredCourseList = response.record;

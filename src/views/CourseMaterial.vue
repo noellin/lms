@@ -392,6 +392,7 @@
                               class="badge badge-success badge-pill fw300 mr-2 font-size-md"
                             >
                               {{ $t("opened") }}
+                              <i class="fas fa-video"></i>
                             </div>
                             <div
                               v-else-if="
@@ -401,6 +402,7 @@
                               class="badge badge-primary badge-pill fw300 mr-2 font-size-md"
                             >
                               {{ $t("opened") }}
+                              <i class="fas fa-book-open"></i>
                             </div>
                             <button
                               v-if="textbook.openflag !== 'true'"
@@ -631,6 +633,7 @@
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
               @click="addResource()"
+              :disabled="selectCol === ''"
             >
               {{ $t("add-to-collection") }}
             </button>
@@ -848,31 +851,15 @@
                       <span v-else></span>
                     </td>
                     <td>
+                      <span v-if="tb.unit !== ''" style="font-size: 14px"
+                        >{{ tb.unit }} -
+                      </span>
                       {{ tb.resource_name }}
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <!-- <div
-              v-for="(tb, index) in textbookList"
-              :key="tb.resourceid + index"
-              class="mb-4"
-            >
-              <div class="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  class="custom-control-input"
-                  :id="tb.resourceid"
-                  :value="`${tb.colid}_${tb.resourceid}`"
-                  v-model="openedTextbookList"
-                />
-                <label class="custom-control-label text-xs" :for="tb.resourceid"
-                  ><span v-if="tb.level !== ''">Level {{ tb.level }}</span> -
-                  {{ tb.resource_name }}</label
-                >
-              </div>
-            </div> -->
           </div>
           <div class="modal-footer">
             <button
@@ -1677,9 +1664,9 @@ export default {
     },
 
     addResource() {
-      this.tempcolid = this.tempcolid.toString();
+      this.selectCol = this.selectCol.toString();
       this.tempResource.resourceid = this.tempResource.resourceid.toString();
-      ApiAddResource.get(this.tempcolid, this.tempResource.resourceid)
+      ApiAddResource.get(this.selectCol, this.tempResource.resourceid)
         .then((response) => {
           console.log(response);
           if (response.status === "success") {
@@ -1688,22 +1675,24 @@ export default {
               "Successful addition to the collection.",
               "success"
             );
+            this.selectCol = "";
           } else {
             this.$bus.$emit("messsage:push", "Unknown error.", "danger");
+            this.selectCol = "";
           }
         })
         .catch((err) => {});
     },
-    async deleteResource(colid, rid) {
-      let result = await ApideleteResource.get(this.userid, this.tempcolid, rid)
-        .then((response) => {
-          return response.status;
-        })
-        .catch((err) => {});
-      if (result) {
-        this.getResource(this.tempcolid);
-      }
-    },
+    // async deleteResource(colid, rid) {
+    //   let result = await ApideleteResource.get(this.userid, this.tempcolid, rid)
+    //     .then((response) => {
+    //       return response.status;
+    //     })
+    //     .catch((err) => {});
+    //   if (result) {
+    //     this.getResource(this.tempcolid);
+    //   }
+    // },
     addToAssignmentList(m) {
       // this.clicked.push(m.resourceid);
       this.$store.dispatch("courseInfo/setAssignment", {
@@ -1806,6 +1795,11 @@ export default {
           });
         }
       });
+      this.$bus.$emit(
+        "messsage:push",
+        "Add to the temporary assignment list",
+        "success"
+      );
     },
     removeAssignment(type, obj) {
       if (type === "book") {
@@ -1977,7 +1971,7 @@ export default {
       });
     },
     copyMArray() {
-      this.copyTextbookList = [...this.textbookList];
+      this.copyTextbookList = [...this.sortMList];
     },
     selectAllTBft(event) {
       const vm = this;
