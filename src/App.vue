@@ -70,9 +70,9 @@ export default {
     CustomHeader,
   },
   computed: {
-    isLoading() {
-      return this.$store.state.common.isLoading;
-    },
+    // isLoading() {
+    //   return this.$store.state.common.isLoading;
+    // },
   },
   created() {},
   methods: {

@@ -262,7 +262,7 @@
 
                     <div class="col-8">
                       <input
-                        type="text"
+                        type="password"
                         class="form-control"
                         placeholder="Enter your password again"
                         value=""

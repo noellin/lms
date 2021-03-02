@@ -111,11 +111,11 @@
                             class="mb-0 mt-3 d-flex align-self-center text-primary"
                           >
                             <div title="">
-                              <span
+                              <!-- <span
                                 v-if="cr.unit !== ''"
                                 style="font-size: 18px"
                                 >{{ cr.unit }} -
-                              </span>
+                              </span> -->
                               {{ cr.resource_name }}
                             </div>
                           </h4>

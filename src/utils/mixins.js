@@ -10,11 +10,11 @@ Vue.mixin({
             let temp = [...materialArray];
             if (sortType === "title_asc") {
               temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
-              temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+              // temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
               return temp;
             } else if (sortType === "title_desc") {
               temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
-              temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
+              // temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
               return temp.reverse();
             } else if (sortType === "level_asc") {
               temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);

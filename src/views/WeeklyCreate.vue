@@ -162,6 +162,9 @@ export default {
               question: "",
               publishTime: [],
             };
+            this.$router.push({
+              path: `/course_weekly_quiz/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}`,
+            });
           } else {
             this.$bus.$emit("messsage:push", "Unknown error", "danger");
           }

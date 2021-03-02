@@ -162,6 +162,7 @@
                       </div>
                     </div>
                   </div>
+                  <!-- what ? -->
                   <div class="form-group form-rounded mb-0 mr-3">
                     <select2
                       id="s2_demo3"
@@ -254,11 +255,11 @@
                               class="mb-0 mt-3 d-flex align-self-center text-primary"
                             >
                               <div title="">
-                                <span
+                                <!-- <span
                                   v-if="textbook.unit !== ''"
                                   style="font-size: 18px"
                                   >{{ textbook.unit }} -
-                                </span>
+                                </span> -->
                                 {{ textbook.resource_name }}
                                 <a
                                   target="_blank"
@@ -389,7 +390,7 @@
                                 textbook.openflag === 'true' &&
                                 textbook.note === 'video'
                               "
-                              class="badge badge-success badge-pill fw300 mr-2 font-size-md"
+                              class="badge badge-secondary badge-pill fw300 mr-2 font-size-md"
                             >
                               {{ $t("opened") }}
                               <i class="fas fa-video"></i>
@@ -399,7 +400,7 @@
                                 textbook.openflag === 'true' &&
                                 textbook.note === 'book'
                               "
-                              class="badge badge-primary badge-pill fw300 mr-2 font-size-md"
+                              class="badge badge-secondary badge-pill fw300 mr-2 font-size-md"
                             >
                               {{ $t("opened") }}
                               <i class="fas fa-book-open"></i>
@@ -818,8 +819,9 @@
                       {{ $t("level")
                       }}<i class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"></i>
                     </th>
-                    <th>
+                    <th @click="sortTable('resource_name')" class="pointer">
                       {{ $t("material") }}
+                      <i class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"></i>
                       <!-- <i class="zmdi zmdi-swap-vertical ml-1"></i> -->
                     </th>
                   </tr>
@@ -851,9 +853,9 @@
                       <span v-else></span>
                     </td>
                     <td>
-                      <span v-if="tb.unit !== ''" style="font-size: 14px"
+                      <!-- <span v-if="tb.unit !== ''" style="font-size: 14px"
                         >{{ tb.unit }} -
-                      </span>
+                      </span> -->
                       {{ tb.resource_name }}
                     </td>
                   </tr>
@@ -990,14 +992,15 @@
                               >
                             </span>
                           </div>
-                          <button
+                          <!-- <button
                             class="btn btn-nostyle btn-remove"
                             @click="removeAssignment(ta.note, ta)"
-                          >
-                            <i
-                              class="zmdi zmdi-minus-circle zmdi-hc-fw text-secondary"
-                            ></i>
-                          </button>
+                          > -->
+                          <i
+                            @click="removeAssignment(ta.note, ta)"
+                            class="zmdi zmdi-minus-circle zmdi-hc-2x text-secondary pointer"
+                          ></i>
+                          <!-- </button> -->
                         </li>
                       </draggable>
                     </ul>
@@ -1695,6 +1698,7 @@ export default {
     // },
     addToAssignmentList(m) {
       // this.clicked.push(m.resourceid);
+      console.log(m);
       this.$store.dispatch("courseInfo/setAssignment", {
         assignment: m,
         id: m.resourceid,
@@ -1802,13 +1806,16 @@ export default {
       );
     },
     removeAssignment(type, obj) {
+      console.log("delete assignment");
+      console.log("type = ", type);
+      console.log("obj = ", obj);
       if (type === "book") {
         this.$store.dispatch("courseInfo/removeAssignment", {
           id: obj.resourceid,
         });
       } else if (type === "video") {
         this.$store.dispatch("courseInfo/removeAssignment", {
-          id: obj.materialid,
+          id: obj.materialid + "_" + obj.resourceid,
         });
       } else {
         this.$store.dispatch("courseInfo/removeAssignment", {

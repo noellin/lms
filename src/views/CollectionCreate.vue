@@ -145,7 +145,7 @@
                               >{{ $t("level") }} {{ m.level }}</span
                             >
                             <h4 class="d-flex align-self-center mt-2">
-                              <span v-if="m.unit !== ''">{{ m.unit }} - </span>
+                              <!-- <span v-if="m.unit !== ''">{{ m.unit }} - </span> -->
                               {{ m.resource_name }}
                             </h4>
                           </div>
@@ -443,7 +443,7 @@
                   v-if="pkgm.level !== ''"
                   >{{ $t("level") }} {{ pkgm.level }}</span
                 >
-                <span v-if="pkgm.unit !== ''">{{ pkgm.unit }} - </span>
+                <!-- <span v-if="pkgm.unit !== ''">{{ pkgm.unit }} - </span> -->
                 {{ pkgm.resource_name }}</label
               >
             </div>

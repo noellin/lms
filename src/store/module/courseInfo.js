@@ -88,7 +88,7 @@ const courseInfo = {
         SET_ASSIGNMENT(state, data) {
             // state.tempAIDList = []
             // state.tempAList = []
-
+            console.log(data);
             if (state.tempAIDList[state.courseid].includes(data.id) === false) {
                 let tempa = [...state.tempAList[state.courseid]]
                 tempa.push(data.assignment)
@@ -98,14 +98,17 @@ const courseInfo = {
                 tempaid.push(data.id)
                 Vue.set(state.tempAIDList, state.courseid, tempaid);
 
-                //額外拷貝
+                //額外拷貝 先忽略
                 state.caList.push(data.assignment)
                 state.caidList.push(data.id)
             }
 
         },
         REMOVE_ASSIGNMENT(state, data) {
+            console.log(data.id);
+            console.log(state.tempAIDList);
             if (state.tempAIDList[state.courseid].indexOf(data.id) !== -1) {
+                console.log('delete');
 
                 let index = state.tempAIDList[state.courseid].indexOf(data.id)
                 state.tempAIDList[state.courseid].splice(index, 1)
