@@ -141,15 +141,17 @@ export default {
   },
   methods: {
     contactUs() {
-      const windowRef = window.open(`mailto:windy@igroupnet.com`, "_blank");
+      let url = "https://mangosteems.com/contact-us/";
+      window.open(url, "_blank");
+      // const windowRef = window.open(`mailto:windy@igroupnet.com`, "_blank");
 
-      windowRef.focus();
+      // windowRef.focus();
 
-      setTimeout(function () {
-        if (!windowRef.document.hasFocus()) {
-          windowRef.close();
-        }
-      }, 500);
+      // setTimeout(function () {
+      //   if (!windowRef.document.hasFocus()) {
+      //     windowRef.close();
+      //   }
+      // }, 500);
     },
     logout() {
       localStorage.clear();

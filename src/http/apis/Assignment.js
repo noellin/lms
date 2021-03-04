@@ -81,3 +81,9 @@ export const ApiDeleteAssignment = {
     }))
 }
 }
+
+export const ApiModifyAssignmentName = {
+  post:(aid,name) => {
+    return post(`/asgmt/modify/${aid}`,name)
+  }
+}

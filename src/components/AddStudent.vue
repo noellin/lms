@@ -51,7 +51,7 @@
                   <div class="mt-3">{{ $t("import-csv") }}</div>
                 </button>
               </div>
-              <div>
+              <!-- <div>
                 <button
                   class="btn btn-primary text-center"
                   data-dismiss="modal"
@@ -64,7 +64,7 @@
                   </div>
                   <div class="mt-3">{{ $t("copy") }}</div>
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

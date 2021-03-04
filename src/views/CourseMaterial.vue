@@ -8,7 +8,7 @@
           <section class="page-content container-fluid">
             <div class="row">
               <div class="col-4 col-md">
-                <div class="card bg-secondary" style="height: 150px">
+                <div class="card bg-success" style="height: 150px">
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
                     @click="changemfilter('om')"
@@ -17,6 +17,7 @@
                     title="Click to switch filter"
                   >
                     <h5 class="card-title">
+                      <!-- {{ $t("material") }} -->
                       {{ $t("opened-material") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
@@ -27,8 +28,8 @@
                       <p class="card-text text-white">
                         <span class="display-4 counter" data-count="151">{{
                           courseOverview.open
-                        }}</span
-                        ><span class="d-none d-xl-inlineblock"
+                        }}</span>
+                        <span class="d-none d-xl-inlineblock"
                           >/ {{ courseOverview.all }}</span
                         >
                       </p>
@@ -46,6 +47,7 @@
                     title="Click to switch filter"
                   >
                     <h5 class="card-title">
+                      <!-- {{ $t("books") }} -->
                       {{ $t("opened-books") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
@@ -65,7 +67,7 @@
                 </div>
               </div>
               <div class="col-4 col-md">
-                <div class="card bg-success" style="height: 150px">
+                <div class="card bg-secondary" style="height: 150px">
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
                     @click="changemfilter('ov')"
@@ -74,6 +76,7 @@
                     title="Click to switch filter"
                   >
                     <h5 class="card-title">
+                      <!-- {{ $t("videos") }} -->
                       {{ $t("opened-videos") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
@@ -151,6 +154,7 @@
                         v-model="searchRname"
                         @keyup.enter="searchCourseResource()"
                       />
+                      <!-- @keyup.enter="searchCourseResource()" -->
                       <div class="input-group-append">
                         <div
                           class="btn btn-secondary btn-outline btn-icon btn-rounded"
@@ -162,7 +166,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- what ? -->
                   <div class="form-group form-rounded mb-0 mr-3">
                     <select2
                       id="s2_demo3"
@@ -390,7 +393,7 @@
                                 textbook.openflag === 'true' &&
                                 textbook.note === 'video'
                               "
-                              class="badge badge-secondary badge-pill fw300 mr-2 font-size-md"
+                              class="badge badge-success badge-pill fw300 mr-2 font-size-md"
                             >
                               {{ $t("opened") }}
                               <i class="fas fa-video"></i>
@@ -400,7 +403,7 @@
                                 textbook.openflag === 'true' &&
                                 textbook.note === 'book'
                               "
-                              class="badge badge-secondary badge-pill fw300 mr-2 font-size-md"
+                              class="badge badge-success badge-pill fw300 mr-2 font-size-md"
                             >
                               {{ $t("opened") }}
                               <i class="fas fa-book-open"></i>
@@ -467,7 +470,7 @@
           <div class="modal-body">
             <p v-if="tempResource.openflag !== 'true'">
               {{ $t("open-this-material-and-allow") }}
-              <em>{{ tempResource.resource_name }}</em>
+              <!-- <em>{{ tempResource.resource_name }}</em> -->
               {{ $t("students-to-view-it") }}.
             </p>
             <p v-else>
@@ -815,7 +818,11 @@
                         ></label>
                       </div>
                     </th>
-                    <th @click="sortTable('level')" class="pointer">
+                    <th
+                      @click="sortTable('level')"
+                      class="pointer"
+                      v-if="courseInfo.cntLevel !== 0"
+                    >
                       {{ $t("level")
                       }}<i class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"></i>
                     </th>
@@ -846,7 +853,7 @@
                         ></label>
                       </div>
                     </td>
-                    <td>
+                    <td v-if="courseInfo.cntLevel !== 0">
                       <span v-if="tb.level !== ''"
                         >{{ $t("level") }} {{ tb.level }}</span
                       >
@@ -1457,10 +1464,17 @@ export default {
     tempALists() {
       this.tempAList = this.tempALists;
     },
+    searchRname() {
+      this.searchCourseResource();
+    },
+    selectType() {
+      this.searchCourseResource();
+    },
   },
   computed: {
     sortMList() {
-      //doshboard filter
+      //dashboard filter
+      //utils mixins
       if (this.mfilter === "om") {
         console.log(this.textbookList);
         return this.$_sortMaterial(this.openedMList, this.selectSortType);
@@ -1471,24 +1485,6 @@ export default {
       } else {
         return this.$_sortMaterial(this.textbookList, this.selectSortType);
       }
-      //utils mixins
-      // return this.$_sortMaterial(this.textbookList, this.selectSortType);
-      // let temp = [...this.textbookList];
-      // if (this.selectSortType === "title_asc") {
-      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
-      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
-      //   return temp;
-      // } else if (this.selectSortType === "title_desc") {
-      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
-      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
-      //   return temp.reverse();
-      // } else if (this.selectSortType === "level_asc") {
-      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
-      //   return temp;
-      // } else if (this.selectSortType === "level_desc") {
-      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
-      //   return temp.reverse();
-      // }
     },
     sortTypeList() {
       return this.$store.state.common.sortTypeList;
@@ -1953,6 +1949,7 @@ export default {
         .catch((err) => {});
 
       if (result) {
+        console.log("update info");
         this.$store.dispatch(
           "courseInfo/updateTextbookList",
           this.$route.params.courseid
@@ -1978,6 +1975,7 @@ export default {
       });
     },
     copyMArray() {
+      console.log(this.sortMList);
       this.copyTextbookList = [...this.sortMList];
     },
     selectAllTBft(event) {

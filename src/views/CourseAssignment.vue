@@ -55,20 +55,21 @@
                                 ></label>
                               </div>
                             </th>
-                            <th
-                              @click="sortTable('description')"
-                              class="pointer"
-                            >
-                              {{ $t("assigned-name")
-                              }}<i
-                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
-                              ></i>
+                            <th>
+                              <span
+                                @click="sortTable('description')"
+                                class="pointer"
+                                >{{ $t("assignment")
+                                }}<i
+                                  class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                ></i
+                              ></span>
                             </th>
                             <th
                               @click="sortTable('publish_date')"
                               class="pointer"
                             >
-                              {{ $t("assigned-date")
+                              {{ $t("assignment-date")
                               }}<i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
@@ -117,7 +118,19 @@
                               </div>
                             </td>
                             <td class="">
-                              {{ a.description }}
+                              <!-- <input type="text" v-model="a.description" /> -->
+                              <span>{{ a.description }}</span
+                              ><span
+                                class="ml-1 pointer"
+                                data-toggle="modal"
+                                data-target="#editModal"
+                                @click="
+                                  tempAM = a;
+                                  modifyName = '';
+                                  tempAid = a.asgmtid;
+                                "
+                                ><i class="zmdi zmdi-edit ml-1 zmdi-hc-lg"></i
+                              ></span>
                             </td>
                             <td class="pl-5">
                               <i
@@ -367,6 +380,75 @@
         </div>
       </div>
     </div>
+    <!-- edit -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalTitle1">
+              {{ $t("modify") }}
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <div class="row pb-2 pt-2">
+                <div class="col-4 text-right fw-400 fs-h6 xstitie-color">
+                  {{ $t("current-name") }}
+                </div>
+                <div class="col-8">
+                  {{ tempAM.description }}
+                </div>
+              </div>
+              <div class="row pb-2 pt-2">
+                <div class="col-4 text-right fw-400 fs-h6 xstitie-color">
+                  {{ $t("changed-name") }}
+                </div>
+                <div class="col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Assignment name"
+                    value="modifyName"
+                    v-model="modifyName"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              {{ $t("cancel") }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="ModifyAssignmentName()"
+            >
+              {{ $t("confirm") }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -375,6 +457,7 @@ import {
   ApiGetAList,
   ApiGetAMaterial,
   ApiDeleteAssignment,
+  ApiModifyAssignmentName,
 } from "../http/apis/Assignment";
 import dayjs from "dayjs";
 import _ from "lodash";
@@ -389,10 +472,12 @@ export default {
       aList: [],
       aMaterial: [],
       tempAM: {},
+      tempAid: "",
       selectAllA: "",
       selectedAssignment: [],
       sortStatus: false,
       tempSortItem: "",
+      modifyName: "",
     };
   },
   created() {
@@ -405,6 +490,23 @@ export default {
     },
   },
   methods: {
+    async ModifyAssignmentName() {
+      let obj = { description: this.modifyName };
+      console.log(obj);
+      let result = await ApiModifyAssignmentName.post(this.tempAid, obj)
+        .then((response) => {
+          if (response.status === "success") {
+            return true;
+          } else {
+            this.$bus.$emit("messsage:push", response.record, "danger");
+          }
+        })
+        .catch((err) => {});
+      if (result) {
+        this.$bus.$emit("messsage:push", "Modify Success.", "success");
+        this.getAList();
+      }
+    },
     sortTable(sortItem) {
       if (this.tempSortItem === "") {
         this.tempSortItem = sortItem;

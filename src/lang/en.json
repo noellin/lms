@@ -103,7 +103,7 @@
   "fourth-grade": "Fourth grade",
   "summer-class-special": "Summer class special",
   "winter-class-special": "Winter class special",
-  "selection-and-management": "Selection- and management",
+  "selection-and-management": "Selection and management",
   "courses-that-can-use-this-collection-have-expired-less-than-br-greater-than-if-you-want-to-continue-using-you-must-renew-the-contract": "Courses that can use this collection have expired less than br greater than if you want to continue using you must renew the contract",
   "confirm-to-delete-resource": "Confirm to delete resource",
   "delete-assignment": "Delete assignment",
@@ -161,7 +161,7 @@
   "open-material": "Open material",
   "close-material": "Close material",
   "open-this-material-and-allow": "Open this material and allow",
-  "students-to-view-it": "Students to view it",
+  "students-to-view-it": "students to view it",
   "close-this-material-and-do-not-allow": "Close this material and do not allow",
   "open": "Open",
   "Add-to-collection": "Add to collection",
@@ -259,5 +259,10 @@
   "watch-read-times": "Watch/Read times",
   "will-send-you-an-email-with-link-to-reset-your-password": "Will send you an email with link to reset your password",
   "quick-open": "Quick open",
-  "assignment-name": "Assignment name"
+  "assignment-name": "Assignment name",
+  "assignment-date": "Assignment date",
+  "books": "Books",
+  "videos": "Videos",
+  "current-name": "Current Name",
+  "changed-name": "Changed name"
 }

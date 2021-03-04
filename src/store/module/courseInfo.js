@@ -29,6 +29,7 @@ const courseInfo = {
     },
     mutations: {
         SET_COURSEINFO(state, data) {
+            console.log('info =', data); 
             state.courseInfo = data
             state.courseid = data.courseid
 
@@ -159,6 +160,7 @@ const courseInfo = {
             ApiGetCourseDatail.get(data).then((response) => {
                 context.commit('SET_COURSEINFO', response.csrInfo)
                 context.commit('SET_TEXTBOOKLIST', response.record)
+                context.commit('SET_COURSEOVERVIEW',response.courseOverview.record)
             });
         },
         updateStudent(context, data) {

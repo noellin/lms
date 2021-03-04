@@ -104,7 +104,11 @@
                         <div>
                           <span
                             class="badge badge-pill badge-secondary mt-2"
-                            v-if="cr.level !== ''"
+                            v-if="
+                              cr.level !== '' &&
+                              cr.level !== undefined &&
+                              cr.level !== null
+                            "
                             >{{ $t("level") }} {{ cr.level }}</span
                           >
                           <h4

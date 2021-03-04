@@ -312,7 +312,7 @@
                           >
                           <span
                             class="badge badge-pill badge-warning"
-                            v-else-if="sa.type === 'video'"
+                            v-else-if="sa.type === 'watching'"
                             >{{ $t("watching") }}</span
                           >
                           <span
@@ -330,7 +330,9 @@
                           v-if="
                             (sa.complete_time !== 'true' &&
                               sa.type === 'speaking') ||
-                            (sa.type === 'reading' && sa.complete_time === '')
+                            (sa.type === 'reading' &&
+                              sa.complete_time === '') ||
+                            (sa.type === 'watching' && sa.complete_time === '')
                           "
                         >
                           <span class="btn-rounded-icon btn-danger rounded mr-2"

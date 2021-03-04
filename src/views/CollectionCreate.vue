@@ -120,7 +120,7 @@
                             ><i class="la la-ellipsis-v"></i>
                           </div>
                           <div
-                            class="align-self-center overlay-wrap mr-4 w-75 h-75 border"
+                            class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
                           >
                             <span class="overlay-icon"
                               ><i
@@ -134,14 +134,18 @@
                                 'https://lms.mangosteems.com/cms/resdl/cover/' +
                                 m.resourceid
                               "
-                              class="overlay-img"
+                              class="overlay-img cus-img"
                               alt="course image"
                             />
                           </div>
                           <div>
                             <span
                               class="badge badge-pill badge-secondary mt-2"
-                              v-if="m.level !== ''"
+                              v-if="
+                                m.level !== '' &&
+                                m.level !== null &&
+                                m.level !== undefined
+                              "
                               >{{ $t("level") }} {{ m.level }}</span
                             >
                             <h4 class="d-flex align-self-center mt-2">
@@ -704,8 +708,8 @@ export default {
 }
 
 .cus-img {
-  max-height: 90%;
-  max-width: 90%;
+  max-height: 100%;
+  max-width: 100%;
   width: auto;
   height: auto;
   position: absolute;

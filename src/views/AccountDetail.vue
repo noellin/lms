@@ -134,7 +134,7 @@
                             <input
                               type="email"
                               class="form-control"
-                              placeholder="col-form-label"
+                              placeholder=""
                               :value="accountInfo.email"
                               disabled
                             />
