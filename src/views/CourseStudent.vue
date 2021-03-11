@@ -78,12 +78,12 @@
                 </div>
               </div>
               <div class="text-right">
-                <button
+                <!-- <button
                   type="button"
                   class="btn btn-primary btn-outline btn-rounded mr-2"
                 >
                   <i class="la la-print"></i>{{ $t("print-notice") }}
-                </button>
+                </button> -->
                 <button
                   type="button"
                   class="btn btn-primary btn-outline btn-rounded mr-2"
@@ -271,9 +271,7 @@
                   name="Unique number"
                 >
                   <div class="form-group row">
-                    <label for="" class="col-sm-4 col-form-label text-right">{{
-                      $t("parentsphone-number")
-                    }}</label>
+                    <label for="" class="col-sm-4 col-form-label text-right">{{$t('parents-phone-number')}}</label>
                     <div class="col-8">
                       <input
                         type="text"

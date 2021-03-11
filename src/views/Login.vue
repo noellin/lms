@@ -365,6 +365,7 @@ export default {
     };
   },
   created() {
+    console.log(process.env.VUE_APP_LMSD);
     localStorage.clear();
     var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
     if (keys) {

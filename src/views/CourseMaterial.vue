@@ -11,7 +11,7 @@
                 <div class="card bg-success" style="height: 150px">
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
-                    @click="changemfilter('om')"
+                    @click="changemfilter('openm')"
                     data-toggle="tooltip"
                     data-placement="bottom"
                     title="Click to switch filter"
@@ -21,7 +21,7 @@
                       {{ $t("opened-material") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
-                        :class="mfilter === 'om' ? 'text-warning' : ''"
+                        :class="mfilter === 'openm' ? 'text-warning' : ''"
                       ></i>
                     </h5>
                     <div class="w100 text-right">
@@ -41,7 +41,7 @@
                 <div class="card bg-primary" style="height: 150px">
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
-                    @click="changemfilter('ob')"
+                    @click="changemfilter('openb')"
                     data-toggle="tooltip"
                     data-placement="bottom"
                     title="Click to switch filter"
@@ -51,7 +51,7 @@
                       {{ $t("opened-books") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
-                        :class="mfilter === 'ob' ? 'text-warning' : ''"
+                        :class="mfilter === 'openb' ? 'text-warning' : ''"
                       ></i>
 
                       <!-- Picture Book Views<span class="text-light">Teacher</span> -->
@@ -70,7 +70,7 @@
                 <div class="card bg-secondary" style="height: 150px">
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
-                    @click="changemfilter('ov')"
+                    @click="changemfilter('openv')"
                     data-toggle="tooltip"
                     data-placement="bottom"
                     title="Click to switch filter"
@@ -80,7 +80,7 @@
                       {{ $t("opened-videos") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
-                        :class="mfilter === 'ov' ? 'text-warning' : ''"
+                        :class="mfilter === 'openv' ? 'text-warning' : ''"
                       ></i>
                       <!-- Video Views<span class="text-light">Teacher</span> -->
                     </h5>
@@ -130,7 +130,12 @@
               </div>
             </div>
             <div class="d-flex justify-content-between">
-              <div class="pb-3">
+              <search-group
+                :mfilter="mfilter"
+                @getMList="getMList"
+              ></search-group>
+              <!-- 20210310 -->
+              <!-- <div class="pb-3">
                 <div class="form-row">
                   <div class="form-group form-rounded mb-0 mr-3">
                     <select2
@@ -139,11 +144,6 @@
                       v-model="selectType"
                     >
                     </select2>
-                    <!-- <select class="form-control">
-                  <option>All type</option>
-                  <option>Picture Book</option>
-                  <option>Video</option>
-                </select> -->
                   </div>
                   <div class="form-group form-rounded mb-0 mr-3">
                     <div class="input-group">
@@ -154,7 +154,6 @@
                         v-model="searchRname"
                         @keyup.enter="searchCourseResource()"
                       />
-                      <!-- @keyup.enter="searchCourseResource()" -->
                       <div class="input-group-append">
                         <div
                           class="btn btn-secondary btn-outline btn-icon btn-rounded"
@@ -176,14 +175,14 @@
                   </div>
                   <div
                     class="form-group form-rounded mb-0 mr-3 d-flex align-items-center text-secondary"
-                    v-if="searchType"
+                    v-if="searchStatus"
                   >
                     <span class="mr-1">{{ sortMList.length }}</span>
                     {{ $t("listings-for") }} “ <span>{{ tempSearchName }}</span
                     >”
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="text-right">
                 <button
                   type="button"
@@ -211,7 +210,7 @@
             <div class="row">
               <div
                 class="col-12"
-                v-for="textbook in sortMList"
+                v-for="textbook in textbookList"
                 :key="textbook.resourceid"
               >
                 <div class="card">
@@ -1339,12 +1338,15 @@ import _ from "lodash";
 // $("#mySelect2").select2({
 //   dropdownParent: $("#s2_student"),
 // });
+import SearchGroup from "../components/SearchGroup";
 export default {
   name: "CourseMaterial",
   components: {
     CourseHeader,
     DatePicker,
     draggable,
+    SearchGroup,
+
     // Multiselect
   },
   data() {
@@ -1399,7 +1401,6 @@ export default {
       courseOverview: [],
       newAgtName: "",
       mfilter: "",
-      searchType: false,
       tempSearchName: "",
       rewardList: [
         { exp: "100", ticket: "1" },
@@ -1475,12 +1476,11 @@ export default {
     sortMList() {
       //dashboard filter
       //utils mixins
-      if (this.mfilter === "om") {
-        console.log(this.textbookList);
+      if (this.mfilter === "openm") {
         return this.$_sortMaterial(this.openedMList, this.selectSortType);
-      } else if (this.mfilter === "ob") {
+      } else if (this.mfilter === "openb") {
         return this.$_sortMaterial(this.openedBookList, this.selectSortType);
-      } else if (this.mfilter === "ov") {
+      } else if (this.mfilter === "openv") {
         return this.$_sortMaterial(this.openedVideoList, this.selectSortType);
       } else {
         return this.$_sortMaterial(this.textbookList, this.selectSortType);
@@ -1577,6 +1577,9 @@ export default {
     },
   },
   methods: {
+    getMList(textbookList) {
+      this.textbookList = textbookList;
+    },
     changemfilter(filterName) {
       if (filterName === this.mfilter) {
         this.mfilter = "";
@@ -1703,10 +1706,10 @@ export default {
     searchCourseResource() {
       //判斷是否有搜尋值
       if (this.searchRname !== "") {
-        this.searchType = true;
+        this.searchStatus = true;
         this.tempSearchName = this.searchRname;
       } else {
-        this.searchType = false;
+        this.searchStatus = false;
       }
       let sType = this.selectType;
       if (this.selectType === "all") {
@@ -1976,7 +1979,7 @@ export default {
     },
     copyMArray() {
       console.log(this.sortMList);
-      this.copyTextbookList = [...this.sortMList];
+      this.copyTextbookList = [...this.textbookList];
     },
     selectAllTBft(event) {
       const vm = this;

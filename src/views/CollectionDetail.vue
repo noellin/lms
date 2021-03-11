@@ -23,27 +23,20 @@
         </header>
         <section class="page-content container-fluid">
           <div class="d-flex justify-content-between">
-            <div class="pb-3">
+            <search-group
+              :mfilter="''"
+              @getMColList="getMColList"
+              :page="'collection'"
+            ></search-group>
+            <!-- 20210310 -->
+            <!-- <div class="pb-3">
               <div class="form-row">
                 <div class="form-group form-rounded form-custom mb-0 mr-3">
-                  <!-- <select
-                    class="form-control"
-                    id="s2_demo1"
-                    v-model="seleceType"
-                  >
-                    <option
-                      v-for="type in typeList"
-                      :key="type.value"
-                      :value="type.value"
-                    >
-                      {{ type.text }}
-                    </option>
-                  </select> -->
                   <select2
                     id="s2_demo1"
                     class=""
                     :options="typeList"
-                    v-model="seleceType"
+                    v-model="selectType"
                   >
                   </select2>
                 </div>
@@ -68,7 +61,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="text-right">
               <a
                 @click="gotoCollectionEdit()"
@@ -78,7 +71,11 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12" v-for="cr in materialSort" :key="cr.resourceid">
+            <div
+              class="col-12"
+              v-for="cr in cResourceList"
+              :key="cr.resourceid"
+            >
               <div class="card">
                 <div class="card-body">
                   <div class="media">
@@ -270,10 +267,12 @@ import {
 import Select2 from "v-select2-component";
 import $ from "jquery";
 // import Menu
+import SearchGroup from "../components/SearchGroup";
 export default {
   name: "CollectionDetail",
   components: {
     CustomHeader,
+    SearchGroup,
   },
   data() {
     return {
@@ -284,7 +283,7 @@ export default {
         { text: "Picture Book", id: "book" },
         { text: "Video", id: "video" },
       ],
-      seleceType: "all",
+      selectType: "all",
       courseList: [],
       searchRname: "",
       lastPlayList: [],
@@ -292,6 +291,11 @@ export default {
     };
   },
   created() {},
+  watch: {
+    // selectType() {
+    //   this.searchCollectionResource();
+    // },
+  },
   mounted() {
     this.cname = this.$route.params.cname;
     this.getCollectionContent();
@@ -311,15 +315,19 @@ export default {
     },
   },
   methods: {
+    getMColList(textbookList) {
+      console.log(textbookList);
+      this.cResourceList = [...textbookList];
+    },
     showLastPlay(lp) {
       this.lastPlayList = [];
       this.lastPlayList = lp;
       $("#lastPlayModal").modal("show");
     },
     searchCollectionResource() {
-      let type = this.seleceType;
+      let type = this.selectType;
       let keyword = this.searchRname;
-      if (this.seleceType === "all") {
+      if (this.selectType === "all") {
         type = "*";
       }
       if (this.searchRname === "") {
