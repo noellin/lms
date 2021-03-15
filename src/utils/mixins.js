@@ -25,6 +25,15 @@ Vue.mixin({
               temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
               return temp.reverse();
             }
+            else if (sortType === "unit_asc") {
+              temp = _.sortBy(temp, [(obj) => parseInt(obj.unit,10)], ["asc"]);
+              return temp;
+            }
+            else if (sortType === "unit_desc") {
+              temp = _.sortBy(temp, [(obj) => parseInt(obj.unit,10)], ["asc"]);
+              return temp.reverse();
+            }
+            
           },
     }
 })

@@ -9,6 +9,8 @@ const common = {
             { text: "Sort by title Z to A", id: "title_desc" },
             { text: "Sort by level A to Z", id: "level_asc" },
             { text: "Sort by level Z to A", id: "level_desc" },
+            { text: "Sort by unit Smallest to Largest", id: "unit_asc" },
+            { text: "Sort by unit Largest to Smallest", id: "unit_desc" },
           ],
 
     },

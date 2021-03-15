@@ -249,9 +249,14 @@
                           >Topic A</span
                         > -->
                             <span
-                              class="badge badge-pill badge-secondary mt-2"
+                              class="badge badge-pill badge-secondary"
                               v-if="textbook.level !== ''"
                               >{{ $t("level") }} {{ textbook.level }}</span
+                            >
+                            <span
+                              class="badge badge-pill badge-secondary ml-2"
+                              v-if="textbook.unit !== ''"
+                              >{{ $t("unit") }} {{ textbook.unit }}</span
                             >
                             <h4
                               class="mb-0 mt-3 d-flex align-self-center text-primary"

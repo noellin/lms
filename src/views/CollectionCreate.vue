@@ -148,6 +148,11 @@
                               "
                               >{{ $t("level") }} {{ m.level }}</span
                             >
+                            <span
+                              class="badge badge-pill badge-secondary ml-2"
+                              v-if="m.unit !== '' && m.unit !== undefined"
+                              >{{ $t("unit") }} {{ m.unit }}</span
+                            >
                             <h4 class="d-flex align-self-center mt-2">
                               <!-- <span v-if="m.unit !== ''">{{ m.unit }} - </span> -->
                               {{ m.resource_name }}
@@ -447,6 +452,11 @@
                   v-if="pkgm.level !== ''"
                   >{{ $t("level") }} {{ pkgm.level }}</span
                 >
+                <span
+                  class="badge badge-pill badge-secondary ml-2"
+                  v-if="pkgm.unit !== ''"
+                  >{{ $t("unit") }} {{ pkgm.unit }}</span
+                >
                 <!-- <span v-if="pkgm.unit !== ''">{{ pkgm.unit }} - </span> -->
                 {{ pkgm.resource_name }}</label
               >
@@ -596,7 +606,7 @@ export default {
       } else {
         //實現全選
         vm.tempMaterial = [];
-        vm.resourceFilter.forEach(function (item, i) {
+        vm.sortMList.forEach(function (item, i) {
           vm.tempMaterial.push(item);
         });
       }
@@ -646,7 +656,8 @@ export default {
       this.pkgname = text;
     },
     addtoSequence() {
-      this.materialSequence = this.tempMaterial;
+      console.log(this.tempMaterial);
+      this.materialSequence = [...this.tempMaterial];
     },
     removeFromSequence(index) {
       this.materialSequence.splice(index, 1);

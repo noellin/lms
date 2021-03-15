@@ -10,7 +10,7 @@ import {
 
 export const ApiGetCourseDatail = {
     get: (paramObj) => {
-
+        console.log(paramObj);
         return get(`/course/detail/${paramObj}`);
     },
 };

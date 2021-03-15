@@ -100,13 +100,18 @@
                       <div class="d-flex justify-content-between">
                         <div>
                           <span
-                            class="badge badge-pill badge-secondary mt-2"
+                            class="badge badge-pill badge-secondary"
                             v-if="
                               cr.level !== '' &&
                               cr.level !== undefined &&
                               cr.level !== null
                             "
                             >{{ $t("level") }} {{ cr.level }}</span
+                          >
+                          <span
+                            class="badge badge-pill badge-secondary ml-2"
+                            v-if="cr.unit !== '' && cr.unit !== undefined"
+                            >{{ $t("unit") }} {{ cr.unit }}</span
                           >
                           <h4
                             class="mb-0 mt-3 d-flex align-self-center text-primary"
@@ -368,6 +373,7 @@ export default {
               }
             });
           });
+          console.log(response.record);
           this.cResourceList = response.record;
         })
         .catch((err) => {});

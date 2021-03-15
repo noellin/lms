@@ -86,7 +86,7 @@
   "import-csv": "Import csv",
   "the-student-is-already-exists": "The student is already exists",
   "parentsphone-number": "Parent's phone number",
-  "parents-phone-number":"Parent's phone number",
+  "parents-phone-number": "parent's phone number",
   "the-number-is-already-exists": "The number is already exists",
   "student-profile-already-exists": "Student profile already exists",
   "copy-student-from-other-course": "Copy student from other course",
@@ -253,7 +253,6 @@
   "upload": "Upload",
   "copy": "Copy",
   "delete-quiz": "Delete quiz",
-  "parents-phone-number": "parent's phone number",
   "available-packages": "Available Packages",
   "add-to-collection": "Add to collection",
   "information": "Information",
@@ -265,5 +264,6 @@
   "books": "Books",
   "videos": "Videos",
   "current-name": "Current Name",
-  "changed-name": "Changed name"
+  "changed-name": "Changed name",
+  "unit": "Unit"
 }

@@ -26,7 +26,9 @@ export const ApiSearchCollectionResource = {
 };
 export const ApiGetCollectionContent = {
     get: (userid, cid) => {
-
+        console.log('get col content');
+        console.log(userid);
+        console.log(cid);
         return get(`/collection/content/${userid}/${cid}`);
     },
 };
@@ -38,6 +40,7 @@ export const ApiGetPkgList = {
 
 export const ApiSetCollection = {
     post: (paramObj) => {
+        console.log('save collection');
         return post(`/collection/create`, paramObj);
     }
 }
