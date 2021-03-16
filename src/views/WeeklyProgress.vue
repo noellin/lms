@@ -146,6 +146,15 @@
                               >
                                 <button class="btn btn-nostyle">
                                   <i
+                                    @click="
+                                      getVoice(wqitem.stu_info[0]);
+                                      playVoiceStatus = wqitem.stu_info[1];
+                                    "
+                                    :class="
+                                      playVoiceStatus === wqitem.stu_info[1]
+                                        ? 'text-success'
+                                        : ''
+                                    "
                                     class="zmdi zmdi-volume-up zmdi-hc-fw ml-2 text-primary"
                                   ></i>
                                 </button>
@@ -249,6 +258,7 @@ import {
   ApiModifySentence,
   ApiSearchWQStudent,
 } from "../http/apis/WeeklyQuiz";
+import { ApiGetVoice } from "../http/apis/Assignment";
 import dayjs from "dayjs";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
@@ -278,6 +288,7 @@ export default {
       },
       // publishSentence: "",
       publishDay: "",
+      playVoiceStatus: "",
     };
   },
   mounted() {
@@ -295,6 +306,37 @@ export default {
     },
   },
   methods: {
+    getVoice(voiceid) {
+      //注意 裡層是用fetch
+      let vm = this;
+      ApiGetVoice.get(voiceid)
+        .then((response) => {
+          if (response.type == "image/jpeg" || response.type == "image/png") {
+            var url = URL.createObjectURL(response);
+            $("#showImg").attr("src", url);
+          } else if (
+            response.type == "audio/mpeg" ||
+            response.type == "audio/wav" ||
+            response.type == "audio/x-wav"
+          ) {
+            //會進到這裡\
+            // console.log("進入播放");
+            var url = URL.createObjectURL(response);
+            const audio = new Audio(url);
+            console.log(audio);
+            audio.play();
+            audio.onended = function () {
+              vm.playVoiceStatus = "";
+            };
+            // audio.addEventListener("ended", this.endPlay());
+          } else {
+            console.log(response);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     disabledBeforeToday(date) {
       let today = new Date();
       today.setHours(0, 0, 0, 0);
