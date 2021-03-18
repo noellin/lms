@@ -265,5 +265,8 @@
   "videos": "Videos",
   "current-name": "Current Name",
   "changed-name": "Changed name",
-  "unit": "Unit"
+  "unit": "Unit",
+  "no-assignment": "No assignment",
+  "no-students": "No Students",
+  "no-echo-valley-quiz": "No Echo Valley Quiz"
 }

@@ -204,6 +204,13 @@
                               </button>
                             </td>
                           </tr>
+                          <tr v-if="studentList.length === 0">
+                            <td colspan="9" class="text-center">
+                              <h5>
+                                {{ $t("no-students") }}
+                              </h5>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -271,7 +278,9 @@
                   name="Unique number"
                 >
                   <div class="form-group row">
-                    <label for="" class="col-sm-4 col-form-label text-right">{{$t('parents-phone-number')}}</label>
+                    <label for="" class="col-sm-4 col-form-label text-right">{{
+                      $t("parents-phone-number")
+                    }}</label>
                     <div class="col-8">
                       <input
                         type="text"

@@ -28,12 +28,21 @@
                   <div class="profile-card">
                     <div class="row">
                       <div class="col-4 text-center">
-                        <div class="thumb-lg member-thumb m-b-10 center-block">
+                        <div
+                          class="thumb-lg member-thumb m-b-10 center-block container"
+                        >
                           <img
                             src="../assets/img/avatars/teacher.png"
                             class="w-200 rounded-circle img-thumbnail"
                             alt="profile-image"
                           />
+                          <div
+                            class="overlay rounded-circle img-thumbnail w-200"
+                          >
+                            <a href="#" class="icon" title="User Profile">
+                              <i class="fa fa-edit edit-size"></i>
+                            </a>
+                          </div>
                         </div>
                       </div>
                       <!--information-->
@@ -472,6 +481,61 @@ export default {
 <style scoped lang="scss">
 a:not([href]):not([tabindex]) {
   color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Container needed to position the overlay. Adjust the width as needed */
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Make the image to responsive */
+.image {
+  width: 100%;
+  height: auto;
+}
+
+/* The overlay effect (full height and width) - lays on top of the container and over the image */
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.3s ease;
+  background-color: white;
+}
+
+/* When you mouse over the container, fade in the overlay icon*/
+.container:hover .overlay {
+  opacity: 1;
+}
+
+/* The icon inside the overlay is positioned in the middle vertically and horizontally */
+.icon {
+  color: white;
+
+  font-size: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* When you move the mouse over the icon, change color */
+.fa-user:hover {
+  color: #eee;
+}
+
+//
+.edit-size {
+  font-size: 48px;
 }
 //@import '../assets/css/igroup.css';
 </style>

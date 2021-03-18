@@ -161,6 +161,13 @@
                               </button>
                             </td>
                           </tr>
+                          <tr v-if="wqList.length === 0">
+                            <td colspan="9" class="text-center">
+                              <h5>
+                                {{ $t("no-echo-valley-quiz") }}
+                              </h5>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>

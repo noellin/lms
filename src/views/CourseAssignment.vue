@@ -173,6 +173,13 @@
                               > -->
                             </td>
                           </tr>
+                          <tr v-if="aList.length === 0">
+                            <td colspan="9" class="text-center">
+                              <h5>
+                                {{ $t("no-assignment") }}
+                              </h5>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                       <!-- <div class="col-12">
