@@ -84,7 +84,7 @@
             aria-expanded="false"
           >
             <img
-              src="../assets/img/avatars/teacher.png"
+              :src="require('../assets/img/avatars/' + showImg + '.png')"
               class="w-40 rounded-circle"
               alt="Albert Einstein"
             />
@@ -120,6 +120,7 @@ export default {
       //   email: "support@authenticgoods.co",
       // },
       headerLabel: this.$route.meta.header,
+      showImg: "teacher_men",
     };
   },
   created() {
@@ -129,6 +130,7 @@ export default {
     // });
   },
   mounted() {
+    this.showImg = this.image_small;
     // console.log(this.userInfo);
   },
   computed: {
@@ -137,6 +139,14 @@ export default {
     },
     userInfo() {
       return this.$store.state.auth;
+    },
+    image_small() {
+      return this.$store.state.auth.image_small;
+    },
+  },
+  watch: {
+    image_small() {
+      this.showImg = this.image_small;
     },
   },
   methods: {

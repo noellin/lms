@@ -431,6 +431,7 @@ export default {
             email: response.email,
             permit: response.permit,
             todayTimestamp: todayTimestamp,
+            image: response.image
           });
           this.$store.dispatch("courseInfo/clearAllAssignment");
           // response.status === "success"

@@ -8,7 +8,10 @@ const auth = {
         username: '',
         email: '',
         permit: '',
-        todayTimestamp: 0
+        todayTimestamp: 0,
+        image:'',
+        image_big:'',
+        image_small:''
     },
     mutations: {
         SET_AUTH(state, data) {
@@ -17,12 +20,30 @@ const auth = {
             state.userid = data.userid,
                 state.username = data.username,
                 state.email = data.email,
-                state.permit = data.permit
+                state.permit = data.permit,
             state.todayTimestamp = data.todayTimestamp
+            if(data.image==='1'){
+                state.image_big = "teacher_men"
+                state.image_small="teacher_men_40"
+            }else{
+                state.image_big = "teacher_women"
+                state.image_small="teacher_women_40"
+            };
+            state.image = data.image;
         },
         SET_USERINFO(state, data){
             state.username = data.username
             state.email = data.email
+        },
+        SET_IMG(state, data){
+            if(data==='1'){
+                state.image_big = "teacher_men"
+                state.image_small="teacher_men_40"
+            }else{
+                state.image_big = "teacher_women"
+                state.image_small="teacher_women_40"
+            };
+            state.image = data
         }
     },
     actions: {
@@ -34,11 +55,15 @@ const auth = {
                 username: data.username,
                 email: data.email,
                 permit: data.permit,
-                todayTimestamp: data.todayTimestamp
+                todayTimestamp: data.todayTimestamp,
+                image : data.image
             })
         },
         updateUserInfo(context,userinfo){
             context.commit('SET_USERINFO',userinfo)
+        },
+        setImg(context,imgNumber){
+            context.commit('SET_IMG',imgNumber)
         }
 
     },

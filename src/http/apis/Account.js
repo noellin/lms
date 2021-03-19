@@ -46,3 +46,9 @@ export const ApiSetAccountPWD = {
         return post(`/tchr/resetpw/${uid}`, paramObj)
     }
 }
+
+export const ApiChangeAvatar = {
+    get:(paramObj) => {
+        return get(`/tchr/avatar/${paramObj}`)
+    }
+}

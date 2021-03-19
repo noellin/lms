@@ -27,17 +27,23 @@
                 <div class="card-body">
                   <div class="profile-card">
                     <div class="row">
-                      <div class="col-4 text-center">
+                      <div class="col-4">
                         <div
                           class="thumb-lg member-thumb m-b-10 center-block container"
                         >
                           <img
-                            src="../assets/img/avatars/teacher.png"
+                            :src="
+                              require('../assets/img/avatars/' +
+                                showImg +
+                                '.png')
+                            "
                             class="w-200 rounded-circle img-thumbnail"
                             alt="profile-image"
                           />
                           <div
-                            class="overlay rounded-circle img-thumbnail w-200"
+                            class="overlay rounded-circle img-thumbnail w-200 pointer"
+                            data-toggle="modal"
+                            data-target="#ChangeImgModal"
                           >
                             <a href="#" class="icon" title="User Profile">
                               <i class="fa fa-edit edit-size"></i>
@@ -350,6 +356,70 @@
         </div>
       </div>
     </div>
+    <!-- Edit img MODAL -->
+    <div
+      class="modal fade"
+      id="ChangeImgModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              {{ $t("change-user-avatar") }}
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body pb-4">
+            <h5>{{ $t("choose-your-avatar") }}</h5>
+            <div class="justify-content-start">
+              <div class="d-flex">
+                <img
+                  src="../assets/img/avatars/teacher_men.png"
+                  class="w-200 rounded-circle img-thumbnail mr-5 pointer bchover-blue"
+                  :class="chooseimg === '1' ? 'bc-blue' : ''"
+                  alt="profile-image"
+                  @click="chooseimg = '1'"
+                />
+                <img
+                  src="../assets/img/avatars/teacher_women.png"
+                  class="w-200 rounded-circle img-thumbnail pointer bchover-blue"
+                  :class="chooseimg === '2' ? 'bc-blue' : ''"
+                  alt="profile-image"
+                  @click="chooseimg = '2'"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              {{ $t("close") }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="changeAvatar()"
+              data-dismiss="modal"
+            >
+              {{ $t("save-changes") }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -360,11 +430,12 @@ import {
   ApiSetAccountStatus,
   ApiSetAccountInfo,
   ApiSetAccountPWD,
+  ApiChangeAvatar,
 } from "../http/apis/Account";
 import { ApiGetActiveCourseList } from "../http/apis/CourseList";
 import $ from "jquery";
 export default {
-  name: "SpeakingQuiz",
+  name: "AccountDetail",
   components: {
     CustomHeader,
   },
@@ -382,18 +453,38 @@ export default {
       resetpwStatus: false,
       errorMessage: "",
       courseList: [],
+      chooseimg: "0",
+      showImg: "teacher_men",
     };
   },
   mounted() {
     // this.getAccountInfo();
     this.init();
+    this.chooseimg = this.image;
+    console.log(this.image_big);
+    this.showImg = this.image_big;
   },
   computed: {
+    image() {
+      return this.$store.state.auth.image;
+    },
     userid() {
       return this.$store.state.auth.userid;
     },
     permit() {
       return this.$store.state.auth.permit;
+    },
+    image_big() {
+      console.log("cm ");
+      return this.$store.state.auth.image_big;
+    },
+  },
+  watch: {
+    image_big() {
+      this.showImg = this.image_big;
+    },
+    image() {
+      this.chooseimg = this.image;
     },
   },
   methods: {
@@ -406,6 +497,19 @@ export default {
             this.$store.dispatch("common/setLoading", false);
           }, 400);
         });
+    },
+    async changeAvatar() {
+      let result = await ApiChangeAvatar.get(this.chooseimg)
+        .then((response) => {
+          if (response.status === "success") {
+            return true;
+          }
+        })
+        .catch((err) => {});
+      if (result) {
+        console.log("update");
+        this.$store.dispatch("auth/setImg", this.chooseimg);
+      }
     },
     getActiveCourseList(teacherid = "") {
       // this.course.activeCourseList = [];
@@ -501,7 +605,7 @@ a:not([href]):not([tabindex]) {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 14px;
   right: 0;
   height: 100%;
   width: 100%;
@@ -536,6 +640,13 @@ a:not([href]):not([tabindex]) {
 //
 .edit-size {
   font-size: 48px;
+}
+
+.bc-blue {
+  border: 3px solid #32c1db;
+}
+.bchover-blue:hover {
+  border: 3px solid #32c1db;
 }
 //@import '../assets/css/igroup.css';
 </style>
