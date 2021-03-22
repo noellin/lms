@@ -9,7 +9,10 @@
           <div class="card">
             <div class="card-body">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
+                <img
+                  v-lazy="require('../assets/img/upload/logo_dark.png')"
+                  alt="Logo"
+                />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
               <p class="text-center m-b-40">iGroup LMS</p>
@@ -106,7 +109,10 @@
           <div class="card">
             <div class="card-body">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
+                <img
+                  v-lazy="require('../assets/img/upload/logo_dark.png')"
+                  alt="Logo"
+                />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
               <p class="text-center m-b-40">iGroup LMS</p>
@@ -138,7 +144,10 @@
           <div class="card">
             <div class="card-body">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
+                <img
+                  v-lazy="require('../assets/img/upload/logo_dark.png')"
+                  alt="Logo"
+                />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
               <p class="text-center m-b-40">iGroup LMS</p>
@@ -183,7 +192,10 @@
             <div class="card-body">
               <ValidationObserver ref="resetForm">
                 <a class="brand text-center d-block m-b-20 m-t-20">
-                  <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
+                  <img
+                    v-lazy="require('../assets/img/upload/logo_dark.png')"
+                    alt="Logo"
+                  />
                   <!-- <span class="display-4">School Name</span> -->
                 </a>
                 <p class="text-center m-b-40">iGroup LMS</p>
@@ -255,7 +267,10 @@
           <div class="card">
             <div class="card-body">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <img src="../assets/img/upload/logo_dark.png" alt="Logo" />
+                <img
+                  v-lazy="require('../assets/img/upload/logo_dark.png')"
+                  alt="Logo"
+                />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
               <p class="text-center m-b-40">iGroup LMS</p>
@@ -431,7 +446,7 @@ export default {
             email: response.email,
             permit: response.permit,
             todayTimestamp: todayTimestamp,
-            image: response.image
+            image: response.image,
           });
           this.$store.dispatch("courseInfo/clearAllAssignment");
           // response.status === "success"

@@ -42,7 +42,15 @@ const i18n = new VueI18n({
     "en-US": require("../src/lang/en.json"), // 英文語言包
   },
 });
-Vue.use(VueLazyload)
+
+const loadimage = require('./assets/img/images/Spinner-1s-200px (1).svg')
+const errorimage = require('./assets/img/images/cross-1.1s-200px.png')
+Vue.use(VueLazyload ,{
+  preLoad: 1.3,
+  error: errorimage,
+  loading: loadimage,
+  attempt: 1
+})
 
 // global.jQuery = jQuery;
 // global.$ = jQuery;

@@ -99,7 +99,8 @@
               ><i class="icon dripicons-user"></i> {{ $t("my-account") }}</a
             >
             <a class="dropdown-item pointer" @click="contactUs()"
-              ><i class="icon dripicons-mail"></i> {{ $t("contact-us") }}</a
+              ><i class="icon dripicons-mail"></i>
+              {{ $t("ask-mangosteems") }}</a
             >
             <a class="dropdown-item pointer" @click="logout()"
               ><i class="icon dripicons-lock-open"></i> {{ $t("log-out") }}</a

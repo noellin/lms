@@ -226,14 +226,20 @@
                           ></i
                           ><i class="fas fa-book-open" v-else></i>
                         </span>
-                        <img
-                          v-lazy="
-                            'https://lms.mangosteems.com/cms/resdl/cover/' +
-                            textbook.resourceid
-                          "
-                          class="overlay-img cus-img"
-                          alt="course image"
-                        />
+                        <div>
+                          <img
+                            v-lazy="
+                              'https://lms.mangosteems.com/cms/resdl/cover/' +
+                              textbook.resourceid
+                            "
+                            class="overlay-img cus-img"
+                            alt="course image"
+                          />
+                        </div>
+                        <!-- v-lazy-container="{
+                          loading: '../assets/img/images/Spinner-1s-200px.svg',
+                        }" -->
+
                         <!-- <div
                       title=""
                       class="overlay-img"

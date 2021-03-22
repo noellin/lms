@@ -422,7 +422,7 @@
                 <ValidationProvider
                   rules="required"
                   v-slot="{ failed, errors }"
-                  name="confirm password"
+                  name="course name"
                 >
                   <div class="form-group row">
                     <label
