@@ -262,7 +262,7 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
+// import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetCollectionContent,
   ApiSearchCollection,
@@ -276,7 +276,7 @@ import SearchGroup from "../components/SearchGroup";
 export default {
   name: "CollectionDetail",
   components: {
-    CustomHeader,
+    CustomHeader: () => import("@/components/CustomHeader.vue"),
     SearchGroup,
   },
   data() {

@@ -469,8 +469,8 @@
   </div>
 </template>
 <script>
-import CourseHeader from "../components/CourseHeader";
-import AddStudent from "../components/AddStudent";
+// import CourseHeader from "../components/CourseHeader";
+// import AddStudent from "../components/AddStudent";
 import {
   ApiImportStudent,
   ApiGetStudentList,
@@ -488,8 +488,8 @@ import $ from "jquery";
 export default {
   name: "CourseStudent",
   components: {
-    CourseHeader,
-    AddStudent,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
+    AddStudent: () => import("@/components/AddStudent.vue"),
   },
   data() {
     return {

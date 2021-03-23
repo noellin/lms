@@ -538,7 +538,7 @@
   </div>
 </template>
 <script>
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import {
   ApiGetAProgress,
   ApiCheckAllA,
@@ -552,7 +552,7 @@ import {
 import _ from "lodash";
 export default {
   name: "AssignmentProgress",
-  components: { CourseHeader },
+  components: { CourseHeader: () => import("@/components/CourseHeader.vue") },
   data() {
     return {
       aid: this.$route.params.aid,

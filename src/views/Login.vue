@@ -349,13 +349,10 @@ import {
   ApiConfirmPassword,
   ApiActivateUser,
 } from "../http/apis/Login";
-import Alert from "../components/AlertMessage";
-import $ from "jquery";
+
 export default {
   name: "Login",
-  components: {
-    Alert,
-  },
+
   data() {
     return {
       showErrorMessage: false,

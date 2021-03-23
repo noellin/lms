@@ -459,7 +459,7 @@
   </div>
 </template>
 <script>
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import {
   ApiGetAList,
   ApiGetAMaterial,
@@ -471,7 +471,7 @@ import _ from "lodash";
 export default {
   name: "CourseAssignment",
   components: {
-    CourseHeader,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
   },
   data() {
     return {

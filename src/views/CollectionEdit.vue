@@ -512,7 +512,7 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import CustomHeader from "../components/CustomHeader";
+// import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetCollectionContent,
   ApiDeleteResource,
@@ -525,7 +525,7 @@ import _ from "lodash";
 export default {
   name: "CollectionDetail",
   components: {
-    CustomHeader,
+    CustomHeader: () => import("@/components/CustomHeader.vue"),
     draggable,
   },
   data() {

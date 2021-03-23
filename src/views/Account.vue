@@ -300,7 +300,7 @@
 </template>
 <script>
 import { createLogger } from "vuex";
-import CustomHeader from "../components/CustomHeader";
+// import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetAccoutList,
   ApiSearchAccount,
@@ -309,7 +309,7 @@ import {
 export default {
   name: "Account",
   components: {
-    CustomHeader,
+    CustomHeader: () => import("@/components/CustomHeader.vue"),
   },
   data() {
     return {

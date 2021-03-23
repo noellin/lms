@@ -252,7 +252,7 @@
 </template>
 
 <script>
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import {
   ApiGetSentenceDetail,
   ApiModifySentence,
@@ -264,7 +264,7 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 export default {
   components: {
-    CourseHeader,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
     DatePicker,
   },
   data() {

@@ -1338,7 +1338,7 @@ import {
   ApiAddResource,
   ApideleteResource,
 } from "../http/apis/Collection";
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import dayjs from "dayjs";
@@ -1353,7 +1353,7 @@ import SearchGroup from "../components/SearchGroup";
 export default {
   name: "CourseMaterial",
   components: {
-    CourseHeader,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
     DatePicker,
     draggable,
     SearchGroup,

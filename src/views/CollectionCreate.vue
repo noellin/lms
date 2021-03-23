@@ -491,9 +491,9 @@
 <script>
 import draggable from "vuedraggable";
 import $ from "jquery";
-import CustomHeader from "../components/CustomHeader";
+// import CustomHeader from "../components/CustomHeader";
 import Select2 from "v-select2-component";
-import Alert from "../components/AlertMessage";
+// import Alert from "../components/AlertMessage";
 import {
   ApiGetPkgList,
   ApiSetCollection,
@@ -503,9 +503,9 @@ import _ from "lodash";
 export default {
   name: "CollectionCreate",
   components: {
-    CustomHeader,
+    CustomHeader: () => import("@/components/CustomHeader.vue"),
     Select2,
-    Alert,
+    Alert: () => import("@/components/AlertMessage.vue"),
     draggable,
   },
   data() {

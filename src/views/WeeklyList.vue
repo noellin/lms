@@ -354,7 +354,7 @@
 </template>
 
 <script>
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import {
   ApiDeleteSentence,
   ApiGetSentence,
@@ -364,7 +364,7 @@ import dayjs from "dayjs";
 import _ from "lodash";
 export default {
   components: {
-    CourseHeader,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
   },
   data() {
     return {

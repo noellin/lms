@@ -111,14 +111,14 @@
 </template>
 
 <script>
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import { ApiCreateEchoSentence } from "../http/apis/WeeklyQuiz.js";
 import dayjs from "dayjs";
 export default {
   components: {
-    CourseHeader,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
     DatePicker,
   },
   data() {

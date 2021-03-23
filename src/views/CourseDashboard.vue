@@ -204,7 +204,7 @@
               <div class="col-4">
                 <div class="card">
                   <h5 class="card-header border-none">
-                    {{$t('watch-read-times')}}
+                    {{ $t("watch-read-times") }}
                   </h5>
                   <div class="card-body pt-0" style="height: 500px">
                     <p class="text-primary">{{ $t("last-30-days") }}</p>
@@ -513,7 +513,7 @@
 </template>
 <script>
 // import Menu
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import { ApiGetDashboard } from "../http/apis/Dashboard";
 import $ from "jquery";
 import dayjs from "dayjs";
@@ -524,7 +524,7 @@ $(function () {
 export default {
   name: "CourseDashboard",
   components: {
-    CourseHeader,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
   },
   data() {
     // this.barextend = {
@@ -567,6 +567,9 @@ export default {
     return {
       courseid: this.$route.params.courseid,
       dbData: {
+        assignmentNumber: { record: [undefined] },
+        treasureMaterial: { record: undefined },
+        goldenMaterial: { record: undefined },
         status: "success",
         record: "",
       },
@@ -582,6 +585,7 @@ export default {
       },
       acRateChartData: {
         columns: ["Date", "Students", "Completed", ""],
+        rows: [],
         // columns: ["Date", "Students", "Completed", "Completion_rate"],
         // rows: [
         //   { Date: "10/21", Total: 43, Completed: 33, completionrate: 100 },

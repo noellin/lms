@@ -579,8 +579,8 @@
 
 <script>
 import $ from "jquery";
-import CustomHeader from "../components/CustomHeader";
-import pagination from "../components/Pagination";
+// import CustomHeader from "../components/CustomHeader";
+// import pagination from "../components/Pagination";
 import Select2 from "v-select2-component";
 import dayjs from "dayjs";
 import {
@@ -596,10 +596,9 @@ import _ from "lodash";
 export default {
   name: "Course",
   components: {
-    CustomHeader,
+    CustomHeader: () => import("@/components/CustomHeader.vue"),
     Select2,
-    pagination,
-    AddStudent,
+    AddStudent: () => import("@/components/AddStudent.vue"),
   },
   mounted() {},
   data() {

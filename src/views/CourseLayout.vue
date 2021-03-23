@@ -32,17 +32,17 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
+// import CustomHeader from "../components/CustomHeader";
 import MenuLeft from "../components/MenuLeft";
-import Alert from "../components/AlertMessage";
+// import Alert from "../components/AlertMessage";
 import LmsFooter from "../components/Footer";
 // import Menu
 export default {
   name: "CourseMaterial",
   components: {
-    CustomHeader,
+    CustomHeader: () => import("@/components/CustomHeader.vue"),
     MenuLeft,
-    Alert,
+    Alert: () => import("@/components/AlertMessage.vue"),
     LmsFooter,
   },
   data() {

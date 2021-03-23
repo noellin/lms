@@ -227,7 +227,7 @@
   </div>
 </template>
 <script>
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import {
   ApiGetQuizByVideo,
   ApiGetQuizByBook,
@@ -239,7 +239,7 @@ import _ from "lodash";
 export default {
   name: "SpeakingQuiz",
   components: {
-    CourseHeader,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
   },
   data() {
     return {

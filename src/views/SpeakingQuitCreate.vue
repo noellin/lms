@@ -148,7 +148,7 @@
   </div>
 </template>
 <script>
-import CourseHeader from "../components/CourseHeader";
+// import CourseHeader from "../components/CourseHeader";
 import {
   ApiGetSubtitileByVideo,
   ApiGetSubtitleByBook,
@@ -159,7 +159,7 @@ import $ from "jquery";
 export default {
   name: "SpeakingQuizCreate",
   components: {
-    CourseHeader,
+    CourseHeader: () => import("@/components/CourseHeader.vue"),
   },
   data() {
     return {

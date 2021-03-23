@@ -423,7 +423,7 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
+// import CustomHeader from "../components/CustomHeader";
 // import MenuLeft from "../components/MenuLeft";
 import {
   ApiGetAccountInfo,
@@ -437,7 +437,7 @@ import $ from "jquery";
 export default {
   name: "AccountDetail",
   components: {
-    CustomHeader,
+    CustomHeader: () => import("@/components/CustomHeader.vue"),
   },
   data() {
     return {

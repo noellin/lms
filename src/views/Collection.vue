@@ -197,17 +197,16 @@
   </div>
 </template>
 <script>
-import CustomHeader from "../components/CustomHeader";
+// import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetCollection,
   ApiSearchCollection,
-  ApiGetCollectionContent,
   ApiDeleteCollection,
 } from "../http/apis/Collection";
 export default {
   name: "Collection",
   components: {
-    CustomHeader,
+    CustomHeader: () => import("@/components/CustomHeader.vue"),
   },
   data() {
     return {
