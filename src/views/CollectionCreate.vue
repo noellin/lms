@@ -39,7 +39,12 @@
                   </div>
                   <div class="col-6">
                     <div class="form-group">
-                      <label>{{ $t("available-packages") }}</label>
+                      <label
+                        >{{ $t("available-packages") }}
+                        <span v-if="pkgid === ''" class="text-danger"
+                          >No Available Packages</span
+                        >
+                      </label>
                       <!-- <select
                           class="form-control"
                           id="s2_demo2"
@@ -86,6 +91,9 @@
                   tempPkgName !== pkgname ? '#ClearTipsModal' : '#addMaterial'
                 "
                 @click="getPkgMaterial()"
+                :disabled="
+                  collectionName === '' || pkgid === '' || pkgid === undefined
+                "
               >
                 <i class="la la-plus"></i>{{ $t("material") }}
               </button>
@@ -120,7 +128,7 @@
                             ><i class="la la-ellipsis-v"></i>
                           </div>
                           <div
-                            class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
+                            class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
                           >
                             <span class="overlay-icon"
                               ><i
@@ -729,5 +737,9 @@ export default {
   left: 0;
   right: 0;
   margin: auto;
+}
+
+.overlay-icon {
+  z-index: 999;
 }
 </style>

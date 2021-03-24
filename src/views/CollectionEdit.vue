@@ -71,39 +71,6 @@
           </div>
           <div class="col-sm-12">
             <div class="d-flex justify-content-end pb-3">
-              <!-- <div class="">
-                  <div class="form-row">
-                    <div class="form-group form-rounded form-custom mb-0 mr-3">
-                      <select2
-                        id="s2_demo1"
-                        class=""
-                        :options="typeList"
-                        v-model="seleceType"
-                      >
-                      </select2>
-                    </div>
-                    <div class="form-group form-rounded mb-0">
-                      <div class="input-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Search..."
-                          v-model="searchRname"
-                          @keyup.enter="searchCollectionResource()"
-                        />
-                        <div class="input-group-append">
-                          <div
-                            class="btn btn-secondary btn-outline btn-icon btn-rounded"
-                            type="button"
-                            @click="searchCollectionResource()"
-                          >
-                            <i class="zmdi zmdi-search text-secondary"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
               <div class="text-right">
                 <button
                   type="button"
@@ -111,6 +78,9 @@
                   data-toggle="modal"
                   data-target="#addMaterial"
                   @click="resetSelect()"
+                  :disabled="
+                    cname === '' || pName === '' || pName === undefined
+                  "
                 >
                   <!-- <i class="la la-plus"></i> -->
                   {{ $t("selection-and-management") }}
@@ -147,7 +117,7 @@
                             ><i class="la la-ellipsis-v"></i>
                           </div>
                           <div
-                            class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
+                            class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
                           >
                             <span class="overlay-icon">
                               <i
@@ -750,5 +720,22 @@ export default {
 
 .content-wrapper {
   padding-bottom: 40px;
+}
+
+.cus-img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.overlay-icon {
+  z-index: 99;
 }
 </style>
