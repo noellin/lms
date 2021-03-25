@@ -15,7 +15,7 @@
                 />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">iGroup LMS</p>
+              <p class="text-center m-b-40">MangoSTEEMS World</p>
               <ValidationObserver ref="loginForm">
                 <div id="login-Page">
                   <h5 class="sign-in-heading">
@@ -115,7 +115,7 @@
                 />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">iGroup LMS</p>
+              <p class="text-center m-b-40">MangoSTEEMS World</p>
               <p class="display-4 text-center">
                 <i class="zmdi zmdi-check-circle zmdi-hc-fw text-success"></i>
               </p>
@@ -150,7 +150,7 @@
                 />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">iGroup LMS</p>
+              <p class="text-center m-b-40">MangoSTEEMS World</p>
 
               <div id="forget-password-page">
                 <h5 class="sign-in-heading">{{ $t("forgotten-password") }}?</h5>
@@ -198,7 +198,7 @@
                   />
                   <!-- <span class="display-4">School Name</span> -->
                 </a>
-                <p class="text-center m-b-40">iGroup LMS</p>
+                <p class="text-center m-b-40">MangoSTEEMS World</p>
 
                 <p class="text-primary text-center">
                   {{ $t("e-mail") }}: {{ userEmail }}
@@ -273,7 +273,7 @@
                 />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">iGroup LMS</p>
+              <p class="text-center m-b-40">MangoSTEEMS World</p>
               <p class="display-4 text-center">
                 <i class="zmdi zmdi-mail-send zmdi-hc-fw text-success"></i>
               </p>
@@ -362,15 +362,6 @@ export default {
         email: "",
         password: "",
         confirmpw: "",
-        // // 測試帳號A admin權限
-        // email: "bkbjava@mhsh.ptc.edu.tw",
-        // password: "123456",
-        // 測試帳號B teacher權限
-        // email: "kevin.chen@igroupnet.com",
-        // password: "123456",
-        //測試帳號C
-        // email: "sp.wang@igroupnet.com",
-        // password: "123456",
       },
       userEmail: "",
       ErrorMessage: "Your email or password is incorrect. please try again.",

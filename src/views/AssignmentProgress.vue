@@ -405,7 +405,7 @@
                             {{ se.sentenceContent
                             }}<i
                               v-if="se.voiceID !== ''"
-                              class="zmdi zmdi-volume-up zmdi-hc-fw ml-1 pointer fa-lg"
+                              class="zmdi zmdi-volume-up zmdi-hc-fw mx-1 pointer zmdi-hc-2x"
                               @click="
                                 getVoice(se.voiceID);
                                 playVoiceStatus = se.voiceID;
@@ -415,6 +415,14 @@
                                   ? 'text-success'
                                   : ''
                               "
+                            ></i>
+                            <i
+                              v-if="
+                                playVoiceStatus === se.voiceID &&
+                                se.voiceID !== ''
+                              "
+                              class="zmdi zmdi-stop pointer zmdi-hc-2x text-danger"
+                              @click="stopVoice()"
                             ></i>
                           </li>
                         </ul>
@@ -591,6 +599,8 @@ export default {
         incompleted: 0,
         fastest: "",
       },
+      audio: undefined,
+      havaPlayurl: false,
     };
   },
   created() {
@@ -598,6 +608,10 @@ export default {
   },
   mounted() {},
   methods: {
+    stopVoice() {
+      this.audio.pause();
+      this.playVoiceStatus = "";
+    },
     giveScore(astscore) {
       if (this.evaluate.score === "" || this.evaluate.score !== astscore) {
         this.evaluate.score = astscore;
@@ -759,6 +773,10 @@ export default {
     },
     getVoice(voiceid) {
       //注意 裡層是用fetch
+      if (this.havaPlayurl) {
+        this.audio.pause();
+      }
+
       let vm = this;
       ApiGetVoice.get(voiceid)
         .then((response) => {
@@ -773,12 +791,13 @@ export default {
             //會進到這裡\
             // console.log("進入播放");
             var url = URL.createObjectURL(response);
-            const audio = new Audio(url);
-            console.log(audio);
-            audio.play();
-            audio.onended = function () {
+            this.audio = new Audio(url);
+            console.log(this.audio);
+            this.audio.play();
+            this.audio.onended = function () {
               vm.playVoiceStatus = "";
             };
+            this.havaPlayurl = true;
             // audio.addEventListener("ended", this.endPlay());
           } else {
             console.log(response);
@@ -853,7 +872,6 @@ export default {
 // .main-content {
 //   overflow-y: hidden !important;
 // }
-//@import '../assets/css/igroup.css';
 
 .modal-footer {
   background: #fff;

@@ -269,5 +269,4 @@ export default {
 a:not([href]):not([tabindex]) {
   color: #32c1db !important;
 }
-//@import '../assets/css/igroup.css';
 </style>

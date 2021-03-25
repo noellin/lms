@@ -37,6 +37,9 @@
                         > -->
                       </label>
                     </div>
+                    <div v-if="sList.length === 0">
+                      {{ $t("cant-find-the-relevant-information") }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -48,6 +51,7 @@
                     quizShow = 'preview';
                     convertS();
                   "
+                  :disabled="tempSList.length === 0"
                 >
                   {{ $t("next") }}
                 </button>
@@ -276,5 +280,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-//@import '../assets/css/igroup.css';
 </style>

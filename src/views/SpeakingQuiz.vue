@@ -346,5 +346,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-//@import '../assets/css/igroup.css';
 </style>

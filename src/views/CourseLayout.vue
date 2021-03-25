@@ -23,11 +23,9 @@
         :key="$route.params.courseid"
         class="col-sm-10 cusmain px-0"
       ></router-view>
+      <assignment-car></assignment-car>
     </div>
     <lms-footer class="col-sm-12"></lms-footer>
-    <!-- <footer class="bg-secondary bg-dk d-flex justify-content-center">
-        <p class="text-light mt-2 mb-2">© iGroup LMS</p>
-      </footer> -->
     <!-- </div> -->
   </div>
 </template>
@@ -36,6 +34,7 @@
 import MenuLeft from "../components/MenuLeft";
 // import Alert from "../components/AlertMessage";
 import LmsFooter from "../components/Footer";
+import AssignmentCar from "../components/AssignmentCar.vue";
 // import Menu
 export default {
   name: "CourseMaterial",
@@ -43,6 +42,7 @@ export default {
     CustomHeader: () => import("@/components/CustomHeader.vue"),
     MenuLeft,
     Alert: () => import("@/components/AlertMessage.vue"),
+    AssignmentCar: () => import("@/components/AssignmentCar.vue"),
     LmsFooter,
   },
   data() {

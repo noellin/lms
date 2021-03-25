@@ -46,5 +46,4 @@ export default {
 #errorPage {
   background-color: #32c1db !important;
 }
-//@import '../assets/css/igroup.css';
 </style>

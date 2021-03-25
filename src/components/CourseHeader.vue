@@ -6,6 +6,13 @@
           ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
         ></a>
       </div>
+      <div class="mt-2 mr-3" v-if="backtag !== true && page == 'Speaking Quiz'">
+        <a
+          @click="backToMaterial()"
+          class="btn-rounded-icon btn-primary ml-2 pointer"
+          ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
+        ></a>
+      </div>
       <div class="mr-auto">
         <h1 class="separator">{{ course_name }}</h1>
         <span>{{ page }}</span
@@ -20,7 +27,7 @@
           data-target="#infoModal"
           ><i class="fas fa-info-circle fa-sm mfilter-icon"></i
         ></span>
-        <p class="second-title" v-if="page !== 'Speaking_Quiz'">
+        <p class="second-title" v-if="page !== 'Speaking Quiz'">
           {{ courseInfo.pkg_name }}
         </p>
         <p class="second-title" v-else>{{ rname }} / {{ mname }}</p>
@@ -97,6 +104,7 @@ export default {
       course_name: this.$route.params.course,
       type: this.$route.params.type,
       courseInfo: {},
+      cid: this.$route.params.courseid,
     };
   },
   created() {
@@ -130,6 +138,13 @@ export default {
   methods: {
     print() {
       this.$print(this.$parent.$refs.print);
+    },
+    backToMaterial() {
+      this.$router
+        .push({
+          path: `/course_material/course=${this.course_name}/type=${this.type}/${this.cid}`,
+        })
+        .catch((err) => err);
     },
   },
 };

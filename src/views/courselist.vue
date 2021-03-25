@@ -875,5 +875,4 @@ export default {
 //   border: 1px solid #dfe7f3;
 //   background-color: #f0f6ff;
 // }
-//@import '../assets/css/igroup.css';
 </style>

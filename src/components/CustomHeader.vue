@@ -154,15 +154,6 @@ export default {
     contactUs() {
       let url = "https://mangosteems.com/contact-us/";
       window.open(url, "_blank");
-      // const windowRef = window.open(`mailto:windy@igroupnet.com`, "_blank");
-
-      // windowRef.focus();
-
-      // setTimeout(function () {
-      //   if (!windowRef.document.hasFocus()) {
-      //     windowRef.close();
-      //   }
-      // }, 500);
     },
     logout() {
       localStorage.clear();
@@ -185,5 +176,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-//@import '../assets/css/igroup.css';
 </style>

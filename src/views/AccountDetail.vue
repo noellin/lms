@@ -648,5 +648,4 @@ a:not([href]):not([tabindex]) {
 .bchover-blue:hover {
   border: 3px solid #32c1db;
 }
-//@import '../assets/css/igroup.css';
 </style>

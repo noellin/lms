@@ -236,6 +236,4 @@ export default {
 
   min-height: 100%;
 }
-
-//@import '../assets/css/igroup.css';
 </style>

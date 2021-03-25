@@ -431,7 +431,7 @@ h4 i.la {
 .fal,
 .far,
 .fas {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
 
 ul {
@@ -797,7 +797,7 @@ select.form-control {
 }
 .logo-small {
   padding-left: 20px;
-  font-size: 0.75em;
+  font-size: 0.875em;
   position: absolute;
   top: 36px;
 }

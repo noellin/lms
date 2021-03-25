@@ -381,5 +381,4 @@ a:not([href]):not([tabindex]) {
   text-decoration: none;
   color: #32c1db !important;
 }
-//@import '../assets/css/igroup.css';
 </style>
