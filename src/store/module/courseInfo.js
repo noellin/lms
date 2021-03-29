@@ -6,6 +6,7 @@ import {
     ApiGetStudentList
 } from '../../http/apis/Student';
 import Vue from 'vue';
+import { setInteractionMode } from "vee-validate";
 
 const courseInfo = {
     namespaced: true, //注意 模組化管理資料請不要忘了名稱空間的開啟
@@ -24,10 +25,14 @@ const courseInfo = {
         caidList: [],
         aKeyList: [],
         assignmentDL: {},
-        weeklyQuizDL:{}
+        weeklyQuizDL:{},
+        openAgt:false
 
     },
     mutations: {
+        SET_OPENAGT(state, data){
+            state.openAgt = data
+        },
         SET_COURSEINFO(state, data) {
             console.log('info =', data); 
             state.courseInfo = data
@@ -68,7 +73,7 @@ const courseInfo = {
             })
         },
         SET_COURSEOVERVIEW(state, data){
-            state.courseOverview = []
+            console.log(data);
          state.courseOverview  = data 
         },
         SET_STUDENT(state, data) {
@@ -135,6 +140,9 @@ const courseInfo = {
         }
     },
     actions: {
+        setOpenAgt(context, data){
+            context.commit('SET_OPENAGT', data)
+        },
         setWQTime(context, data) {
             context.commit('SET_WQ_TIME', data)
         },

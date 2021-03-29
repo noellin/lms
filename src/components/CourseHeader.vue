@@ -6,7 +6,7 @@
           ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
         ></a>
       </div>
-      <div class="mt-2 mr-3" v-if="backtag !== true && page == 'Speaking Quiz'">
+      <div class="mt-2 mr-3" v-if="backtag !== true && page == 'Speaking task'">
         <a
           @click="backToMaterial()"
           class="btn-rounded-icon btn-primary ml-2 pointer"

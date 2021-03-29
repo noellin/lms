@@ -9,7 +9,7 @@
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row">
-              <div class="col-sm-3">
+              <!-- <div class="col-sm-3">
                 <div class="card bg-primary" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
@@ -24,8 +24,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-3">
+              </div> -->
+              <!-- <div class="col-sm-3">
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
@@ -40,14 +40,14 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-sm-3">
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">{{ $t("limit") }}</h5>
+                    <h5 class="card-title text-white">{{$t('available-seats')}}</h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="50">{{
+                        <span class="display-4 counter" data-count="50">{{courseStudentInfo.active}}/{{
                           courseStudentInfo.quota
                         }}</span>
                       </p>

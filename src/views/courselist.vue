@@ -9,7 +9,7 @@
         <header class="page-header">
           <div class="d-flex align-items-start">
             <div class="mr-auto">
-              <h1>{{ $t("course") }}</h1>
+              <h1>{{ $t("home") }}</h1>
             </div>
           </div>
         </header>
@@ -131,20 +131,20 @@
                               @click="sortActiveTable('course_name')"
                               class="pointer"
                             >
-                              {{ $t("course-name")
+                              {{ $t("classes")
                               }}<i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
-                            <th style="width: 15%">{{ $t("teacher") }}</th>
+                            <th style="width: 15%">{{ $t("teachers") }}</th>
                             <th style="width: 15%">
-                              {{ $t("active-student-limit") }}
+                              {{ $t("available-seats") }}
                             </th>
-                            <th style="width: 15%">{{ $t("package") }}</th>
+                            <th style="width: 15%">{{ $t("library") }}</th>
                             <th style="width: 15%">{{ $t("expiry-date") }}</th>
                             <!-- <th>Edit</th> -->
                             <th style="width: 15%">
-                              {{ $t("checking-assignment") }}
+                              {{ $t("view-assignments") }}
                             </th>
                             <th
                               style="text-align: center; width: 10%"
@@ -239,7 +239,7 @@
                                   course.username === '' ? true : false
                                 "
                               >
-                                {{ $t("checking") }}
+                                {{ $t("view") }}
                               </button>
                               <!-- btn-message btn-link -->
                             </td>

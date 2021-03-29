@@ -47,7 +47,7 @@
               :class="[headerLabel === 'course' ? 'active' : '']"
             >
               <router-link class="" to="/course">
-                <a> {{ $t("course") }} </a>
+                <a> {{ $t("home") }} </a>
               </router-link>
             </li>
             <li
@@ -58,7 +58,7 @@
               ]"
             >
               <router-link class="" to="/collection">
-                <a>{{ $t("my-collection") }}</a>
+                <a>{{ $t("my-library") }}</a>
               </router-link>
             </li>
             <li
@@ -67,7 +67,7 @@
               @click="gotoAccount()"
             >
               <!-- <router-link class="" to="/accountlist"> -->
-              <a> {{ $t("account") }} </a>
+              <a> {{ $t("my-account") }} </a>
               <!-- </router-link> -->
             </li>
           </ul>

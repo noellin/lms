@@ -83,9 +83,9 @@ export default {
       //   email: "support@authenticgoods.co",
       // },
       typeList: [
-        "Material",
-        "Assignment",
-        "Student",
+        "Library",
+        "Assignments",
+        "Student Roster",
         "Dashboard",
         "Echo Valley",
       ],
@@ -182,21 +182,21 @@ export default {
         this.$store.dispatch("courseInfo/getCouseInfo", id);
       }
       switch (type) {
-        case "Material":
+        case "Library":
           this.$router
             .push({
               path: `/course_material/course=${course}/type=${type}/${id}`,
             })
             .catch((err) => err);
           break;
-        case "Assignment":
+        case "Assignments":
           this.$router
             .push({
               path: `/course_assignment/course=${course}/type=${type}/${id}`,
             })
             .catch((err) => err);
           break;
-        case "Student":
+        case "Student Roster":
           this.$router
             .push({
               path: `/course_student/course=${course}/type=${type}/${id}`,

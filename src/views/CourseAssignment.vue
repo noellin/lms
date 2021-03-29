@@ -69,8 +69,8 @@
                               @click="sortTable('publish_date')"
                               class="pointer"
                             >
-                              {{ $t("assignment-date")
-                              }}<i
+                              {{ $t("start-date") }}
+                              <i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
@@ -78,19 +78,19 @@
                               @click="sortTable('expiry_date')"
                               class="pointer"
                             >
-                              {{ $t("due")
-                              }}<i
+                              {{ $t("end-date") }}
+                              <i
                                 class="zmdi zmdi-swap-vertical zmdi-hc-lg ml-1"
                               ></i>
                             </th>
-                            <th>{{ $t("for") }}</th>
-                            <th>{{ $t("completed-total-students") }}</th>
+                            <th>{{ $t("assigned-students") }}</th>
+                            <th>{{ $t("students-completed") }}</th>
                             <th
                               @click="sortTable('difficult_level')"
                               class="pointer"
                             >
-                              {{ $t("degree-of-difficulty")
-                              }}<i
+                              {{ $t("levels-of-difficulty") }}
+                              <i
                                 class="zmdi zmdi-swap-vertical zmdi-hc-lg ml-1"
                               ></i>
                             </th>
@@ -164,7 +164,7 @@
                               <a
                                 @click="gotoProgress(a.asgmtid)"
                                 class="btn btn-primary btn-sm btn-rounded text-white"
-                                >{{ $t("progress-view") }}</a
+                                >{{ $t("view") }}</a
                               >
                               <!-- <a
                                 href="assignments-progress.html"

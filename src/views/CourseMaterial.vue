@@ -7,7 +7,7 @@
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="row">
-              <div class="col-4 col-md">
+              <!-- <div class="col-4 col-md">
                 <div class="card bg-success" style="height: 150px">
                   <div
                     class="card-body d-flex align-content-between flex-wrap mfilter-board"
@@ -17,7 +17,6 @@
                     title="Click to switch filter"
                   >
                     <h5 class="card-title">
-                      <!-- {{ $t("material") }} -->
                       {{ $t("opened-material") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
@@ -36,7 +35,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-4 col-md">
                 <div class="card bg-primary" style="height: 150px">
                   <div
@@ -48,7 +47,7 @@
                   >
                     <h5 class="card-title">
                       <!-- {{ $t("books") }} -->
-                      {{ $t("opened-books") }}
+                      {{ $t("books-open-up") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
                         :class="mfilter === 'openb' ? 'text-warning' : ''"
@@ -58,9 +57,17 @@
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="13">{{
-                          courseOverview.book
-                        }}</span>
+                        <span
+                          class="display-4 counter"
+                          data-count="13"
+                          v-if="courseOverview.allbook !== 0"
+                          >{{ courseOverview.book }}/{{
+                            courseOverview.allbook
+                          }}</span
+                        >
+                        <span v-else class="display-4 counter" data-count="13"
+                          >N/A</span
+                        >
                       </p>
                     </div>
                   </div>
@@ -77,7 +84,7 @@
                   >
                     <h5 class="card-title">
                       <!-- {{ $t("videos") }} -->
-                      {{ $t("opened-videos") }}
+                      {{ $t("videos-open-up") }}
                       <i
                         class="far fa-lightbulb fa-lg mfilter-icon"
                         :class="mfilter === 'openv' ? 'text-warning' : ''"
@@ -86,9 +93,17 @@
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="29">{{
-                          courseOverview.video
-                        }}</span>
+                        <span
+                          class="display-4 counter"
+                          data-count="29"
+                          v-if="courseOverview.allvideo !== 0"
+                          >{{ courseOverview.video }}/{{
+                            courseOverview.allvideo
+                          }}</span
+                        >
+                        <span v-else class="display-4 counter" data-count="29"
+                          >N/A</span
+                        >
                       </p>
                     </div>
                   </div>
@@ -98,14 +113,18 @@
                 <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      {{ $t("picture-book-views")
-                      }}<span class="text-light">{{ $t("student") }}</span>
+                      {{ $t("number-of-books-viewed") }}
+                      <!-- <span class="text-light">{{ $t("student") }}</span> -->
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="173">{{
-                          courseOverview.readBook
-                        }}</span>
+                        <span
+                          class="display-4 counter"
+                          data-count="173"
+                          v-if="courseOverview.allbook !== 0"
+                          >{{ courseOverview.readBook }}</span
+                        >
+                        <span v-else class="display-4 counter">N/A</span>
                       </p>
                     </div>
                   </div>
@@ -115,14 +134,18 @@
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      {{ $t("video-views")
-                      }}<span class="text-light">{{ $t("student") }}</span>
+                      {{ $t("number-of-videos-viewed") }}
+                      <!-- <span class="text-light">{{ $t("student") }}</span> -->
                     </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="197">{{
-                          courseOverview.watchVideo
-                        }}</span>
+                        <span
+                          class="display-4 counter"
+                          data-count="197"
+                          v-if="courseOverview.allvideo !== 0"
+                          >{{ courseOverview.watchVideo }}</span
+                        >
+                        <span v-else class="display-4 counter">N/A</span>
                       </p>
                     </div>
                   </div>
@@ -191,7 +214,7 @@
                   data-target="#OpenSettingsModal"
                   @click="copyMArray()"
                 >
-                  <i class="la la-gear"></i>{{ $t("quick-open") }}
+                  <i class="la la-gear"></i>{{ $t("quick-open-up") }}
                 </button>
 
                 <button
@@ -200,7 +223,8 @@
                   @click="openAssignmentModal()"
                   :disabled="tempAList.length === 0 ? true : false"
                 >
-                  <i class="la la-clipboard"></i>{{ $t("assignment") }}
+                  <i class="la la-clipboard"></i>
+                  {{ $t("assignments") }}
                   <span class="badge badge-primary">{{
                     tempAList.length
                   }}</span>
@@ -294,13 +318,11 @@
                               </span>
                             </p>
                           </div>
-                          <div
-                            class="text-primary pointer"
-                            @click="gotoWebsite(textbook)"
-                          >
+                          <div class="text-primary">
                             {{ $t("start")
                             }}<a
-                              class="btn-rounded-icon btn-primary rounded ml-2"
+                              @click="gotoWebsite(textbook)"
+                              class="btn-rounded-icon btn-primary rounded ml-2 pointer"
                               ><i
                                 class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
                               ></i
@@ -326,8 +348,8 @@
                                 tempVMList = tempAIDList;
                               "
                             >
-                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >{{ $t("assignment") }}
+                              <i class="zmdi zmdi-plus zmdi-hc-fw"></i>
+                              {{ $t("assignments") }}
                             </button>
                             <button
                               :disabled="
@@ -346,7 +368,7 @@
                                 "
                               ></i>
                               <i class="zmdi zmdi-assignment-check" v-else></i>
-                              {{ $t("assignment") }}
+                              {{ $t("assignments") }}
                             </button>
                             <button
                               type="button"
@@ -363,7 +385,7 @@
                               "
                             >
                               <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >{{ $t("speaking-quiz") }}
+                              >{{ $t("speaking-task") }}
                             </button>
                             <button
                               type="button"
@@ -388,7 +410,7 @@
                               "
                             >
                               <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >{{ $t("collection") }}
+                              >{{ $t("my-library") }}
                             </button>
                           </div>
                           <div>
@@ -1009,10 +1031,7 @@
                               >
                             </span>
                           </div>
-                          <!-- <button
-                            class="btn btn-nostyle btn-remove"
-                            @click="removeAssignment(ta.note, ta)"
-                          > -->
+
                           <i
                             @click="removeAssignment(ta.note, ta)"
                             class="zmdi zmdi-minus-circle zmdi-hc-2x text-secondary pointer"
@@ -1070,16 +1089,6 @@
                     :settings="{ multiple: true }"
                   >
                   </select2>
-                  <!-- :disabled="selectAllS" -->
-
-                  <!-- <multiselect v-model="selectStudent" tag-placeholder="Add this as new tag" 
-                    placeholder="Add students" 
-                    label="username"  :options="studentList.map((item) => item.id)" 
-                    :custom-label="
-                (opt) => studentList.find((x) => x.id == opt).text"
-                    :multiple="true" :taggable="true" :closeOnSelect="false"
-                    :disabled="selectAllS"
-                    @tag="addTag"></multiselect> -->
                 </div>
 
                 <div
@@ -1106,16 +1115,6 @@
                     <span v-else>{{ $t("close-list") }}</span>
                   </label>
                 </div>
-                <!-- <div class="col-sm-2">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="std"
-                    v-model="selectAllS"
-                    name="std"
-                  />
-                  <label class="form-check-label" for="std">All Students</label>
-                </div> -->
               </div>
               <div class="form-group row align-items-start" v-if="showStuTable">
                 <label class="control-label text-right col-sm-3"></label>
@@ -1434,6 +1433,10 @@ export default {
     this.courseOverview = this.courseOverviews;
   },
   mounted() {
+    if (this.openAgt) {
+      $("#AssignmentModal").modal("show");
+      this.$store.dispatch("courseInfo/setOpenAgt", false);
+    }
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
@@ -1484,6 +1487,9 @@ export default {
     },
   },
   computed: {
+    openAgt() {
+      return this.$store.state.courseInfo.openAgt;
+    },
     sortMList() {
       //dashboard filter
       //utils mixins
@@ -1816,9 +1822,6 @@ export default {
       );
     },
     removeAssignment(type, obj) {
-      console.log("delete assignment");
-      console.log("type = ", type);
-      console.log("obj = ", obj);
       if (type === "book") {
         this.$store.dispatch("courseInfo/removeAssignment", {
           id: obj.resourceid,

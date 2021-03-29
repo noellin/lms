@@ -381,6 +381,13 @@
               <span class="text-muted">{{ $t("package") }}</span>
               <strong class="ml-1">{{ pkgname }}</strong>
             </h6>
+            <!-- <search-group
+              :mfilter="mfilter"
+              :page="page"
+              @getMList="getMList"
+            ></search-group> -->
+
+            <!-- search bar -->
             <div class="row">
               <div class="col-4">
                 <div class="form-group form-rounded">
@@ -504,6 +511,7 @@ import {
   ApiSetCollection,
   ApiGetPkgMaterial,
 } from "../http/apis/Collection";
+import SearchGroup from "../components/SearchGroup";
 import _ from "lodash";
 export default {
   name: "CollectionCreate",
@@ -512,6 +520,7 @@ export default {
     Select2,
     Alert: () => import("@/components/AlertMessage.vue"),
     draggable,
+    SearchGroup,
   },
   data() {
     return {
@@ -538,6 +547,8 @@ export default {
       //
       drag: false,
       selectSortType: "title_asc",
+      // mfilter: "",
+      // page: "Collection",
     };
   },
   created() {
@@ -569,21 +580,15 @@ export default {
     sortMList() {
       //utils mixins
       return this.$_sortMaterial(this.resourceFilter, this.selectSortType);
-      // let temp = [...this.textbookList];
-      // if (this.selectSortType === "title_asc") {
-      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
-      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
-      //   return temp;
-      // } else if (this.selectSortType === "title_desc") {
-      //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
-      //   temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
-      //   return temp.reverse();
-      // } else if (this.selectSortType === "level_asc") {
-      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
-      //   return temp;
-      // } else if (this.selectSortType === "level_desc") {
-      //   temp = _.sortBy(temp, [(obj) => obj.level], ["asc"]);
-      //   return temp.reverse();
+
+      //       if (this.mfilter === "openm") {
+      //   return this.$_sortMaterial(this.openedMList, this.selectSortType);
+      // } else if (this.mfilter === "openb") {
+      //   return this.$_sortMaterial(this.openedBookList, this.selectSortType);
+      // } else if (this.mfilter === "openv") {
+      //   return this.$_sortMaterial(this.openedVideoList, this.selectSortType);
+      // } else {
+      //   return this.$_sortMaterial(this.textbookList, this.selectSortType);
       // }
     },
     //
@@ -604,6 +609,10 @@ export default {
   },
 
   methods: {
+    getMList(textbookList) {
+      console.log("change select");
+      this.resourceFilter = textbookList;
+    },
     selectAll(event) {
       const vm = this;
       if (!event.currentTarget.checked) {

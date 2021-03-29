@@ -62,7 +62,7 @@ const router = new Router({
     },
     children: [{
         path: "/course_material/course=:course/type=:type/:courseid",
-        name: "Material",
+        name: "Library",
         component: resolve => require(['@/views/CourseMaterial'], resolve),
         meta: {
           header: "course",
@@ -71,11 +71,20 @@ const router = new Router({
       },
       {
         path: "/course_assignment/course=:course/type=:type/:courseid",
-        name: "Assignment",
+        name: "Assignments",
         component: resolve => require(['@/views/CourseAssignment'], resolve),
         meta: {
           header: "course",
           backtag: false,
+        },
+      },
+      {
+        path: "/course_assignment/create/course=:course/type=:type/:courseid",
+        name: "Assignment_Create",
+        component: resolve => require(['@/views/AssignmentCreate.vue'], resolve),
+        meta: {
+          header: "course",
+          backtag: true,
         },
       },
       {
@@ -89,7 +98,7 @@ const router = new Router({
       },
       {
         path: "/course_student/course=:course/type=:type/:courseid",
-        name: "Student",
+        name: "Student_Roster",
         component:resolve => require(['@/views/CourseStudent'], resolve) ,
         meta: {
           header: "course",
@@ -105,7 +114,7 @@ const router = new Router({
       },
       {
         path: "/quiz/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
-        name: "Speaking_Quiz",
+        name: "Speaking_task",
         component: resolve => require(['@/views/SpeakingQuiz'], resolve),
         meta: {
           header: "course",
@@ -130,7 +139,7 @@ const router = new Router({
       },
       {
         path: "/course_weekly_quiz/create/course=:course/type=:type/:courseid",
-        name: "Echo_Valley_Quiz_Create",
+        name: "Create_Echo_Valley_Oral_Quiz",
         component: resolve => require(['@/views/WeeklyCreate'], resolve),
         meta: {
           header: "course",

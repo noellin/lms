@@ -10,7 +10,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search material"
+            placeholder="Search materials"
             v-model="searchRname"
             @keyup.enter="searchCourseResource()"
           />
@@ -31,12 +31,70 @@
         </select2>
       </div>
       <div
-        class="form-group form-rounded mb-0 mr-3 d-flex align-items-center text-secondary"
-        v-if="searchStatus"
+        class="form-group form-rounded mb-0 text-secondary"
+        data-dismiss="modal"
+        data-toggle="modal"
+        data-target="#filterModal"
       >
-        <span class="mr-1">{{ sortMList.length }}</span>
+        <div
+          class="btn btn-secondary btn-outline btn-icon btn-rounded d-flex justify-content-center align-items-center"
+        >
+          <i class="zmdi zmdi-filter-list mx-0"></i>
+        </div>
+      </div>
+    </div>
+    <div
+      class="form-group form-rounded mb-0 mr-3 d-flex align-items-center text-secondary mt-2"
+      v-if="searchStatus"
+    >
+      <strong
+        ><span class="mr-1">{{ sortMList.length }}</span>
         {{ $t("listings-for") }} “ <span>{{ tempSearchName }}</span
-        >”
+        >”</strong
+      >
+    </div>
+    <!-- modal -->
+    <div
+      class="modal fade"
+      id="filterModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalTitle1">{{ $t("filter") }}</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Filter by level</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              {{ $t("close") }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-outline btn-rounded"
+              data-dismiss="modal"
+              @click="gotoCreateCol()"
+            >
+              {{ $t("confirm") }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +124,7 @@ export default {
   props: ["mfilter", "page"],
   methods: {
     async searchCourseResource() {
-      console.log("get CourseResource list");
+      console.log("get course list");
       //判斷是否有搜尋值
       if (this.searchRname !== "") {
         this.searchStatus = true;
@@ -84,6 +142,7 @@ export default {
       };
       let result = await ApiSearchCourseResource.post(this.courseid, searchObj)
         .then((response) => {
+          console.log(response);
           response.record.forEach((element) => {
             if (element.unit === undefined) {
               element.unit = "";
@@ -124,6 +183,12 @@ export default {
       } else {
         this.searchStatus = false;
       }
+
+      console.log("userid = ", this.userid);
+      console.log("cid = ", this.$route.params.cid);
+      console.log("cid = ", this.$route.params.cid);
+      console.log("keyword = ", keyword);
+      console.log("type = ", type);
       let result = await ApiSearchCollectionResource.get(
         this.userid,
         this.$route.params.cid,
@@ -182,6 +247,7 @@ export default {
         );
         // return this.$_sortMaterial(this.openedVideoList, this.selectSortType);
       } else {
+        console.log("get M list");
         sortMaterial = this.$_sortMaterial(
           this.textbookList,
           this.selectSortType
@@ -215,14 +281,15 @@ export default {
   },
   watch: {
     mfilter() {
-      if (this.page !== "collection") {
+      if (this.page !== "Collection") {
         this.searchCourseResource();
       } else {
         this.searchCollectionResource();
       }
     },
     selectSortType() {
-      if (this.page !== "collection") {
+      console.log(this.page);
+      if (this.page !== "Collection") {
         this.searchCourseResource();
       } else {
         this.searchCollectionResource();
@@ -232,14 +299,15 @@ export default {
       this.openedTextbookList = this.openedTextbookLists;
     },
     searchRname() {
-      if (this.page !== "collection") {
+      if (this.page !== "Collection") {
         this.searchCourseResource();
       } else {
         this.searchCollectionResource();
       }
     },
     selectType() {
-      if (this.page !== "collection") {
+      console.log(this.page);
+      if (this.page !== "Collection") {
         this.searchCourseResource();
       } else {
         this.searchCollectionResource();

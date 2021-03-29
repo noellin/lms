@@ -16,14 +16,14 @@
                   class="btn btn-danger btn-rounded"
                   @click="setWQStatus()"
                 >
-                  {{ $t("close-echo-valley") }}
+                  {{ $t("disable-oral-quizzes") }}
                 </button>
                 <button
                   v-else
                   class="btn btn-primary btn-rounded"
                   @click="setWQStatus()"
                 >
-                  {{ $t("open-echo-valley") }}
+                  {{ $t("enable-oral-quizzes") }}
                 </button>
               </div>
               <div class="text-right">
@@ -79,8 +79,8 @@
                               @click="sortTable('start_date')"
                               class="pointer"
                             >
-                              {{ $t("publish")
-                              }}<i
+                              {{ $t("start-date") }}
+                              <i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
@@ -88,14 +88,14 @@
                               @click="sortTable('expiry_date')"
                               class="pointer"
                             >
-                              {{ $t("due")
-                              }}<i
+                              {{ $t("end-date") }}
+                              <i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
-                            <th>{{ $t("author") }}</th>
+                            <th>{{ $t("teachers") }}</th>
                             <th>
-                              {{ $t("completed") }} ／{{ $t("totals-tudents") }}
+                              {{ $t("students-completed") }}
                             </th>
                             <th>{{ $t("status") }}</th>
                             <th>{{ $t("preview") }}</th>
@@ -157,7 +157,7 @@
                                 class="btn btn-primary btn-sm btn-rounded"
                                 @click="gotoWQProgress(wq.echovalleyid)"
                               >
-                                {{ $t("progress-view") }}
+                                {{ $t("view") }}
                               </button>
                             </td>
                           </tr>
