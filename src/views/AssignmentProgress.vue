@@ -70,7 +70,7 @@
                   </div>
                 </div>
               </div> -->
-              <div class="col-6 col-md">
+              <!-- <div class="col-6 col-md">
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">{{ $t("fastest") }}</h5>
@@ -85,7 +85,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="d-flex justify-content-between">
               <div class="pb-3">

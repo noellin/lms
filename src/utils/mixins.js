@@ -6,14 +6,39 @@ import _ from "lodash";
 Vue.mixin({
     methods: {
         // 標註千分位
-        $_sortMaterial(materialArray,sortType) {
-            let temp = [...materialArray];
-            console.log('sort temp = ',temp);
+        // levelLists(){
+        //   let levelList= []
+        //   this.sortMList.forEach(element => {
+        //     if(element.level!==undefined && !levelList.includes(element.level)){
+        //       levelList.push(element.level)
+        //     }
+        //   });
+        //   return levelList
+        // },
+        $_sortMaterial(materialArray,sortType,filterLevelList) {
+          let ma = [...materialArray]
+            let temp = [];
+          if(filterLevelList.length!==0){
+            filterLevelList.forEach(singleLevel => {
+              temp = temp.concat(_.filter(ma,function(o) {return o.level.includes(singleLevel)}))
+            });
+          }else{
+            temp = [...materialArray];
+          }
+        //  let temp =  _.filter(ma,function(o) {return o.level.includes(filterLevelList)})
+            // let temp = [...materialArray];
+            // let levelList= []
+            // temp.forEach(element => {
+            //   if(element.level!==undefined && !levelList.includes(element.level)){
+            //     levelList.push(element.level)
+            //   }
+            // });
+
             if (sortType === "title_asc") {
               temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
-              console.log('return temp=',temp);
               // temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
-              return temp;
+              // return filter include level 
+              return temp
             } else if (sortType === "title_desc") {
               temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
               // temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);

@@ -154,6 +154,7 @@
             </div>
             <div class="d-flex justify-content-between">
               <search-group
+                class="col-sm-8 px-0"
                 :mfilter="mfilter"
                 @getMList="getMList"
               ></search-group>
@@ -206,7 +207,7 @@
                   </div>
                 </div>
               </div> -->
-              <div class="text-right">
+              <div class="text-right col-sm-4 px-0">
                 <button
                   type="button"
                   class="btn btn-primary btn-rounded btn-outline mr-2"
@@ -858,6 +859,14 @@
                       {{ $t("level")
                       }}<i class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"></i>
                     </th>
+                    <th
+                      @click="sortTable('unit')"
+                      class="pointer"
+                      v-if="courseInfo.cntUnit !== 0"
+                    >
+                      {{ $t("unit") }}
+                      <i class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"></i>
+                    </th>
                     <th @click="sortTable('resource_name')" class="pointer">
                       {{ $t("material") }}
                       <i class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"></i>
@@ -888,6 +897,12 @@
                     <td v-if="courseInfo.cntLevel !== 0">
                       <span v-if="tb.level !== ''"
                         >{{ $t("level") }} {{ tb.level }}</span
+                      >
+                      <span v-else></span>
+                    </td>
+                    <td v-if="courseInfo.cntUnit !== 0">
+                      <span v-if="tb.unit !== ''"
+                        >{{ $t("unit") }} {{ tb.unit }}</span
                       >
                       <span v-else></span>
                     </td>
@@ -1490,19 +1505,19 @@ export default {
     openAgt() {
       return this.$store.state.courseInfo.openAgt;
     },
-    sortMList() {
-      //dashboard filter
-      //utils mixins
-      if (this.mfilter === "openm") {
-        return this.$_sortMaterial(this.openedMList, this.selectSortType);
-      } else if (this.mfilter === "openb") {
-        return this.$_sortMaterial(this.openedBookList, this.selectSortType);
-      } else if (this.mfilter === "openv") {
-        return this.$_sortMaterial(this.openedVideoList, this.selectSortType);
-      } else {
-        return this.$_sortMaterial(this.textbookList, this.selectSortType);
-      }
-    },
+    // sortMList() {
+    //   //dashboard filter
+    //   //utils mixins
+    //   if (this.mfilter === "openm") {
+    //     return this.$_sortMaterial(this.openedMList, this.selectSortType);
+    //   } else if (this.mfilter === "openb") {
+    //     return this.$_sortMaterial(this.openedBookList, this.selectSortType);
+    //   } else if (this.mfilter === "openv") {
+    //     return this.$_sortMaterial(this.openedVideoList, this.selectSortType);
+    //   } else {
+    //     return this.$_sortMaterial(this.textbookList, this.selectSortType);
+    //   }
+    // },
     sortTypeList() {
       return this.$store.state.common.sortTypeList;
     },
@@ -1908,8 +1923,6 @@ export default {
       }
     },
     async materialOpenSetting() {
-      let result1 = null;
-      let result2 = null;
       let promises = [];
       this.openedTextbookList.forEach((item, index) => {
         //如果新增OPEN
@@ -1947,11 +1960,6 @@ export default {
         .catch((err) => {});
     },
     async getOpenResource(colid, rid, status) {
-      // let openStatus = "true";
-      // if (status === "true") {
-      //   openStatus = "false";
-      // }
-      // colid = colid.split(";")[0];
       let result = await ApiGetOpenResource.get(
         colid,
         this.$route.params.courseid,
@@ -1992,7 +2000,6 @@ export default {
       });
     },
     copyMArray() {
-      console.log(this.sortMList);
       this.copyTextbookList = [...this.textbookList];
     },
     selectAllTBft(event) {
