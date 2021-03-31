@@ -274,7 +274,7 @@
   "ask-mangosteems": "Ask MangoSTEEMS",
   "cant-find-the-relevant-information": "Can't find the relevant information",
   "home": "Home",
-  "my-library": "My library",
+  "my-library": "My Library",
   "classes": "Classes",
   "teachers": "Teachers",
   "available-seats": "Available seats",
@@ -287,7 +287,7 @@
   "number-of-videos-viewed": "Number of videos viewed",
   "quick-open-up": "Quick open up",
   "assignments": "Assignments",
-  "speaking-task": "Speaking task",
+  "speaking-task": "Speaking\r\n                              task",
   "start-date": "Start date",
   "end-date": "End date",
   "assigned-students": "Assigned students",
@@ -298,5 +298,12 @@
   "passage": "Passage",
   "release-date": "Release date",
   "filter": "Filter",
-  "all-level": "All level"
+  "all-level": "All level",
+  "do-you-want-to-delete-a-checked-students": "Do you want to delete a checked students",
+  "enable-auto-assigned-oral-quizzes": "Enable auto-assigned oral quizzes",
+  "disable-auto-assigned-oral-quizzes": "Disable auto-assigned oral quizzes",
+  "add-to-my-library": "add to my library",
+  "existing-in-my-library": "Existing in my library",
+  "create-new-my-library": "Create new my library",
+  "create-new-library": "Create new library"
 }

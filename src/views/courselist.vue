@@ -849,12 +849,12 @@ export default {
     },
     gotoCourseMaterial(coursename, courseid) {
       this.$router.push({
-        path: `/course_material/course=${coursename}/type=Material/${courseid}`,
+        path: `/course_material/course=${coursename}/type=Library/${courseid}`,
       });
     },
     gotoCourseAssignment(coursename, courseid) {
       this.$router.push({
-        path: `/course_assignment/course=${coursename}/type=Assignment/${courseid}`,
+        path: `/course_assignment/course=${coursename}/type=Assignments/${courseid}`,
       });
     },
   },

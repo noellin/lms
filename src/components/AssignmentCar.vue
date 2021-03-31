@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     async gotoAgtCreate() {
-      if (this.$route.params.type === "Material") {
+      if (this.$route.params.type === "Library") {
         $("#AssignmentModal").modal("show");
       } else {
         await this.$store.dispatch("courseInfo/setOpenAgt", true);

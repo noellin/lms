@@ -400,7 +400,7 @@
                               "
                             >
                               <i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                              >{{ $t("speaking-quiz") }}
+                              >{{ $t("speaking-task") }}
                             </button>
                             <button
                               type="button"
@@ -566,7 +566,7 @@
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ $t("Add-to-collection") }}</h5>
+            <h5 class="modal-title">{{ $t("add-to-my-library") }}</h5>
             <button
               type="button"
               class="close"
@@ -583,9 +583,9 @@
                 class="form-group row"
                 v-if="existCollectionName.length !== 0"
               >
-                <label class="control-label text-right col-sm-3">{{
-                  $t("existing-in-collection")
-                }}</label>
+                <label class="control-label text-right col-sm-3">
+                  {{ $t("existing-in-my-library") }}
+                </label>
                 <span class="col-sm-9">
                   <span
                     class="badge badge-secondary badge-pill mr-1"
@@ -655,7 +655,7 @@
               data-dismiss="modal"
               @click="gotoCreateCol()"
             >
-              {{ $t("create-new-collection") }}
+              {{ $t("create-new-library") }}
             </button>
             <!-- <button
               type="button"

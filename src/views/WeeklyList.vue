@@ -16,14 +16,14 @@
                   class="btn btn-danger btn-rounded"
                   @click="setWQStatus()"
                 >
-                  {{ $t("disable-oral-quizzes") }}
+                  {{ $t("disable-auto-assigned-oral-quizzes") }}
                 </button>
                 <button
                   v-else
                   class="btn btn-primary btn-rounded"
                   @click="setWQStatus()"
                 >
-                  {{ $t("enable-oral-quizzes") }}
+                  {{ $t("enable-auto-assigned-oral-quizzes") }}
                 </button>
               </div>
               <div class="text-right">

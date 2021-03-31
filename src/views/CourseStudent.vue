@@ -44,12 +44,16 @@
               <div class="col-sm-3">
                 <div class="card bg-success" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
-                    <h5 class="card-title text-white">{{$t('available-seats')}}</h5>
+                    <h5 class="card-title text-white">
+                      {{ $t("available-seats") }}
+                    </h5>
                     <div class="w100 text-right">
                       <p class="card-text text-white">
-                        <span class="display-4 counter" data-count="50">{{courseStudentInfo.active}}/{{
-                          courseStudentInfo.quota
-                        }}</span>
+                        <span class="display-4 counter" data-count="50"
+                          >{{ courseStudentInfo.active }}/{{
+                            courseStudentInfo.quota
+                          }}</span
+                        >
                       </p>
                     </div>
                   </div>
@@ -444,7 +448,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>{{ $t("want-to-delete-a-checked-students") }}?</p>
+            <p>{{ $t("do-you-want-to-delete-a-checked-students") }}?</p>
           </div>
           <div class="modal-footer">
             <button

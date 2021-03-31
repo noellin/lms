@@ -15,7 +15,13 @@
                 />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">MangoSTEEMS World</p>
+              <strong
+                ><p class="text-center m-b-40">
+                  MangoSTEEMS World
+                  <span class="beta_div">BETA</span>
+                </p></strong
+              >
+
               <ValidationObserver ref="loginForm">
                 <div id="login-Page">
                   <h5 class="sign-in-heading">
@@ -115,7 +121,9 @@
                 />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">MangoSTEEMS World</p>
+              <p class="text-center m-b-40">
+                MangoSTEEMS World<span class="beta_div">BETA</span>
+              </p>
               <p class="display-4 text-center">
                 <i class="zmdi zmdi-check-circle zmdi-hc-fw text-success"></i>
               </p>
@@ -150,7 +158,9 @@
                 />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">MangoSTEEMS World</p>
+              <p class="text-center m-b-40">
+                MangoSTEEMS World<span class="beta_div">BETA</span>
+              </p>
 
               <div id="forget-password-page">
                 <h5 class="sign-in-heading">{{ $t("forgotten-password") }}?</h5>
@@ -198,7 +208,9 @@
                   />
                   <!-- <span class="display-4">School Name</span> -->
                 </a>
-                <p class="text-center m-b-40">MangoSTEEMS World</p>
+                <p class="text-center m-b-40">
+                  MangoSTEEMS World<span class="beta_div">BETA</span>
+                </p>
 
                 <p class="text-primary text-center">
                   {{ $t("e-mail") }}: {{ userEmail }}
@@ -273,7 +285,9 @@
                 />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">MangoSTEEMS World</p>
+              <p class="text-center m-b-40">
+                MangoSTEEMS World<span class="beta_div">BETA</span>
+              </p>
               <p class="display-4 text-center">
                 <i class="zmdi zmdi-mail-send zmdi-hc-fw text-success"></i>
               </p>
@@ -489,4 +503,18 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.bg-BETA {
+  background-color: #ff9100;
+}
+
+.beta_div {
+  background-color: #f56523;
+  border-radius: 5px;
+  color: white;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 0px 4px;
+  vertical-align: top;
+}
 </style>
+

@@ -26,19 +26,20 @@
     <nav class="top-toolbar navbar navbar-desktop flex-nowrap">
       <ul class="navbar-nav nav-left">
         <div class="">
-          <ul class="site-logo">
+          <ul class="site-logo d-flex justify-content-start align-items-center">
             <li class="nav-item">
               <a @click="gotoLogin()" class="pointer">
                 <div class="logo" style="background-col">
                   <img
-                    src="../assets/img/avatars/MangoSTEEMS_logo.png"
+                    src="../assets/img/avatars/Group 2.png"
                     alt=""
-                    style="max-height: 40px; max-width: 190px"
+                    style="max-height: 90px; max-width: 200px; width: 240px height:90px"
                   />
                   <!-- style="max-height: 35px; max-width: 190px" -->
                 </div>
               </a>
             </li>
+            <!-- <div class="beta_div">BETA</div> -->
             <!-- <li class="nav-item"><span class="brand-text">School Name</span></li> -->
           </ul>
           <ul class="navbar-nav nav-left">
@@ -176,4 +177,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.beta_div {
+  background-color: #f56523;
+  border-radius: 5px;
+  color: white;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 0px 4px;
+  vertical-align: top;
+  z-index: 9999;
+  position: fixed;
+}
 </style>

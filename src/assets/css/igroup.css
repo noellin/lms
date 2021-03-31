@@ -808,7 +808,8 @@ select.form-control {
 }
 
 .site-logo {
-  width: 220px;
+  width: 250px;
+  /* width: 320px; */
 }
 
 .site-logo li .brand-text {

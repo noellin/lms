@@ -26,7 +26,7 @@
             :aria-controls="'course' + course.courseid"
             @click="changePageStatus(course.course_name)"
             :class="coursePage === course.course_name ? '' : 'collapsed'"
-            ><i class="ig-notice" v-if="coursePage === course.course_name"></i>
+            ><i class="ig-notice" v-if="courseID === course.courseid"></i>
             <span>
               {{ course.course_name }}
               <!-- <i
@@ -47,7 +47,7 @@
               <a
                 ><span
                   :class="
-                    courseType === type && coursePage === course.course_name
+                    courseType === type && courseID === course.courseid
                       ? 'color-lightblue'
                       : ''
                   "
@@ -137,6 +137,13 @@ export default {
     "$route.params.course": {
       handler: function (course) {
         this.coursePage = course;
+      },
+      deep: true,
+      immediate: true,
+    },
+    "$route.params.courseid": {
+      handler: function (courseid) {
+        this.courseID = courseid;
       },
       deep: true,
       immediate: true,
