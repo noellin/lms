@@ -54,3 +54,9 @@ export const ApiDeleteSentence = {
         }))
     }
 };
+
+export const ApiModifyDescription = {
+    post:(echoid,paramObj) => {
+        return post(`/quiz/echovalley/modifydes/${echoid}`,paramObj)
+    }
+}

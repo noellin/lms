@@ -305,5 +305,6 @@
   "add-to-my-library": "add to my library",
   "existing-in-my-library": "Existing in my library",
   "create-new-my-library": "Create new my library",
-  "create-new-library": "Create new library"
+  "create-new-library": "Create new library",
+  "description": "Description"
 }

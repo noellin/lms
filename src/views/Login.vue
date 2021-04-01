@@ -1,5 +1,7 @@
 <template>
-  <div class="login row justify-content-center align-items-center col-sm-12">
+  <div
+    class="login d-flex justify-content-center align-items-center col-sm-12 loginbg"
+  >
     <div
       class="loginpage row justify-content-center align-items-center col-sm-12"
     >
@@ -7,24 +9,29 @@
       <div v-if="loginShow === 'login'">
         <div class="sign-in-form col-sm-12">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body login-bg-s">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <img
+                <div
+                  data-v-653f1d32=""
+                  class="text-white"
+                  style="
+                    text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                    font-size: 36px;
+                    font-weight: 500;
+                  "
+                >
+                  Teacher
+                </div>
+                <!-- <img
                   v-lazy="require('../assets/img/upload/logo_dark.png')"
                   alt="Logo"
-                />
+                /> -->
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <strong
-                ><p class="text-center m-b-40">
-                  MangoSTEEMS World
-                  <span class="beta_div">BETA</span>
-                </p></strong
-              >
-
+              <p class="my-4 text-center text-white">iGroup LMS</p>
               <ValidationObserver ref="loginForm">
                 <div id="login-Page">
-                  <h5 class="sign-in-heading">
+                  <h5 class="sign-in-heading text-white">
                     {{ $t("log-in-to-your-account") }}
                   </h5>
                   <ValidationProvider
@@ -87,7 +94,10 @@
                         checked=""
                         v-model="remember"
                       />
-                      <label class="custom-control-label" for="stateCheck1">
+                      <label
+                        class="custom-control-label text-white"
+                        for="stateCheck1"
+                      >
                         {{ $t("remember-me") }}</label
                       >
                     </div>
@@ -98,13 +108,26 @@
                     >
                   </div>
                   <button
-                    class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                    class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
                     @click="login()"
                   >
                     {{ $t("log-in") }}
                   </button>
                 </div>
               </ValidationObserver>
+              <div class="d-flex justify-content-center">
+                <img
+                  v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                  alt="Logo"
+                />
+              </div>
+
+              <!-- <strong
+                ><p class="text-center text-white mt-2">
+                  MangoSTEEMS World
+                  <span class="beta_div">BETA</span>
+                </p></strong
+              > -->
             </div>
           </div>
         </div>
@@ -113,24 +136,33 @@
       <div v-if="loginShow === 'resetPasswordSuccess'">
         <div class="sign-in-form">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body login-bg-s">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <img
+                <div
+                  data-v-653f1d32=""
+                  class="text-white"
+                  style="
+                    text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                    font-size: 36px;
+                    font-weight: 500;
+                  "
+                >
+                  Teacher
+                </div>
+                <!-- <img
                   v-lazy="require('../assets/img/upload/logo_dark.png')"
                   alt="Logo"
-                />
+                /> -->
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">
-                MangoSTEEMS World<span class="beta_div">BETA</span>
-              </p>
+
               <p class="display-4 text-center">
                 <i class="zmdi zmdi-check-circle zmdi-hc-fw text-success"></i>
               </p>
               <h5 class="sign-in-heading text-center text-success">
                 {{ $t("password-reset-success") }}
               </h5>
-              <p class="text-center">
+              <p class="text-center text-white">
                 {{
                   $t(
                     "your-password-has-now-been-successfully-reset-please-use-this-new-password-to-log-in"
@@ -138,11 +170,23 @@
                 }}.
               </p>
               <button
-                class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
                 @click="loginShow = 'login'"
               >
                 {{ $t("return-to-login") }}
               </button>
+              <div class="d-flex justify-content-center">
+                <img
+                  v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                  alt="Logo"
+                />
+              </div>
+              <!-- <strong
+                ><p class="text-center text-white mt-2">
+                  MangoSTEEMS World
+                  <span class="beta_div">BETA</span>
+                </p></strong
+              > -->
             </div>
           </div>
         </div>
@@ -150,21 +194,34 @@
       <div v-if="loginShow === 'forgetPassword'">
         <div class="sign-in-form">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body login-bg-s">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <img
+                <!-- <img
                   v-lazy="require('../assets/img/upload/logo_dark.png')"
                   alt="Logo"
-                />
+                /> -->
+                <div
+                  data-v-653f1d32=""
+                  class="text-white"
+                  style="
+                    text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                    font-size: 36px;
+                    font-weight: 500;
+                  "
+                >
+                  Teacher
+                </div>
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">
+              <!-- <p class="text-center m-b-40">
                 MangoSTEEMS World<span class="beta_div">BETA</span>
-              </p>
+              </p> -->
 
               <div id="forget-password-page">
-                <h5 class="sign-in-heading">{{ $t("forgotten-password") }}?</h5>
-                <p>
+                <h5 class="sign-in-heading text-white">
+                  {{ $t("forgotten-password") }}?
+                </h5>
+                <p class="text-white">
                   {{
                     $t(
                       "will-send-you-an-email-with-link-to-reset-your-password"
@@ -186,11 +243,23 @@
                 </div>
 
                 <button
-                  class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                  class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
                   @click="forgotPassword()"
                 >
                   {{ $t("send") }}
                 </button>
+                <div class="d-flex justify-content-center">
+                  <img
+                    v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                    alt="Logo"
+                  />
+                </div>
+                <!-- <strong
+                  ><p class="text-center text-white mt-2">
+                    MangoSTEEMS World
+                    <span class="beta_div">BETA</span>
+                  </p></strong
+                > -->
               </div>
             </div>
           </div>
@@ -199,23 +268,31 @@
       <div class="" v-if="loginShow === 'resetPassword'">
         <div class="sign-in-form">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body login-bg-s">
               <ValidationObserver ref="resetForm">
                 <a class="brand text-center d-block m-b-20 m-t-20">
-                  <img
+                  <div
+                    data-v-653f1d32=""
+                    class="text-white"
+                    style="
+                      text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                      font-size: 36px;
+                      font-weight: 500;
+                    "
+                  >
+                    Teacher
+                  </div>
+                  <!-- <img
                     v-lazy="require('../assets/img/upload/logo_dark.png')"
                     alt="Logo"
-                  />
+                  /> -->
                   <!-- <span class="display-4">School Name</span> -->
                 </a>
-                <p class="text-center m-b-40">
-                  MangoSTEEMS World<span class="beta_div">BETA</span>
-                </p>
 
-                <p class="text-primary text-center">
+                <p class="text-white text-center">
                   {{ $t("e-mail") }}: {{ userEmail }}
                 </p>
-                <h5 class="sign-in-heading">
+                <h5 class="sign-in-heading text-white">
                   {{ $t("confirm-your-password") }}
                 </h5>
                 <ValidationProvider
@@ -264,12 +341,18 @@
                   </div>
                 </ValidationProvider>
                 <button
-                  class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                  class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
                   @click="resetPassword()"
                 >
                   {{ $t("confirm-password") }}
                 </button>
               </ValidationObserver>
+              <div class="d-flex justify-content-center">
+                <img
+                  v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                  alt="Logo"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -277,24 +360,32 @@
       <div class="" v-if="loginShow === 'sendEmail'">
         <div class="sign-in-form">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body login-bg-s">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <img
+                <!-- <img
                   v-lazy="require('../assets/img/upload/logo_dark.png')"
                   alt="Logo"
-                />
+                /> -->
+                <div
+                  data-v-653f1d32=""
+                  class="text-white"
+                  style="
+                    text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                    font-size: 36px;
+                    font-weight: 500;
+                  "
+                >
+                  Teacher
+                </div>
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <p class="text-center m-b-40">
-                MangoSTEEMS World<span class="beta_div">BETA</span>
-              </p>
               <p class="display-4 text-center">
                 <i class="zmdi zmdi-mail-send zmdi-hc-fw text-success"></i>
               </p>
               <h5 class="sign-in-heading text-center text-success">
                 {{ $t("password-reset-email-sent") }}
               </h5>
-              <p class="text-center">
+              <p class="text-center text-white">
                 {{
                   $t(
                     "an-email-has-been-sent-to-your-email-please-follow-the-directions-in-the-email-to-reset-your-password"
@@ -302,11 +393,17 @@
                 }}.
               </p>
               <button
-                class="btn btn-primary btn-rounded btn-floating btn-lg btn-block m-t-40 m-b-20"
+                class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
                 @click="loginShow = 'login'"
               >
                 {{ $t("ok") }}
               </button>
+              <div class="d-flex justify-content-center">
+                <img
+                  v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                  alt="Logo"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -503,9 +600,9 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.bg-BETA {
-  background-color: #ff9100;
-}
+// .bg-BETA {
+//   background-color: #ff9100;
+// }
 
 .beta_div {
   background-color: #f56523;
@@ -516,5 +613,61 @@ export default {
   padding: 0px 4px;
   vertical-align: top;
 }
+
+.login-bg-s {
+  background-image: url("../assets/img/avatars/bg-login-s.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 51% 34%;
+  background-size: 39%;
+  border-radius: 10px;
+  width: 400px;
+  height: 520px;
+  box-shadow: 12px 12px 7px rgba(0, 0, 0, 0.5);
+}
+@media (max-width: 1920px) {
+  .login-bg-s {
+    background-image: url("../assets/img/avatars/bg-login-s.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 56% 45%;
+    background-size: 36%;
+    border-radius: 10px;
+    width: 400px;
+    height: 540px;
+  }
+}
+@media (max-width: 1367px) {
+  .login-bg-s {
+    background-image: url("../assets/img/avatars/bg-login-s.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 51% 35%;
+    background-size: 43%;
+    border-radius: 10px;
+    width: 400px;
+    height: 540px;
+  }
+}
+@media (max-width: 1200px) {
+  .login-bg-s {
+    background-image: url("../assets/img/avatars/bg-login-s.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 51% 34%;
+    background-size: 50%;
+    border-radius: 10px;
+    width: 400px;
+    height: 540px;
+  }
+}
+.loginbg {
+  background-image: url("../assets/img/avatars/login page_background-01.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+// @media (max-width: 1024px) {}
+// @media (max-width: 860px) {}
 </style>
 

@@ -29,12 +29,26 @@
           <ul class="site-logo d-flex justify-content-start align-items-center">
             <li class="nav-item">
               <a @click="gotoLogin()" class="pointer">
-                <div class="logo" style="background-col">
+                <!-- <div class="d-flex justify-content-center">
+                <img
+                  v-lazy="require('../assets/img/avatars/LMS_LOGO_new.png')"
+                  alt="Logo"
+                />
+              </div> -->
+                <div
+                  class="logo d-flex align-items-center"
+                  style="background-col"
+                >
                   <img
+                    v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                    alt=""
+                    style="max-height: 100px; max-width: 212px; width: 290px height:100px"
+                  />
+                  <!-- <img
                     src="../assets/img/avatars/Group 2.png"
                     alt=""
                     style="max-height: 90px; max-width: 200px; width: 240px height:90px"
-                  />
+                  /> -->
                   <!-- style="max-height: 35px; max-width: 190px" -->
                 </div>
               </a>

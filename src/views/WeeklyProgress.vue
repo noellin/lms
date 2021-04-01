@@ -49,13 +49,41 @@
                   <div class="card">
                     <div class="card-body row col-sm-12">
                       <div class="col-sm-12">
-                        <p>
-                          {{
-                            $t(
-                              "the-questions-of-the-echo-valley-are-selected-by-the-system-based-on-material-you-can-also-enter-the-question-yourself"
-                            )
-                          }}.
-                        </p>
+                        <label class="col-form-label text-left"
+                          >Publisher:
+                          <span class="ml-1">{{
+                            weeklyQuiz.designator
+                          }}</span></label
+                        >
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group row">
+                          <label class="col-form-label text-left col-sm-12">
+                            {{ $t("description") }}
+                          </label>
+                          <div class="col-sm-12">
+                            <input
+                              type="text"
+                              id="description"
+                              class="form-control form-control-lg"
+                              placeholder="Please type the description"
+                              v-model="weeklyQuiz.description"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <label class="col-form-label text-left col-sm-12 pl-0">
+                          {{ $t("passage") }}
+                          <span>
+                            ({{
+                              $t(
+                                "the-questions-of-the-echo-valley-are-selected-by-the-system-based-on-material-you-can-also-enter-the-question-yourself"
+                              )
+                            }}.)
+                          </span>
+                        </label>
                       </div>
 
                       <div class="col-sm-12">
@@ -197,6 +225,27 @@
             </button>
           </div>
           <div class="modal-body">
+            <div class="col-sm-12">
+              <div class="form-group row">
+                <label class="col-form-label text-left col-sm-12 pl-0">
+                  {{ $t("description") }}
+                </label>
+                <div class="col-sm-12 p-0">
+                  <input
+                    type="text"
+                    id="description"
+                    class="form-control form-control-lg"
+                    placeholder="Please type the description"
+                    v-model="weeklyQuiz.description"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 px-0">
+              <label class="col-form-label text-left col-sm-12 pl-0">
+                {{ $t("passage") }}
+              </label>
+            </div>
             <textarea
               class="form-control"
               id="exampleFormControlTextarea1"
@@ -257,6 +306,7 @@ import {
   ApiGetSentenceDetail,
   ApiModifySentence,
   ApiSearchWQStudent,
+  ApiModifyDescription,
 } from "../http/apis/WeeklyQuiz";
 import { ApiGetVoice } from "../http/apis/Assignment";
 import dayjs from "dayjs";
@@ -382,16 +432,35 @@ export default {
         })
         .catch((err) => {});
     },
-    modifyWQ() {
+    async modifyWQ() {
       let wq = {
         sentence: this.weeklyQuiz.sentence,
         start_date: dayjs(this.weeklyQuiz.publishTime[0]).unix(),
         expiry_date: dayjs(this.weeklyQuiz.publishTime[1]).unix(),
       };
-      ApiModifySentence.post(this.echoid, wq)
+      let result = await ApiModifySentence.post(this.echoid, wq)
         .then((response) => {
-          console.log(response);
           if (response.status === "success") {
+            // this.$bus.$emit("messsage:push", "Editing Success", "success");
+            // this.getDetail();
+            return true;
+          } else {
+            this.$bus.$emit("messsage:push", response.record, "danger");
+            this.getDetail();
+          }
+        })
+        .catch((err) => {});
+      if (result) {
+        this.modifyDescription();
+      }
+    },
+    modifyDescription() {
+      let des = {
+        description: this.weeklyQuiz.description,
+      };
+      ApiModifyDescription.post(this.echoid, des)
+        .then((response) => {
+          if (response.status === success) {
             this.$bus.$emit("messsage:push", "Editing Success", "success");
             this.getDetail();
           } else {

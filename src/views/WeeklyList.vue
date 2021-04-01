@@ -76,6 +76,15 @@
                               </div>
                             </th>
                             <th
+                              @click="sortTable('description')"
+                              class="pointer"
+                            >
+                              {{ $t("description") }}
+                              <i
+                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                              ></i>
+                            </th>
+                            <th
                               @click="sortTable('start_date')"
                               class="pointer"
                             >
@@ -122,6 +131,7 @@
                                 ></label>
                               </div>
                             </td>
+                            <td>{{ wq.description }}</td>
                             <td>{{ wq.start_date | dateConversion }}</td>
                             <td :class="expired(wq.expiry_date)">
                               {{ wq.expiry_date | dateConversion }}

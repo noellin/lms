@@ -17,6 +17,20 @@
                       <form>
                         <div class="form-group row">
                           <label class="col-form-label text-right col-sm-3">
+                            {{ $t("description") }}
+                          </label>
+                          <div class="col-sm-8">
+                            <input
+                              type="text"
+                              id="description"
+                              class="form-control form-control-lg"
+                              placeholder="Please type the description"
+                              v-model="newWeeklyQuiz.description"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-form-label text-right col-sm-3">
                             {{ $t("passage") }}
                           </label>
                           <div class="col-sm-8">
@@ -125,6 +139,7 @@ export default {
     return {
       courseid: this.$route.params.courseid,
       newWeeklyQuiz: {
+        description: "",
         question: "",
         publishTime: [],
       },
@@ -150,6 +165,7 @@ export default {
     },
     setWeellyQuiz() {
       let wq = {
+        description: this.newWeeklyQuiz.description,
         sentence: this.newWeeklyQuiz.question,
         start_date: dayjs(this.newWeeklyQuiz.publishTime[0]).unix(),
         expiry_date: dayjs(this.newWeeklyQuiz.publishTime[1]).unix(),
@@ -159,6 +175,7 @@ export default {
           if (response.status === "success") {
             this.$bus.$emit("messsage:push", "QUIZ Setting Success", "success");
             this.newWeeklyQuiz = {
+              description: "",
               question: "",
               publishTime: [],
             };
