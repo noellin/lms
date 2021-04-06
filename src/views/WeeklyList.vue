@@ -131,7 +131,10 @@
                                 ></label>
                               </div>
                             </td>
-                            <td>{{ wq.description }}</td>
+                            <td >
+                          <span v-if="wq.description!==wq.start_date">{{ wq.description }}</span>
+                          <span v-else>System auto-assigned</span>
+                            </td>
                             <td>{{ wq.start_date | dateConversion }}</td>
                             <td :class="expired(wq.expiry_date)">
                               {{ wq.expiry_date | dateConversion }}

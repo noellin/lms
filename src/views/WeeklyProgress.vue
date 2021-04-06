@@ -10,38 +10,6 @@
           <div class="main-content">
             <course-header></course-header>
             <section class="page-content container-fluid">
-              <div class="pb-3">
-                <div class="d-flex">
-                  <div class="form-group form-rounded mb-0 mr-3">
-                    <select2
-                      id="s2_student"
-                      :options="search.options"
-                      v-model="selectOption"
-                    >
-                    </select2>
-                  </div>
-                  <div class="form-group form-rounded mb-0">
-                    <div class="input-group">
-                      <input
-                        v-model="search.keyword"
-                        type="text"
-                        class="form-control"
-                        placeholder="Search Student name"
-                        @keyup.enter="searchWQStudent()"
-                      />
-                      <div class="input-group-append">
-                        <div
-                          class="btn btn-secondary btn-outline btn-icon btn-rounded"
-                          type="button"
-                          @click="searchWQStudent()"
-                        >
-                          <i class="zmdi zmdi-search text-secondary"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               <!--  -->
               <div class="row">
@@ -63,10 +31,20 @@
                           </label>
                           <div class="col-sm-12">
                             <input
+                            v-if="weeklyQuiz.designator!=='System'"
                               type="text"
                               id="description"
                               class="form-control form-control-lg"
                               placeholder="Please type the description"
+                              v-model="weeklyQuiz.description"
+                              disabled
+                            />
+                                                        <input
+                            v-else
+                              type="text"
+                              id="description"
+                              class="form-control form-control-lg"
+                              placeholder="System auto-assigned"
                               v-model="weeklyQuiz.description"
                               disabled
                             />
@@ -136,6 +114,38 @@
                 </div>
               </div>
               <!--  -->
+                            <div class="pb-3" v-if="wqStudentList.length!==0">
+                <div class="d-flex">
+                  <div class="form-group form-rounded mb-0 mr-3">
+                    <select2
+                      id="s2_student"
+                      :options="search.options"
+                      v-model="selectOption"
+                    >
+                    </select2>
+                  </div>
+                  <div class="form-group form-rounded mb-0" >
+                    <div class="input-group">
+                      <input
+                        v-model="search.keyword"
+                        type="text"
+                        class="form-control"
+                        placeholder="Search Student name"
+                        @keyup.enter="searchWQStudent()"
+                      />
+                      <div class="input-group-append">
+                        <div
+                          class="btn btn-secondary btn-outline btn-icon btn-rounded"
+                          type="button"
+                          @click="searchWQStudent()"
+                        >
+                          <i class="zmdi zmdi-search text-secondary"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="row" v-if="wqStudentList.length !== 0">
                 <div class="col-12">
                   <div class="card">
@@ -150,6 +160,7 @@
                             </tr>
                           </thead>
                           <tbody>
+                          <!-- <td>{{wqStudentList}}</td> -->
                             <tr
                               v-for="wqitem in wqStudentList"
                               :key="wqitem.userid"
@@ -344,13 +355,19 @@ export default {
   mounted() {
     this.getDetail();
   },
+  watch:{
+  },
   computed: {
+    wqStudentListByfilter(){
+      // console.log('wq = ',wqStudentList);
+      // arr = _.filter(wqStudentList,function(o){return o.})
+    },
     allowEdit() {
       if (this.publishDay !== "") {
         let today = new Date();
         today.setHours(0, 0, 0, 0);
-        console.log(this.publishDay);
-        console.log(dayjs(today).isBefore(dayjs(this.publishDay)));
+        // console.log(this.publishDay);
+        // console.log(dayjs(today).isBefore(dayjs(this.publishDay)));
         return dayjs(today).isBefore(dayjs(this.publishDay));
       }
     },
@@ -373,7 +390,7 @@ export default {
             // console.log("進入播放");
             var url = URL.createObjectURL(response);
             const audio = new Audio(url);
-            console.log(audio);
+            // console.log(audio);
             audio.play();
             audio.onended = function () {
               vm.playVoiceStatus = "";
@@ -475,13 +492,18 @@ export default {
       if (this.search.keyword !== "") {
         keyword = this.search.keyword;
       }
+      console.log(keyword);
+      console.log(this.selectOption);
       ApiSearchWQStudent.get(this.echoid, keyword, this.selectOption)
         .then((response) => {
+          console.log(response);
           if (response.status === "success") {
             this.wqStudentList = response.record;
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

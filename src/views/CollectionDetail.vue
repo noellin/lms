@@ -73,8 +73,8 @@
           <div class="row">
             <div
               class="col-12"
-              v-for="cr in cResourceList"
-              :key="cr.resourceid"
+              v-for="(cr,index) in cResourceList"
+              :key="cr.resourceid+index"
             >
               <div class="card">
                 <div class="card-body">
@@ -189,7 +189,7 @@
             </button>
           </div>
           <div class="modal-body pb-4" v-if="lastPlayList.length !== 0">
-            <div v-for="lp in lastPlayList" :key="lp.courseid">
+            <div v-for="lp in lastPlayList" :key="lp.courseid+'lastplay'">
               <span
                 >{{ lp.course_name }} ：
                 {{ lp.last_access | dateConversion }}</span
