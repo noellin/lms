@@ -18,7 +18,7 @@
                   <div class="d-flex justify-content-start">
                             <span
                               v-if="ta.note === 'book'"
-                              class="d-flex col-sm-11 px-0"
+                              class="d-flex col-sm-11 px-0 mb-1"
                             >
                               <span
                                 class="badge badge-pill badge-primary fix-badge-height"
@@ -31,7 +31,7 @@
                             </span>
                             <div
                               v-else-if="ta.note === 'video'"
-                              class="d-flex col-sm-11 px-0"
+                              class="d-flex col-sm-11 px-0 mb-1"
                             >
                               <div>
                                 <span
@@ -45,7 +45,7 @@
                                 }}
                               </span>
                             </div>
-                            <span v-else class="d-flex col-sm-11 px-0">
+                            <span v-else class="d-flex col-sm-11 px-0 mb-1">
                               <span
                                 class="badge badge-pill badge-accent fix-badge-height"
                                 >{{ $t("speaking-quiz") }}</span
@@ -76,7 +76,7 @@
 						</table>
 						<!-- button -->
 						<div class="nav-item " v-if="tempAList.length!==0" @click="gotoAgtCreate()">
-							<button type="button" class="btn btn-primary btn-rounded d-block mx-auto " 
+							<button type="button" class="btn btn-primary btn-rounded d-block  " 
 							@click="isShow=!isShow">Create Assignment</button>
 						</div>
 					</div>
