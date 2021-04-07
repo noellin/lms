@@ -60,7 +60,8 @@ const router = new Router({
     meta: {
       header: "course",
     },
-    children: [{
+    children: [
+      {
         path: "/course_material/course=:course/type=:type/:courseid",
         name: "Library",
         component: resolve => require(['@/views/CourseMaterial'], resolve),
@@ -148,6 +149,103 @@ const router = new Router({
       },
       {
         path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid/:echoid",
+        name: "Echo_Valley_Quiz_Progress",
+        component: resolve => require(['@/views/WeeklyProgress'], resolve),
+        meta: {
+          header: "course",
+          backtag: true,
+        },
+      },
+
+      // expired
+      // {
+      //   path: "/course_material/course=:course/type=:type/:courseid",
+      //   name: "Library",
+      //   component: resolve => require(['@/views/CourseMaterial'], resolve),
+      //   meta: {
+      //     header: "course",
+      //     backtag: false,
+      //   },
+      // },
+      {
+        path: "/course_assignment/course=:course/type=:type/:courseid/:expired",
+        name: "Assignments",
+        component: resolve => require(['@/views/CourseAssignment'], resolve),
+        meta: {
+          header: "course",
+          backtag: false,
+        },
+      },
+      // {
+      //   path: "/course_assignment/create/course=:course/type=:type/:courseid",
+      //   name: "Assignment_Create",
+      //   component: resolve => require(['@/views/AssignmentCreate.vue'], resolve),
+      //   meta: {
+      //     header: "course",
+      //     backtag: true,
+      //   },
+      // },
+      {
+        path: "/check_assignment/course=:course/type=:type/:courseid/:aid/:expired",
+        name: "Assignment_Progress",
+        component: resolve => require(['@/views/AssignmentProgress'], resolve),
+        meta: {
+          header: "course",
+          backtag: true,
+        },
+      },
+      {
+        path: "/course_student/course=:course/type=:type/:courseid/:expired",
+        name: "Student_Roster",
+        component:resolve => require(['@/views/CourseStudent'], resolve) ,
+        meta: {
+          header: "course",
+        },
+      },
+      {
+        path: "/course_dashboard/course=:course/type=:type/:courseid/:expired",
+        name: "Dashboard",
+        component: resolve => require(['@/views/CourseDashboard'], resolve),
+        meta: {
+          header: "course",
+        },
+      },
+      // {
+      //   path: "/quiz/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
+      //   name: "Speaking_task",
+      //   component: resolve => require(['@/views/SpeakingQuiz'], resolve),
+      //   meta: {
+      //     header: "course",
+      //   },
+      // },
+      // {
+      //   path: "/quizcreate/:course/:type/:rname/:mname/:courseid/:note/:rid/:mid",
+      //   name: "Quiz_Create",
+      //   component: resolve => require(['@/views/SpeakingQuitCreate'], resolve),
+      //   meta: {
+      //     header: "course",
+      //     backtag: true,
+      //   },
+      // },
+      {
+        path: "/course_weekly_quiz/course=:course/type=:type/:courseid/:expired",
+        name: "Echo_Valley_Quiz",
+        component: resolve => require(['@/views/WeeklyList'], resolve),
+        meta: {
+          header: "course",
+        },
+      },
+      // {
+      //   path: "/course_weekly_quiz/create/course=:course/type=:type/:courseid",
+      //   name: "Create_Echo_Valley_Oral_Quiz",
+      //   component: resolve => require(['@/views/WeeklyCreate'], resolve),
+      //   meta: {
+      //     header: "course",
+      //     backtag: true,
+      //   },
+      // },
+      {
+        path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid/:echoid/:expired",
         name: "Echo_Valley_Quiz_Progress",
         component: resolve => require(['@/views/WeeklyProgress'], resolve),
         meta: {

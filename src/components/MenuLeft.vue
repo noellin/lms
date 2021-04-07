@@ -13,33 +13,44 @@
           class="nav-dropdown accordion"
           v-for="course in activeCourse"
           :key="course.courseid"
-          :class="coursePage === course.course_name ? 'active' : ''"
+          :class="
+            coursePage === course.course_name && courseID === course.courseid
+              ? 'active'
+              : ''
+          "
         >
           <!-- class="has-arrow" -->
           <a
             class="has-arrow"
-            :aria-expanded="coursePage === course.course_name ? true : false"
+            :aria-expanded="
+              coursePage === course.course_name && courseID === course.courseid
+                ? true
+                : false
+            "
             :href="'#course' + course.courseid"
             :data-target="'#course' + course.courseid"
             @click.prevent=""
             data-toggle="collapse"
             :aria-controls="'course' + course.courseid"
             @click="changePageStatus(course.course_name)"
-            :class="coursePage === course.course_name ? '' : 'collapsed'"
+            :class="
+              coursePage === course.course_name && courseID === course.courseid
+                ? ''
+                : 'collapsed'
+            "
             ><i class="ig-notice" v-if="courseID === course.courseid"></i>
             <span>
               {{ course.course_name }}
-              <!-- <i
-                class="la la-angle-down color-lightblue"
-                v-if="iconStatus === coursename"
-              ></i>
-              <i class="la la-angle-right color-lightblue" v-else></i> -->
             </span></a
           >
           <ul
             class="nav-sub collapse"
             :id="'course' + course.courseid"
-            :class="coursePage === course.course_name ? 'show' : ''"
+            :class="
+              coursePage === course.course_name && courseID === course.courseid
+                ? 'show'
+                : ''
+            "
             data-parent="#accordionExample"
             :aria-labelledby="course.courseid"
           >
@@ -72,7 +83,10 @@
   </aside>
 </template>
 <script>
-import { ApiGetActiveCourseList } from "../http/apis/CourseList";
+import {
+  ApiGetActiveCourseList,
+  ApiGetExpiredCourseList,
+} from "../http/apis/CourseList";
 import dayjs from "dayjs";
 export default {
   name: "MenuLeft",
@@ -95,6 +109,7 @@ export default {
       courseID: this.$route.params.courseid,
       course: {
         activeCourseList: [],
+        expiredCourseList: [],
         coursePagination: {
           total_pages: 1,
           current_page: 1,
@@ -105,9 +120,21 @@ export default {
     };
   },
   created() {
+    let vm = this;
     if (this.permit === "admin") {
+      ApiGetExpiredCourseList.get(this.permit, this.userid, "").then(
+        (response) => {
+          this.course.expiredCourseList = response.record;
+        }
+      );
       this.getActiveCourseList("");
     } else {
+      ApiGetExpiredCourseList.get(this.permit, this.userid, this.userid).then(
+        (response) => {
+          this.course.expiredCourseList = response.record;
+          console.log(response.record);
+        }
+      );
       this.getActiveCourseList(this.userid);
     }
     this.$store.dispatch(

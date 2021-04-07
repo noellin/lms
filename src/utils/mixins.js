@@ -18,13 +18,16 @@ Vue.mixin({
         $_sortMaterial(materialArray,sortType,filterLevelList) {
           let ma = [...materialArray]
             let temp = [];
-          if(filterLevelList.length!==0){
-            filterLevelList.forEach(singleLevel => {
-              temp = temp.concat(_.filter(ma,function(o) {return o.level.includes(singleLevel)}))
-            });
-          }else{
-            temp = [...materialArray];
-          }
+            console.log(filterLevelList);
+          // if(filterLevelList.length!==0){
+          //   filterLevelList.forEach(singleLevel => {
+          //     temp = temp.concat(_.filter(ma,function(o) {return o.level.includes(singleLevel)}))
+          //   });
+          // }
+          // else{
+          //   temp = [...materialArray];
+          // }
+          temp = [...materialArray];
         //  let temp =  _.filter(ma,function(o) {return o.level.includes(filterLevelList)})
             // let temp = [...materialArray];
             // let levelList= []

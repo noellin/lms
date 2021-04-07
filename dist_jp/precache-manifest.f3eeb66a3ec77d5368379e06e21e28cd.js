@@ -8,8 +8,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/S__153010180.jpg"
   },
   {
-    "revision": "fd8793b981c1f4cef714",
+    "revision": "3473627084e3e2837f8e",
     "url": "/web/css/app.2e599dc7.css"
+  },
+  {
+    "revision": "6434a84fd3cd3e3f635e",
+    "url": "/web/css/chunk-097d2f94.b2dffd0e.css"
   },
   {
     "revision": "90db83f0f0365f19a575",
@@ -46,10 +50,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "b52629d6dc5d6c7224ea",
     "url": "/web/css/chunk-c0959378.5ebf885e.css"
-  },
-  {
-    "revision": "56fe162baa359c90a9f1",
-    "url": "/web/css/chunk-cefdedba.d470aa32.css"
   },
   {
     "revision": "b4e969aed1ce041f1c17",
@@ -244,12 +244,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/img/user10.b802d118.png"
   },
   {
-    "revision": "388a27521c21cd3fff25e6124fa311bc",
+    "revision": "90fe829fd6746863f84ac15699b6be83",
     "url": "/web/index.html"
   },
   {
-    "revision": "fd8793b981c1f4cef714",
-    "url": "/web/js/app.f6d58b5b.js"
+    "revision": "3473627084e3e2837f8e",
+    "url": "/web/js/app.270bca7b.js"
   },
   {
     "revision": "6175c4216263ddb4e1b1841c1f29e6ce",
@@ -332,6 +332,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/js/charts/morris-init.js"
   },
   {
+    "revision": "6434a84fd3cd3e3f635e",
+    "url": "/web/js/chunk-097d2f94.f719b063.js"
+  },
+  {
     "revision": "90db83f0f0365f19a575",
     "url": "/web/js/chunk-2205159c.bd63ec4a.js"
   },
@@ -410,10 +414,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "b52629d6dc5d6c7224ea",
     "url": "/web/js/chunk-c0959378.9fcaa1b1.js"
-  },
-  {
-    "revision": "56fe162baa359c90a9f1",
-    "url": "/web/js/chunk-cefdedba.797f16fb.js"
   },
   {
     "revision": "b4e969aed1ce041f1c17",
@@ -592,8 +592,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/js/npm.zrender.5f2a23fc.js"
   },
   {
-    "revision": "0b77d69cf37be544c45e",
-    "url": "/web/js/runtime.9cf07f37.js"
+    "revision": "18c0d4420d44506888aa",
+    "url": "/web/js/runtime.9cd9aac9.js"
   },
   {
     "revision": "f277675d1961c38f83dd",

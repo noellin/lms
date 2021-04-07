@@ -158,55 +158,7 @@
                 :mfilter="mfilter"
                 @getMList="getMList"
               ></search-group>
-              <!-- 20210310 -->
-              <!-- <div class="pb-3">
-                <div class="form-row">
-                  <div class="form-group form-rounded mb-0 mr-3">
-                    <select2
-                      id="s2_demo2"
-                      :options="typeList"
-                      v-model="selectType"
-                    >
-                    </select2>
-                  </div>
-                  <div class="form-group form-rounded mb-0 mr-3">
-                    <div class="input-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Search material"
-                        v-model="searchRname"
-                        @keyup.enter="searchCourseResource()"
-                      />
-                      <div class="input-group-append">
-                        <div
-                          class="btn btn-secondary btn-outline btn-icon btn-rounded"
-                          type="button"
-                          @click="searchCourseResource()"
-                        >
-                          <i class="zmdi zmdi-search text-secondary"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group form-rounded mb-0 mr-3">
-                    <select2
-                      id="s2_demo3"
-                      :options="sortTypeList"
-                      v-model="selectSortType"
-                    >
-                    </select2>
-                  </div>
-                  <div
-                    class="form-group form-rounded mb-0 mr-3 d-flex align-items-center text-secondary"
-                    v-if="searchStatus"
-                  >
-                    <span class="mr-1">{{ sortMList.length }}</span>
-                    {{ $t("listings-for") }} “ <span>{{ tempSearchName }}</span
-                    >”
-                  </div>
-                </div>
-              </div> -->
+
               <div class="text-right col-sm-4 px-0">
                 <button
                   type="button"

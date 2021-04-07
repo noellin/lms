@@ -266,12 +266,7 @@
                           </tr>
                         </tbody>
                       </table>
-                      <div class="col-12">
-                        <!-- <pagination
-                          :pages="course.coursePagination"
-                          @emitPages="getActiveCourseList"
-                        ></pagination> -->
-                      </div>
+                      <div class="col-12"></div>
                     </div>
                     <!-- expired的table -->
                     <div
@@ -304,7 +299,20 @@
                             v-for="expiredCourse in course.expiredCourseList"
                             :key="expiredCourse.courseid"
                           >
-                            <td>{{ expiredCourse.course_name }}</td>
+                            <td>
+                              <a
+                                @click="
+                                  gotoCourseMaterial(
+                                    expiredCourse.course_name,
+                                    course.courseid,
+                                    'expired'
+                                  )
+                                "
+                                class="text-link pointer"
+                                >{{ expiredCourse.course_name }}</a
+                              >
+                            </td>
+                            <!-- <td>{{ expiredCourse.course_name }}</td> -->
                             <td>{{ expiredCourse.username }}</td>
                             <td>
                               {{ expiredCourse.noOfStu }}/{{
@@ -847,10 +855,17 @@ export default {
         this.tempTeacherList.splice(index, 1);
       }
     },
-    gotoCourseMaterial(coursename, courseid) {
+    gotoCourseMaterial(coursename, courseid,status) {
+      if(status!=='expired'){
       this.$router.push({
         path: `/course_material/course=${coursename}/type=Library/${courseid}`,
       });
+      }else{
+              this.$router.push({
+        path: `/course_material/course=${coursename}/type=Library/${courseid}/expired`,
+      });
+      }
+
     },
     gotoCourseAssignment(coursename, courseid) {
       this.$router.push({
