@@ -12,7 +12,10 @@
           <course-header></course-header>
           <div class="page-content container-fluid">
             <div class="d-flex justify-content-end mb-3">
-              <div class="text-right">
+              <div
+                class="text-right"
+                v-if="$route.params.expired !== 'expired'"
+              >
                 <button
                   type="button"
                   class="btn btn-primary btn-outline btn-rounded"
@@ -38,7 +41,7 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th>
+                            <th v-if="$route.params.expired !== 'expired'">
                               <div
                                 class="custom-control custom-checkbox form-check"
                               >
@@ -100,7 +103,7 @@
                         </thead>
                         <tbody>
                           <tr v-for="a in aList" :key="a.asgmtid">
-                            <td>
+                            <td v-if="$route.params.expired !== 'expired'">
                               <div
                                 class="custom-control custom-checkbox form-check"
                               >
@@ -121,6 +124,7 @@
                               <!-- <input type="text" v-model="a.description" /> -->
                               <span>{{ a.description }}</span
                               ><span
+                                v-if="$route.params.expired !== 'expired'"
                                 class="ml-1 pointer"
                                 data-toggle="modal"
                                 data-target="#editModal"
@@ -162,7 +166,7 @@
                             </td>
                             <td>
                               <a
-                                @click="gotoProgress(a.asgmtid)"
+                                @click="gotoProgress(a.asgmtid, expired)"
                                 class="btn btn-primary btn-sm btn-rounded text-white"
                                 >{{ $t("view") }}</a
                               >
@@ -182,71 +186,6 @@
                           </tr>
                         </tbody>
                       </table>
-                      <!-- <div class="col-12">
-                        <div
-                          class="dataTables_paginate paging_simple_numbers"
-                          id="recent-transaction-table_paginate"
-                        >
-                          <ul class="pagination d-flex justify-content-end">
-                            <li
-                              class="paginate_button page-item previous disabled"
-                              id="recent-transaction-table_previous"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="0"
-                                tabindex="0"
-                                class="page-link"
-                                >Prev</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item active">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="1"
-                                tabindex="0"
-                                class="page-link"
-                                >1</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="2"
-                                tabindex="0"
-                                class="page-link"
-                                >2</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="3"
-                                tabindex="0"
-                                class="page-link"
-                                >3</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item next"
-                              id="recent-transaction-table_next"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="4"
-                                tabindex="0"
-                                class="page-link"
-                                >Next</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -576,9 +515,9 @@ export default {
         })
         .catch((err) => {});
     },
-    gotoProgress(aid) {
+    gotoProgress(aid, expired = "") {
       this.$router.push({
-        path: `/check_assignment/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}/${aid}`,
+        path: `/check_assignment/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}/${aid}/${expired}`,
       });
     },
     deleteAssignmentAll() {

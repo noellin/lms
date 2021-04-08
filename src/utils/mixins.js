@@ -18,7 +18,7 @@ Vue.mixin({
         $_sortMaterial(materialArray,sortType,filterLevelList) {
           let ma = [...materialArray]
             let temp = [];
-            console.log(filterLevelList);
+            // console.log(filterLevelList);
           // if(filterLevelList.length!==0){
           //   filterLevelList.forEach(singleLevel => {
           //     temp = temp.concat(_.filter(ma,function(o) {return o.level.includes(singleLevel)}))

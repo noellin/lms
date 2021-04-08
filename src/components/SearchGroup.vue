@@ -219,7 +219,7 @@ export default {
       };
       let result = await ApiSearchCourseResource.post(this.courseid, searchObj)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (vm.selectSortType === "") {
             if (response.csrInfo.cntLevel !== 0) {
               vm.haveLevel = true;
@@ -304,7 +304,7 @@ export default {
             });
           });
           this.textbookList = response.record;
-          console.log("sortmlist = ", this.sortMList);
+          // console.log("sortmlist = ", this.sortMList);
           if (response.status === "success") {
             return true;
           }
@@ -440,7 +440,7 @@ export default {
       }
     },
     selectType() {
-      console.log(this.page);
+      // console.log(this.page);
       if (this.page !== "collection") {
         this.searchCourseResource();
       } else {

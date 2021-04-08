@@ -28,6 +28,7 @@ export const ApiGetExpiredCourseList = {
             }
             return get(`/course/list/expired/${userid}?filter=${paramObj}`);
         } else {
+            console.log(paramObj);
             return get(`/course/list/expired/${paramObj}`);
         }
     },

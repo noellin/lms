@@ -63,7 +63,14 @@
                       : ''
                   "
                   class="pointer"
-                  @click="changePage(course.course_name, type, course.courseid)"
+                  @click="
+                    changePage(
+                      course.course_name,
+                      type,
+                      course.courseid,
+                      expired
+                    )
+                  "
                   >{{ type }}</span
                 >
                 <!-- <span
@@ -107,6 +114,8 @@ export default {
       courseType: "",
       iconStatus: this.$route.params.course,
       courseID: this.$route.params.courseid,
+      expired: this.$route.params.expired,
+      notExpired: true,
       course: {
         activeCourseList: [],
         expiredCourseList: [],
@@ -120,23 +129,28 @@ export default {
     };
   },
   created() {
+    // if (this.expired === "expired") {
+    //   this.typeList = [
+    //     "Assignments",
+    //     "Student Roster",
+    //     "Dashboard",
+    //     "Echo Valley",
+    //   ];
+    // }
     let vm = this;
     if (this.permit === "admin") {
-      ApiGetExpiredCourseList.get(this.permit, this.userid, "").then(
-        (response) => {
-          this.course.expiredCourseList = response.record;
-        }
-      );
-      this.getActiveCourseList("");
-    } else {
-      ApiGetExpiredCourseList.get(this.permit, this.userid, this.userid).then(
-        (response) => {
-          this.course.expiredCourseList = response.record;
-          console.log(response.record);
-        }
-      );
-      this.getActiveCourseList(this.userid);
+      // this.getActiveCourseList("");
+      this.getExpiredCourseList("*");
+      // this.getExpiredCourseList();
+    } else if (this.permit !== "admin") {
+      this.getExpiredCourseList();
+      // this.getActiveCourseList(this.userid);
     }
+    // else if (this.permit !== "admin" && this.expired !== undefined) {
+    //   this.getExpiredCourseList();
+    // } else {
+    //   this.getExpiredCourseList("*");
+    // }
     this.$store.dispatch(
       "courseInfo/getCouseInfo",
       this.$route.params.courseid
@@ -184,9 +198,60 @@ export default {
     },
   },
   methods: {
+    updateURL() {
+      console.log("xxxxxxxxxxxChange urlxxxxxxxxxxxx");
+      if (
+        this.$route.params.expired !== "expired" &&
+        this.$route.path.split("").pop() === "/"
+      ) {
+        this.$router.push({
+          path: `${this.$route.path}expired`,
+        });
+      } else if (
+        this.$route.params.expired !== "expired" &&
+        this.$route.path.split("").pop() !== "/"
+      ) {
+        this.$router.push({
+          path: `${this.$route.path}/expired`,
+        });
+      }
+      // history.pushState({}, null, "/#/detail/" + this.book.isbn13);
+    },
+    async getExpiredCourseList() {
+      let vm = this;
+      let result = await ApiGetExpiredCourseList.get(
+        this.permit,
+        this.userid,
+        this.userid
+      ).then((response) => {
+        this.course.activeCourseList = response.record;
+        // this.course.expiredCourseList = response.record;
+        response.record.forEach((expiredC) => {
+          if (expiredC.courseid === vm.courseID) {
+            vm.updateURL();
+            vm.notExpired = false;
+            return true;
+          }
+        });
+      });
+      if (!result) {
+        if (this.permit === "admin" && vm.notExpired) {
+          this.getActiveCourseList("");
+          // this.getExpiredCourseList("*");
+        } else if (this.permit !== "admin" && vm.notExpired) {
+          // this.getExpiredCourseList();
+          this.getActiveCourseList(this.userid);
+        }
+      }
+    },
     getActiveCourseList(teacherid = "") {
+      console.log("get active list");
       // this.course.activeCourseList = [];
-      ApiGetActiveCourseList.get(this.permit, this.userid, teacherid).then(
+      let searchTid = "";
+      if (teacherid !== "*") {
+        searchTid = teacherid;
+      }
+      ApiGetActiveCourseList.get(this.permit, this.userid, searchTid).then(
         (response) => {
           this.course.activeCourseList = response.record;
           this.course.activeCourseList.forEach((item) => {
@@ -205,7 +270,7 @@ export default {
         this.iconStatus = courseName;
       }
     },
-    changePage(course, type, id) {
+    changePage(course, type, id, expired = "") {
       // this.courseType = type;
       // this.coursePage = course;
       this.$store.dispatch("common/setLoading", true);
@@ -219,35 +284,35 @@ export default {
         case "Library":
           this.$router
             .push({
-              path: `/course_material/course=${course}/type=${type}/${id}`,
+              path: `/course_material/course=${course}/type=${type}/${id}/${expired}`,
             })
             .catch((err) => err);
           break;
         case "Assignments":
           this.$router
             .push({
-              path: `/course_assignment/course=${course}/type=${type}/${id}`,
+              path: `/course_assignment/course=${course}/type=${type}/${id}/${expired}`,
             })
             .catch((err) => err);
           break;
         case "Student Roster":
           this.$router
             .push({
-              path: `/course_student/course=${course}/type=${type}/${id}`,
+              path: `/course_student/course=${course}/type=${type}/${id}/${expired}`,
             })
             .catch((err) => err);
           break;
         case "Dashboard":
           this.$router
             .push({
-              path: `/course_dashboard/course=${course}/type=${type}/${id}`,
+              path: `/course_dashboard/course=${course}/type=${type}/${id}/${expired}`,
             })
             .catch((err) => err);
           break;
         case "Echo Valley":
           this.$router
             .push({
-              path: `/course_weekly_quiz/course=${course}/type=${type}/${id}`,
+              path: `/course_weekly_quiz/course=${course}/type=${type}/${id}/${expired}`,
             })
             .catch((err) => err);
           break;

@@ -283,14 +283,14 @@
                               @click="sortExpiredTable('course_name')"
                               class="pointer"
                             >
-                              {{ $t("course-name")
-                              }}<i
+                              {{ $t("classes") }}
+                              <i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                               ></i>
                             </th>
-                            <th>{{ $t("teacher") }}</th>
-                            <th>{{ $t("active-student-limit") }}</th>
-                            <th>{{ $t("package") }}</th>
+                            <th>{{ $t("teachers") }}</th>
+                            <th>{{ $t("available-seats") }}</th>
+                            <th>{{ $t("library") }}</th>
                             <th>{{ $t("expiry-date") }}</th>
                           </tr>
                         </thead>
@@ -304,7 +304,7 @@
                                 @click="
                                   gotoCourseMaterial(
                                     expiredCourse.course_name,
-                                    course.courseid,
+                                    expiredCourse.courseid,
                                     'expired'
                                   )
                                 "
@@ -326,71 +326,6 @@
                           </tr>
                         </tbody>
                       </table>
-                      <!-- <div class="col-12">
-                        <div
-                          class="dataTables_paginate paging_simple_numbers"
-                          id="recent-transaction-table_paginate"
-                        >
-                          <ul class="pagination d-flex justify-content-end">
-                            <li
-                              class="paginate_button page-item previous disabled"
-                              id="recent-transaction-table_previous"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="0"
-                                tabindex="0"
-                                class="page-link"
-                                >Prev</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item active">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="1"
-                                tabindex="0"
-                                class="page-link"
-                                >1</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="2"
-                                tabindex="0"
-                                class="page-link"
-                                >2</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item">
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="3"
-                                tabindex="0"
-                                class="page-link"
-                                >3</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item next"
-                              id="recent-transaction-table_next"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="recent-transaction-table"
-                                data-dt-idx="4"
-                                tabindex="0"
-                                class="page-link"
-                                >Next</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-                      </div> -->
                     </div>
                     <!-- expired的table -->
                   </div>
@@ -682,7 +617,7 @@ export default {
     saveLog(id) {
       ApiSaveLOG.get(id)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
         })
         .catch((err) => {});
     },
@@ -855,17 +790,18 @@ export default {
         this.tempTeacherList.splice(index, 1);
       }
     },
-    gotoCourseMaterial(coursename, courseid,status) {
-      if(status!=='expired'){
-      this.$router.push({
-        path: `/course_material/course=${coursename}/type=Library/${courseid}`,
-      });
-      }else{
-              this.$router.push({
-        path: `/course_material/course=${coursename}/type=Library/${courseid}/expired`,
-      });
+    gotoCourseMaterial(coursename, courseid, status) {
+      if (status !== "expired") {
+        this.$router.push({
+          path: `/course_material/course=${coursename}/type=Library/${courseid}`,
+        });
+      } else {
+        console.log(status + " course");
+        console.log(courseid);
+        this.$router.push({
+          path: `/course_material/course=${coursename}/type=Library/${courseid}/expired`,
+        });
       }
-
     },
     gotoCourseAssignment(coursename, courseid) {
       this.$router.push({

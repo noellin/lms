@@ -158,15 +158,15 @@ const router = new Router({
       },
 
       // expired
-      // {
-      //   path: "/course_material/course=:course/type=:type/:courseid",
-      //   name: "Library",
-      //   component: resolve => require(['@/views/CourseMaterial'], resolve),
-      //   meta: {
-      //     header: "course",
-      //     backtag: false,
-      //   },
-      // },
+      {
+        path: "/course_material/course=:course/type=:type/:courseid/:expired",
+        name: "Library",
+        component: resolve => require(['@/views/CourseMaterial'], resolve),
+        meta: {
+          header: "course",
+          backtag: false,
+        },
+      },
       {
         path: "/course_assignment/course=:course/type=:type/:courseid/:expired",
         name: "Assignments",

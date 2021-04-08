@@ -159,7 +159,10 @@
                 @getMList="getMList"
               ></search-group>
 
-              <div class="text-right col-sm-4 px-0">
+              <div
+                class="text-right col-sm-4 px-0"
+                v-if="$route.params.expired !== 'expired'"
+              >
                 <button
                   type="button"
                   class="btn btn-primary btn-rounded btn-outline mr-2"
@@ -271,7 +274,10 @@
                               </span>
                             </p>
                           </div>
-                          <div class="text-primary">
+                          <div
+                            class="text-primary"
+                            v-if="$route.params.expired !== 'expired'"
+                          >
                             {{ $t("start")
                             }}<a
                               @click="gotoWebsite(textbook)"
@@ -284,6 +290,7 @@
                         </div>
                         <div
                           class="border-top pt-3 d-flex justify-content-between"
+                          v-if="$route.params.expired !== 'expired'"
                         >
                           <div>
                             <button
