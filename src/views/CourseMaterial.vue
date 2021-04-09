@@ -1464,19 +1464,7 @@ export default {
     openAgt() {
       return this.$store.state.courseInfo.openAgt;
     },
-    // sortMList() {
-    //   //dashboard filter
-    //   //utils mixins
-    //   if (this.mfilter === "openm") {
-    //     return this.$_sortMaterial(this.openedMList, this.selectSortType);
-    //   } else if (this.mfilter === "openb") {
-    //     return this.$_sortMaterial(this.openedBookList, this.selectSortType);
-    //   } else if (this.mfilter === "openv") {
-    //     return this.$_sortMaterial(this.openedVideoList, this.selectSortType);
-    //   } else {
-    //     return this.$_sortMaterial(this.textbookList, this.selectSortType);
-    //   }
-    // },
+
     sortTypeList() {
       return this.$store.state.common.sortTypeList;
     },

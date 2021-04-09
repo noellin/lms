@@ -84,7 +84,7 @@
                     </div>
                   </ValidationProvider>
                   <div class="checkbox m-t-20">
-                    <div
+                    <!-- <div
                       class="custom-control custom-checkbox checkbox-primary"
                     >
                       <input
@@ -100,7 +100,7 @@
                       >
                         {{ $t("remember-me") }}</label
                       >
-                    </div>
+                    </div> -->
                     <a
                       class="float-right blue pointer"
                       @click="loginShow = 'forgetPassword'"
@@ -493,6 +493,15 @@ export default {
       isLogin: false,
       userid: "",
     });
+  },
+  watch: {
+    // remember(){
+    //   if(this.remember){
+    //     localstorage.setitem('lmsAccount',this.loginForm.email)
+    //   }else{
+    //     localStorage.removeItem('lmsAccount')
+    //   }
+    // }
   },
   mounted() {
     let vm = this;

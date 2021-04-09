@@ -143,7 +143,7 @@
                               ></i
                               >{{ a.publish_date | dateConversion }}
                             </td>
-                            <td :class="expired(a.expiry_date)">
+                            <td :class="calexpired(a.expiry_date)">
                               {{ a.expiry_date | dateConversion }}
                             </td>
                             <!-- <td>All students</td> -->
@@ -424,6 +424,7 @@ export default {
       sortStatus: false,
       tempSortItem: "",
       modifyName: "",
+      expired: this.$route.params.expired,
     };
   },
   created() {
@@ -471,7 +472,7 @@ export default {
 
       // publish_date
     },
-    expired(date) {
+    calexpired(date) {
       let today = new Date();
       today.setHours(0, 0, 0, 0);
       let yestoday = dayjs(today).subtract(1, "day");

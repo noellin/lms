@@ -81,7 +81,10 @@
                   </div>
                 </div>
               </div>
-              <div class="text-right">
+              <div
+                class="text-right"
+                v-if="$route.params.expired !== 'expired'"
+              >
                 <!-- <button
                   type="button"
                   class="btn btn-primary btn-outline btn-rounded mr-2"
@@ -124,7 +127,7 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th>
+                            <th v-if="$route.params.expired !== 'expired'">
                               <div
                                 class="custom-control custom-checkbox form-check"
                               >
@@ -145,13 +148,17 @@
                             <th>{{ $t("parent-account") }}</th>
                             <th>{{ $t("remarks") }}</th>
                             <th>{{ $t("status") }}</th>
-                            <th>{{ $t("edit") }}</th>
-                            <th>{{ $t("reset-password") }}</th>
+                            <th v-if="$route.params.expired !== 'expired'">
+                              {{ $t("edit") }}
+                            </th>
+                            <th v-if="$route.params.expired !== 'expired'">
+                              {{ $t("reset-password") }}
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr v-for="s in studentList" :key="s.stuid">
-                            <td>
+                            <td v-if="$route.params.expired !== 'expired'">
                               <div
                                 class="custom-control custom-checkbox form-check"
                               >
@@ -181,7 +188,7 @@
                                 $t("non-active")
                               }}</span>
                             </td>
-                            <td>
+                            <td v-if="$route.params.expired !== 'expired'">
                               <button
                                 type=""
                                 class="btn btn-nostyle"
@@ -192,7 +199,7 @@
                                 <i class="la la-edit"></i>
                               </button>
                             </td>
-                            <td>
+                            <td v-if="$route.params.expired !== 'expired'">
                               <button
                                 type=""
                                 class="btn btn-primary btn-sm btn-rounded"

@@ -96,6 +96,7 @@
                           <!-- <i class="zmdi zmdi-calendar-alt"></i> -->
                         </div>
                         <div
+                        v-if="$route.params.expired !== 'expired'"
                           class="col-sm-12 d-flex justify-content-start px-0 mt-4"
                         >
                           <button

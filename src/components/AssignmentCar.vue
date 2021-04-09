@@ -142,7 +142,7 @@ export default {
 .cart-sm {
   position: fixed;
   right: 48px;
-  bottom: 60px;
+  bottom: 120px;
   z-index: 999;
 }
 .scroll {

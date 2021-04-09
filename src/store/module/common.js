@@ -17,9 +17,15 @@ const common = {
     mutations: {
         SET_LOADING(state, data) {
             state.isLoading = data
-        }
+        },
+        SET_SORTTYPELIST(state, data){
+            state.sortTypeList = data
+        },
     },
     actions: {
+        setSortTypeList(context, data){
+            context.commit('SET_SORTTYPELIST', data)
+        },
         setLoading(context, data) {
             context.commit('SET_LOADING', data)
         },

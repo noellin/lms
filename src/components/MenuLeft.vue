@@ -146,11 +146,6 @@ export default {
       this.getExpiredCourseList();
       // this.getActiveCourseList(this.userid);
     }
-    // else if (this.permit !== "admin" && this.expired !== undefined) {
-    //   this.getExpiredCourseList();
-    // } else {
-    //   this.getExpiredCourseList("*");
-    // }
     this.$store.dispatch(
       "courseInfo/getCouseInfo",
       this.$route.params.courseid

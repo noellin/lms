@@ -548,7 +548,7 @@ export default {
     },
     sortMList() {
       //utils mixins
-      return this.$_sortMaterial(this.resourceFilter, this.selectSortType);
+      return this.$_sortMaterial(this.resourceFilter, this.selectSortType, []);
       // let temp = [...this.textbookList];
       // if (this.selectSortType === "title_asc") {
       //   temp = _.sortBy(temp, [(obj) => obj.resource_name], ["asc"]);

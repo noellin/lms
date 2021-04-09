@@ -185,6 +185,7 @@ export default {
       selectLevelList: [],
       levelLists: [],
       haveLevel: false,
+      courseInfo: {},
     };
   },
   props: ["mfilter", "page"],
@@ -251,6 +252,7 @@ export default {
         })
         .catch((err) => {});
       if (result) {
+        console.log("get course");
         this.$emit("getMList", this.sortMList);
       }
     },
@@ -279,8 +281,11 @@ export default {
       )
         .then((response) => {
           if (vm.selectSortType === "") {
+            console.log("default");
+            console.log(response.moreInfo.cntLevel);
             if (response.moreInfo.cntLevel !== 0) {
               vm.haveLevel = true;
+              console.log("change default level_asc");
               vm.selectSortType = "level_asc";
             } else {
               vm.haveLevel = false;
@@ -303,6 +308,7 @@ export default {
               }
             });
           });
+          console.log(response.record);
           this.textbookList = response.record;
           // console.log("sortmlist = ", this.sortMList);
           if (response.status === "success") {
@@ -335,8 +341,12 @@ export default {
     } else {
       this.searchCollectionResource();
     }
+    this.courseInfo = this.courseInfos;
   },
   computed: {
+    courseInfos() {
+      return this.$store.state.courseInfo.courseInfo;
+    },
     userid() {
       return this.$store.state.auth.userid;
     },
@@ -408,6 +418,30 @@ export default {
     },
   },
   watch: {
+    courseInfo() {
+      if (this.$route.name !== "CollectionDetail") {
+        if (this.courseInfo.cntLevel === 0) {
+          let slist = [
+            { text: "Sort by title A to Z", id: "title_asc" },
+            { text: "Sort by title Z to A", id: "title_desc" },
+            { text: "Sort by unit Smallest to Largest", id: "unit_asc" },
+            { text: "Sort by unit Largest to Smallest", id: "unit_desc" },
+          ];
+          this.$store.dispatch("common/setSortTypeList", slist);
+        } else if (this.courseInfo.cntUnit === 0) {
+          let slist = [
+            { text: "Sort by title A to Z", id: "title_asc" },
+            { text: "Sort by title Z to A", id: "title_desc" },
+            { text: "Sort by level A to Z", id: "level_asc" },
+            { text: "Sort by level Z to A", id: "level_desc" },
+          ];
+          this.$store.dispatch("common/setSortTypeList", slist);
+        }
+      }
+    },
+    courseInfos() {
+      this.courseInfo = this.courseInfos;
+    },
     selectLevelList() {
       if (this.page !== "collection") {
         this.searchCourseResource();

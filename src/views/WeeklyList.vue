@@ -10,7 +10,10 @@
           <course-header></course-header>
           <section class="page-content container-fluid">
             <div class="d-flex pb-3 col-sm-12 justify-content-between px-0">
-              <div class="text-right">
+              <div
+                class="text-right"
+                v-if="$route.params.expired !== 'expired'"
+              >
                 <button
                   v-if="wqStatus === 'true'"
                   class="btn btn-danger btn-rounded"
@@ -26,7 +29,10 @@
                   {{ $t("enable-auto-assigned-oral-quizzes") }}
                 </button>
               </div>
-              <div class="text-right">
+              <div
+                class="text-right"
+                v-if="$route.params.expired !== 'expired'"
+              >
                 <button
                   class="btn btn-primary btn-outline btn-rounded mr-2"
                   @click="gotoGreateWQuiz()"
@@ -58,7 +64,7 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th>
+                            <th v-if="$route.params.expired !== 'expired'">
                               <div
                                 class="custom-control custom-checkbox form-check"
                               >
@@ -113,7 +119,7 @@
                         </thead>
                         <tbody>
                           <tr v-for="wq in wqList" :key="wq.echovalleyid">
-                            <td>
+                            <td v-if="$route.params.expired !== 'expired'">
                               <div
                                 class="custom-control custom-checkbox form-check"
                                 v-if="!wq.canDelete"
@@ -131,12 +137,14 @@
                                 ></label>
                               </div>
                             </td>
-                            <td >
-                          <span v-if="wq.description!==wq.start_date">{{ wq.description }}</span>
-                          <span v-else>System auto-assigned</span>
+                            <td>
+                              <span v-if="wq.description !== wq.start_date">{{
+                                wq.description
+                              }}</span>
+                              <span v-else>System auto-assigned</span>
                             </td>
                             <td>{{ wq.start_date | dateConversion }}</td>
-                            <td :class="expired(wq.expiry_date)">
+                            <td :class="calexpired(wq.expiry_date)">
                               {{ wq.expiry_date | dateConversion }}
                             </td>
                             <td>
@@ -168,7 +176,9 @@
                               <button
                                 type=""
                                 class="btn btn-primary btn-sm btn-rounded"
-                                @click="gotoWQProgress(wq.echovalleyid)"
+                                @click="
+                                  gotoWQProgress(wq.echovalleyid, expired)
+                                "
                               >
                                 {{ $t("view") }}
                               </button>
@@ -391,6 +401,7 @@ export default {
       sortStatus: false,
       tempSortItem: "",
       tempSentence: "",
+      expired: this.$route.params.expired,
     };
   },
   mounted() {
@@ -417,7 +428,7 @@ export default {
 
       // publish_date
     },
-    expired(date) {
+    calexpired(date) {
       let today = new Date();
       today.setHours(0, 0, 0, 0);
       let yestoday = dayjs(today).subtract(1, "day");
@@ -523,9 +534,9 @@ export default {
         path: `/course_weekly_quiz/create/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}`,
       });
     },
-    gotoWQProgress(echoid) {
+    gotoWQProgress(echoid, expired = "") {
       this.$router.push({
-        path: `/course_weekly_quiz/progress/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}/${echoid}`,
+        path: `/course_weekly_quiz/progress/course=${this.$route.params.course}/type=${this.$route.params.type}/${this.$route.params.courseid}/${echoid}/${expired}`,
       });
     },
   },

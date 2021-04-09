@@ -21,6 +21,7 @@ export const ApiSearchCollection = {
 };
 export const ApiSearchCollectionResource = {
     get: (userid, cid, keyword, type) => {
+        console.log(`/collection/searchresource/${userid}/${cid}/${keyword}/${type}`);
         return get(`/collection/searchresource/${userid}/${cid}/${keyword}/${type}`);
     },
 };

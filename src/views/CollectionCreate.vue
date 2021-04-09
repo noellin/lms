@@ -579,7 +579,7 @@ export default {
     },
     sortMList() {
       //utils mixins
-      return this.$_sortMaterial(this.resourceFilter, this.selectSortType);
+      return this.$_sortMaterial(this.resourceFilter, this.selectSortType, []);
 
       //       if (this.mfilter === "openm") {
       //   return this.$_sortMaterial(this.openedMList, this.selectSortType);

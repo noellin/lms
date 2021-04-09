@@ -19,15 +19,15 @@ Vue.mixin({
           let ma = [...materialArray]
             let temp = [];
             // console.log(filterLevelList);
-          // if(filterLevelList.length!==0){
-          //   filterLevelList.forEach(singleLevel => {
-          //     temp = temp.concat(_.filter(ma,function(o) {return o.level.includes(singleLevel)}))
-          //   });
-          // }
-          // else{
-          //   temp = [...materialArray];
-          // }
-          temp = [...materialArray];
+          if(filterLevelList.length!==0){
+            filterLevelList.forEach(singleLevel => {
+              temp = temp.concat(_.filter(ma,function(o) {return o.level.includes(singleLevel)}))
+            });
+          }
+          else{
+            temp = [...materialArray];
+          }
+          // temp = [...materialArray];
         //  let temp =  _.filter(ma,function(o) {return o.level.includes(filterLevelList)})
             // let temp = [...materialArray];
             // let levelList= []

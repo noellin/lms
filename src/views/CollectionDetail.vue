@@ -28,40 +28,7 @@
               @getMColList="getMColList"
               :page="'collection'"
             ></search-group>
-            <!-- 20210310 -->
-            <!-- <div class="pb-3">
-              <div class="form-row">
-                <div class="form-group form-rounded form-custom mb-0 mr-3">
-                  <select2
-                    id="s2_demo1"
-                    class=""
-                    :options="typeList"
-                    v-model="selectType"
-                  >
-                  </select2>
-                </div>
-                <div class="form-group form-rounded mb-0">
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Search..."
-                      v-model="searchRname"
-                      @keyup.enter="searchCollectionResource()"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="btn btn-secondary btn-outline btn-icon btn-rounded"
-                        type="button"
-                        @click="searchCollectionResource()"
-                      >
-                        <i class="zmdi zmdi-search text-secondary"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
+
             <div class="text-right">
               <a
                 @click="gotoCollectionEdit()"
@@ -73,8 +40,8 @@
           <div class="row">
             <div
               class="col-12"
-              v-for="(cr,index) in cResourceList"
-              :key="cr.resourceid+index"
+              v-for="(cr, index) in cResourceList"
+              :key="cr.resourceid + index"
             >
               <div class="card">
                 <div class="card-body">
@@ -189,7 +156,7 @@
             </button>
           </div>
           <div class="modal-body pb-4" v-if="lastPlayList.length !== 0">
-            <div v-for="lp in lastPlayList" :key="lp.courseid+'lastplay'">
+            <div v-for="lp in lastPlayList" :key="lp.courseid + 'lastplay'">
               <span
                 >{{ lp.course_name }} ：
                 {{ lp.last_access | dateConversion }}</span

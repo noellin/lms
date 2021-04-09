@@ -121,7 +121,10 @@
                 </div>
               </div>
 
-              <div class="text-right">
+              <div
+                class="text-right"
+                v-if="$route.params.expired !== 'expired'"
+              >
                 <button
                   type="button"
                   class="btn btn-primary btn-rounded btn-outline mr-2"
@@ -148,7 +151,7 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th>
+                            <th v-if="$route.params.expired !== 'expired'">
                               <div
                                 class="custom-control custom-checkbox form-check"
                               >
@@ -173,7 +176,7 @@
                         </thead>
                         <tbody>
                           <tr v-for="ap in aProgressList" :key="ap.stuid">
-                            <td>
+                            <td v-if="$route.params.expired !== 'expired'">
                               <div
                                 class="custom-control custom-checkbox form-check"
                               >
@@ -191,7 +194,9 @@
                               </div>
                             </td>
                             <td>
+                              
                               <button
+                              v-if="$route.params.expired !== 'expired'"
                                 class="btn btn-nostyle text-primary"
                                 data-toggle="modal"
                                 data-target="#CheckedModal"
@@ -208,6 +213,7 @@
                                 <!-- getSpeakScore(ap.stuid); -->
                                 {{ ap.username }}
                               </button>
+                              <span v-else>{{ ap.username }}</span>
                             </td>
                             <td>{{ ap.completed }}/{{ ap.totalq }}</td>
                             <td>
