@@ -64,7 +64,7 @@
                 <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      {{ $t("assignment") }}
+                      {{$t('assignments')}}
                       <!-- Assignment completion rate<span class="text-light"
                         >Comulative</span
                       > -->
@@ -87,7 +87,7 @@
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      {{ $t("assignment-completion-rate") }}
+                      {{$t('assignments-completion-rate')}}
                       <!-- <span class="text-light"
                         >30-day comparison</span
                       > -->

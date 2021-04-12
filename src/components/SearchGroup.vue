@@ -186,6 +186,7 @@ export default {
       levelLists: [],
       haveLevel: false,
       courseInfo: {},
+      collectionInfo: {},
     };
   },
   props: ["mfilter", "page"],
@@ -310,6 +311,24 @@ export default {
           });
           console.log(response.record);
           this.textbookList = response.record;
+          // this.collectionInfo = response.moreInfo;
+          if (response.moreInfo.cntLevel === 0) {
+            let slist = [
+              { text: "Sort by title A to Z", id: "title_asc" },
+              { text: "Sort by title Z to A", id: "title_desc" },
+              { text: "Sort by unit Smallest to Largest", id: "unit_asc" },
+              { text: "Sort by unit Largest to Smallest", id: "unit_desc" },
+            ];
+            vm.$store.dispatch("common/setSortTypeList", slist);
+          } else if (response.moreInfo.cntUnit === 0) {
+            let slist = [
+              { text: "Sort by title A to Z", id: "title_asc" },
+              { text: "Sort by title Z to A", id: "title_desc" },
+              { text: "Sort by level A to Z", id: "level_asc" },
+              { text: "Sort by level Z to A", id: "level_desc" },
+            ];
+            vm.$store.dispatch("common/setSortTypeList", slist);
+          }
           // console.log("sortmlist = ", this.sortMList);
           if (response.status === "success") {
             return true;

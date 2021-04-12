@@ -2,7 +2,7 @@ import {
     get,
     post,
     put,
-    remove
+    remove,
 } from "../https.js";
 
 
@@ -42,6 +42,12 @@ export const ApiSetAssignment = {
 
 export const ApiGetOpenResource = {
     get: (colid, courseid, rid, status) => {
+        console.log(`/course/openresource/${colid}/${courseid}/${rid}/${status}`);
         return get(`/course/openresource/${colid}/${courseid}/${rid}/${status}`)
+    },
+    getAll: (setR) => {
+        return Promise.all(setR.map(setRObj => {
+          return get(`/course/openresource/${setRObj.colid}/${setRObj.courseid}/${setRObj.rid}/${setRObj.status}`)    
+        }))
     }
 };

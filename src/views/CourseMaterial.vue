@@ -932,7 +932,7 @@
                     type="text"
                     id="agtname"
                     class="form-control form-control-lg"
-                    placeholder="Asignment name"
+                    placeholder="Assignment name"
                     v-model="newAgtName"
                   />
                 </div>
@@ -1323,6 +1323,7 @@ import _ from "lodash";
 //   dropdownParent: $("#s2_student"),
 // });
 import SearchGroup from "../components/SearchGroup";
+import { createLogger } from "vuex";
 export default {
   name: "CourseMaterial",
   components: {
@@ -1393,6 +1394,7 @@ export default {
         { exp: "250", ticket: "2" },
         { exp: "300", ticket: "3" },
       ],
+      setResourceArray: [],
     };
   },
   created() {
@@ -1871,9 +1873,52 @@ export default {
     },
     async materialOpenSetting() {
       let promises = [];
-      this.openedTextbookList.forEach((item, index) => {
-        //如果新增OPEN
-        //if NEW NOT INCLUEDS OLD
+      let vm = this;
+      // vm.setResourceArray = [];
+      // //             如果新增OPEN
+      // // if NEW NOT INCLUEDS OLD
+      // for (let i = 0; i < this.openedTextbookList.length; i++) {
+      //   if (
+      //     await !vm.openedTextbookLists.includes(this.openedTextbookList[i])
+      //   ) {
+      //     this.getOpenResource(
+      //       this.openedTextbookList[i].split(";")[0],
+      //       this.openedTextbookList[i].split("_")[1],
+      //       "true"
+      //     );
+
+      //     console.log("push open");
+      //   }
+      // }
+      // for (let i = 0; i < this.openedTextbookLists.length; i++) {
+      //   if (await !vm.openedTextbookList.includes(openedTextbookLists[i])) {
+      //     this.getOpenResource(
+      //       openedTextbookLists[i].split(";")[0],
+      //       openedTextbookLists[i].split("_")[1],
+      //       "false"
+      //     );
+      //     console.log("push Close");
+      //   }
+      // }
+      // let result = await ApiGetOpenResource.getAll(vm.setResourceArray)
+      //   .then((response) => {
+      //     console.log(response);
+      //     // if (response.status === "success") {
+      //     //   console.log("update Datail");
+      //     //   vm.$store.dispatch(
+      //     //     "courseInfo/updateTextbookList",
+      //     //     vm.$route.params.courseid
+      //     //   );
+      //     // }
+      //   })
+      //   .catch((err) => {});
+      // await vm.$store.dispatch(
+      //   "courseInfo/updateTextbookList",
+      //   vm.$route.params.courseid
+      // );
+      //       如果新增OPEN
+      // if NEW NOT INCLUEDS OLD
+      await this.openedTextbookList.forEach((item, index) => {
         if (!this.openedTextbookLists.includes(item)) {
           promises.push(
             this.getOpenResource(item.split(";")[0], item.split("_")[1], "true")
@@ -1882,7 +1927,7 @@ export default {
       });
       // 如果新增CLOSE
       // if OLD NOT INCLUEDS NEW
-      this.openedTextbookLists.forEach((item, index) => {
+      await this.openedTextbookLists.forEach((item, index) => {
         if (!this.openedTextbookList.includes(item)) {
           promises.push(
             this.getOpenResource(
@@ -1893,8 +1938,12 @@ export default {
           );
         }
       });
-
-      this.axios
+      console.log("all ready");
+      await this.$store.dispatch(
+        "courseInfo/updateTextbookList",
+        this.$route.params.courseid
+      );
+      await this.axios
         .all(promises)
         .then(
           await this.axios.spread((func1) => {
@@ -1905,8 +1954,12 @@ export default {
           })
         )
         .catch((err) => {});
+
+      // 陣列拆兩半處理 以免太大
     },
     async getOpenResource(colid, rid, status) {
+      // console.log("push = ", colid, rid, status);
+      // this.setResourceArray.push({ colid, rid, status });
       let result = await ApiGetOpenResource.get(
         colid,
         this.$route.params.courseid,

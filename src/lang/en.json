@@ -306,5 +306,8 @@
   "existing-in-my-library": "Existing in my library",
   "create-new-my-library": "Create new my library",
   "create-new-library": "Create new library",
-  "description": "Description"
+  "description": "Description",
+  "create-a-new-quiz": "Create a new quiz",
+  "no-quiz-found-please-create-a-quiz": "No quiz found! Please create a quiz",
+  "expired-classes": "Expired classes"
 }

@@ -5,7 +5,10 @@
       <!-- class="metismenu" -->
 
       <ul class="nav metismenu content-maxheight">
-        <li class="sidebar-header">
+        <li class="sidebar-header" v-if="expired === 'expired'">
+          <span>{{ $t("expired-classes") }}</span>
+        </li>
+        <li class="sidebar-header" v-else>
           <span>{{ $t("active") }}</span>
         </li>
         <li
@@ -39,10 +42,18 @@
                 : 'collapsed'
             "
             ><i class="ig-notice" v-if="courseID === course.courseid"></i>
-            <span>
+            <span class="course-title">
               {{ course.course_name }}
-            </span></a
-          >
+            </span>
+            <i
+              class="fas fa-exclamation-triangle text-danger"
+              v-if="expired === 'expired'"
+              type="button"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="This class has expired"
+            ></i>
+          </a>
           <ul
             class="nav-sub collapse"
             :id="'course' + course.courseid"
@@ -329,5 +340,9 @@ export default {
   width: 100%;
 
   min-height: 100%;
+}
+
+.course-title {
+  font-size: 14px;
 }
 </style>

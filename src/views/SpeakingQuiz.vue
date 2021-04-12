@@ -17,8 +17,8 @@
                   v-if="quizShow === 'home'"
                   @click="gotoQuitCreate()"
                   ><i class="zmdi zmdi-plus zmdi-hc-fw"></i
-                  >{{ $t("create-new-quiz") }}</a
-                >
+                  >{{ $t("create-a-new-quiz") }}
+                </a>
               </div>
             </div>
             <!-- preview quiz end-->
@@ -91,9 +91,7 @@
                           <tr v-if="quizList.length === 0">
                             <td colspan="5" class="text-center">
                               <h5>
-                                {{
-                                  $t("no-quiz-found-please-create-quiz-first")
-                                }}
+                                {{ $t("no-quiz-found-please-create-a-quiz") }}
                               </h5>
                             </td>
                           </tr>
