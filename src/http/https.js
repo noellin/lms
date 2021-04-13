@@ -1,7 +1,9 @@
 import axios from "axios";
 import store from "../store";
 import router from "../router";
-axios.defaults.timeout = 5000;
+import 'core-js/proposals/promise-all-settled'
+// call api 超時時間  同時CALL大量容易出錯
+axios.defaults.timeout = 20000;
 axios.defaults.baseURL = process.env.VUE_APP_DOMAIN; // 域名
 // axios.defaults.headers.common['Content-Type'] = '~'
 axios.defaults.headers.post["Content-Type"] =
@@ -93,6 +95,7 @@ axios.interceptors.response.use(
       //         path: "/login",
       //     });
       // }, 3000);
+      console.log(err);
       console.log("連接到服務器失敗");
     }
     return Promise.resolve(err.response);
@@ -208,6 +211,28 @@ export function getAll(url, data = {},array) {
     }).catch((err) => {
       return err
     });
+  }));
+}
+export function getPromiseAll(urlArray) {
+  return Promise.all(urlArray.map(url => {
+    return new Promise((resolve, reject) => {
+
+      axios
+        .get(url)
+        .then((response) => {
+
+          resolve(response.data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+    // axios.get(url).then((result) => {
+    //   console.log(result);
+    //   return result
+    // }).catch((err) => {
+    //   return err
+    // });
   }));
 }
 

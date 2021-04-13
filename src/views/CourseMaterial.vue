@@ -1872,115 +1872,126 @@ export default {
       }
     },
     async materialOpenSetting() {
+      this.$store.dispatch("common/setLoading", true);
       let promises = [];
       let vm = this;
-      // vm.setResourceArray = [];
+      vm.setResourceArray = [];
       // //             如果新增OPEN
       // // if NEW NOT INCLUEDS OLD
-      // for (let i = 0; i < this.openedTextbookList.length; i++) {
-      //   if (
-      //     await !vm.openedTextbookLists.includes(this.openedTextbookList[i])
-      //   ) {
-      //     this.getOpenResource(
-      //       this.openedTextbookList[i].split(";")[0],
-      //       this.openedTextbookList[i].split("_")[1],
-      //       "true"
-      //     );
-
-      //     console.log("push open");
-      //   }
-      // }
-      // for (let i = 0; i < this.openedTextbookLists.length; i++) {
-      //   if (await !vm.openedTextbookList.includes(openedTextbookLists[i])) {
-      //     this.getOpenResource(
-      //       openedTextbookLists[i].split(";")[0],
-      //       openedTextbookLists[i].split("_")[1],
-      //       "false"
-      //     );
-      //     console.log("push Close");
-      //   }
-      // }
-      // let result = await ApiGetOpenResource.getAll(vm.setResourceArray)
-      //   .then((response) => {
-      //     console.log(response);
-      //     // if (response.status === "success") {
-      //     //   console.log("update Datail");
-      //     //   vm.$store.dispatch(
-      //     //     "courseInfo/updateTextbookList",
-      //     //     vm.$route.params.courseid
-      //     //   );
-      //     // }
-      //   })
-      //   .catch((err) => {});
-      // await vm.$store.dispatch(
-      //   "courseInfo/updateTextbookList",
-      //   vm.$route.params.courseid
-      // );
-      //       如果新增OPEN
-      // if NEW NOT INCLUEDS OLD
-      await this.openedTextbookList.forEach((item, index) => {
-        if (!this.openedTextbookLists.includes(item)) {
-          promises.push(
-            this.getOpenResource(item.split(";")[0], item.split("_")[1], "true")
+      for (let i = 0; i < this.openedTextbookList.length; i++) {
+        if (await !vm.openedTextbookLists.includes(vm.openedTextbookList[i])) {
+          this.getOpenResource(
+            vm.openedTextbookList[i].split(";")[0],
+            vm.openedTextbookList[i].split("_")[1],
+            "true"
           );
-        }
-      });
-      // 如果新增CLOSE
-      // if OLD NOT INCLUEDS NEW
-      await this.openedTextbookLists.forEach((item, index) => {
-        if (!this.openedTextbookList.includes(item)) {
-          promises.push(
-            this.getOpenResource(
-              item.split(";")[0],
-              item.split("_")[1],
-              "false"
-            )
-          );
-        }
-      });
-      console.log("all ready");
-      await this.$store.dispatch(
-        "courseInfo/updateTextbookList",
-        this.$route.params.courseid
-      );
-      await this.axios
-        .all(promises)
-        .then(
-          await this.axios.spread((func1) => {
-            this.$store.dispatch(
-              "courseInfo/updateTextbookList",
-              this.$route.params.courseid
-            );
-          })
-        )
-        .catch((err) => {});
 
-      // 陣列拆兩半處理 以免太大
-    },
-    async getOpenResource(colid, rid, status) {
-      // console.log("push = ", colid, rid, status);
-      // this.setResourceArray.push({ colid, rid, status });
-      let result = await ApiGetOpenResource.get(
-        colid,
-        this.$route.params.courseid,
-        rid,
-        status
-      )
+          console.log("push open");
+        }
+      }
+      for (let i = 0; i < this.openedTextbookLists.length; i++) {
+        if (await !vm.openedTextbookList.includes(vm.openedTextbookLists[i])) {
+          this.getOpenResource(
+            vm.openedTextbookLists[i].split(";")[0],
+            vm.openedTextbookLists[i].split("_")[1],
+            "false"
+          );
+          console.log("push Close");
+        }
+      }
+      let result = await ApiGetOpenResource.getAll(vm.setResourceArray)
         .then((response) => {
-          if (response.status === "success") {
-            return true;
-          }
+          console.log("get ApiGetOpenResource");
+          console.log(response);
+          return true;
+          // if (response.status === "success") {
+          //   console.log("update Datail");
+          //   vm.$store.dispatch(
+          //     "courseInfo/updateTextbookList",
+          //     vm.$route.params.courseid
+          //   );
+          // }
         })
         .catch((err) => {});
-
       if (result) {
         console.log("update info");
         this.$store.dispatch(
           "courseInfo/updateTextbookList",
           this.$route.params.courseid
         );
+        this.$store.dispatch("common/setLoading", false);
       }
-      return result;
+      // await vm.$store.dispatch(
+      //   "courseInfo/updateTextbookList",
+      //   vm.$route.params.courseid
+      // );
+      //       如果新增OPEN
+      // if NEW NOT INCLUEDS OLD
+      // await this.openedTextbookList.forEach((item, index) => {
+      //   if (!this.openedTextbookLists.includes(item)) {
+      //     promises.push(
+      //       this.getOpenResource(item.split(";")[0], item.split("_")[1], "true")
+      //     );
+      //   }
+      // });
+      // // 如果新增CLOSE
+      // // if OLD NOT INCLUEDS NEW
+      // await this.openedTextbookLists.forEach((item, index) => {
+      //   if (!this.openedTextbookList.includes(item)) {
+      //     promises.push(
+      //       this.getOpenResource(
+      //         item.split(";")[0],
+      //         item.split("_")[1],
+      //         "false"
+      //       )
+      //     );
+      //   }
+      // });
+      // console.log("all ready");
+      // await this.$store.dispatch(
+      //   "courseInfo/updateTextbookList",
+      //   this.$route.params.courseid
+      // );
+      // await this.axios
+      //   .all(promises)
+      //   .then(
+      //     await this.axios.spread((func1) => {
+      //       this.$store.dispatch(
+      //         "courseInfo/updateTextbookList",
+      //         this.$route.params.courseid
+      //       );
+      //     })
+      //   )
+      //   .catch((err) => {});
+
+      // 陣列拆兩半處理 以免太大
+    },
+    async getOpenResource(colid, rid, status) {
+      this.setResourceArray.push(
+        `/course/openresource/${colid}/${this.$route.params.courseid}/${rid}/${status}`
+      );
+      // { colid, rid, status });
+      // let result = await ApiGetOpenResource.get(
+      //   colid,
+      //   this.$route.params.courseid,
+      //   rid,
+      //   status
+      // )
+      //   .then((response) => {
+      //     if (response.status === "success") {
+      //       return true;
+      //     }
+      //   })
+      //   .catch((err) => {});
+
+      // if (result) {
+      //   console.log("update info");
+      //   this.$store.dispatch(
+      //     "courseInfo/updateTextbookList",
+      //     this.$route.params.courseid
+      //   );
+      // }
+      // return result;
     },
     gotoSpeakingQuiz(m, rname = "") {
       $("#addSpeakingquiz").modal("hide");

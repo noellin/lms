@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build & vue-cli-service build --mode japan --dest ./dist_jp & vue-cli-service build --mode demo --dest ./dist_demo & vue-cli-service build --mode app --dest ./dist_app",
+    "build": "vue-cli-service build & vue-cli-service build --mode japan --dest ./dist_jp  & vue-cli-service build --mode app --dest ./dist_app",
     "build-jp": "vue-cli-service build --mode japan --dest ./dist_jp",
     "build-demo": "vue-cli-service build --mode demo --dest ./dist_demo"
   },
@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
     "compression-webpack-plugin": "^5.0.1",
+    "core-js": "^3.10.1",
     "dayjs": "^1.8.35",
     "echarts": "^4.9.0",
     "loaders.css": "^0.1.2",

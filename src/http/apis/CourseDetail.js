@@ -3,6 +3,7 @@ import {
     post,
     put,
     remove,
+    getPromiseAll
 } from "../https.js";
 
 
@@ -45,9 +46,7 @@ export const ApiGetOpenResource = {
         console.log(`/course/openresource/${colid}/${courseid}/${rid}/${status}`);
         return get(`/course/openresource/${colid}/${courseid}/${rid}/${status}`)
     },
-    getAll: (setR) => {
-        return Promise.all(setR.map(setRObj => {
-          return get(`/course/openresource/${setRObj.colid}/${setRObj.courseid}/${setRObj.rid}/${setRObj.status}`)    
-        }))
+    getAll: (urlArray) => {
+        return getPromiseAll(urlArray)
     }
 };
