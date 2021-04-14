@@ -23,7 +23,7 @@
                   Teacher
                 </div>
                 <!-- <img
-                  v-lazy="require('../assets/img/upload/logo_dark.png')"
+                  :src="require('../assets/img/upload/logo_dark.png')"
                   alt="Logo"
                 /> -->
                 <!-- <span class="display-4">School Name</span> -->
@@ -117,7 +117,7 @@
               </ValidationObserver>
               <div class="d-flex justify-content-center">
                 <img
-                  v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                  :src="require('../assets/img/avatars/temp_logo.png')"
                   alt="Logo"
                 />
               </div>
@@ -150,7 +150,7 @@
                   Teacher
                 </div>
                 <!-- <img
-                  v-lazy="require('../assets/img/upload/logo_dark.png')"
+                  :src="require('../assets/img/upload/logo_dark.png')"
                   alt="Logo"
                 /> -->
                 <!-- <span class="display-4">School Name</span> -->
@@ -177,7 +177,7 @@
               </button>
               <div class="d-flex justify-content-center">
                 <img
-                  v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                  :src="require('../assets/img/avatars/temp_logo.png')"
                   alt="Logo"
                 />
               </div>
@@ -197,7 +197,7 @@
             <div class="card-body login-bg-s">
               <a class="brand text-center d-block m-b-20 m-t-20">
                 <!-- <img
-                  v-lazy="require('../assets/img/upload/logo_dark.png')"
+                  :src="require('../assets/img/upload/logo_dark.png')"
                   alt="Logo"
                 /> -->
                 <div
@@ -250,7 +250,7 @@
                 </button>
                 <div class="d-flex justify-content-center">
                   <img
-                    v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                    :src="require('../assets/img/avatars/temp_logo.png')"
                     alt="Logo"
                   />
                 </div>
@@ -283,7 +283,7 @@
                     Teacher
                   </div>
                   <!-- <img
-                    v-lazy="require('../assets/img/upload/logo_dark.png')"
+                    :src="require('../assets/img/upload/logo_dark.png')"
                     alt="Logo"
                   /> -->
                   <!-- <span class="display-4">School Name</span> -->
@@ -349,7 +349,7 @@
               </ValidationObserver>
               <div class="d-flex justify-content-center">
                 <img
-                  v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                  :src="require('../assets/img/avatars/temp_logo.png')"
                   alt="Logo"
                 />
               </div>
@@ -363,7 +363,7 @@
             <div class="card-body login-bg-s">
               <a class="brand text-center d-block m-b-20 m-t-20">
                 <!-- <img
-                  v-lazy="require('../assets/img/upload/logo_dark.png')"
+                  :src="require('../assets/img/upload/logo_dark.png')"
                   alt="Logo"
                 /> -->
                 <div
@@ -400,7 +400,7 @@
               </button>
               <div class="d-flex justify-content-center">
                 <img
-                  v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                  :src="require('../assets/img/avatars/temp_logo.png')"
                   alt="Logo"
                 />
               </div>

@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build & vue-cli-service build --mode japan --dest ./dist_jp  & vue-cli-service build --mode app --dest ./dist_app & vue-cli-service build --mode lms2 --dest ./dist_lms2",
     "build-jp": "vue-cli-service build --mode japan --dest ./dist_jp",
-    "build-demo": "vue-cli-service build --mode demo --dest ./dist_demo"
+    "build-dev": "vue-cli-service build --mode development --dest ./dist_dev"
   },
   "dependencies": {
     "axios": "^0.21.1",

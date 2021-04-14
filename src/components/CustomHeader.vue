@@ -40,7 +40,7 @@
                   style="background-col"
                 >
                   <img
-                    v-lazy="require('../assets/img/avatars/temp_logo.png')"
+                    :src="require('../assets/img/avatars/temp_logo.png')"
                     alt=""
                     style="max-height: 100px; max-width: 212px; width: 290px height:100px"
                   />

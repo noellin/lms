@@ -64,7 +64,7 @@
                 <div class="card bg-warning" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      {{$t('assignments')}}
+                      {{ $t("assignments") }}
                       <!-- Assignment completion rate<span class="text-light"
                         >Comulative</span
                       > -->
@@ -87,7 +87,7 @@
                 <div class="card bg-danger" style="height: 150px">
                   <div class="card-body d-flex align-content-between flex-wrap">
                     <h5 class="card-title text-white">
-                      {{$t('assignments-completion-rate')}}
+                      {{ $t("assignments-completion-rate") }}
                       <!-- <span class="text-light"
                         >30-day comparison</span
                       > -->
@@ -107,127 +107,11 @@
                 </div>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-9">
-                <div class="card">
-                  <h5 class="card-header">
-                    {{ $t("assignments-completion-rate") }}
-                  </h5>
-                  <div class="card-body" style="height: 597px">
-                    <p class="text-primary">{{ $t("last-6-records") }}</p>
-                    <h2 v-if="acRateChartData.rows.length === 0">
-                      {{ $t("no-relevant-records") }}
-                    </h2>
-                    <ve-histogram
-                      v-else
-                      height="540px"
-                      :data="acRateChartData"
-                      :settings="acRateSetting"
-                    ></ve-histogram>
-                    <!-- height="540px"
-                      width="800px" -->
-                  </div>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="card">
-                  <h5 class="card-header">{{ $t("missed-assignments") }}</h5>
-                  <div class="card-body" style="height: 597px">
-                    <p class="text-primary">{{ $t("last-30-days") }}</p>
-                    <div class="table-responsive">
-                      <h2 v-if="missA.length === 0">
-                        {{ $t("no-relevant-records") }}
-                      </h2>
-                      <table class="table table-striped" v-else>
-                        <thead>
-                          <tr>
-                            <th>{{ $t("student-name") }}</th>
-                            <th>{{ $t("missed") }}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="ma in missA" :key="ma.username">
-                            <td>{{ ma.username }}</td>
-                            <td>{{ ma.cnt_no_submit_homework }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-4">
-                <div class="card">
-                  <h5 class="card-header border-none">
-                    {{ $t("student-login") }}
-                  </h5>
-                  <div class="card-body pt-0" style="height: 500px">
-                    <p class="text-primary">{{ $t("last-30-days") }}</p>
-                    <h2 v-if="stdLoginchartData.rows.length === 0">
-                      {{ $t("no-relevant-records") }}
-                    </h2>
-                    <ve-line
-                      v-else
-                      :data="stdLoginchartData"
-                      :settings="chartSettings"
-                    ></ve-line>
-                    <!-- <h4 class="card-title text-success p-t-10">
-                      23<i class="zmdi zmdi-trending-up text-success ml-1"></i>
-                    </h4> -->
-                  </div>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="card">
-                  <h5 class="card-header border-none">
-                    {{ $t("parent-login") }}
-                  </h5>
-                  <div class="card-body pt-0" style="height: 500px">
-                    <p class="text-primary">{{ $t("last-30-days") }}</p>
-                    <h2 v-if="pLoginchartData.rows.length === 0">
-                      {{ $t("no-relevant-records") }}
-                    </h2>
-                    <ve-line
-                      v-else
-                      :data="pLoginchartData"
-                      :settings="chartSettings"
-                    ></ve-line>
-                    <!-- <h4 class="card-title text-success p-t-10">
-                      12<i class="zmdi zmdi-trending-up text-success ml-1"></i>
-                    </h4> -->
-                  </div>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="card">
-                  <h5 class="card-header border-none">
-                    {{ $t("watch-read-times") }}
-                  </h5>
-                  <div class="card-body pt-0" style="height: 500px">
-                    <p class="text-primary">{{ $t("last-30-days") }}</p>
-                    <h2 v-if="mwchartData.rows.length === 0">
-                      {{ $t("no-relevant-records") }}
-                    </h2>
-                    <ve-line
-                      v-else
-                      :data="mwchartData"
-                      :settings="chartSettings"
-                    ></ve-line>
-                    <!-- <h4 class="card-title text-danger p-t-10">
-                      20<i class="zmdi zmdi-trending-down text-danger ml-1"></i>
-                    </h4> -->
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="row">
               <div class="col-5">
                 <div class="card">
                   <h5 class="card-header">{{ $t("golden-zone") }}</h5>
-                  <div class="card-body">
+                  <div class="card-body dashboard-scroll dashboard-zone-scroll">
                     <!-- <p class="text-primary">
                       Reviewed more than 20 times in the past 7 days
                     </p> -->
@@ -261,7 +145,7 @@
                 </div>
                 <div class="card">
                   <h5 class="card-header">{{ $t("treasure-zone") }}</h5>
-                  <div class="card-body">
+                  <div class="card-body dashboard-scroll dashboard-zone-scroll">
                     <!-- <p class="text-primary">
                       Have not been reviewed in the past 21 to 40 days
                     </p> -->
@@ -335,10 +219,8 @@
               </div>
               <div class="col-7">
                 <div class="card">
-                  <div class="card-header">
-                    <span class="m-t-10 d-inline-block">{{
-                      $t("student-activity-details")
-                    }}</span>
+                  <h5 class="card-header">
+                    {{ $t("student-activity-details") }}
                     <!-- <ul class="actions top-right">
                       <li>
                         <a href="javascript:void(0)" data-q-action="card-expand" 
@@ -346,8 +228,11 @@
                         ></a>
                       </li>
                     </ul> -->
-                  </div>
-                  <div class="card-body" data-scroll="dark">
+                  </h5>
+                  <div
+                    class="card-body dashboard-scroll dashboard-sd-scroll"
+                    data-scroll="dark"
+                  >
                     <!-- <ul
                       class="nav nav-pills nav-pills-primary mb-3"
                       id="pills-demo-1"
@@ -458,6 +343,124 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-9">
+                <div class="card">
+                  <h5 class="card-header">
+                    {{ $t("assignments-completion-rate") }}
+                  </h5>
+                  <div class="card-body" style="height: 597px">
+                    <p class="text-primary">{{ $t("last-6-records") }}</p>
+                    <h2 v-if="acRateChartData.rows.length === 0">
+                      {{ $t("no-relevant-records") }}
+                    </h2>
+                    <ve-histogram
+                      v-else
+                      height="540px"
+                      :data="acRateChartData"
+                      :settings="acRateSetting"
+                    ></ve-histogram>
+                    <!-- height="540px"
+                      width="800px" -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="card">
+                  <h5 class="card-header">{{ $t("missed-assignments") }}</h5>
+                  <div
+                    class="card-body dashboard-scroll dashboard-ma-scroll"
+                    style="height: 597px"
+                  >
+                    <p class="text-primary">{{ $t("last-30-days") }}</p>
+                    <div class="table-responsive">
+                      <h2 v-if="missA.length === 0">
+                        {{ $t("no-relevant-records") }}
+                      </h2>
+                      <table class="table table-striped" v-else>
+                        <thead>
+                          <tr>
+                            <th>{{ $t("student-name") }}</th>
+                            <th>{{ $t("missed") }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="ma in missA" :key="ma.username">
+                            <td>{{ ma.username }}</td>
+                            <td>{{ ma.cnt_no_submit_homework }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <div class="card">
+                  <h5 class="card-header border-none">
+                    {{ $t("student-login") }}
+                  </h5>
+                  <div class="card-body pt-0" style="height: 500px">
+                    <p class="text-primary">{{ $t("last-30-days") }}</p>
+                    <h2 v-if="stdLoginchartData.rows.length === 0">
+                      {{ $t("no-relevant-records") }}
+                    </h2>
+                    <ve-line
+                      v-else
+                      :data="stdLoginchartData"
+                      :settings="chartSettings"
+                    ></ve-line>
+                    <!-- <h4 class="card-title text-success p-t-10">
+                      23<i class="zmdi zmdi-trending-up text-success ml-1"></i>
+                    </h4> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card">
+                  <h5 class="card-header border-none">
+                    {{ $t("parent-login") }}
+                  </h5>
+                  <div class="card-body pt-0" style="height: 500px">
+                    <p class="text-primary">{{ $t("last-30-days") }}</p>
+                    <h2 v-if="pLoginchartData.rows.length === 0">
+                      {{ $t("no-relevant-records") }}
+                    </h2>
+                    <ve-line
+                      v-else
+                      :data="pLoginchartData"
+                      :settings="chartSettings"
+                    ></ve-line>
+                    <!-- <h4 class="card-title text-success p-t-10">
+                      12<i class="zmdi zmdi-trending-up text-success ml-1"></i>
+                    </h4> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card">
+                  <h5 class="card-header border-none">
+                    {{ $t("watch-read-times") }}
+                  </h5>
+                  <div class="card-body pt-0" style="height: 500px">
+                    <p class="text-primary">{{ $t("last-30-days") }}</p>
+                    <h2 v-if="mwchartData.rows.length === 0">
+                      {{ $t("no-relevant-records") }}
+                    </h2>
+                    <ve-line
+                      v-else
+                      :data="mwchartData"
+                      :settings="chartSettings"
+                    ></ve-line>
+                    <!-- <h4 class="card-title text-danger p-t-10">
+                      20<i class="zmdi zmdi-trending-down text-danger ml-1"></i>
+                    </h4> -->
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </div>
@@ -515,6 +518,7 @@
 // import Menu
 // import CourseHeader from "../components/CourseHeader";
 import { ApiGetDashboard } from "../http/apis/Dashboard";
+// import pagination from "../components/Pagination"
 import $ from "jquery";
 import dayjs from "dayjs";
 import _ from "lodash";
@@ -525,40 +529,9 @@ export default {
   name: "CourseDashboard",
   components: {
     CourseHeader: () => import("@/components/CourseHeader.vue"),
+    pagination: () => import("@/components/Pagination.vue"),
   },
   data() {
-    // this.barextend = {
-    //   xAxis: {
-    //     axisTick: {
-    //       alignWithLabel: true,
-    //     },
-    //     // axisLabel: {
-    //     //   textStyle: {
-    //     //     fontSize: 14,
-    //     //   },
-
-    //     //   // rotate: 5,
-    //     // },
-    //   },
-    //   // yAxis: {
-    //   //   axisLabel: {
-    //   //     textStyle: {
-    //   //       fontSize: 14,
-    //   //     },
-    //   //   },
-    //   // },
-    //   series: {
-    //     // barWidth: 10,
-    //     label: {
-    //       // show: true,
-    //       // position: "right",
-    //       // textStyle: {
-    //       //   fontSize: 14,
-    //       // },
-    //     },
-    //   },
-    // };
-
     this.acRateSetting = {
       // axisSite: { right: ["Completion_rate"] },
       // yAxisType: ["normal", "percent"],

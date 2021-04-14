@@ -54,7 +54,7 @@
           ><span class="mr-1">{{ sortMList.length }}</span>
           {{ $t("listings-for")
           }}<span v-if="tempSearchName !== ''">
-            “ {{ tempSearchName }} ”
+            “ {{ searchRname }} ”
           </span></strong
         >
         <div class="col-sm-12" v-if="selectLevelList.length !== 0">
@@ -129,33 +129,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary btn-outline btn-rounded"
-              data-dismiss="modal"
-            >
-              {{ $t("close") }}
-            </button>
-            <button
-              @click="searchCourseResource()"
-              v-if="page !== 'collection'"
-              type="button"
-              class="btn btn-primary btn-outline btn-rounded"
-              data-dismiss="modal"
-            >
-              {{ $t("confirm") }}
-            </button>
-            <button
-              @click="searchCollectionResource()"
-              v-else
-              type="button"
-              class="btn btn-primary btn-outline btn-rounded"
-              data-dismiss="modal"
-            >
-              {{ $t("confirm") }}
-            </button>
-          </div> -->
         </div>
       </div>
     </div>

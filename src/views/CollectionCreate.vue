@@ -45,21 +45,6 @@
                           >No Available Packages</span
                         >
                       </label>
-                      <!-- <select
-                          class="form-control"
-                          id="s2_demo2"
-                          v-model="pkgid"
-                        >
-                          <optgroup label="select package">
-                            <option
-                              v-for="pkg in pkgList"
-                              :key="pkg.pkgid"
-                              :value="pkg.pkgid"
-                            >
-                              {{ pkg.pkg_name }}
-                            </option>
-                          </optgroup>
-                        </select> -->
                       <select2
                         id="s2_demo2"
                         class=""

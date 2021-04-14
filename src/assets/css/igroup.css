@@ -106,37 +106,57 @@ body{
   width:16px;
 }
 
-
-/*  */
-/* width */
-/* ::-webkit-scrollbar {
+/* dashboard */
+/* scrollbar 最原始框長高*/
+.dashboard-scroll::-webkit-scrollbar {
   position: absolute;
   height: auto;
   left: auto;
   top: 0;
   right: 0;
   bottom: 0;
-  width:10px;
+  width:6px;
   cursor: pointer;
-} */
 
-/* Track */
-/* ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-  -webkit-box-shadow: inset 0 0 4px rgba(200,200,200,1);
 }
-  */
-/* Handle */
-/* ::-webkit-scrollbar-thumb {
+
+.dashboard-scroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 4px rgba(200,200,200,1);
+  width: 16px;
+  height: 10%;
+  margin: 0 auto;
+  border-radius: 16px;
+  cursor: pointer;
+
+}
+/* //黑色拉動BAR */
+.dashboard-scroll::-webkit-scrollbar-thumb {
   background-color: rgba(0,0,0,.15);
   -webkit-box-shadow: inset 0 0 4px rgba(90,90,90,0.7);
-} */
-
-/* Handle on hover */
-/* ::-webkit-scrollbar-thumb:hover {
+  height:200px;
+  width: 16px;
+  cursor: pointer;
+}
+ .dashboard-scroll::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0,0,0,.55);
-} */
+  cursor: pointer !important; 
+  width:16px;
+}
 
+.dashboard-zone-scroll {
+  height: 250px;
+  overflow-y: scroll;
+}
+.dashboard-sd-scroll {
+  height: 580px;
+  overflow-y: scroll;
+}
+
+.dashboard-ma-scroll {
+  height: 597px;
+  overflow-y: scroll;
+}
+/*  */
 
 /*  */
 /* //字體 */
