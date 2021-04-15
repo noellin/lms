@@ -40,7 +40,7 @@
                   style="background-col"
                 >
                   <img
-                    :src="require('../assets/img/avatars/temp_logo.png')"
+                    :src="require('../assets/img/temp_logo.png')"
                     alt=""
                     style="max-height: 100px; max-width: 212px; width: 290px height:100px"
                   />
@@ -100,7 +100,7 @@
           >
             <img
               :src="require('../assets/img/avatars/' + showImg + '.png')"
-              class="w-40 rounded-circle"
+              class="w-40 rounded-circle avator-size"
               alt="Albert Einstein"
             />
             <!-- <span class="text-white">Amanda</span> -->
@@ -201,5 +201,10 @@ export default {
   vertical-align: top;
   z-index: 9999;
   position: fixed;
+}
+
+.avator-size {
+  width: 40px;
+  height: 40px;
 }
 </style>

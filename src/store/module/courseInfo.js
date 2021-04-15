@@ -26,10 +26,22 @@ const courseInfo = {
         aKeyList: [],
         assignmentDL: {},
         weeklyQuizDL:{},
-        openAgt:false
+        openAgt:false,
+        ActiveClassList:[],
+        ExpiredClassList:[]
 
     },
     mutations: {
+        SET_CLASS(state, data){
+            console.log(data);
+            if(data.status==='active'){
+                state.ActiveClassList = data.class
+                console.log('set active class = ',data.class);
+            }else{
+                state.ExpiredClassList = data.class
+                console.log('set expired class = ',data.class);
+            }
+        },
         SET_OPENAGT(state, data){
             state.openAgt = data
         },
@@ -140,6 +152,9 @@ const courseInfo = {
         }
     },
     actions: {
+        setClass(context, data){
+            context.commit('SET_CLASS', data)
+        },
         setOpenAgt(context, data){
             context.commit('SET_OPENAGT', data)
         },

@@ -187,7 +187,7 @@
                 </button>
               </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="softStatus">
               <div
                 class="col-12"
                 v-for="textbook in textbookList"
@@ -1317,12 +1317,13 @@ import "vue2-datepicker/index.css";
 import dayjs from "dayjs";
 import $ from "jquery";
 import draggable from "vuedraggable";
-import _ from "lodash";
+// import _ from "lodash";
+import sortBy from "lodash/sortBy";
 // import Multiselect from 'vue-multiselect'
 // $("#mySelect2").select2({
 //   dropdownParent: $("#s2_student"),
 // });
-import SearchGroup from "../components/SearchGroup";
+// import SearchGroup from "../components/SearchGroup";
 import { createLogger } from "vuex";
 export default {
   name: "CourseMaterial",
@@ -1330,7 +1331,7 @@ export default {
     CourseHeader: () => import("@/components/CourseHeader.vue"),
     DatePicker,
     draggable,
-    SearchGroup,
+    SearchGroup: () => import("@/components/SearchGroup.vue"),
 
     // Multiselect
   },
@@ -1395,9 +1396,11 @@ export default {
         { exp: "300", ticket: "3" },
       ],
       setResourceArray: [],
+      softStatus: false,
     };
   },
   created() {
+    this.$store.dispatch("common/setLoading", true);
     //列表資訊從menulift call (為了重複使用)
     this.textbookList = this.textbookLists;
     this.openedTextbookList = this.openedTextbookLists;
@@ -1560,6 +1563,8 @@ export default {
   methods: {
     getMList(textbookList) {
       this.textbookList = textbookList;
+      this.softStatus = true;
+      this.$store.dispatch("common/setLoading", false);
     },
     changemfilter(filterName) {
       if (filterName === this.mfilter) {
@@ -1579,7 +1584,7 @@ export default {
       }
       this.sortStatus = !this.sortStatus;
       if (this.sortStatus) {
-        this.copyTextbookList = _.sortBy(
+        this.copyTextbookList = sortBy(
           this.copyTextbookList,
           [sortItem],
           ["asc"]

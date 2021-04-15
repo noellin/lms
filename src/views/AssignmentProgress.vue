@@ -194,9 +194,8 @@
                               </div>
                             </td>
                             <td>
-                              
                               <button
-                              v-if="$route.params.expired !== 'expired'"
+                                v-if="$route.params.expired !== 'expired'"
                                 class="btn btn-nostyle text-primary"
                                 data-toggle="modal"
                                 data-target="#CheckedModal"
@@ -563,7 +562,8 @@ import {
   ApiSetSpeakScore,
   ApiSearchStudent,
 } from "../http/apis/Assignment";
-import _ from "lodash";
+import each from "lodash/each";
+import minBy from "lodash/minBy";
 export default {
   name: "AssignmentProgress",
   components: { CourseHeader: () => import("@/components/CourseHeader.vue") },
@@ -681,11 +681,11 @@ export default {
             //   { username: "123", complete_time: "10" },
             //   { username: "456", complete_time: "2" },
             // ];
-            _.each(
+            each(
               response.record,
               (item) => (item.complete_time = parseInt(item.complete_time, 10))
             );
-            vm.asgmtInfo.fastest = _.minBy(response.record, "complete_time");
+            vm.asgmtInfo.fastest = minBy(response.record, "complete_time");
             console.log(vm.asgmtInfo);
           } else {
             console.log(response.record);

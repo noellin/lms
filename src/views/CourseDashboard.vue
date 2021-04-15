@@ -518,10 +518,13 @@
 // import Menu
 // import CourseHeader from "../components/CourseHeader";
 import { ApiGetDashboard } from "../http/apis/Dashboard";
+import VeHistogram from "v-charts/lib/histogram.common";
+import VeLine from "v-charts/lib/line.common";
 // import pagination from "../components/Pagination"
 import $ from "jquery";
 import dayjs from "dayjs";
-import _ from "lodash";
+// import _ from "lodash";
+import sortBy from "lodash/sortBy";
 $(function () {
   $('[data-toggle="popover"]').popover();
 });
@@ -530,6 +533,11 @@ export default {
   components: {
     CourseHeader: () => import("@/components/CourseHeader.vue"),
     pagination: () => import("@/components/Pagination.vue"),
+    VeHistogram,
+    VeLine,
+    // VeLine: () => import("../../node_modules/v-charts/lib/line.common"),
+    // VeHistogrem: () =>
+    //   import("../../node_modules/v-charts/lib/histogram.common"),
   },
   data() {
     this.acRateSetting = {
@@ -589,12 +597,15 @@ export default {
       sortStatus: false,
     };
   },
-  created() {},
+  created() {
+    this.$store.dispatch("common/setLoading", true);
+  },
   mounted() {
     $(function () {
       $('[data-toggle="popover"]').popover();
     });
     this.getDashboard();
+    this.$store.dispatch("common/setLoading", false);
   },
   methods: {
     sortTable(sortItem) {
@@ -608,7 +619,7 @@ export default {
       }
       this.sortStatus = !this.sortStatus;
       if (this.sortStatus) {
-        this.stdRank = _.sortBy(this.stdRank, [sortItem], ["asc"]);
+        this.stdRank = sortBy(this.stdRank, [sortItem], ["asc"]);
       } else {
         this.stdRank = this.stdRank.reverse();
       }

@@ -406,7 +406,8 @@ import {
   ApiModifyAssignmentName,
 } from "../http/apis/Assignment";
 import dayjs from "dayjs";
-import _ from "lodash";
+// import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   name: "CourseAssignment",
   components: {
@@ -428,7 +429,11 @@ export default {
     };
   },
   created() {
+    this.$store.dispatch("common/setLoading", true);
     this.getAList();
+  },
+  mounted() {
+    this.$store.dispatch("common/setLoading", false);
   },
   computed: {},
   watch: {
@@ -465,7 +470,7 @@ export default {
       }
       this.sortStatus = !this.sortStatus;
       if (this.sortStatus) {
-        this.aList = _.sortBy(this.aList, [sortItem], ["asc"]);
+        this.aList = sortBy(this.aList, [sortItem], ["asc"]);
       } else {
         this.aList = this.aList.reverse();
       }

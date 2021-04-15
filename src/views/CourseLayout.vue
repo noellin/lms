@@ -33,8 +33,8 @@
 // import CustomHeader from "../components/CustomHeader";
 import MenuLeft from "../components/MenuLeft";
 // import Alert from "../components/AlertMessage";
-import LmsFooter from "../components/Footer";
-import AssignmentCar from "../components/AssignmentCar.vue";
+// import LmsFooter from "../components/Footer";
+// import AssignmentCar from "../components/AssignmentCar.vue";
 // import Menu
 export default {
   name: "CourseMaterial",
@@ -43,7 +43,7 @@ export default {
     MenuLeft,
     Alert: () => import("@/components/AlertMessage.vue"),
     AssignmentCar: () => import("@/components/AssignmentCar.vue"),
-    LmsFooter,
+    LmsFooter: () => import("@/components/Footer.vue"),
   },
   data() {
     return {};

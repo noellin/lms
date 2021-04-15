@@ -535,7 +535,8 @@ import {
 } from "../http/apis/CourseList";
 import { ApiSaveLOG } from "../http/apis/Login";
 import AddStudent from "../components/AddStudent";
-import _ from "lodash";
+// import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   name: "Course",
   components: {
@@ -640,7 +641,7 @@ export default {
       }
       this.sortActiveStatus = !this.sortActiveStatus;
       if (this.sortActiveStatus) {
-        this.course.activeCourseList = _.sortBy(
+        this.course.activeCourseList = sortBy(
           this.course.activeCourseList,
           [sortItem],
           ["asc"]
@@ -660,7 +661,7 @@ export default {
       }
       this.sortExpiredStatus = !this.sortExpiredStatus;
       if (this.sortExpiredStatus) {
-        this.course.expiredCourseList = _.sortBy(
+        this.course.expiredCourseList = sortBy(
           this.course.expiredCourseList,
           [sortItem],
           ["asc"]
@@ -721,6 +722,10 @@ export default {
               .add(1, "month")
               .isBefore(dayjs.unix(this.todayTimestamp));
           });
+          this.$store.dispatch("courseInfo/setClass", {
+            status: "active",
+            class: response.record,
+          });
         }
       );
     },
@@ -733,6 +738,10 @@ export default {
       ApiGetExpiredCourseList.get(this.permit, this.userid, searchTid).then(
         (response) => {
           this.course.expiredCourseList = response.record;
+          this.$store.dispatch("courseInfo/setClass", {
+            status: "expired",
+            class: response.record,
+          });
         }
       );
     },

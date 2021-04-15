@@ -545,10 +545,13 @@ export default {
       selectedStudents: [],
     };
   },
-  created() {},
+  created() {
+    this.$store.dispatch("common/setLoading", true);
+  },
   mounted() {
     this.studentList = this.studentLists;
     this.courseStudentInfo = this.courseStudentInfos;
+    this.$store.dispatch("common/setLoading", false);
   },
   watch: {
     studentLists() {

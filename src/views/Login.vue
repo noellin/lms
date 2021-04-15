@@ -116,10 +116,7 @@
                 </div>
               </ValidationObserver>
               <div class="d-flex justify-content-center">
-                <img
-                  :src="require('../assets/img/avatars/temp_logo.png')"
-                  alt="Logo"
-                />
+                <img :src="require('../assets/img/temp_logo.png')" alt="Logo" />
               </div>
 
               <!-- <strong
@@ -176,10 +173,7 @@
                 {{ $t("return-to-login") }}
               </button>
               <div class="d-flex justify-content-center">
-                <img
-                  :src="require('../assets/img/avatars/temp_logo.png')"
-                  alt="Logo"
-                />
+                <img :src="require('../assets/img/temp_logo.png')" alt="Logo" />
               </div>
               <!-- <strong
                 ><p class="text-center text-white mt-2">
@@ -250,7 +244,7 @@
                 </button>
                 <div class="d-flex justify-content-center">
                   <img
-                    :src="require('../assets/img/avatars/temp_logo.png')"
+                    :src="require('../assets/img/temp_logo.png')"
                     alt="Logo"
                   />
                 </div>
@@ -348,10 +342,7 @@
                 </button>
               </ValidationObserver>
               <div class="d-flex justify-content-center">
-                <img
-                  :src="require('../assets/img/avatars/temp_logo.png')"
-                  alt="Logo"
-                />
+                <img :src="require('../assets/img/temp_logo.png')" alt="Logo" />
               </div>
             </div>
           </div>
@@ -399,10 +390,7 @@
                 {{ $t("ok") }}
               </button>
               <div class="d-flex justify-content-center">
-                <img
-                  :src="require('../assets/img/avatars/temp_logo.png')"
-                  alt="Logo"
-                />
+                <img :src="require('../assets/img/temp_logo.png')" alt="Logo" />
               </div>
             </div>
           </div>

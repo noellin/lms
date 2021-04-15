@@ -24,7 +24,7 @@ import expiredDate from "./filter/ExpiredDate";
 import arrayToString from "./filter/arrayToString";
 import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
-import VCharts from "v-charts";
+// import VCharts from "v-charts";
 import Print from "./plugins/print/print";
 // import jQuery from "jquery/dist/jquery.slim";
 import VueLazyload from 'vue-lazyload'
@@ -57,7 +57,7 @@ Vue.use(VueLazyload ,{
 
 Vue.use(Print);
 Vue.component("Loading", Loading);
-Vue.use(VCharts);
+// Vue.use(VCharts);
 //輸入驗證
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);

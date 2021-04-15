@@ -497,7 +497,7 @@ import {
   ApiGetPkgMaterial,
 } from "../http/apis/Collection";
 import SearchGroup from "../components/SearchGroup";
-import _ from "lodash";
+// import _ from "lodash";
 export default {
   name: "CollectionCreate",
   components: {

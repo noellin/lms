@@ -1,5 +1,5 @@
 <template>
-  <div id="app2">
+  <div id="app2" v-if="pagaStatus">
     <div class="main-content">
       <!-- END MENU SIDEBAR WRAPPER -->
       <div class="content page-aside-left">
@@ -384,7 +384,8 @@ import {
   ApiSetEchoStatus,
 } from "../http/apis/WeeklyQuiz";
 import dayjs from "dayjs";
-import _ from "lodash";
+// import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {
     CourseHeader: () => import("@/components/CourseHeader.vue"),
@@ -402,10 +403,16 @@ export default {
       tempSortItem: "",
       tempSentence: "",
       expired: this.$route.params.expired,
+      pagaStatus: false,
     };
+  },
+  created() {
+    this.$store.dispatch("common/setLoading", true);
   },
   mounted() {
     this.getWeeklyQuiz();
+    this.$store.dispatch("common/setLoading", false);
+    this.pagaStatus = true;
   },
   computed: {},
 
@@ -421,7 +428,7 @@ export default {
       }
       this.sortStatus = !this.sortStatus;
       if (this.sortStatus) {
-        this.wqList = _.sortBy(this.wqList, [sortItem], ["asc"]);
+        this.wqList = sortBy(this.wqList, [sortItem], ["asc"]);
       } else {
         this.wqList = this.wqList.reverse();
       }

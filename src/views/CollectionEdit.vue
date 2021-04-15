@@ -487,7 +487,7 @@ import {
   ApiGetPkgMaterial,
   ApiUpdateCollection,
 } from "../http/apis/Collection";
-import _ from "lodash";
+// import _ from "lodash";
 // import Menu
 export default {
   name: "CollectionDetail",

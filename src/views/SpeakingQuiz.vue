@@ -232,7 +232,8 @@ import {
   ApiGetSList,
   ApiGetQuizList,
 } from "../http/apis/Quiz";
-import _ from "lodash";
+// import _ from "lodash";
+import sortBy from "lodash/sortBy";
 // import Menu
 export default {
   name: "SpeakingQuiz",
@@ -262,7 +263,7 @@ export default {
   },
   computed: {
     sortSlist() {
-      let temp = _.sortBy(this.SList, function (obj) {
+      let temp = sortBy(this.SList, function (obj) {
         return parseInt(obj.seq, 10);
       });
       return temp;

@@ -101,10 +101,10 @@
   </aside>
 </template>
 <script>
-import {
-  ApiGetActiveCourseList,
-  ApiGetExpiredCourseList,
-} from "../http/apis/CourseList";
+// import {
+//   ApiGetActiveCourseList,
+//   ApiGetExpiredCourseList,
+// } from "../http/apis/CourseList";
 import dayjs from "dayjs";
 export default {
   name: "MenuLeft",
@@ -149,26 +149,49 @@ export default {
     //   ];
     // }
     let vm = this;
-    if (this.permit === "admin") {
-      // this.getActiveCourseList("");
-      this.getExpiredCourseList("*");
-      // this.getExpiredCourseList();
-    } else if (this.permit !== "admin") {
-      this.getExpiredCourseList();
-      // this.getActiveCourseList(this.userid);
-    }
+    // if (this.permit === "admin") {
+    //   // this.getActiveCourseList("");
+    //   this.getExpiredCourseList("*");
+    //   // this.getExpiredCourseList();
+    // } else if (this.permit !== "admin") {
+    //   this.getExpiredCourseList();
+    //   // this.getActiveCourseList(this.userid);
+    // }
     this.$store.dispatch(
       "courseInfo/getCouseInfo",
       this.$route.params.courseid
     );
   },
-  mounted() {},
+  async mounted() {
+    let vm = this;
+    this.course.activeCourseList = this.expiredClass;
+    let result = await this.expiredClass.forEach((expiredC) => {
+      if (expiredC.courseid === vm.courseID) {
+        vm.updateURL();
+        vm.notExpired = false;
+        return true;
+      }
+    });
+    if (!result) {
+      if (this.permit === "admin" && vm.notExpired) {
+        this.course.activeCourseList = this.activeClass;
+      } else if (this.permit !== "admin" && vm.notExpired) {
+        this.course.activeCourseList = this.activeClass;
+      }
+    }
+  },
   computed: {
     activeCourse() {
       let temp = this.course.activeCourseList.filter((item) => {
         return item.course_name !== "";
       });
       return temp;
+    },
+    activeClass() {
+      return this.$store.state.courseInfo.ActiveClassList;
+    },
+    expiredClass() {
+      return this.$store.state.courseInfo.ExpiredClassList;
     },
     userid() {
       return this.$store.state.auth.userid;
@@ -223,52 +246,52 @@ export default {
       }
       // history.pushState({}, null, "/#/detail/" + this.book.isbn13);
     },
-    async getExpiredCourseList() {
-      let vm = this;
-      let result = await ApiGetExpiredCourseList.get(
-        this.permit,
-        this.userid,
-        this.userid
-      ).then((response) => {
-        this.course.activeCourseList = response.record;
-        // this.course.expiredCourseList = response.record;
-        response.record.forEach((expiredC) => {
-          if (expiredC.courseid === vm.courseID) {
-            vm.updateURL();
-            vm.notExpired = false;
-            return true;
-          }
-        });
-      });
-      if (!result) {
-        if (this.permit === "admin" && vm.notExpired) {
-          this.getActiveCourseList("");
-          // this.getExpiredCourseList("*");
-        } else if (this.permit !== "admin" && vm.notExpired) {
-          // this.getExpiredCourseList();
-          this.getActiveCourseList(this.userid);
-        }
-      }
-    },
-    getActiveCourseList(teacherid = "") {
-      console.log("get active list");
-      // this.course.activeCourseList = [];
-      let searchTid = "";
-      if (teacherid !== "*") {
-        searchTid = teacherid;
-      }
-      ApiGetActiveCourseList.get(this.permit, this.userid, searchTid).then(
-        (response) => {
-          this.course.activeCourseList = response.record;
-          this.course.activeCourseList.forEach((item) => {
-            item.expiry = dayjs
-              .unix(item.expiry_date)
-              .add(1, "month")
-              .isBefore(dayjs.unix(this.todayTimestamp));
-          });
-        }
-      );
-    },
+    // async getExpiredCourseList() {
+    //   let vm = this;
+    //   let result = await ApiGetExpiredCourseList.get(
+    //     this.permit,
+    //     this.userid,
+    //     this.userid
+    //   ).then((response) => {
+    //     this.course.activeCourseList = response.record;
+    //     // this.course.expiredCourseList = response.record;
+    //     response.record.forEach((expiredC) => {
+    //       if (expiredC.courseid === vm.courseID) {
+    //         vm.updateURL();
+    //         vm.notExpired = false;
+    //         return true;
+    //       }
+    //     });
+    //   });
+    //   if (!result) {
+    //     if (this.permit === "admin" && vm.notExpired) {
+    //       this.getActiveCourseList("");
+    //       // this.getExpiredCourseList("*");
+    //     } else if (this.permit !== "admin" && vm.notExpired) {
+    //       // this.getExpiredCourseList();
+    //       this.getActiveCourseList(this.userid);
+    //     }
+    //   }
+    // },
+    // getActiveCourseList(teacherid = "") {
+    //   console.log("get active list");
+    //   // this.course.activeCourseList = [];
+    //   let searchTid = "";
+    //   if (teacherid !== "*") {
+    //     searchTid = teacherid;
+    //   }
+    //   ApiGetActiveCourseList.get(this.permit, this.userid, searchTid).then(
+    //     (response) => {
+    //       this.course.activeCourseList = response.record;
+    //       this.course.activeCourseList.forEach((item) => {
+    //         item.expiry = dayjs
+    //           .unix(item.expiry_date)
+    //           .add(1, "month")
+    //           .isBefore(dayjs.unix(this.todayTimestamp));
+    //       });
+    //     }
+    //   );
+    // },
     changePageStatus(courseName) {
       if (this.iconStatus === courseName) {
         this.iconStatus = "null";
@@ -279,10 +302,7 @@ export default {
     changePage(course, type, id, expired = "") {
       // this.courseType = type;
       // this.coursePage = course;
-      this.$store.dispatch("common/setLoading", true);
-      setTimeout(() => {
-        this.$store.dispatch("common/setLoading", false);
-      }, 400);
+
       if (id !== this.courseID) {
         this.$store.dispatch("courseInfo/getCouseInfo", id);
       }
