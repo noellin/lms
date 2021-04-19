@@ -14,7 +14,7 @@
             <a @click="$back" class="btn-rounded-icon btn-primary mr-2 pointer"
               ><i class="zmdi zmdi-arrow-left zmdi-hc-fw text-white"></i
             ></a>
-            <h1 class="separator">{{ $t("collection") }}</h1>
+            <h1 class="separator">{{ $t("my-library") }}</h1>
             <span>{{ $t("create") }}</span>
           </div>
         </div>
@@ -27,7 +27,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group">
-                      <label>{{ $t("collection-name") }}</label>
+                      <label>{{ $t("my-library-name") }}</label>
                       <input
                         class="form-control"
                         type="text"
@@ -40,7 +40,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label
-                        >{{ $t("available-packages") }}
+                        >{{ $t("available-library") }}
                         <span v-if="pkgid === ''" class="text-danger"
                           >No Available Packages</span
                         >
@@ -311,9 +311,7 @@
           </div>
           <div class="modal-body">
             <p>
-              {{
-                $t("change-packages-will-clear-the-current-collection-list")
-              }}.
+              {{ $t("change-library-will-clear-the-current-list") }}
             </p>
             <p>{{ $t("would-you-like-to-save-your-changes") }}?</p>
           </div>
@@ -363,7 +361,7 @@
           </div>
           <div class="modal-body">
             <h6 class="pb-2">
-              <span class="text-muted">{{ $t("package") }}</span>
+              <span class="text-muted">{{ $t("library") }}</span>
               <strong class="ml-1">{{ pkgname }}</strong>
             </h6>
             <!-- <search-group

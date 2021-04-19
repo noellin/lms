@@ -13,7 +13,7 @@
             ></a>
           </div>
           <div class="mr-auto">
-            <h1 class="separator">{{ $t("collection") }}</h1>
+            <h1 class="separator">{{ $t("my-library") }}</h1>
             <span>{{ $t("edit") }}</span>
             <p class="second-title">{{ cname }}</p>
           </div>
@@ -27,7 +27,7 @@
                 <div class="row cardsContainer" id="cards-container">
                   <div class="col-6">
                     <div class="form-group">
-                      <label>{{ $t("collection-name") }}</label>
+                      <label>{{ $t("my-library-name") }}</label>
                       <input
                         class="form-control"
                         type="text"
@@ -38,7 +38,7 @@
                   </div>
                   <div class="col-6">
                     <div class="form-group">
-                      <label>{{ $t("available-packages") }}</label>
+                      <label>{{ $t("available-library") }}</label>
                       <select class="form-control" id="s2_demo2" disabled>
                         <optgroup label="select package">
                           <option selected>{{ pName }}</option>
@@ -315,7 +315,7 @@
           </div>
           <div class="modal-body">
             <h6 class="pb-2">
-              <span class="text-muted">{{ $t("package") }}</span>
+              <span class="text-muted">{{ $t("library") }}</span>
               <strong class="ml-1">{{ pName }}</strong>
             </h6>
             <div class="row">

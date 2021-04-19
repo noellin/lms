@@ -180,7 +180,6 @@ const courseInfo = {
 
         },
         updateTextbookList(context, data) {
-            console.log('update List');
             ApiGetCourseDatail.get(data).then((response) => {
                 context.commit('SET_COURSEINFO', response.csrInfo)
                 context.commit('SET_TEXTBOOKLIST', response.record)

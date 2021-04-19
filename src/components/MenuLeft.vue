@@ -246,52 +246,7 @@ export default {
       }
       // history.pushState({}, null, "/#/detail/" + this.book.isbn13);
     },
-    // async getExpiredCourseList() {
-    //   let vm = this;
-    //   let result = await ApiGetExpiredCourseList.get(
-    //     this.permit,
-    //     this.userid,
-    //     this.userid
-    //   ).then((response) => {
-    //     this.course.activeCourseList = response.record;
-    //     // this.course.expiredCourseList = response.record;
-    //     response.record.forEach((expiredC) => {
-    //       if (expiredC.courseid === vm.courseID) {
-    //         vm.updateURL();
-    //         vm.notExpired = false;
-    //         return true;
-    //       }
-    //     });
-    //   });
-    //   if (!result) {
-    //     if (this.permit === "admin" && vm.notExpired) {
-    //       this.getActiveCourseList("");
-    //       // this.getExpiredCourseList("*");
-    //     } else if (this.permit !== "admin" && vm.notExpired) {
-    //       // this.getExpiredCourseList();
-    //       this.getActiveCourseList(this.userid);
-    //     }
-    //   }
-    // },
-    // getActiveCourseList(teacherid = "") {
-    //   console.log("get active list");
-    //   // this.course.activeCourseList = [];
-    //   let searchTid = "";
-    //   if (teacherid !== "*") {
-    //     searchTid = teacherid;
-    //   }
-    //   ApiGetActiveCourseList.get(this.permit, this.userid, searchTid).then(
-    //     (response) => {
-    //       this.course.activeCourseList = response.record;
-    //       this.course.activeCourseList.forEach((item) => {
-    //         item.expiry = dayjs
-    //           .unix(item.expiry_date)
-    //           .add(1, "month")
-    //           .isBefore(dayjs.unix(this.todayTimestamp));
-    //       });
-    //     }
-    //   );
-    // },
+
     changePageStatus(courseName) {
       if (this.iconStatus === courseName) {
         this.iconStatus = "null";

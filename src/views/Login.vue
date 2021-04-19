@@ -616,7 +616,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 51% 34%;
-  background-size: 39%;
+  background-size: 54%;
   border-radius: 10px;
   width: 400px;
   height: 520px;
@@ -628,7 +628,7 @@ export default {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: 56% 45%;
-    background-size: 36%;
+    background-size: 52%;
     border-radius: 10px;
     width: 400px;
     height: 540px;
@@ -640,7 +640,7 @@ export default {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: 51% 35%;
-    background-size: 43%;
+    background-size: 55%;
     border-radius: 10px;
     width: 400px;
     height: 540px;
@@ -652,7 +652,7 @@ export default {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: 51% 34%;
-    background-size: 50%;
+    background-size: 62%;
     border-radius: 10px;
     width: 400px;
     height: 540px;

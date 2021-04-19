@@ -410,7 +410,7 @@
                     <ve-line
                       v-else
                       :data="stdLoginchartData"
-                      :settings="chartSettings"
+                      :settings="loginchartSettings"
                     ></ve-line>
                     <!-- <h4 class="card-title text-success p-t-10">
                       23<i class="zmdi zmdi-trending-up text-success ml-1"></i>
@@ -431,7 +431,7 @@
                     <ve-line
                       v-else
                       :data="pLoginchartData"
-                      :settings="chartSettings"
+                      :settings="loginchartSettings"
                     ></ve-line>
                     <!-- <h4 class="card-title text-success p-t-10">
                       12<i class="zmdi zmdi-trending-up text-success ml-1"></i>
@@ -452,7 +452,7 @@
                     <ve-line
                       v-else
                       :data="mwchartData"
-                      :settings="chartSettings"
+                      :settings="mwchartSetting"
                     ></ve-line>
                     <!-- <h4 class="card-title text-danger p-t-10">
                       20<i class="zmdi zmdi-trending-down text-danger ml-1"></i>
@@ -544,6 +544,27 @@ export default {
       // axisSite: { right: ["Completion_rate"] },
       // yAxisType: ["normal", "percent"],
       // yAxisName: ["Number", "Percent"],
+      dataOrder: {
+        label: "expiry_date",
+        order: "desc",
+      },
+    };
+    this.loginchartSettings = {
+      dataOrder: {
+        label: "Date",
+        order: "desc",
+      },
+      yAxisType: ["integer", "normal"],
+      // dataType: {
+      //   Student_Login: "integer", //数字转为RMB(基本的数据格式)
+      //   Parent_Login: "integer",
+      // },
+    };
+    this.mwchartSetting = {
+      dataOrder: {
+        label: "review_date",
+        order: "desc",
+      },
     };
     return {
       courseid: this.$route.params.courseid,
@@ -555,15 +576,18 @@ export default {
         record: "",
       },
       acRate: 0,
-      chartSettings: {
-        // stack: { 用户: ["Total", "Completed"] },
-        legendName: {
-          completionrate: "Completion rate",
-          Student_Login: "Student Login",
-          Parent_Login: "Parent Login",
-          Complete_materials: "Watch/Read times",
-        },
-      },
+      // chartSettings: {
+      //   legendName: {
+      //     completionrate: "Completion rate",
+      //     Student_Login: "Student Login",
+      //     Parent_Login: "Parent Login",
+      //     Complete_materials: "Watch/Read times",
+      //   },
+      //   dataOrder: {
+      //     label: "expiry_date",
+      //     order: "desc",
+      //   },
+      // },
       acRateChartData: {
         columns: ["Date", "Students", "Completed", ""],
         rows: [],
@@ -662,23 +686,28 @@ export default {
                 Number((item.stu_finish / item.stu_total).toFixed(2))
               );
             });
+            console.log(tempChart);
             this.$set(this.acRateChartData, "rows", tempChart);
           }
           if (Object.keys(result.record.loginTimesStudent).length !== 0) {
             let tempStdLogin = [];
             tempStdLogin = result.record.loginTimesStudent.record;
+            tempStdLogin = sortBy(tempStdLogin, ["login_date"], ["asc"]);
             tempStdLogin.forEach((el) => {
               this.$set(el, "Date", el.login_date);
               this.$set(el, "Student_Login", el.login_cnt);
             });
+            console.log(tempStdLogin);
             this.$set(this.stdLoginchartData, "rows", tempStdLogin);
           }
 
           if (Object.keys(result.record.loginTimesParents).length !== 0) {
             let tempPLogin = [];
             tempPLogin = result.record.loginTimesParents.record;
+            tempPLogin = sortBy(tempPLogin, ["login_date"], ["asc"]);
             tempPLogin.forEach((el) => {
               this.$set(el, "Date", el.login_date);
+
               this.$set(el, "Parent_Login", el.login_cnt);
             });
             this.$set(this.pLoginchartData, "rows", tempPLogin);
@@ -686,6 +715,7 @@ export default {
           if (Object.keys(result.record.materialWatchTimes).length !== 0) {
             let tempmwData = [];
             tempmwData = result.record.materialWatchTimes.record;
+            tempmwData = sortBy(tempmwData, ["review_date"], ["asc"]);
             tempmwData.forEach((el) => {
               this.$set(el, "Date", el.review_date);
               this.$set(el, "Complete_materials", el.cnt_review);

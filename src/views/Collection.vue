@@ -16,7 +16,7 @@
               ></a>
             </div> -->
             <div class="mr-auto">
-              <h1>{{ $t("collection") }}</h1>
+              <h1>{{ $t("my-library") }}</h1>
               <!-- <p class="second-title" v-if="collectionShow === 'detail'">
                 First grage
               </p> -->
@@ -50,7 +50,7 @@
                 @click="gotoCollectionCreate()"
                 class="btn btn-primary btn-outline btn-rounded"
               >
-                <i class="la la-plus"></i>{{ $t("create-new-collection") }}
+                <i class="la la-plus"></i>{{ $t("create-new-my-library") }}
               </button>
             </div>
           </div>
@@ -67,10 +67,10 @@
                   <table class="table table-striped" style="width: 100%">
                     <thead>
                       <tr>
-                        <th style="width: 30%">{{ $t("collection-name") }}</th>
-                        <th style="width: 30%">{{ $t("package") }}</th>
+                        <th style="width: 30%">{{ $t("my-library-name") }}</th>
+                        <th style="width: 30%">{{ $t("library") }}</th>
                         <th style="width: 30%">
-                          {{ $t("applicable-course") }}
+                          {{ $t("classes") }}
                         </th>
                         <th style="width: 10%; text-align: center">
                           {{ $t("action") }}

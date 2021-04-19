@@ -157,6 +157,7 @@
                 class="col-sm-8 px-0"
                 :mfilter="mfilter"
                 @getMList="getMList"
+                @getFilterInfo="getFilterInfo"
               ></search-group>
 
               <div
@@ -525,7 +526,9 @@
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ $t("add-to-my-library") }}</h5>
+            <h5 class="modal-title">
+              <i class="la la-plus"></i>{{ $t("my-library") }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -543,7 +546,7 @@
                 v-if="existCollectionName.length !== 0"
               >
                 <label class="control-label text-right col-sm-3">
-                  {{ $t("existing-in-my-library") }}
+                  {{ $t("saved") }}
                 </label>
                 <span class="col-sm-9">
                   <span
@@ -560,9 +563,9 @@
                 class="form-group row"
                 v-if="filterCollectionList.length !== 0"
               >
-                <label class="control-label text-right col-sm-3">{{
-                  $t("collection")
-                }}</label>
+                <label class="control-label text-right col-sm-3">
+                  {{ $t("add-in") }}
+                </label>
                 <div class="col-sm-9">
                   <select2
                     id="s2_demo1"
@@ -631,7 +634,7 @@
               @click="addResource()"
               :disabled="selectCol === ''"
             >
-              {{ $t("add-to-collection") }}
+              {{ $t("add") }}
             </button>
           </div>
         </div>
@@ -788,6 +791,40 @@
             <div class="mt-4">
               {{ $t("check-which-materials-you-want-to-open") }}
             </div>
+            <!-- <div class="" v-if="courseInfo.cntLevel !== 0">
+              Level filter:
+              <span
+                v-for="(level, i) in levelLists"
+                :key="level + i"
+                class="mr-2"
+              >
+                <span
+                  @click="
+                    tempLevelList[i] = !tempLevelList[i];
+                    filterLevel(level);
+                  "
+                  :class="
+                    tempLevelList[i] === true ? 'text-primary' : 'text-black'
+                  "
+                  >{{ level }}</span
+                >
+              </span>
+            </div>
+            <div class="" v-if="courseInfo.cntUnit !== 0">
+              Unit filter:
+              <span v-for="(unit, i) in unitLists" :key="unit + i" class="mr-2">
+                <span
+                  @click="
+                    tempUnitList[i] = !tempUnitList[i];
+                    filterUnit(unit);
+                  "
+                  :class="
+                    tempUnitList[i] === true ? 'text-primary' : 'text-black'
+                  "
+                  >{{ unit }}</span
+                >
+              </span>
+            </div> -->
             <div class="table-responsive">
               <h2 v-if="textbookList.length === 0">
                 {{ $t("no-relevant-records") }}
@@ -836,21 +873,26 @@
                 <tbody>
                   <tr
                     v-for="(tb, index) in copyTextbookList"
-                    :key="tb.resourceid + index"
+                    :key="tb.resourceid"
                   >
                     <td>
                       <div class="custom-control custom-checkbox form-check">
                         <input
                           type="checkbox"
-                          class="custom-control-input"
+                          class="custom-control-input chkbox"
                           :id="tb.resourceid"
                           v-model="openedTextbookList"
                           :value="`${tb.colid}_${tb.resourceid}`"
                         />
+                        <!-- {{ tb.resourceid }} -->
                         <label
                           class="custom-control-label"
                           :for="tb.resourceid"
                         ></label>
+                        <!-- {{ openedTextbookList[index] }} -->
+                        <!-- @click="
+                            onClickWithShift($event, index, tb.resourceid)
+                          " -->
                       </div>
                     </td>
                     <td v-if="courseInfo.cntLevel !== 0">
@@ -964,45 +1006,44 @@
                             </div>
                             <span
                               v-if="ta.note === 'book'"
-                              class="d-flex col-sm-11 px-0"
+                              class="row col-sm-12"
                             >
                               <span
-                                class="badge badge-pill badge-primary fix-badge-height"
+                                class="badge badge-pill badge-primary fix-badge-height mr-1"
                                 >{{ $t("reading") }}</span
                               >
-                              <span
-                                class="col-sm-10 d-flex align-items-center"
-                                >{{ ta.resource_name }}</span
-                              >
+                              <span class="d-flex align-items-center">{{
+                                ta.resource_name
+                              }}</span>
                             </span>
                             <div
                               v-else-if="ta.note === 'video'"
-                              class="d-flex col-sm-11 px-0"
+                              class="row col-sm-12"
                             >
                               <div>
                                 <span
-                                  class="badge badge-pill badge-warning fix-badge-height"
+                                  class="badge badge-pill badge-warning fix-badge-height mr-1"
                                   >{{ $t("watching") }}</span
                                 >
                               </div>
-                              <span class="col-sm-10 d-flex align-items-center">
+                              <span class="d-flex align-items-center">
                                 {{
                                   ta.resource_name + " - " + ta.material_name
                                 }}
                               </span>
                             </div>
-                            <span v-else class="d-flex col-sm-11 px-0">
+                            <span v-else class="row col-sm-12">
                               <span
-                                class="badge badge-pill badge-accent fix-badge-height"
+                                class="badge badge-pill badge-accent fix-badge-height mr-1"
                                 >{{ $t("speaking-quiz") }}</span
                               >
-                              <span class="col-sm-10 d-flex align-items-center"
+                              <span class="d-flex align-items-center"
                                 >{{ ta.resource_name }} -
                                 <span v-if="ta.material_name !== 'undefined'">{{
                                   ta.material_name
                                 }}</span>
-                                <span v-else>{{ $t("book") }}</span></span
-                              >
+                                <span v-else>{{ $t("book") }}</span>
+                              </span>
                             </span>
                           </div>
 
@@ -1325,6 +1366,29 @@ import sortBy from "lodash/sortBy";
 // });
 // import SearchGroup from "../components/SearchGroup";
 import { createLogger } from "vuex";
+// shift select
+// $(document).ready(function () {
+//   var $chkboxes = $(".chkbox");
+//   var lastChecked = null;
+
+//   $chkboxes.click(function (e) {
+//     if (!lastChecked) {
+//       lastChecked = this;
+//       return;
+//     }
+
+//     if (e.shiftKey) {
+//       var start = $chkboxes.index(this);
+//       var end = $chkboxes.index(lastChecked);
+
+//       $chkboxes
+//         .slice(Math.min(start, end), Math.max(start, end) + 1)
+//         .prop("checked", lastChecked.checked);
+//     }
+
+//     lastChecked = this;
+//   });
+// });
 export default {
   name: "CourseMaterial",
   components: {
@@ -1375,6 +1439,7 @@ export default {
       tempAIDList: [],
       tempAList: [],
       openedTextbookList: [],
+      lastCheckedIdx: -1,
       setStudent: false,
       existCollectionName: [],
       pkgid: {},
@@ -1397,11 +1462,19 @@ export default {
       ],
       setResourceArray: [],
       softStatus: false,
+      selectLevelList: [],
+      tempLevelList: [],
+      tempUnitList: [],
+      codeNumber: -1,
+      codeNumber2: -1,
+      templl: [],
+      templu: [],
     };
   },
   created() {
     this.$store.dispatch("common/setLoading", true);
     //列表資訊從menulift call (為了重複使用)
+    console.log("create");
     this.textbookList = this.textbookLists;
     this.openedTextbookList = this.openedTextbookLists;
     this.studentList = this.studentLists;
@@ -1434,7 +1507,9 @@ export default {
       this.openedTextbookList = this.openedTextbookLists;
     },
     textbookLists() {
-      this.textbookList = this.textbookLists;
+      // this.textbookList = this.textbookLists;
+      // this.sortMList();
+      this.textbookList = this.sortMList;
     },
     studentLists() {
       this.studentList = this.studentLists;
@@ -1466,6 +1541,69 @@ export default {
     },
   },
   computed: {
+    levelLists() {
+      let vm = this;
+
+      this.copyTextbookList.forEach((element, i) => {
+        if (
+          element.level !== undefined &&
+          element.level !== "" &&
+          !vm.templl.includes(element.level)
+        ) {
+          vm.tempLevelList[i] = false;
+          vm.templl.push(element.level);
+        }
+      });
+      this.templl.sort();
+      return this.templl;
+      // this.levelLists.sort()
+    },
+    unitLists() {
+      let vm = this;
+      console.log(this.copyTextbookList);
+      this.copyTextbookList.forEach((element, i) => {
+        if (
+          element.unit !== undefined &&
+          element.unit !== "" &&
+          !vm.templu.includes(element.unit)
+        ) {
+          vm.tempUnitList[i] = false;
+          vm.templu.push(element.unit);
+        }
+      });
+      this.templu.sort();
+      return this.templu;
+      // this.levelLists.sort()
+    },
+    sortMList() {
+      let sortMaterial = [];
+      if (this.mfilter === "openm") {
+        sortMaterial = this.$_sortMaterial(
+          this.openedMList,
+          this.selectSortType,
+          this.selectLevelList
+        );
+      } else if (this.mfilter === "openb") {
+        sortMaterial = this.$_sortMaterial(
+          this.openedBookList,
+          this.selectSortType,
+          this.selectLevelList
+        );
+      } else if (this.mfilter === "openv") {
+        sortMaterial = this.$_sortMaterial(
+          this.openedVideoList,
+          this.selectSortType,
+          this.selectLevelList
+        );
+      } else {
+        sortMaterial = this.$_sortMaterial(
+          this.textbookLists,
+          this.selectSortType,
+          this.selectLevelList
+        );
+      }
+      return sortMaterial;
+    },
     openAgt() {
       return this.$store.state.courseInfo.openAgt;
     },
@@ -1503,8 +1641,6 @@ export default {
       this.existCollectionName = [];
       //有哪些collection可以加入這裡LIST
       return this.collectionList.filter((item) => {
-        console.log(item);
-        console.log(this.tempResource.resourceid);
         if (item.rid === this.tempResource.resourceid) {
           //排除已經被加入collection
           this.existCollectionName.push(item.text);
@@ -1561,10 +1697,35 @@ export default {
     },
   },
   methods: {
+    // select by shift end
+    filterLevel(level) {
+      if (this.codeNumber !== level) {
+        this.copyTextbookList = this.copyTextbookList.filter((item) => {
+          return item.level.indexOf(level) !== -1;
+        });
+      } else {
+        this.codeNumber = -1;
+        this.copyTextbookList = [...this.textbookList];
+      }
+    },
+    filterUnit(unit) {
+      if (this.codeNumber2 !== unit) {
+        this.copyTextbookList = this.copyTextbookList.filter((item) => {
+          return item.unit.indexOf(unit) !== -1;
+        });
+      } else {
+        this.codeNumber2 = -1;
+        this.copyTextbookList = [...this.textbookList];
+      }
+    },
     getMList(textbookList) {
       this.textbookList = textbookList;
       this.softStatus = true;
       this.$store.dispatch("common/setLoading", false);
+    },
+    getFilterInfo(selectLevelList, selectSortType) {
+      this.selectLevelList = selectLevelList;
+      this.selectSortType = selectSortType;
     },
     changemfilter(filterName) {
       if (filterName === this.mfilter) {
@@ -1582,17 +1743,23 @@ export default {
         this.sortStatus = false;
       } else {
       }
-      this.sortStatus = !this.sortStatus;
       if (this.sortStatus) {
         this.copyTextbookList = sortBy(
           this.copyTextbookList,
-          [sortItem],
+          [(obj) => parseInt(obj[sortItem], 10)],
           ["asc"]
         );
       } else {
+        // console.log("false");
+        // this.copyTextbookList = sortBy(
+        //   this.copyTextbookList,
+        //   [(obj) => parseInt(obj[sortItem], 10)],
+        //   ["asc"]
+        // );
         this.copyTextbookList = this.copyTextbookList.reverse();
       }
-
+      // this.sortStatus = !this.sortStatus;
+      console.log("resort");
       // publish_date
     },
     disabledBeforeToday(date) {
@@ -1906,8 +2073,6 @@ export default {
       }
       let result = await ApiGetOpenResource.getAll(vm.setResourceArray)
         .then((response) => {
-          console.log("get ApiGetOpenResource");
-          console.log(response);
           return true;
           // if (response.status === "success") {
           //   console.log("update Datail");

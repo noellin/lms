@@ -72,6 +72,15 @@
                               @click="sortTable('publish_date')"
                               class="pointer"
                             >
+                              {{ $t("assignment-period") }}
+                              <i
+                                class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                              ></i>
+                            </th>
+                            <!-- <th
+                              @click="sortTable('publish_date')"
+                              class="pointer"
+                            >
                               {{ $t("start-date") }}
                               <i
                                 class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
@@ -85,7 +94,7 @@
                               <i
                                 class="zmdi zmdi-swap-vertical zmdi-hc-lg ml-1"
                               ></i>
-                            </th>
+                            </th> -->
                             <th>{{ $t("assigned-students") }}</th>
                             <th>{{ $t("students-completed") }}</th>
                             <th
@@ -136,7 +145,11 @@
                                 ><i class="zmdi zmdi-edit ml-1 zmdi-hc-lg"></i
                               ></span>
                             </td>
-                            <td class="pl-5">
+                            <td class="">
+                              {{ a.publish_date | dateConversion }} -
+                              {{ a.expiry_date | dateConversion }}
+                            </td>
+                            <!-- <td class="pl-5">
                               <i
                                 class="ig-notice"
                                 v-if="a.check_status !== 'true'"
@@ -145,7 +158,7 @@
                             </td>
                             <td :class="calexpired(a.expiry_date)">
                               {{ a.expiry_date | dateConversion }}
-                            </td>
+                            </td> -->
                             <!-- <td>All students</td> -->
                             <td>{{ a.target }}</td>
                             <td>{{ a.completedStu }} ／{{ a.totalStu }}</td>

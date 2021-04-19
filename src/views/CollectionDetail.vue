@@ -16,7 +16,7 @@
               ></a>
             </div>
             <div class="mr-auto">
-              <h1>{{ $t("collection") }}</h1>
+              <h1>{{ $t("my-library") }}</h1>
               <p class="second-title">{{ cname }}</p>
             </div>
           </div>

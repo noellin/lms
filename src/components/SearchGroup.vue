@@ -112,7 +112,7 @@
               <div
                 v-for="(level, index) in levelLists"
                 :key="level + index"
-                class="px-3"
+                class="col-4"
               >
                 <div class="custom-control custom-checkbox mr-2">
                   <input
@@ -228,6 +228,7 @@ export default {
       if (result) {
         console.log("get course");
         this.$emit("getMList", this.sortMList);
+        this.$emit("getFilterInfo", this.selectLevelList, this.selectSortType);
       }
     },
     async searchCollectionResource() {
@@ -343,6 +344,8 @@ export default {
       return this.$store.state.auth.userid;
     },
     sortMList() {
+      console.log("start sort");
+      // console.log(arguments.callee.caller.toString());
       //dashboard filter
       //utils mixins
       let sortMaterial = [];
@@ -410,6 +413,10 @@ export default {
     },
   },
   watch: {
+    // textbookList() {
+    //   // console.log('change');
+    //   this.$emit("getMList", this.sortMList);
+    // },
     courseInfo() {
       if (this.$route.name !== "CollectionDetail") {
         if (this.courseInfo.cntLevel === 0) {
