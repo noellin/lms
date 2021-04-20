@@ -194,7 +194,6 @@ export default {
       };
       let result = await ApiSearchCourseResource.post(this.courseid, searchObj)
         .then((response) => {
-          // console.log(response);
           if (vm.selectSortType === "") {
             if (response.csrInfo.cntLevel !== 0) {
               vm.haveLevel = true;
@@ -256,11 +255,8 @@ export default {
       )
         .then((response) => {
           if (vm.selectSortType === "") {
-            console.log("default");
-            console.log(response.moreInfo.cntLevel);
             if (response.moreInfo.cntLevel !== 0) {
               vm.haveLevel = true;
-              console.log("change default level_asc");
               vm.selectSortType = "level_asc";
             } else {
               vm.haveLevel = false;
@@ -283,7 +279,6 @@ export default {
               }
             });
           });
-          console.log(response.record);
           this.textbookList = response.record;
           // this.collectionInfo = response.moreInfo;
           if (response.moreInfo.cntLevel === 0) {
@@ -433,6 +428,16 @@ export default {
             { text: "Sort by title Z to A", id: "title_desc" },
             { text: "Sort by level A to Z", id: "level_asc" },
             { text: "Sort by level Z to A", id: "level_desc" },
+          ];
+          this.$store.dispatch("common/setSortTypeList", slist);
+        } else {
+          let slist = [
+            { text: "Sort by title A to Z", id: "title_asc" },
+            { text: "Sort by title Z to A", id: "title_desc" },
+            { text: "Sort by level A to Z", id: "level_asc" },
+            { text: "Sort by level Z to A", id: "level_desc" },
+            { text: "Sort by unit Smallest to Largest", id: "unit_asc" },
+            { text: "Sort by unit Largest to Smallest", id: "unit_desc" },
           ];
           this.$store.dispatch("common/setSortTypeList", slist);
         }

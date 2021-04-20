@@ -38,7 +38,7 @@ Vue.mixin({
             //     levelList.push(element.level)
             //   }
             // });
-
+            console.log(sortType);
             if (sortType === "title_asc") {
               temp = sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
               // temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
@@ -49,7 +49,14 @@ Vue.mixin({
               // temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
               return temp.reverse();
             } else if (sortType === "level_asc") {
-              temp = sortBy(temp, [(obj) => obj.level], ["asc"]);
+              let tempLevel = temp.filter(item => {
+                return item.level!=='' && item.level!==null && item.level!==undefined
+              })
+              let tempUnit = temp.filter(item => {
+                return item.unit!=='' && item.unit!==null && item.unit!==undefined
+              })
+              temp = sortBy(tempLevel, [(obj) => obj.level], ["asc"]).concat(sortBy(tempUnit, [(obj) => obj.unit], ["asc"]));
+              // temp = sortBy(temp, [(obj) => obj.level], ["asc"]);
               return temp;
             } else if (sortType === "level_desc") {
               temp = sortBy(temp, [(obj) => obj.level], ["asc"]);
