@@ -871,10 +871,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(tb, index) in copyTextbookList"
-                    :key="tb.resourceid"
-                  >
+                  <tr v-for="tb in copyTextbookList" :key="tb.resourceid">
                     <td>
                       <div class="custom-control custom-checkbox form-check">
                         <input

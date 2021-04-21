@@ -21,7 +21,10 @@
             </div>
           </div>
         </header>
-        <section class="page-content container-fluid">
+        <section
+          class="page-content container-fluid"
+          v-if="cResourceList.length !== 0"
+        >
           <div class="d-flex justify-content-between">
             <search-group
               :mfilter="''"
@@ -126,6 +129,13 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+        <section class="page-content container-fluid">
+          <div class="col-sm-12 card py-5">
+            <div class="d-flex justify-content-center">
+              <h4>{{ $t("no-materials-added-yet") }}</h4>
             </div>
           </div>
         </section>

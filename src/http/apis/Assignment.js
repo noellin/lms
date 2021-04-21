@@ -14,6 +14,7 @@ export const ApiGetAList = {
 
 export const ApiGetAMaterial = {
   get: (aid) => {
+    console.log(aid);
     return get(`/asgmt/material/${aid}`);
   },
 };

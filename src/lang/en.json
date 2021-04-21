@@ -317,5 +317,6 @@
   "assignment-period": "Assignment period",
   "library-name": "Library name",
   "available-library": "Available library",
-  "change-library-will-clear-the-current-list": "Change library will clear the current list"
+  "change-library-will-clear-the-current-list": "Change library will clear the current list",
+  "no-materials-added-yet": "No materials added yet"
 }
