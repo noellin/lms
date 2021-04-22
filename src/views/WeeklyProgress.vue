@@ -10,7 +10,6 @@
           <div class="main-content">
             <course-header></course-header>
             <section class="page-content container-fluid">
-
               <!--  -->
               <div class="row">
                 <div class="col-12">
@@ -18,7 +17,7 @@
                     <div class="card-body row col-sm-12">
                       <div class="col-sm-12">
                         <label class="col-form-label text-left"
-                          >Publisher:
+                          >{{ $t("teachers") }}:
                           <span class="ml-1">{{
                             weeklyQuiz.designator
                           }}</span></label
@@ -31,7 +30,7 @@
                           </label>
                           <div class="col-sm-12">
                             <input
-                            v-if="weeklyQuiz.designator!=='System'"
+                              v-if="weeklyQuiz.designator !== 'System'"
                               type="text"
                               id="description"
                               class="form-control form-control-lg"
@@ -39,8 +38,8 @@
                               v-model="weeklyQuiz.description"
                               disabled
                             />
-                                                        <input
-                            v-else
+                            <input
+                              v-else
                               type="text"
                               id="description"
                               class="form-control form-control-lg"
@@ -53,7 +52,7 @@
                       </div>
                       <div class="col-sm-12">
                         <label class="col-form-label text-left col-sm-12 pl-0">
-                          {{ $t("passage") }}
+                          {{ $t("content") }}
                           <span>
                             ({{
                               $t(
@@ -96,7 +95,7 @@
                           <!-- <i class="zmdi zmdi-calendar-alt"></i> -->
                         </div>
                         <div
-                        v-if="$route.params.expired !== 'expired'"
+                          v-if="$route.params.expired !== 'expired'"
                           class="col-sm-12 d-flex justify-content-start px-0 mt-4"
                         >
                           <button
@@ -115,7 +114,7 @@
                 </div>
               </div>
               <!--  -->
-                            <div class="pb-3" v-if="wqStudentList.length!==0">
+              <div class="pb-3" v-if="wqStudentList.length !== 0">
                 <div class="d-flex">
                   <div class="form-group form-rounded mb-0 mr-3">
                     <select2
@@ -125,7 +124,7 @@
                     >
                     </select2>
                   </div>
-                  <div class="form-group form-rounded mb-0" >
+                  <div class="form-group form-rounded mb-0">
                     <div class="input-group">
                       <input
                         v-model="search.keyword"
@@ -161,7 +160,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                          <!-- <td>{{wqStudentList}}</td> -->
+                            <!-- <td>{{wqStudentList}}</td> -->
                             <tr
                               v-for="wqitem in wqStudentList"
                               :key="wqitem.userid"
@@ -199,7 +198,7 @@
                                   ></i>
                                 </button>
                               </td>
-                              <td v-else>{{ $t("incomplete") }}</td>
+                              <td v-else>{{ $t("incompleted") }}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -225,7 +224,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">
-              {{ $t("modify-echo-valley") }}
+              {{ $t("modify-quiz") }}
             </h5>
             <button
               type="button"
@@ -255,7 +254,7 @@
             </div>
             <div class="col-sm-12 px-0">
               <label class="col-form-label text-left col-sm-12 pl-0">
-                {{ $t("passage") }}
+                {{ $t("content") }}
               </label>
             </div>
             <textarea
@@ -335,7 +334,7 @@ export default {
         options: [
           { text: "All students", id: "*" },
           { text: "Completed", id: "finish" },
-          { text: "Incomplete", id: "ongoing" },
+          { text: "Incompleted", id: "ongoing" },
         ],
         keyword: "",
       },
@@ -356,10 +355,9 @@ export default {
   mounted() {
     this.getDetail();
   },
-  watch:{
-  },
+  watch: {},
   computed: {
-    wqStudentListByfilter(){
+    wqStudentListByfilter() {
       // console.log('wq = ',wqStudentList);
       // arr = _.filter(wqStudentList,function(o){return o.})
     },

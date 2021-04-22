@@ -32,7 +32,7 @@
                         <thead>
                           <tr>
                             <th>{{ $t("creation-date") }}</th>
-                            <th>{{ $t("author") }}</th>
+                            <th>{{ $t("teacher") }}</th>
                             <th>{{ $t("number-of-questions") }}</th>
                             <!-- <th>Assignment times</th>
                             <th>Student number</th>

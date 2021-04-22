@@ -62,13 +62,13 @@
             <span
               class="badge badge-pill badge-secondary mr-2 mb-2 pointer"
               @click="removeLevel(level)"
-              >Level {{ level }}
+              >{{ $t("level") }} {{ level }}
               <span class="ml-1"><i class="zmdi zmdi-close"></i></span
             ></span>
           </span>
-          <span class="text-primary pointer" @click="clearLevelFilter()"
-            >Clear all</span
-          >
+          <span class="text-primary pointer" @click="clearLevelFilter()">{{
+            $t("clear-all")
+          }}</span>
         </div>
       </div>
     </div>

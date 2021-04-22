@@ -7,7 +7,7 @@
         			<div class="cart-box" v-if="isShow">
 			 <div class="row justify-content-center bg-white border rounded py-3">
 					<div class="col-md-12">
-						<div class="h5"><b>Assignment List</b></div>
+						<div class="h5"><b>{{$t('assignment-list')}}</b></div>
 						<div class="u-close" @click="isShow=false">
 							<span></span>
 							<span></span>
@@ -77,7 +77,7 @@
 						<!-- button -->
 						<div class="nav-item " v-if="tempAList.length!==0" @click="gotoAgtCreate()">
 							<button type="button" class="btn btn-primary btn-rounded d-block  " 
-							@click="isShow=!isShow">Create Assignment</button>
+							@click="isShow=!isShow">{{$t('create-assignment')}}</button>
 						</div>
 					</div>
 				</div>

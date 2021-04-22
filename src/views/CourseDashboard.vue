@@ -302,8 +302,7 @@
                                   @click="sortTable('asgmt_finish')"
                                   class="pointer"
                                 >
-                                  {{ $t("complete-assignments")
-                                  }}<i
+                                  {{$t('completed-assignments')}}<i
                                     class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                                   ></i>
                                 </th>

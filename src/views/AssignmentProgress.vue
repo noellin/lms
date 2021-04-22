@@ -219,7 +219,7 @@
                               <span
                                 v-if="ap.completedflag !== 'true'"
                                 class="text-warning"
-                                >{{ $t("incomplete") }}</span
+                                >{{ $t("incompleted") }}</span
                               >
                               <span v-else class="text-success">{{
                                 $t("completed")
@@ -235,8 +235,6 @@
                                 $t("checked")
                               }}</span>
                             </td>
-                            <!-- <span class="text-warning">Incomplete</span> -->
-                            <!-- <td>checked</td> -->
                           </tr>
                         </tbody>
                       </table>
@@ -344,7 +342,7 @@
                             ><i
                               class="zmdi zmdi-close zmdi-hc-fw text-white"
                             ></i></span
-                          >{{ $t("incomplete") }}
+                          >{{ $t("incompleted") }}
                         </h5>
                         <h5 class="text-success" v-else>
                           <span
@@ -352,7 +350,7 @@
                             ><i
                               class="zmdi zmdi-check zmdi-hc-fw text-white"
                             ></i></span
-                          >{{ $t("complete") }}
+                          >{{ $t("completed") }}
                         </h5>
                       </div>
 
@@ -589,7 +587,7 @@ export default {
       statusList: [
         { text: "All students", id: "*" },
         { text: "Completed", id: "complete" },
-        { text: "Incomplete", id: "incomplete" },
+        { text: "Incompleted", id: "incomplete" },
         { text: "Checked", id: "checked" },
         { text: "Unchecked", id: "unchecked" },
       ],

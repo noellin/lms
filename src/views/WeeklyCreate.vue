@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group row">
                           <label class="col-form-label text-right col-sm-3">
-                            {{ $t("passage") }}
+                            {{ $t("content") }}
                           </label>
                           <div class="col-sm-8">
                             <textarea

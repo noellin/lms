@@ -11,7 +11,7 @@
       <ul class="navbar-nav nav-center site-logo">
         <li>
           <a @click="gotoLogin()">
-            <span class="brand-text">School Name</span>
+            <span class="brand-text">{{ $t("school-name") }}</span>
           </a>
         </li>
       </ul>
@@ -113,6 +113,15 @@
             <a class="dropdown-item pointer" @click="gotoAccount()"
               ><i class="icon dripicons-user"></i> {{ $t("my-account") }}</a
             >
+            <a
+              class="dropdown-item pointer"
+              data-toggle="modal"
+              data-target="#langModal"
+              ><i class="icon dripicons-web"></i> {{ $t("language") }}</a
+            >
+            <!-- <div class="d-flex align-items-center">
+          <i class="fas fa-globe globe-size"></i>
+        </div> -->
             <a class="dropdown-item pointer" @click="contactUs()"
               ><i class="icon dripicons-mail"></i>
               {{ $t("ask-mangosteems") }}</a
@@ -124,6 +133,67 @@
         </li>
       </ul>
     </nav>
+    <div
+      class="modal fade"
+      id="langModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+      data-modal="scroll"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              {{ $t("language-setting") }}
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-Cancel"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="p-0">
+              <li
+                class="lang-li mb-3 pointer"
+                @click="settingLang = 'en-US'"
+                :class="{ 'text-primary': settingLang === 'en-US' }"
+              >
+                English
+              </li>
+              <li
+                class="lang-li mb-3 pointer"
+                @click="settingLang = 'zh-TW'"
+                :class="{ 'text-primary': settingLang === 'zh-TW' }"
+              >
+                繁體中文 (Traditional Chinese)
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              {{ $t("cancel") }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="changeLang(settingLang)"
+            >
+              {{ $t("confirm") }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -137,6 +207,7 @@ export default {
       // },
       headerLabel: this.$route.meta.header,
       showImg: "teacher_men",
+      settingLang: this.$store.state.lang,
     };
   },
   created() {
@@ -150,6 +221,9 @@ export default {
     // console.log(this.userInfo);
   },
   computed: {
+    lang() {
+      return this.$store.state.lang;
+    },
     showPage() {
       return this.$route.name;
     },
@@ -166,6 +240,9 @@ export default {
     },
   },
   methods: {
+    changeLang(lang) {
+      this.dispatch(("common/setLang", lang));
+    },
     contactUs() {
       let url = "https://mangosteems.com/contact-us/";
       window.open(url, "_blank");
@@ -206,5 +283,9 @@ export default {
 .avator-size {
   width: 40px;
   height: 40px;
+}
+
+.globe-size {
+  font-size: 22px;
 }
 </style>

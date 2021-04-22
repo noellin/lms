@@ -462,14 +462,10 @@
           </div>
           <div class="modal-body">
             <p v-if="tempResource.openflag !== 'true'">
-              {{ $t("open-this-material-and-allow") }}
-              <!-- <em>{{ tempResource.resource_name }}</em> -->
-              {{ $t("students-to-view-it") }}.
+              {{ $t("open-material-and-allow-students-to-view-it") }}.
             </p>
             <p v-else>
-              {{ $t("close-this-material-and-do-not-allow") }}
-              <em>{{ tempResource.resource_name }}</em>
-              {{ $t("students-to-view-it") }}
+              {{ $t("close-material-does-not-allow-students-to-view-it") }}.
             </p>
           </div>
           <div class="modal-footer">
@@ -1087,7 +1083,7 @@
               <div
                 class="form-group row align-items-start"
                 :style="{
-                  height: [parseInt(selectStudent.length / 3) + 3] * 28 + 'px',
+                  height: [parseInt(selectStudent.length / 3) + 2] * 40 + 'px',
                 }"
               >
                 <label class="control-label text-right col-sm-3">{{
@@ -1303,11 +1299,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>{{ $t("no-related-collection-can-be-added") }}.</p>
+            <p>{{ $t("no-related-library-can-be-added") }}.</p>
             <p>
               {{
                 $t(
-                  "please-create-a-collection-of-the-resource-before-adding-the-material"
+                  "please-create-a-library-of-the-resource-before-adding-the-material"
                 )
               }}
             </p>
@@ -1326,7 +1322,7 @@
               data-dismiss="modal"
               @click="gotoCreateCol()"
             >
-              {{ $t("create-collection") }}
+              {{ $t("create-library") }}
             </button>
           </div>
         </div>

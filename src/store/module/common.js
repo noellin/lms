@@ -12,6 +12,7 @@ const common = {
             { text: "Sort by unit Smallest to Largest", id: "unit_asc" },
             { text: "Sort by unit Largest to Smallest", id: "unit_desc" },
           ],
+        lang:'en-US'
 
     },
     mutations: {
@@ -21,6 +22,10 @@ const common = {
         SET_SORTTYPELIST(state, data){
             state.sortTypeList = data
         },
+        SET_LANG(state, data){
+            this.$i18n.locale = data
+            state.lang = data
+        },
     },
     actions: {
         setSortTypeList(context, data){
@@ -28,6 +33,9 @@ const common = {
         },
         setLoading(context, data) {
             context.commit('SET_LOADING', data)
+        },
+        setLang(context, data){
+            context.commit('SET_LANG', data)
         },
 
     },

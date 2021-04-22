@@ -85,7 +85,7 @@
                             >{{ $t("active") }}</span
                           >
                           <span class="text-danger" v-else>{{
-                            $t("supended")
+                            $t("suspended")
                           }}</span>
                         </td>
                       </tr>

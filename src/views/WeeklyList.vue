@@ -141,7 +141,9 @@
                               <span v-if="wq.description !== wq.start_date">{{
                                 wq.description
                               }}</span>
-                              <span v-else>System auto-assigned</span>
+                              <span v-else>{{
+                                $t("system-auto-assigned")
+                              }}</span>
                             </td>
                             <td>{{ wq.start_date | dateConversion }}</td>
                             <td :class="calexpired(wq.expiry_date)">
@@ -298,7 +300,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">
-              {{ $t("delete-echo-valley") }}
+              {{ $t("delete-quiz") }}
             </h5>
             <button
               type="button"

@@ -35,13 +35,14 @@ const i18n = new VueI18n({
   //this.$i18n.locale // 通過切換locale的值來實現語言切換
 
   messages: {
-    // "zh-TW": require("../src/lang/zh-tw"), // 繁體中文語言包
+    "zh-TW": require("../src/lang/zh-tw"), // 繁體中文語言包
 
     // "zh-CN": require("../src/lang/zh-cn"), // 簡體中文語言包
 
     "en-US": require("../src/lang/en.json"), // 英文語言包
   },
 });
+i18n.locale = store.state.currentLang;
 
 const loadimage = require('./assets/img/images/Spinner-1s-200px (1).svg')
 const errorimage = require('./assets/img/images/cross-1.1s-200px.png')

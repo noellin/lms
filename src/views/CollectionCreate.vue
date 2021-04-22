@@ -219,7 +219,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>{{ $t("would-you-like-to-save-your-collection") }}?</p>
+            <p>{{$t('would-you-like-to-save-your-library')}}?</p>
           </div>
           <div class="modal-footer">
             <button

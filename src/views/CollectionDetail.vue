@@ -132,7 +132,7 @@
             </div>
           </div>
         </section>
-        <section class="page-content container-fluid">
+        <section class="page-content container-fluid" v-else>
           <div class="col-sm-12 card py-5">
             <div class="d-flex justify-content-center">
               <h4>{{ $t("no-materials-added-yet") }}</h4>
@@ -194,7 +194,7 @@
             <h5 class="modal-title" v-if="courseList.length !== 0">
               {{ $t("start") }}
             </h5>
-            <h5 class="modal-title" v-else>{{ $t("no-course") }}</h5>
+            <h5 class="modal-title" v-else{{$t('greater-than-no-classes')}}</h5>
             <button
               type="button"
               class="close"
@@ -205,11 +205,8 @@
             </button>
           </div>
           <div class="modal-body pb-4" v-if="courseList.length !== 0">
-            <h5>{{ $t("what-is-your-ongoing-course") }}?</h5>
             <p>
-              {{
-                $t("this-material-can-only-be-viewed-in-the-following-course")
-              }}.
+              {{$t('select-the-class-to-open')}}.
             </p>
             <a
               title=""

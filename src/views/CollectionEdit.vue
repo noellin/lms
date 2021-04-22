@@ -52,7 +52,7 @@
                     </div>
                   </div>
                   <div class="col-12">
-                    <h6>{{ $t("applicable-course") }}</h6>
+                    <h6>{{ $t("classes") }}</h6>
                     <span>
                       <span
                         v-for="(course, index) in courseList"
@@ -255,7 +255,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ $t("no-course") }}</h5>
+            <h5 class="modal-title">{{ $t("no-classes") }}</h5>
             <button
               type="button"
               class="close"
@@ -266,13 +266,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>
-              {{
-                $t(
-                  "courses-that-can-use-this-collection-have-expired-less-than-br-greater-than-if-you-want-to-continue-using-you-must-renew-the-contract"
-                )
-              }}.
-            </p>
+            <p>{{ $t("expired-please-contact-your-business-partner") }}.</p>
           </div>
           <div class="modal-footer">
             <button

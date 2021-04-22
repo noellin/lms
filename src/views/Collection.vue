@@ -168,7 +168,7 @@
           </div>
           <div class="modal-body">
             <p>
-              {{ $t("confirm-to-delete-collection") }}：<strong>{{
+              {{$t('confirm-to-delete-library')}}：<strong>{{
                 tempCname
               }}</strong
               >?

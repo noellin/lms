@@ -370,7 +370,7 @@
                   <div class="form-group row">
                     <label
                       class="control-label text-right col-sm-4 text-height-form-control"
-                      >{{ $t("course-name") }}</label
+                      >{{ $t("classes") }}</label
                     >
                     <div class="col-sm-8">
                       <input
@@ -397,21 +397,6 @@
                   >{{ $t("select-teacher") }}</label
                 >
                 <div class="col-sm-8">
-                  <!-- <select
-                    class="form-control"
-                    id="s2_demo3"
-                    multiple="multiple"
-                    v-model="tempCourse.id"
-                  >
-                    <optgroup label="title">
-                      <option
-                        v-for="option in selectTeacherList"
-                        :key="option.id"
-                      >
-                        {{ option.text }}
-                      </option>
-                    </optgroup>
-                  </select> -->
                   <select2
                     class=""
                     multiple

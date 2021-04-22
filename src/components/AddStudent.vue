@@ -34,7 +34,7 @@
                   <div>
                     <i class="zmdi zmdi-account-add zmdi-hc-fw display-5"></i>
                   </div>
-                  <div class="mt-3">{{ $t("add-a-single-student") }}</div>
+                  <div class="mt-3">{{ $t("add-a-new-student") }}</div>
                 </button>
               </div>
               <div>
@@ -93,7 +93,7 @@
           </div>
           <div class="modal-body">
             <h4 class="text-center mb-4 mt-2">
-              {{ $t("add-a-single-student") }}
+              {{ $t("add-a-new-student") }}
             </h4>
             <form>
               <ValidationObserver ref="addStdForm">
@@ -146,7 +146,7 @@
                     </div>
 
                     <div class="invalid-feedback">
-                      {{ $t("the-number-is-already-exists") }}.
+                      {{ $t("the-phone-number-is-already-exists") }}.
                     </div>
                   </div>
                 </ValidationProvider>
@@ -258,7 +258,7 @@
           </div>
           <div class="modal-body">
             <h4 class="text-center mb-4 mt-2">{{ $t("copy") }}</h4>
-            <p>{{ $t("copy-student-from-other-course") }}.</p>
+            <p>{{ $t("copy-student-from-other-classes") }}.</p>
             <form>
               <div class="form-group">
                 <select2
@@ -306,7 +306,7 @@
               v-if="dupStudentList.length > 0"
             >
               <p class="text-danger ml-3 mt-3 mb-0">
-                {{ $t("these-students-already-exist-in-the-course") }}.
+                {{ $t("these-students-already-exist-in-the-classes") }}.
               </p>
               <div
                 class="table-responsive p-10 mb-2"
