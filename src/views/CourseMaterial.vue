@@ -153,39 +153,40 @@
               </div>
             </div>
             <div class="d-flex justify-content-between">
-              <search-group
-                class="col-sm-8 px-0"
-                :mfilter="mfilter"
-                @getMList="getMList"
-                @getFilterInfo="getFilterInfo"
-              ></search-group>
-
-              <div
-                class="text-right col-sm-4 px-0"
-                v-if="$route.params.expired !== 'expired'"
-              >
-                <button
-                  type="button"
-                  class="btn btn-primary btn-rounded btn-outline mr-2"
-                  data-toggle="modal"
-                  data-target="#OpenSettingsModal"
-                  @click="copyMArray()"
+              <div class="col-sm-12 row">
+                <div
+                  class="text-left col-sm-12 px-0 mb-2"
+                  v-if="$route.params.expired !== 'expired'"
                 >
-                  <i class="la la-gear"></i>{{ $t("quick-open-up") }}
-                </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-rounded btn-outline mr-1"
+                    data-toggle="modal"
+                    data-target="#OpenSettingsModal"
+                    @click="copyMArray()"
+                  >
+                    <i class="la la-gear"></i>{{ $t("quick-open-up") }}
+                  </button>
 
-                <button
-                  type="button"
-                  class="btn btn-primary btn-rounded btn-outline"
-                  @click="openAssignmentModal()"
-                  :disabled="tempAList.length === 0 ? true : false"
-                >
-                  <i class="la la-clipboard"></i>
-                  {{ $t("assignments") }}
-                  <span class="badge badge-primary">{{
-                    tempAList.length
-                  }}</span>
-                </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-rounded btn-outline"
+                    @click="openAssignmentModal()"
+                    :disabled="tempAList.length === 0 ? true : false"
+                  >
+                    <i class="la la-clipboard"></i>
+                    {{ $t("assignments") }}
+                    <span class="badge badge-primary">{{
+                      tempAList.length
+                    }}</span>
+                  </button>
+                </div>
+                <search-group
+                  class="col-sm-12 px-0"
+                  :mfilter="mfilter"
+                  @getMList="getMList"
+                  @getFilterInfo="getFilterInfo"
+                ></search-group>
               </div>
             </div>
             <div class="row" v-if="softStatus">
@@ -2200,10 +2201,6 @@ export default {
 
 .a-sequence {
   overflow-y: scroll !important;
-}
-
-.font-size-md {
-  font-size: 0.75rem;
 }
 .bold {
   font-weight: bold;

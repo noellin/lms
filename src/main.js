@@ -42,7 +42,8 @@ const i18n = new VueI18n({
     "en-US": require("../src/lang/en.json"), // 英文語言包
   },
 });
-i18n.locale = store.state.currentLang;
+// console.log(store.state.commom)
+i18n.locale = store.state.auth.currentsLang;
 
 const loadimage = require('./assets/img/images/Spinner-1s-200px (1).svg')
 const errorimage = require('./assets/img/images/cross-1.1s-200px.png')

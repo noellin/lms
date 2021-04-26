@@ -1,11 +1,11 @@
 <template >
-  <div class="pb-3">
+  <div class="px-1 mb-3">
     <div class="form-row">
-      <div class="form-group form-rounded mb-0 mr-3">
+      <div class="form-group form-rounded mb-0 mr-1">
         <select2 id="s2_demo2" :options="typeList" v-model="selectType">
         </select2>
       </div>
-      <div class="form-group form-rounded mb-0 mr-3">
+      <div class="form-group form-rounded mb-0 mr-1">
         <div class="input-group">
           <input
             type="text"
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group form-rounded mb-0 mr-3">
+      <div class="form-group form-rounded mb-0 mr-1">
         <select2 id="s2_demo3" :options="sortTypeList" v-model="selectSortType">
         </select2>
       </div>

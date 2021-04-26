@@ -11,7 +11,7 @@
       <ul class="navbar-nav nav-center site-logo">
         <li>
           <a @click="gotoLogin()">
-            <span class="brand-text">{{ $t("school-name") }}</span>
+            <!-- <span class="brand-text">{{ $t("school-name") }}</span> -->
           </a>
         </li>
       </ul>
@@ -62,7 +62,7 @@
               :class="[headerLabel === 'course' ? 'active' : '']"
             >
               <router-link class="" to="/course">
-                <a> {{ $t("home") }} </a>
+                <a> Home </a>
               </router-link>
             </li>
             <li
@@ -207,7 +207,7 @@ export default {
       // },
       headerLabel: this.$route.meta.header,
       showImg: "teacher_men",
-      settingLang: this.$store.state.lang,
+      settingLang: "111",
     };
   },
   created() {
@@ -218,12 +218,13 @@ export default {
   },
   mounted() {
     this.showImg = this.image_small;
-    // console.log(this.userInfo);
+    this.settingLang = this.userInfo.currentsLang;
+    console.log(this.userInfo);
   },
   computed: {
-    lang() {
-      return this.$store.state.lang;
-    },
+    // langs() {
+    //   return this.$store.state.commom.currentsLang;
+    // },
     showPage() {
       return this.$route.name;
     },
@@ -241,7 +242,8 @@ export default {
   },
   methods: {
     changeLang(lang) {
-      this.dispatch(("common/setLang", lang));
+      this.$i18n.locale = lang;
+      this.$store.dispatch("auth/setLang", lang);
     },
     contactUs() {
       let url = "https://mangosteems.com/contact-us/";

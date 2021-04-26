@@ -627,6 +627,7 @@ export default {
       if (result) {
         if (this.showAlreadyExist) {
         } else {
+          this.$store.dispatch("courseInfo/updateStudent", this.courseid);
           this.showErrorMessage = false;
           this.errorMessage = "";
           this.$refs.myVueDropzone.removeAllFiles();

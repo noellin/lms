@@ -461,7 +461,6 @@ export default {
     // this.getAccountInfo();
     this.init();
     this.chooseimg = this.image;
-    console.log(this.image_big);
     this.showImg = this.image_big;
   },
   computed: {
@@ -640,10 +639,6 @@ a:not([href]):not([tabindex]) {
 //
 .edit-size {
   font-size: 48px;
-}
-
-.bc-blue {
-  border: 3px solid #32c1db;
 }
 .bchover-blue:hover {
   border: 3px solid #32c1db;

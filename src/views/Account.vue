@@ -13,7 +13,98 @@
             </div>
           </div>
         </header>
-        <section class="page-content container-fluid">
+        <section
+          class="page-content container-fluid pb-0"
+          v-if="userInfo.permit === 'admin'"
+        >
+          <h1>My account</h1>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <table class="table table-striped" style="width: 100%">
+                    <thead>
+                      <tr>
+                        <th>{{ $t("my-name") }}</th>
+                        <th>{{ $t("my-e-mail") }}</th>
+                        <th>{{ $t("edit") }}</th>
+                        <!-- <th>{{$t('my-status')}}</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <a
+                            data-toggle="modal"
+                            data-target="#changeInfo"
+                            class="pointer"
+                            @click="accountInfo.username = userInfo.username"
+                          >
+                            <!-- <img
+                              :src="
+                                require('../assets/img/avatars/' +
+                                  userInfo.image +
+                                  '.png')
+                              "
+                              class="w-40 rounded-circle mr-3"
+                              alt="Albert Einstein" /> -->
+                            <img
+                              v-if="userInfo.image === '1'"
+                              :src="
+                                require('../assets/img/avatars/teacher_men.png')
+                              "
+                              class="w-40 rounded-circle mr-3"
+                              alt="Albert Einstein" />
+                            <img
+                              v-if="userInfo.image === '2'"
+                              :src="
+                                require('../assets/img/avatars/teacher_women.png')
+                              "
+                              class="w-40 rounded-circle mr-3"
+                              alt="Albert Einstein" />
+                            {{ userInfo.username
+                            }}<i class="fas fa-edit ml-2 text-primary"></i
+                          ></a>
+                        </td>
+                        <td>{{ userInfo.email }}</td>
+                        <td>
+                          <!-- <button
+                            class="btn btn-primary btn-rounded mr-2"
+                            data-toggle="modal"
+                            data-target="#changeInfo"
+                          >
+                            {{$t('edit-profile')}}
+                          </button> -->
+                          <button
+                            type="button"
+                            class="btn btn-accent btn-rounded"
+                            data-toggle="modal"
+                            data-target="#ResetPasswordModal"
+                          >
+                            {{ $t("reset-password") }}
+                          </button>
+                        </td>
+                        <!-- <td>
+                          <span
+                            class="text-success"
+                            v-if="ac.status === 'enable'"
+                            >{{ $t("active") }}</span
+                          >
+                          <span class="text-danger" v-else>{{
+                            $t("suspended")
+                          }}</span>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-content container-fluid pt-0">
+          <h1>Teacher List</h1>
           <div class="d-flex justify-content-between mb-3">
             <div class="form-group form-rounded mb-0">
               <div class="input-group">
@@ -70,11 +161,24 @@
                           <a
                             @click="gotoAccountDetail(ac.userid)"
                             class="pointer"
-                            ><img
-                              src="../assets/img/avatars/teacher.png"
+                          >
+                            <img
+                              v-if="ac.image === '1'"
+                              :src="
+                                require('../assets/img/avatars/teacher_men.png')
+                              "
                               class="w-40 rounded-circle mr-3"
                               alt="Albert Einstein"
-                            />{{ ac.username }}</a
+                            />
+                            <img
+                              v-if="ac.image === '2'"
+                              :src="
+                                require('../assets/img/avatars/teacher_women.png')
+                              "
+                              class="w-40 rounded-circle mr-3"
+                              alt="Albert Einstein"
+                            />
+                            {{ ac.username }}</a
                           >
                         </td>
                         <td>{{ ac.email }}</td>
@@ -296,15 +400,231 @@
         </div>
       </div>
     </div>
+    <!-- Reset Password MODAL -->
+    <div
+      class="modal fade"
+      id="ResetPasswordModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ $t("reset-password") }}</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <ValidationObserver ref="resetForm">
+            <div class="modal-body">
+              <form>
+                <ValidationProvider
+                  rules="required|min:6"
+                  v-slot="{ failed, errors }"
+                  name="Current password"
+                >
+                  <div class="form-group row">
+                    <label class="control-label text-right col-4">{{
+                      $t("current-password")
+                    }}</label>
+
+                    <div class="col-8">
+                      <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Enter your current password"
+                        value=""
+                        :class="{ 'is-invalid': failed }"
+                        v-model="tempPwdInfo.oldpw"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+
+                    <div class="invalid-feedback">
+                      {{ $t("current-password-is-incorrect") }}
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="New password"
+                  vid="confirmation"
+                >
+                  <div class="form-group row">
+                    <label class="control-label text-right col-4">{{
+                      $t("new-password")
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="password"
+                        class="form-control is-invalid"
+                        placeholder="Password must be at least 6 characters"
+                        value=""
+                        :class="{ 'is-invalid': failed }"
+                        v-model="tempPwdInfo.newpw"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+
+                    <div class="invalid-feedback">
+                      {{ $t("passwords-are-inconsistent") }}.
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required|confirmed:confirmation"
+                  v-slot="{ failed, errors }"
+                  name="Confirm password"
+                >
+                  <div class="form-group row">
+                    <label class="control-label text-right col-4">{{
+                      $t("confirm-password")
+                    }}</label>
+
+                    <div class="col-8">
+                      <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Enter your password again"
+                        value=""
+                        v-model="tempPwdInfo.confirmpw"
+                      />
+                      <span v-if="failed" class="text-danger">{{
+                        errors[0]
+                      }}</span>
+                    </div>
+                  </div>
+                </ValidationProvider>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary btn-outline btn-rounded"
+                data-dismiss="modal"
+              >
+                {{ $t("cancel") }}
+              </button>
+              <button
+                type="submit"
+                class="btn btn-accent btn-rounded"
+                @click="setAccountPWD"
+              >
+                {{ $t("reset") }}
+              </button>
+              <!-- 
+                data-dismiss="modal"
+                data-toggle="modal"
+                data-target="#PasswordResetSuccessModal" -->
+            </div>
+          </ValidationObserver>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <!-- Edit img MODAL -->
+    <div
+      class="modal fade"
+      id="changeInfo"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              {{ $t("edit-profile") }}
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body pb-4">
+            <div class="form-group row m-t-20">
+              <label class="w-75 pl-3 col-form-label text-right"
+                >{{ $t("name") }}：</label
+              >
+              <div class="col-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                  value=""
+                  v-model="accountInfo.username"
+                />
+              </div>
+            </div>
+            <h5>{{ $t("choose-your-avatar") }}</h5>
+            <div class="justify-content-start">
+              <div class="d-flex">
+                <img
+                  src="../assets/img/avatars/teacher_men.png"
+                  class="w-200 rounded-circle img-thumbnail mr-5 pointer bchover-blue"
+                  :class="chooseimg === '1' ? 'bc-blue' : ''"
+                  alt="profile-image"
+                  @click="chooseimg = '1'"
+                />
+                <img
+                  src="../assets/img/avatars/teacher_women.png"
+                  class="w-200 rounded-circle img-thumbnail pointer bchover-blue"
+                  :class="chooseimg === '2' ? 'bc-blue' : ''"
+                  alt="profile-image"
+                  @click="chooseimg = '2'"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              {{ $t("close") }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              @click="changeInfo()"
+              data-dismiss="modal"
+            >
+              {{ $t("save-changes") }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
   </div>
 </template>
 <script>
 import { createLogger } from "vuex";
+
 // import CustomHeader from "../components/CustomHeader";
 import {
   ApiGetAccoutList,
   ApiSearchAccount,
   ApiSendInviteMail,
+  ApiSetAccountInfo,
+  ApiSetAccountPWD,
+  ApiChangeAvatar,
 } from "../http/apis/Account";
 export default {
   name: "Account",
@@ -315,21 +635,101 @@ export default {
     return {
       accountList: [],
       searchAccountName: "",
+      accountInfo: {
+        username: "",
+        image: "0",
+      },
       tempAccount: {
         username: "",
         email: "",
       },
+      tempPwdInfo: {
+        oldpw: "",
+        newpw: "",
+        confirmpw: "",
+      },
+      chooseimg: "0",
+      accountShow: "information",
     };
   },
   computed: {
+    image() {
+      return this.$store.state.auth.image;
+    },
     userid() {
       return this.$store.state.auth.userid;
     },
+    userInfo() {
+      return this.$store.state.auth;
+    },
   },
   mounted() {
+    this.chooseimg = this.image;
     this.getAccoutList();
   },
   methods: {
+    changeInfo() {
+      // 改變頭像
+      if (this.chooseimg !== this.userInfo.image) {
+        this.changeAvatar();
+      }
+      // 改變個資
+      if (this.accountInfo.username !== this.userInfo.username) {
+        this.setAccountInfo();
+      }
+    },
+    setAccountInfo() {
+      console.log("change profile");
+      let vm = this;
+      this.accountInfo.image = this.chooseimg;
+      ApiSetAccountInfo.post(this.userid, this.accountInfo)
+        .then((response) => {
+          console.log(response);
+          if (response.status === "success") {
+            vm.$store.dispatch("auth/updateUserInfo", this.accountInfo);
+            vm.$bus.$emit("messsage:push", "update success", "success");
+            vm.accountShow = "information";
+          }
+        })
+        .catch((err) => {});
+    },
+    async changeAvatar() {
+      let result = await ApiChangeAvatar.get(this.chooseimg)
+        .then((response) => {
+          if (response.status === "success") {
+            return true;
+          }
+        })
+        .catch((err) => {});
+      if (result) {
+        console.log("update");
+        this.$store.dispatch("auth/setImg", this.chooseimg);
+      }
+    },
+    setAccountPWD() {
+      this.$refs.resetForm.validate().then((success) => {
+        if (success) {
+          ApiSetAccountPWD.post(this.userid, this.tempPwdInfo)
+            .then((response) => {
+              console.log(response);
+              if (response.status === "success") {
+                this.resetpwStatus = true;
+                $("#ResetPasswordModal").modal("hide");
+                $("#PasswordResetSuccessModal").modal("show");
+              } else {
+                this.resetpwStatus = false;
+                this.errorMessage = response.record;
+                $("#ResetPasswordModal").modal("hide");
+                $("#PasswordResetSuccessModal").modal("show");
+              }
+            })
+            .catch((err) => {});
+          // 證成功後的行為包含 AJAX傳送、重製表單等等
+        } else {
+          // 驗證失敗產生的行為
+        }
+      });
+    },
     async checkValid() {
       return this.$refs.accountForm.validate();
     },

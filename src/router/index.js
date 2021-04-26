@@ -160,7 +160,7 @@ const router = new Router({
       // expired
       {
         path: "/course_material/course=:course/type=:type/:courseid/:expired",
-        name: "Library",
+        name: "Expired_Library",
         component: resolve => require(['@/views/CourseMaterial'], resolve),
         meta: {
           header: "course",
@@ -169,7 +169,7 @@ const router = new Router({
       },
       {
         path: "/course_assignment/course=:course/type=:type/:courseid/:expired",
-        name: "Assignments",
+        name: "Expired_Assignments",
         component: resolve => require(['@/views/CourseAssignment'], resolve),
         meta: {
           header: "course",
@@ -187,7 +187,7 @@ const router = new Router({
       // },
       {
         path: "/check_assignment/course=:course/type=:type/:courseid/:aid/:expired",
-        name: "Assignment_Progress",
+        name: "Expired_Assignment_Progress",
         component: resolve => require(['@/views/AssignmentProgress'], resolve),
         meta: {
           header: "course",
@@ -196,7 +196,7 @@ const router = new Router({
       },
       {
         path: "/course_student/course=:course/type=:type/:courseid/:expired",
-        name: "Student_Roster",
+        name: "Expired_Student_Roster",
         component:resolve => require(['@/views/CourseStudent'], resolve) ,
         meta: {
           header: "course",
@@ -204,7 +204,7 @@ const router = new Router({
       },
       {
         path: "/course_dashboard/course=:course/type=:type/:courseid/:expired",
-        name: "Dashboard",
+        name: "Expired_Dashboard",
         component: resolve => require(['@/views/CourseDashboard'], resolve),
         meta: {
           header: "course",
@@ -229,7 +229,7 @@ const router = new Router({
       // },
       {
         path: "/course_weekly_quiz/course=:course/type=:type/:courseid/:expired",
-        name: "Echo_Valley_Quiz",
+        name: "Expired_Echo_Valley_Quiz",
         component: resolve => require(['@/views/WeeklyList'], resolve),
         meta: {
           header: "course",
@@ -246,7 +246,7 @@ const router = new Router({
       // },
       {
         path: "/course_weekly_quiz/progress/course=:course/type=:type/:courseid/:echoid/:expired",
-        name: "Echo_Valley_Quiz_Progress",
+        name: "Expired_Echo_Valley_Quiz_Progress",
         component: resolve => require(['@/views/WeeklyProgress'], resolve),
         meta: {
           header: "course",
@@ -255,7 +255,7 @@ const router = new Router({
       }
     ],
   },
-
+// OTHER
   {
     path: "/collection",
     name: "Collection",

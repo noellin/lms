@@ -152,6 +152,7 @@ const courseInfo = {
         }
     },
     actions: {
+        
         setClass(context, data){
             context.commit('SET_CLASS', data)
         },

@@ -372,6 +372,7 @@
       id="studentdrop"
       ref="addstudent"
       :courseid="courseid"
+      @childemit="init()"
     ></add-student>
     <!-- Reset Password Modal-->
     <div

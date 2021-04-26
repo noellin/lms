@@ -11,9 +11,14 @@ const auth = {
         todayTimestamp: 0,
         image:'',
         image_big:'',
-        image_small:''
+        image_small:'',
+        currentsLang:navigator.language
     },
     mutations: {
+        SET_LANG(state, data){
+            // this.$i18n.locale = data
+            state.currentsLang = data
+        },
         SET_AUTH(state, data) {
             state.token = data.token;
             state.isLogin = data.isLogin
@@ -47,6 +52,9 @@ const auth = {
         }
     },
     actions: {
+        setLang(context, data){
+            context.commit('SET_LANG', data)
+        },
         setAuth(context, data) {
             context.commit('SET_AUTH', {
                 token: data.token,
