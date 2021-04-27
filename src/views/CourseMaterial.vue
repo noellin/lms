@@ -486,7 +486,8 @@
                 getOpenResource(
                   tempResource.colid.split(';')[0],
                   tempResource.resourceid,
-                  'false'
+                  'false',
+                  true
                 )
               "
             >
@@ -501,7 +502,8 @@
                 getOpenResource(
                   tempResource.colid.split(';')[0],
                   tempResource.resourceid,
-                  'true'
+                  'true',
+                  true
                 )
               "
             >
@@ -2130,10 +2132,28 @@ export default {
 
       // 陣列拆兩半處理 以免太大
     },
-    async getOpenResource(colid, rid, status) {
+    async getOpenResource(colid, rid, status, single = false) {
+      console.log(
+        `/course/openresource/${colid}/${this.$route.params.courseid}/${rid}/${status}`
+      );
       this.setResourceArray.push(
         `/course/openresource/${colid}/${this.$route.params.courseid}/${rid}/${status}`
       );
+
+      if (single) {
+        let result = await ApiGetOpenResource.getAll(this.setResourceArray)
+          .then((response) => {
+            return true;
+          })
+          .catch((err) => {});
+        if (result) {
+          this.$store.dispatch(
+            "courseInfo/updateTextbookList",
+            this.$route.params.courseid
+          );
+          this.$store.dispatch("common/setLoading", false);
+        }
+      }
       // { colid, rid, status });
       // let result = await ApiGetOpenResource.get(
       //   colid,

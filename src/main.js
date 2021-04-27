@@ -45,6 +45,7 @@ const i18n = new VueI18n({
 // console.log(store.state.commom)
 i18n.locale = store.state.auth.currentsLang;
 
+
 const loadimage = require('./assets/img/images/Spinner-1s-200px (1).svg')
 const errorimage = require('./assets/img/images/cross-1.1s-200px.png')
 Vue.use(VueLazyload ,{

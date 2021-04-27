@@ -18,10 +18,21 @@
                       <div class="col-sm-12">
                         <label class="col-form-label text-left"
                           >{{ $t("teachers") }}:
-                          <span class="ml-1">{{
-                            weeklyQuiz.designator
-                          }}</span></label
-                        >
+                          <span
+                            class="ml-1"
+                            v-if="weeklyQuiz.designator === 'System'"
+                            >{{ weeklyQuiz.designator }}</span
+                          >
+                          <span
+                            class="ml-1"
+                            v-else-if="
+                              weeklyQuiz.teachername !== undefined &&
+                              weeklyQuiz.teachername !== null
+                            "
+                            >{{ weeklyQuiz.teachername }}</span
+                          >
+                          <span class="ml-1" v-else> Classroom Teacher </span>
+                        </label>
                       </div>
                       <div class="col-sm-12">
                         <div class="form-group row">

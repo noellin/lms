@@ -74,7 +74,13 @@ export default {
     //   return this.$store.state.common.isLoading;
     // },
   },
-  created() {},
+  created() {
+    if (navigator.language === "zh-TW" || navigator.language === "en-US") {
+      this.$store.dispatch("auth/setLang", navigator.language);
+    } else {
+      this.$store.dispatch("auth/setLang", "en-US");
+    }
+  },
   methods: {
     // doAjax() {
     //   this.isLoading = true;
