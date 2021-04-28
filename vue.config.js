@@ -7,6 +7,10 @@ const isProduction = process.env.NODE_ENV === 'production';
 const webpack = require("webpack");
 
 module.exports = {
+  //adding extract css true solves this issue
+ css: {
+  extract: true
+},
   configureWebpack: {
     // devServer: {
     //   headers: {

@@ -742,6 +742,7 @@ export default {
     },
     async sendInviteMail() {
       let check = await this.checkValid();
+      console.log(check);
       if (check) {
         ApiSendInviteMail.post(this.tempAccount)
           .then((response) => {
@@ -756,6 +757,12 @@ export default {
             }
           })
           .catch((err) => {});
+      } else {
+        this.$bus.$emit(
+          "messsage:push",
+          "Wrong field content, please enter valid content",
+          "danger"
+        );
       }
     },
     searchAccount() {
