@@ -183,7 +183,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalTitle1">
+            <h5 class="modal-title text-danger" id="ModalTitle1">
               {{ $t("student-profile-already-exists") }}
             </h5>
             <button

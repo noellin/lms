@@ -22,11 +22,6 @@
                 >
                   Teacher
                 </div>
-                <!-- <img
-                  :src="require('../assets/img/upload/logo_dark.png')"
-                  alt="Logo"
-                /> -->
-                <!-- <span class="display-4">School Name</span> -->
               </a>
               <p class="my-4 text-center text-white">iGroup LMS</p>
               <ValidationObserver ref="loginForm">
@@ -116,15 +111,12 @@
                 </div>
               </ValidationObserver>
               <div class="d-flex justify-content-center">
-                <img :src="require('../assets/img/temp_logo.png')" alt="Logo" />
+                <img
+                  class="msu_logo"
+                  :src="require('../assets/msu_temp_logo.png')"
+                  alt="Logo"
+                />
               </div>
-
-              <!-- <strong
-                ><p class="text-center text-white mt-2">
-                  MangoSTEEMS World
-                  <span class="beta_div">BETA</span>
-                </p></strong
-              > -->
             </div>
           </div>
         </div>
@@ -146,10 +138,6 @@
                 >
                   Teacher
                 </div>
-                <!-- <img
-                  :src="require('../assets/img/upload/logo_dark.png')"
-                  alt="Logo"
-                /> -->
                 <!-- <span class="display-4">School Name</span> -->
               </a>
 
@@ -173,14 +161,12 @@
                 {{ $t("return-to-login") }}
               </button>
               <div class="d-flex justify-content-center">
-                <img :src="require('../assets/img/temp_logo.png')" alt="Logo" />
+                <img
+                  class="msu_logo"
+                  :src="require('../assets/msu_temp_logo.png')"
+                  alt="Logo"
+                />
               </div>
-              <!-- <strong
-                ><p class="text-center text-white mt-2">
-                  MangoSTEEMS World
-                  <span class="beta_div">BETA</span>
-                </p></strong
-              > -->
             </div>
           </div>
         </div>
@@ -190,10 +176,6 @@
           <div class="card">
             <div class="card-body login-bg-s">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <!-- <img
-                  :src="require('../assets/img/upload/logo_dark.png')"
-                  alt="Logo"
-                /> -->
                 <div
                   data-v-653f1d32=""
                   class="text-white"
@@ -207,9 +189,6 @@
                 </div>
                 <!-- <span class="display-4">School Name</span> -->
               </a>
-              <!-- <p class="text-center m-b-40">
-                MangoSTEEMS World<span class="beta_div">BETA</span>
-              </p> -->
 
               <div id="forget-password-page">
                 <h5 class="sign-in-heading text-white">
@@ -244,16 +223,11 @@
                 </button>
                 <div class="d-flex justify-content-center">
                   <img
-                    :src="require('../assets/img/temp_logo.png')"
+                    class="msu_logo"
+                    :src="require('../assets/msu_temp_logo.png')"
                     alt="Logo"
                   />
                 </div>
-                <!-- <strong
-                  ><p class="text-center text-white mt-2">
-                    MangoSTEEMS World
-                    <span class="beta_div">BETA</span>
-                  </p></strong
-                > -->
               </div>
             </div>
           </div>
@@ -276,10 +250,7 @@
                   >
                     Teacher
                   </div>
-                  <!-- <img
-                    :src="require('../assets/img/upload/logo_dark.png')"
-                    alt="Logo"
-                  /> -->
+
                   <!-- <span class="display-4">School Name</span> -->
                 </a>
 
@@ -342,7 +313,11 @@
                 </button>
               </ValidationObserver>
               <div class="d-flex justify-content-center">
-                <img :src="require('../assets/img/temp_logo.png')" alt="Logo" />
+                <img
+                  class="msu_logo"
+                  :src="require('../assets/msu_temp_logo.png')"
+                  alt="Logo"
+                />
               </div>
             </div>
           </div>
@@ -353,10 +328,6 @@
           <div class="card">
             <div class="card-body login-bg-s">
               <a class="brand text-center d-block m-b-20 m-t-20">
-                <!-- <img
-                  :src="require('../assets/img/upload/logo_dark.png')"
-                  alt="Logo"
-                /> -->
                 <div
                   data-v-653f1d32=""
                   class="text-white"
@@ -390,7 +361,11 @@
                 {{ $t("ok") }}
               </button>
               <div class="d-flex justify-content-center">
-                <img :src="require('../assets/img/temp_logo.png')" alt="Logo" />
+                <img
+                  class="msu_logo"
+                  :src="require('../assets/msu_temp_logo.png')"
+                  alt="Logo"
+                />
               </div>
             </div>
           </div>
@@ -664,6 +639,11 @@ export default {
   background-attachment: fixed;
 }
 
+// .msu_logo {
+//   // transform: scale(1.5);
+//   width: 100%;
+//   height: 100%;
+// }
 // @media (max-width: 1024px) {}
 // @media (max-width: 860px) {}
 </style>

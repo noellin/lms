@@ -40,14 +40,6 @@
                             class="pointer"
                             @click="accountInfo.username = userInfo.username"
                           >
-                            <!-- <img
-                              :src="
-                                require('../assets/img/avatars/' +
-                                  userInfo.image +
-                                  '.png')
-                              "
-                              class="w-40 rounded-circle mr-3"
-                              alt="Albert Einstein" /> -->
                             <img
                               v-if="userInfo.image === '1'"
                               :src="
