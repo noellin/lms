@@ -8,8 +8,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/S__153010180.jpg"
   },
   {
-    "revision": "657a25a715eb3f4051a1",
-    "url": "/web/css/app.997fcb26.css"
+    "revision": "b0917446205655a5acf6",
+    "url": "/web/css/app.c0fef650.css"
+  },
+  {
+    "revision": "c9ad11b1b59094c3bea7",
+    "url": "/web/css/chunk-06fc44ae.6ce32cca.css"
   },
   {
     "revision": "42fc150f444c680b6ba0",
@@ -48,16 +52,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/css/chunk-6a603560.06837176.css"
   },
   {
-    "revision": "695372d09b5eb6a8ef3e",
-    "url": "/web/css/chunk-811e574c.c750960f.css"
+    "revision": "9fcc4d28163fafd60447",
+    "url": "/web/css/chunk-74a4d3b2.c277fe4f.css"
   },
   {
     "revision": "0e6fb840961860de43ef",
     "url": "/web/css/chunk-c0959378.5ebf885e.css"
-  },
-  {
-    "revision": "2a0d31254381dc4c94b7",
-    "url": "/web/css/chunk-c6c2df38.8a782ba9.css"
   },
   {
     "revision": "56197eb0df85a81432a5",
@@ -180,6 +180,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/img/m_icon.952a83a2.png"
   },
   {
+    "revision": "158b6c84d1b83a391930fd729372c9b1",
+    "url": "/web/img/msu_temp_logo.158b6c84.png"
+  },
+  {
     "revision": "2a2305d2f8172be61cacaaea798cd615",
     "url": "/web/img/teacher.2a2305d2.png"
   },
@@ -198,10 +202,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "5d5beea35e81463aa7f603a632da6f73",
     "url": "/web/img/teacher_women_40.5d5beea3.png"
-  },
-  {
-    "revision": "c68b5758ba0353d849379e84f388de6d",
-    "url": "/web/img/temp_logo.c68b5758.png"
   },
   {
     "revision": "dd7945458c557e278a41b4fae29d02bb",
@@ -252,12 +252,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/img/user10.b802d118.png"
   },
   {
-    "revision": "314636824cc4372e8c408190b9e204b7",
+    "revision": "d4f289bf0c6c074e262e4ed019e421b9",
     "url": "/web/index.html"
   },
   {
-    "revision": "657a25a715eb3f4051a1",
-    "url": "/web/js/app.d3cd7b79.js"
+    "revision": "b0917446205655a5acf6",
+    "url": "/web/js/app.868afaa5.js"
   },
   {
     "revision": "6175c4216263ddb4e1b1841c1f29e6ce",
@@ -340,6 +340,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/js/charts/morris-init.js"
   },
   {
+    "revision": "c9ad11b1b59094c3bea7",
+    "url": "/web/js/chunk-06fc44ae.7821f91e.js"
+  },
+  {
     "revision": "42fc150f444c680b6ba0",
     "url": "/web/js/chunk-0e7ac468.85d49ea9.js"
   },
@@ -380,8 +384,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/js/chunk-2de6db48.571cfd1a.js"
   },
   {
-    "revision": "371ee956f64f5dbaf2fd",
-    "url": "/web/js/chunk-3782eb35.408aea4b.js"
+    "revision": "066c53bf1bf0cc645b0c",
+    "url": "/web/js/chunk-3782eb35.3caf9f97.js"
   },
   {
     "revision": "0c17d0a97eda02e83e3d",
@@ -416,12 +420,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/js/chunk-6a603560.d82e1297.js"
   },
   {
-    "revision": "de7b981c2dbd579c49f6",
-    "url": "/web/js/chunk-7af1cdb7.df3234cf.js"
+    "revision": "9fcc4d28163fafd60447",
+    "url": "/web/js/chunk-74a4d3b2.bb4560ce.js"
   },
   {
-    "revision": "695372d09b5eb6a8ef3e",
-    "url": "/web/js/chunk-811e574c.6a4f0ddf.js"
+    "revision": "de7b981c2dbd579c49f6",
+    "url": "/web/js/chunk-7af1cdb7.df3234cf.js"
   },
   {
     "revision": "4e9c3744c2f321e8400d",
@@ -434,10 +438,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "0e6fb840961860de43ef",
     "url": "/web/js/chunk-c0959378.9f838be3.js"
-  },
-  {
-    "revision": "2a0d31254381dc4c94b7",
-    "url": "/web/js/chunk-c6c2df38.abd22d42.js"
   },
   {
     "revision": "56197eb0df85a81432a5",
@@ -608,8 +608,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web/js/npm.zrender.9219c989.js"
   },
   {
-    "revision": "b67303108a0c85e5ecee",
-    "url": "/web/js/runtime.c22361db.js"
+    "revision": "42eb85e3a325a5fe10f7",
+    "url": "/web/js/runtime.c0df774d.js"
   },
   {
     "revision": "83c329dbc25c66759041",

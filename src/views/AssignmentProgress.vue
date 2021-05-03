@@ -815,6 +815,8 @@ export default {
     async setEvaluate() {
       this.evaluate.score = this.evaluate.score.toString();
       // console.log(this.aid, this.sid, this.evaluate);
+      console.log('setEvaluate');
+      console.log(this.aid, this.sid, this.evaluate);
       let result = await ApiSetEvaluate.post(this.aid, this.sid, this.evaluate)
         .then((response) => {
           if (response.status === "success") {
