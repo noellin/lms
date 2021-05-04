@@ -1,85 +1,73 @@
 <template>
-  <div
-    class="login d-flex justify-content-center align-items-center col-sm-12 loginbg"
-  >
-    <div
-      class="loginpage row justify-content-center align-items-center col-sm-12"
-    >
-      <!-- login -->
-      <div v-if="loginShow === 'login'">
-        <div class="sign-in-form col-sm-12">
-          <div class="card">
-            <div class="card-body login-bg-s">
-              <a class="brand text-center d-block m-b-20 m-t-20">
-                <div
-                  data-v-653f1d32=""
-                  class="text-white"
-                  style="
-                    text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
-                    font-size: 36px;
-                    font-weight: 500;
-                  "
+  <div class="" id="app">
+    <div class="col-sm-12 row mx-0 loginbg">
+      <div class="sign-card" v-if="loginShow === 'login'">
+        <div class="card">
+          <div class="card-body login-bg-s">
+            <a class="brand text-center d-block m-b-20 m-t-20">
+              <img
+                class="msu_logo"
+                :src="require('../assets/msu_temp_logo.png')"
+                alt="Logo"
+              />
+            </a>
+            <!-- <p class="my-4 text-center text-white">iGroup LMS</p> -->
+            <ValidationObserver ref="loginForm">
+              <div id="login-Page">
+                <h5 class="sign-in-heading text-white">
+                  {{ $t("log-in-to-your-account") }}
+                </h5>
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="Account"
                 >
-                  Teacher
-                </div>
-              </a>
-              <p class="my-4 text-center text-white">iGroup LMS</p>
-              <ValidationObserver ref="loginForm">
-                <div id="login-Page">
-                  <h5 class="sign-in-heading text-white">
-                    {{ $t("log-in-to-your-account") }}
-                  </h5>
-                  <ValidationProvider
-                    rules="required"
-                    v-slot="{ failed, errors }"
-                    name="Account"
-                  >
-                    <div class="form-group">
-                      <label for="inputEmail" class="sr-only">{{
-                        $t("email-address")
-                      }}</label>
-                      <input
-                        type="email"
-                        id="inputEmail"
-                        class="form-control form-control-lg"
-                        placeholder="Enter your Email address"
-                        required=""
-                        v-model="loginForm.email"
-                        :class="{ 'is-invalid': failed }"
-                        :autocomplete="remember === true ? '' : 'new-password'"
-                      />
-                      <span v-if="failed" class="text-danger">{{
-                        errors[0]
-                      }}</span>
-                    </div>
-                  </ValidationProvider>
-                  <ValidationProvider
-                    rules="required"
-                    v-slot="{ failed, errors }"
-                    name="Password"
-                  >
-                    <div class="form-group">
-                      <label for="inputPassword" class="sr-only">{{
-                        $t("password")
-                      }}</label>
-                      <input
-                        type="password"
-                        id="inputPassword"
-                        class="form-control form-control-lg"
-                        placeholder="Enter your password"
-                        required=""
-                        v-model="loginForm.password"
-                        :class="{ 'is-invalid': failed }"
-                        :autocomplete="remember === true ? '' : 'new-password'"
-                        @keyup.enter="login()"
-                      />
-                      <span v-if="failed" class="text-danger">{{
-                        errors[0]
-                      }}</span>
-                    </div>
-                  </ValidationProvider>
-                  <div class="checkbox m-t-20">
-                    <!-- <div
+                  <div class="mb-3">
+                    <label for="inputEmail" class="sr-only">{{
+                      $t("email-address")
+                    }}</label>
+                    <input
+                      type="email"
+                      id="inputEmail"
+                      class="form-control form-control-lg"
+                      placeholder="Enter your Email address"
+                      required=""
+                      v-model="loginForm.email"
+                      :class="{ 'is-invalid': failed }"
+                      :autocomplete="remember === true ? '' : 'new-password'"
+                    />
+                    <span v-if="failed" class="text-danger">{{
+                      errors[0]
+                    }}</span>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ failed, errors }"
+                  name="Password"
+                >
+                  <div class="mt-3">
+                    <label for="inputPassword" class="sr-only">{{
+                      $t("password")
+                    }}</label>
+                    <input
+                      type="password"
+                      id="inputPassword"
+                      class="form-control form-control-lg"
+                      placeholder="Enter your password"
+                      required=""
+                      v-model="loginForm.password"
+                      :class="{ 'is-invalid': failed }"
+                      :autocomplete="remember === true ? '' : 'new-password'"
+                      @keyup.enter="login()"
+                    />
+                    <span v-if="failed" class="text-danger">{{
+                      errors[0]
+                    }}</span>
+                  </div>
+                </ValidationProvider>
+                <div class="checkbox m-t-20">
+                  <!-- <div
                       class="custom-control custom-checkbox checkbox-primary"
                     >
                       <input
@@ -96,282 +84,279 @@
                         {{ $t("remember-me") }}</label
                       >
                     </div> -->
-                    <a
-                      class="float-right blue pointer"
-                      @click="loginShow = 'forgetPassword'"
-                      >{{ $t("forgot-password") }}?</a
-                    >
-                  </div>
-                  <button
-                    class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
-                    @click="login()"
+                  <a
+                    class="float-right blue pointer"
+                    @click="loginShow = 'forgetPassword'"
+                    >{{ $t("forgot-password") }}?</a
                   >
-                    {{ $t("log-in") }}
-                  </button>
                 </div>
-              </ValidationObserver>
-              <div class="d-flex justify-content-center">
-                <img
-                  class="msu_logo"
-                  :src="require('../assets/msu_temp_logo.png')"
-                  alt="Logo"
-                />
+                <button
+                  class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+                  @click="login()"
+                >
+                  {{ $t("log-in") }}
+                </button>
+              </div>
+            </ValidationObserver>
+            <div class="d-flex justify-content-center">
+              <div
+                data-v-653f1d32=""
+                class="text-white"
+                style="
+                  text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                  font-size: 20px;
+                  font-weight: 500;
+                "
+              >
+                Teacher
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- login reset pwd -->
-      <div v-if="loginShow === 'resetPasswordSuccess'">
-        <div class="sign-in-form">
-          <div class="card">
-            <div class="card-body login-bg-s">
-              <a class="brand text-center d-block m-b-20 m-t-20">
-                <div
-                  data-v-653f1d32=""
-                  class="text-white"
-                  style="
-                    text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
-                    font-size: 36px;
-                    font-weight: 500;
-                  "
-                >
-                  Teacher
-                </div>
-                <!-- <span class="display-4">School Name</span> -->
-              </a>
 
-              <p class="display-4 text-center">
-                <i class="zmdi zmdi-check-circle zmdi-hc-fw text-success"></i>
-              </p>
-              <h5 class="sign-in-heading text-center text-success">
-                {{ $t("password-reset-success") }}
+      <!-- login reset pwd -->
+
+      <div class="sign-card" v-if="loginShow === 'resetPasswordSuccess'">
+        <div class="card">
+          <div class="card-body login-bg-s">
+            <a class="brand text-center d-block m-b-20 m-t-20">
+              <img
+                class="msu_logo"
+                :src="require('../assets/msu_temp_logo.png')"
+                alt="Logo"
+              />
+              <!-- <span class="display-4">School Name</span> -->
+            </a>
+
+            <p class="display-4 text-center">
+              <i class="zmdi zmdi-check-circle zmdi-hc-fw text-success"></i>
+            </p>
+            <h5 class="sign-in-heading text-center text-success">
+              {{ $t("password-reset-success") }}
+            </h5>
+            <p class="text-center text-white">
+              {{
+                $t(
+                  "your-password-has-now-been-successfully-reset-please-use-this-new-password-to-log-in"
+                )
+              }}.
+            </p>
+            <button
+              class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+              @click="loginShow = 'login'"
+            >
+              {{ $t("return-to-login") }}
+            </button>
+            <div class="d-flex justify-content-center">
+              <div
+                data-v-653f1d32=""
+                class="text-white"
+                style="
+                  text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                  font-size: 20px;
+                  font-weight: 500;
+                "
+              >
+                Teacher
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sign-card" v-if="loginShow === 'forgetPassword'">
+        <div class="card">
+          <div class="card-body login-bg-s">
+            <a class="brand text-center d-block m-b-20 m-t-20">
+              <img
+                class="msu_logo"
+                :src="require('../assets/msu_temp_logo.png')"
+                alt="Logo"
+              />
+              <!-- <span class="display-4">School Name</span> -->
+            </a>
+
+            <div id="forget-password-page">
+              <h5 class="sign-in-heading text-white">
+                {{ $t("forgotten-password") }}?
               </h5>
-              <p class="text-center text-white">
+              <p class="text-white">
                 {{
-                  $t(
-                    "your-password-has-now-been-successfully-reset-please-use-this-new-password-to-log-in"
-                  )
+                  $t("will-send-you-an-email-with-link-to-reset-your-password")
                 }}.
               </p>
-              <button
-                class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
-                @click="loginShow = 'login'"
-              >
-                {{ $t("return-to-login") }}
-              </button>
-              <div class="d-flex justify-content-center">
-                <img
-                  class="msu_logo"
-                  :src="require('../assets/msu_temp_logo.png')"
-                  alt="Logo"
+              <div class="form-group">
+                <label for="inputEmail" class="sr-only">{{
+                  $t("email-address")
+                }}</label>
+                <input
+                  type="email"
+                  id="inputEmail"
+                  class="form-control form-control-lg"
+                  placeholder="Enter your Email address"
+                  required=""
+                  v-model="loginForm.email"
                 />
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="loginShow === 'forgetPassword'">
-        <div class="sign-in-form">
-          <div class="card">
-            <div class="card-body login-bg-s">
-              <a class="brand text-center d-block m-b-20 m-t-20">
+
+              <button
+                class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+                @click="forgotPassword()"
+              >
+                {{ $t("send") }}
+              </button>
+              <div class="d-flex justify-content-center">
                 <div
                   data-v-653f1d32=""
                   class="text-white"
                   style="
                     text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
-                    font-size: 36px;
+                    font-size: 20px;
                     font-weight: 500;
                   "
                 >
                   Teacher
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sign-card" v-if="loginShow === 'resetPassword'">
+        <div class="card">
+          <div class="card-body login-bg-s">
+            <ValidationObserver ref="resetForm">
+              <a class="brand text-center d-block m-b-20 m-t-20">
+                <img
+                  class="msu_logo"
+                  :src="require('../assets/msu_temp_logo.png')"
+                  alt="Logo"
+                />
                 <!-- <span class="display-4">School Name</span> -->
               </a>
 
-              <div id="forget-password-page">
-                <h5 class="sign-in-heading text-white">
-                  {{ $t("forgotten-password") }}?
-                </h5>
-                <p class="text-white">
-                  {{
-                    $t(
-                      "will-send-you-an-email-with-link-to-reset-your-password"
-                    )
-                  }}.
-                </p>
+              <p class="text-white text-center">
+                {{ $t("e-mail") }}: {{ userEmail }}
+              </p>
+              <h5 class="sign-in-heading text-white">
+                {{ $t("confirm-your-password") }}
+              </h5>
+              <ValidationProvider
+                rules="required|min:6"
+                v-slot="{ failed, errors }"
+                name="password"
+                vid="confirmation"
+              >
                 <div class="form-group">
-                  <label for="inputEmail" class="sr-only">{{
-                    $t("email-address")
+                  <label for="inputPassword" class="sr-only">{{
+                    $t("password")
                   }}</label>
                   <input
-                    type="email"
-                    id="inputEmail"
+                    type="password"
+                    id="inputPassword"
                     class="form-control form-control-lg"
-                    placeholder="Enter your Email address"
+                    placeholder="Password must be at least 6 characters"
                     required=""
-                    v-model="loginForm.email"
+                    v-model="loginForm.password"
                   />
+                  <span v-if="failed" class="text-danger">{{ errors[0] }}</span>
                 </div>
-
-                <button
-                  class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
-                  @click="forgotPassword()"
-                >
-                  {{ $t("send") }}
-                </button>
-                <div class="d-flex justify-content-center">
-                  <img
-                    class="msu_logo"
-                    :src="require('../assets/msu_temp_logo.png')"
-                    alt="Logo"
+              </ValidationProvider>
+              <ValidationProvider
+                rules="required|confirmed:confirmation"
+                v-slot="{ failed, errors }"
+                name="confirm password"
+              >
+                <div class="form-group">
+                  <label for="inputPassword" class="sr-only">{{
+                    $t("password")
+                  }}</label>
+                  <input
+                    type="password"
+                    id="inputPassword"
+                    class="form-control form-control-lg"
+                    placeholder="Enter your password again"
+                    required=""
+                    v-model="loginForm.confirmpw"
                   />
+                  <span v-show="failed" class="text-danger">{{
+                    errors[0]
+                  }}</span>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="" v-if="loginShow === 'resetPassword'">
-        <div class="sign-in-form">
-          <div class="card">
-            <div class="card-body login-bg-s">
-              <ValidationObserver ref="resetForm">
-                <a class="brand text-center d-block m-b-20 m-t-20">
-                  <div
-                    data-v-653f1d32=""
-                    class="text-white"
-                    style="
-                      text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
-                      font-size: 36px;
-                      font-weight: 500;
-                    "
-                  >
-                    Teacher
-                  </div>
-
-                  <!-- <span class="display-4">School Name</span> -->
-                </a>
-
-                <p class="text-white text-center">
-                  {{ $t("e-mail") }}: {{ userEmail }}
-                </p>
-                <h5 class="sign-in-heading text-white">
-                  {{ $t("confirm-your-password") }}
-                </h5>
-                <ValidationProvider
-                  rules="required|min:6"
-                  v-slot="{ failed, errors }"
-                  name="password"
-                  vid="confirmation"
-                >
-                  <div class="form-group">
-                    <label for="inputPassword" class="sr-only">{{
-                      $t("password")
-                    }}</label>
-                    <input
-                      type="password"
-                      id="inputPassword"
-                      class="form-control form-control-lg"
-                      placeholder="Password must be at least 6 characters"
-                      required=""
-                      v-model="loginForm.password"
-                    />
-                    <span v-if="failed" class="text-danger">{{
-                      errors[0]
-                    }}</span>
-                  </div>
-                </ValidationProvider>
-                <ValidationProvider
-                  rules="required|confirmed:confirmation"
-                  v-slot="{ failed, errors }"
-                  name="confirm password"
-                >
-                  <div class="form-group">
-                    <label for="inputPassword" class="sr-only">{{
-                      $t("password")
-                    }}</label>
-                    <input
-                      type="password"
-                      id="inputPassword"
-                      class="form-control form-control-lg"
-                      placeholder="Enter your password again"
-                      required=""
-                      v-model="loginForm.confirmpw"
-                    />
-                    <span v-show="failed" class="text-danger">{{
-                      errors[0]
-                    }}</span>
-                  </div>
-                </ValidationProvider>
-                <button
-                  class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
-                  @click="resetPassword()"
-                >
-                  {{ $t("confirm-password") }}
-                </button>
-              </ValidationObserver>
-              <div class="d-flex justify-content-center">
-                <img
-                  class="msu_logo"
-                  :src="require('../assets/msu_temp_logo.png')"
-                  alt="Logo"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="" v-if="loginShow === 'sendEmail'">
-        <div class="sign-in-form">
-          <div class="card">
-            <div class="card-body login-bg-s">
-              <a class="brand text-center d-block m-b-20 m-t-20">
-                <div
-                  data-v-653f1d32=""
-                  class="text-white"
-                  style="
-                    text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
-                    font-size: 36px;
-                    font-weight: 500;
-                  "
-                >
-                  Teacher
-                </div>
-                <!-- <span class="display-4">School Name</span> -->
-              </a>
-              <p class="display-4 text-center">
-                <i class="zmdi zmdi-mail-send zmdi-hc-fw text-success"></i>
-              </p>
-              <h5 class="sign-in-heading text-center text-success">
-                {{ $t("password-reset-email-sent") }}
-              </h5>
-              <p class="text-center text-white">
-                {{
-                  $t(
-                    "an-email-has-been-sent-to-your-email-please-follow-the-directions-in-the-email-to-reset-your-password"
-                  )
-                }}.
-              </p>
+              </ValidationProvider>
               <button
                 class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
-                @click="loginShow = 'login'"
+                @click="resetPassword()"
               >
-                {{ $t("ok") }}
+                {{ $t("confirm-password") }}
               </button>
-              <div class="d-flex justify-content-center">
-                <img
-                  class="msu_logo"
-                  :src="require('../assets/msu_temp_logo.png')"
-                  alt="Logo"
-                />
+            </ValidationObserver>
+            <div class="d-flex justify-content-center">
+              <div
+                data-v-653f1d32=""
+                class="text-white"
+                style="
+                  text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                  font-size: 20px;
+                  font-weight: 500;
+                "
+              >
+                Teacher
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 row justify-content-end">
+
+      <div class="sign-card" v-if="loginShow === 'sendEmail'">
+        <div class="card">
+          <div class="card-body login-bg-s">
+            <a class="brand text-center d-block m-b-20 m-t-20">
+              <img
+                class="msu_logo"
+                :src="require('../assets/msu_temp_logo.png')"
+                alt="Logo"
+              />
+              <!-- <span class="display-4">School Name</span> -->
+            </a>
+            <p class="display-4 text-center">
+              <i class="zmdi zmdi-mail-send zmdi-hc-fw text-success"></i>
+            </p>
+            <h5 class="sign-in-heading text-center text-success">
+              {{ $t("password-reset-email-sent") }}
+            </h5>
+            <p class="text-center text-white">
+              {{
+                $t(
+                  "an-email-has-been-sent-to-your-email-please-follow-the-directions-in-the-email-to-reset-your-password"
+                )
+              }}.
+            </p>
+            <button
+              class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+              @click="loginShow = 'login'"
+            >
+              {{ $t("ok") }}
+            </button>
+            <div class="d-flex justify-content-center">
+              <div
+                data-v-653f1d32=""
+                class="text-white"
+                style="
+                  text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
+                  font-size: 20px;
+                  font-weight: 500;
+                "
+              >
+                Teacher
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex col-sm-12 justify-content-end">
         <a
           href="https://www.iubenda.com/privacy-policy/32601846"
           class="iubenda-nostyle no-brand iubenda-embed mr-4"
@@ -395,6 +380,7 @@
         >
       </div>
     </div>
+    <!-- login -->
   </div>
 </template>
 
@@ -594,7 +580,7 @@ export default {
   background-size: 54%;
   border-radius: 10px;
   width: 400px;
-  height: 520px;
+  height: 500px;
   box-shadow: 12px 12px 7px rgba(0, 0, 0, 0.5);
 }
 @media (max-width: 1920px) {
@@ -606,7 +592,6 @@ export default {
     background-size: 52%;
     border-radius: 10px;
     width: 400px;
-    height: 540px;
   }
 }
 @media (max-width: 1367px) {
@@ -618,7 +603,6 @@ export default {
     background-size: 55%;
     border-radius: 10px;
     width: 400px;
-    height: 540px;
   }
 }
 @media (max-width: 1200px) {
@@ -630,7 +614,6 @@ export default {
     background-size: 62%;
     border-radius: 10px;
     width: 400px;
-    height: 540px;
   }
 }
 .loginbg {
@@ -646,5 +629,9 @@ export default {
 // }
 // @media (max-width: 1024px) {}
 // @media (max-width: 860px) {}
+
+.sign-card {
+  margin: 15% auto 0;
+}
 </style>
 

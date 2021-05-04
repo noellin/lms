@@ -1,4 +1,25 @@
+/* full page */
+/* override browser default */
+* { padding: 0; margin: 0; }
+html, body, #app {
+    min-height: 100% !important;
+    height: 100%;
+}
+
+
+
+/*  */
+
+
 /* custom */
+#vueapp{
+  min-height:100%; 
+  position:relative; 
+  padding-top:65px;
+  padding-bottom:40px;
+  display: flex;
+  flex-direction: column;
+}
 #app3{
   width:100%;
   
@@ -8,37 +29,14 @@
   height: 25px;
 }
 
-
-/* html,body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-} */
-html{
-  height: 100%;
-}
 .content-maxheight{
   max-height:89.2vh; 
   position:relative; 
     padding-bottom:40px;
     padding-top:65px
 }
-#vueapp{
-  min-height:100%; 
-  position:relative; 
-  padding-top:65px;
-  padding-bottom:40px;
-  display: flex;
-  flex-direction: column;
-}
 .content{
   padding-bottom:40px;
-}
-body{
-  min-height:100%; 
-  font-family: Poppins, "Microsoft JhengHei", sans-serif;
-  font-size: 18px;
-
 }
 .text-md{
   font-size: 18px;
@@ -201,9 +199,6 @@ body{
   height: 100% !important;
 } */
 
-/* .loginpage {
-  height: 100% !important;
-} */
 
 .download-text {
   font-size: 1rem !important;
@@ -217,10 +212,6 @@ body{
 .modal-open .select2-container--open {
   z-index: 999999 !important;
   width: 100% !important;
-}
-
-.sign-in-form {
-  width: 520px !important;
 }
 
 /* Color */
@@ -1004,9 +995,7 @@ select.form-control {
   border-radius: 6px;
 }
 
-.sign-in-form {
-  max-width: 550px;
-}
+
 
 .sequence {
   padding-inline-start: 0;
