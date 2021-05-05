@@ -194,7 +194,7 @@
             <h5 class="modal-title" v-if="courseList.length !== 0">
               {{ $t("start") }}
             </h5>
-            <h5 class="modal-title" v-else{{$t('greater-than-no-classes')}}</h5>
+            <!-- <h5 class="modal-title" v-else{{$t('greater-than-no-classes')}}</h5> -->
             <button
               type="button"
               class="close"
@@ -205,9 +205,7 @@
             </button>
           </div>
           <div class="modal-body pb-4" v-if="courseList.length !== 0">
-            <p>
-              {{$t('select-the-class-to-open')}}.
-            </p>
+            <p>{{ $t("select-the-class-to-open") }}.</p>
             <a
               title=""
               class="btn btn-primary btn-outline btn-rounded mr-3 mb-3"

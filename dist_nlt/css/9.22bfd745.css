@@ -68,3 +68,9 @@
 .yellow-5[data-v-22772e1c] {
   color: #f76b1c;
 }
+@media (min-width: 768px) {
+.modal-xl[data-v-22772e1c] {
+    width: 90%;
+    max-width: 1200px;
+}
+}

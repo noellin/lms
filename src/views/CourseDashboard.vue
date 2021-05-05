@@ -290,10 +290,10 @@
                                   ></i>
                                 </th>
                                 <th
-                                  @click="sortTable('cnt_checkin')"
+                                  @click="sortTable('cnt_login')"
                                   class="pointer"
                                 >
-                                  {{ $t("log-in")
+                                  {{ $t("login")
                                   }}<i
                                     class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                                   ></i>
@@ -302,7 +302,8 @@
                                   @click="sortTable('asgmt_finish')"
                                   class="pointer"
                                 >
-                                  {{$t('completed-assignments')}}<i
+                                  {{ $t("completed-assignments")
+                                  }}<i
                                     class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
                                   ></i>
                                 </th>
@@ -327,7 +328,7 @@
                                   /> -->
                                   {{ sr.username }}
                                 </td>
-                                <td>{{ sr.cnt_checkin }}</td>
+                                <td>{{ sr.cnt_login }}</td>
                                 <td>
                                   {{ sr.asgmt_finish }}/{{ sr.asgmt_all }}
                                 </td>

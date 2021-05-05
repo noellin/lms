@@ -937,7 +937,7 @@
     <!--  -->
     <!-- Assignment MODAL -->
     <div
-      class="modal fade"
+      class="modal fade bd-example-modal-xl"
       id="AssignmentModal"
       tabindex="-1"
       role="dialog"
@@ -945,7 +945,7 @@
       v-if="studentList.length > 0"
     >
       <div
-        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+        class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
       >
         <div class="modal-content">
           <div class="modal-header">
@@ -1074,7 +1074,7 @@
                 </div>
                 <!-- <div class="col-2 pt-2 pl-0">{{ AssignmentDue }}</div> -->
               </div>
-              <div class="form-group row align-items-start m-0">
+              <div class="form-group row align-items-start">
                 <label class="control-label text-right col-sm-3"></label>
                 <small class="col-sm-7"
                   ><span class="text-danger">*</span>
@@ -1083,25 +1083,65 @@
                   }}.</small
                 >
               </div>
-              <div
-                class="form-group row align-items-start"
-                :style="{
-                  height: [parseInt(selectStudent.length / 3) + 2] * 40 + 'px',
-                }"
-              >
+              <div class="form-group row col-sm-12 mb-5">
                 <label class="control-label text-right col-sm-3">{{
                   $t("for-students")
                 }}</label>
-                <div class="col-sm-6">
-                  <select2
+                <div class="col-sm-9">
+                  <!-- <select2
                     id="s2_student"
                     :options="studentList"
                     v-model="selectStudent"
                     :settings="{ multiple: true }"
                   >
-                  </select2>
+                  </select2> -->
+                  <div v-if="showStuTable" class="col-sm-12 row">
+                    <!-- <label class="control-label text-right col-sm-3"></label> -->
+                    <div class="col-sm-12">
+                      <input
+                        type="text"
+                        id="searchStd"
+                        class="form-control form-control-lg"
+                        placeholder="Search student name"
+                        v-model="searchstdName"
+                      />
+                    </div>
+                    <div
+                      class="custom-control custom-checkbox col-sm-12 ml-3 mt-1"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="std"
+                        v-model="selectAllS"
+                        name="std"
+                      />
+                      <label class="custom-control-label" for="std">
+                        <strong>{{ $t("all-students") }}</strong>
+                      </label>
+                    </div>
+                    <!-- filterStdList    studentList -->
+                    <div
+                      v-for="(stu, index) in filterStdList"
+                      :key="stu.id + index"
+                      class="col-sm-4"
+                    >
+                      <span class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          :id="stu.id"
+                          :value="stu.id"
+                          v-model="selectStudent"
+                        />
+                        <label class="custom-control-label" :for="stu.id">{{
+                          stu.text
+                        }}</label>
+                      </span>
+                    </div>
+                  </div>
                 </div>
-
+                <!-- 
                 <div
                   class="col-sm-2 px-0 align-items-center d-flex hover-expand"
                 >
@@ -1125,43 +1165,11 @@
                     }}</span>
                     <span v-else>{{ $t("close-list") }}</span>
                   </label>
-                </div>
+                </div> -->
               </div>
-              <div class="form-group row align-items-start" v-if="showStuTable">
-                <label class="control-label text-right col-sm-3"></label>
-                <div class="col-sm-9 row">
-                  <div class="custom-control custom-checkbox col-sm-12 ml-3">
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="std"
-                      v-model="selectAllS"
-                      name="std"
-                    />
-                    <label class="custom-control-label" for="std">
-                      <strong>{{ $t("all-students") }}</strong>
-                    </label>
-                  </div>
-                  <div
-                    v-for="(stu, index) in studentList"
-                    :key="stu.id + index"
-                    class="px-3"
-                  >
-                    <div class="custom-control custom-checkbox mr-2">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        :id="stu.id"
-                        :value="stu.id"
-                        v-model="selectStudent"
-                      />
-                      <label class="custom-control-label" :for="stu.id">{{
-                        stu.text
-                      }}</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <!-- :style="{
+                  height: selectStudent.length * 7.8 + 'px',
+                }" -->
             </form>
           </div>
           <div class="modal-footer">
@@ -1439,7 +1447,7 @@ export default {
       setStudent: false,
       existCollectionName: [],
       pkgid: {},
-      showStuTable: false,
+      showStuTable: true,
       courseInfo: {},
       selectAllTB: "",
       sortStatus: false,
@@ -1465,6 +1473,7 @@ export default {
       codeNumber2: -1,
       templl: [],
       templu: [],
+      searchstdName: "",
     };
   },
   created() {
@@ -1537,6 +1546,18 @@ export default {
     },
   },
   computed: {
+    filterStdList() {
+      if (this.searchstdName !== "") {
+        let temp = this.studentList.filter((std) => {
+          return std.text
+            .toLowerCase()
+            .includes(this.searchstdName.toLowerCase());
+        });
+        return temp;
+      } else {
+        return this.studentList;
+      }
+    },
     levelLists() {
       let vm = this;
 
@@ -2035,7 +2056,7 @@ export default {
         this.selectAllS = false;
         this.selectStudent = "";
         this.AssignmentDue = null;
-        this.difficult = "";
+        this.difficult = "1";
         this.$bus.$emit("messsage:push", "New assignment success.", "success");
       }
     },
@@ -2295,5 +2316,12 @@ export default {
 }
 .yellow-5 {
   color: #f76b1c;
+}
+
+@media (min-width: 768px) {
+  .modal-xl {
+    width: 90%;
+    max-width: 1200px;
+  }
 }
 </style>

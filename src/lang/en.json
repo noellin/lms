@@ -347,5 +347,8 @@
   "my-e-mail": "My E-mail",
   "my-status": "My Status",
   "edit-profile": "Edit Profile",
-  "language": "Language"
+  "language": "Language",
+  "select-the-class-to-open": "select the class to open",
+  "check-in-login": "Check in/Login",
+  "login": "Login"
 }
