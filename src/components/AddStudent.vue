@@ -183,8 +183,15 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-danger" id="ModalTitle1">
+            <h5
+              class="modal-title text-danger"
+              id="ModalTitle1"
+              v-if="this.stdExist"
+            >
               {{ $t("student-profile-already-exists") }}
+            </h5>
+            <h5 class="modal-title text-danger" id="ModalTitle1" v-else>
+              {{ $t("unable-to-add-students") }}
             </h5>
             <button
               type="button"
@@ -197,7 +204,7 @@
           </div>
           <div class="modal-body" data-widget="dropzone">
             <div class="table-responsive border rounded p-10 mb-2">
-              <table class="table table-striped">
+              <table class="table table-striped" v-if="this.stdExist">
                 <thead>
                   <tr>
                     <th>{{ $t("student-name") }}</th>
@@ -211,6 +218,14 @@
                   </tr>
                 </tbody>
               </table>
+              <div v-else>
+                <p>
+                  {{
+                    $t("class-size-has-reached-the-maximum-number-of-students")
+                  }}
+                </p>
+                <p>Quota is full, current number = 400, quota = 400</p>
+              </div>
             </div>
             <!-- <p class="text-danger">Would you like to combine datasets?</p> -->
           </div>
@@ -499,6 +514,7 @@ export default {
       errorMessage: "",
       showAlreadyExist: false,
       alreadyStudendList: [],
+      stdExist: false,
     };
   },
   props: ["courseid"],
@@ -561,6 +577,11 @@ export default {
       if (check) {
         let result = await ApiAddStudent.post(this.courseid, this.newStudent)
           .then((response) => {
+            if (response.record === "Student already exists") {
+              this.stdExist = true;
+            } else {
+              this.stdExist = false;
+            }
             if (response.status === "success") {
               return true;
             }

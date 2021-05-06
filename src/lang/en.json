@@ -350,5 +350,7 @@
   "language": "Language",
   "select-the-class-to-open": "select the class to open",
   "check-in-login": "Check in/Login",
-  "login": "Login"
+  "login": "Login",
+  "class-size-has-reached-the-maximum-number-of-students": "Class size has reached the maximum number of students",
+  "unable-to-add-students": "Unable to add students"
 }
