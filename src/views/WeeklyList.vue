@@ -25,6 +25,8 @@
                   v-else
                   class="btn btn-primary btn-rounded"
                   @click="setWQStatus()"
+                  data-target="#enableMessageModal"
+                  data-toggle="modal"
                 >
                   {{ $t("enable-auto-assigned-oral-quizzes") }}
                 </button>
@@ -361,6 +363,46 @@
           </div>
           <div class="modal-body">
             <p>{{ tempSentence }}</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary btn-outline"
+              data-dismiss="modal"
+            >
+              {{ $t("close") }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- enableMessageModal MODAL -->
+    <div
+      class="modal fade"
+      id="enableMessageModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+      data-modal="scroll"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Meaasge</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-Cancel"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              It takes some time to generate the oral quizzes, please check back
+              later.
+            </p>
           </div>
           <div class="modal-footer">
             <button

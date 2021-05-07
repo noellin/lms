@@ -138,7 +138,7 @@
                             </th>
                             <th style="width: 15%">{{ $t("teachers") }}</th>
                             <th style="width: 15%">
-                              {{ $t("available-seats") }}
+                              {{ $t("occupied-seats") }}
                             </th>
                             <th style="width: 15%">{{ $t("library") }}</th>
                             <th style="width: 15%">{{ $t("expiry-date") }}</th>

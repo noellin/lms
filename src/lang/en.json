@@ -292,7 +292,7 @@
   "end-date": "End date",
   "assigned-students": "Assigned students",
   "students-completed": "Students completed",
-  "levels-of-difficulty": "Levels of difficulty",
+  "levels-of-difficulty": "Level of difficulty",
   "disable-oral-quizzes": "disable oral quizzes",
   "enable-oral-quizzes": "Enable oral quizzes",
   "passage": "Passage",
@@ -352,5 +352,6 @@
   "check-in-login": "Check in/Login",
   "login": "Login",
   "class-size-has-reached-the-maximum-number-of-students": "Class size has reached the maximum number of students",
-  "unable-to-add-students": "Unable to add students"
+  "unable-to-add-students": "Unable to add students",
+  "occupied-seats": "Occupied/Seats"
 }
