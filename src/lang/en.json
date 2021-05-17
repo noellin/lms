@@ -353,5 +353,6 @@
   "login": "Login",
   "class-size-has-reached-the-maximum-number-of-students": "Class size has reached the maximum number of students",
   "unable-to-add-students": "Unable to add students",
-  "occupied-seats": "Occupied/Seats"
+  "occupied-seats": "Occupied/Seats",
+  "are-you-sure-you-want-to-delete-this-assignment-all-student-progress-will-be-lost": "Are you sure you want to delete this assignment? All student progress will be lost."
 }

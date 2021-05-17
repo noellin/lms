@@ -105,7 +105,9 @@
             />
             <!-- <span class="text-white">Amanda</span> -->
           </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-menu-accout">
+          <div
+            class="dropdown-menu dropdown-menu-right dropdown-menu-accout dropdown-menu-width"
+          >
             <div class="dropdown-header pb-3">
               <h5 class="mt-0 mb-0">{{ userInfo.username }}</h5>
               <span>{{ userInfo.email }}</span>
@@ -289,5 +291,9 @@ export default {
 
 .globe-size {
   font-size: 22px;
+}
+
+.dropdown-menu-width {
+  width: 270px !important;
 }
 </style>

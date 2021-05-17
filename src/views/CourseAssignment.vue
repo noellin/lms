@@ -317,7 +317,13 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>{{ $t("want-to-delete-a-checked-assignment") }}?</p>
+            <p>
+              {{
+                $t(
+                  "are-you-sure-you-want-to-delete-this-assignment-all-student-progress-will-be-lost"
+                )
+              }}
+            </p>
           </div>
           <div class="modal-footer">
             <button
