@@ -1,6 +1,6 @@
 <template>
   <div class="" id="app">
-    <div class="col-sm-12 row mx-0 loginbg">
+    <div class="col-sm-12 row mx-0 loginbg px-0">
       <div class="sign-card" v-if="loginShow === 'login'">
         <div class="card">
           <div class="card-body login-bg-s">

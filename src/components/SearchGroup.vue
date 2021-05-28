@@ -225,7 +225,6 @@ export default {
         })
         .catch((err) => {});
       if (result) {
-        console.log("get course");
         this.$emit("getMList", this.sortMList);
         this.$emit("getFilterInfo", this.selectLevelList, this.selectSortType);
       }
@@ -298,7 +297,6 @@ export default {
             ];
             vm.$store.dispatch("common/setSortTypeList", slist);
           }
-          // console.log("sortmlist = ", this.sortMList);
           if (response.status === "success") {
             return true;
           }
@@ -339,11 +337,13 @@ export default {
       return this.$store.state.auth.userid;
     },
     sortMList() {
-      console.log("start sort");
-      // console.log(arguments.callee.caller.toString());
-      //dashboard filter
-      //utils mixins
       let sortMaterial = [];
+      let openb = this.textbookList.filter((item) => {
+        return item.openflag === "true" && item.note === "book";
+      });
+      let openv = this.textbookList.filter((item) => {
+        return item.openflag === "true" && item.note === "video";
+      });
       if (this.mfilter === "openm") {
         // return this.$_sortMaterial(this.openedMList, this.selectSortType);
         sortMaterial = this.$_sortMaterial(
@@ -353,14 +353,14 @@ export default {
         );
       } else if (this.mfilter === "openb") {
         sortMaterial = this.$_sortMaterial(
-          this.openedBookList,
+          openb,
           this.selectSortType,
           this.selectLevelList
         );
         // return this.$_sortMaterial(this.openedBookList, this.selectSortType);
       } else if (this.mfilter === "openv") {
         sortMaterial = this.$_sortMaterial(
-          this.openedVideoList,
+          openv,
           this.selectSortType,
           this.selectLevelList
         );

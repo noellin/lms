@@ -1479,7 +1479,6 @@ export default {
   created() {
     this.$store.dispatch("common/setLoading", true);
     //列表資訊從menulift call (為了重複使用)
-    console.log("create");
     this.textbookList = this.textbookLists;
     this.openedTextbookList = this.openedTextbookLists;
     this.studentList = this.studentLists;
@@ -1513,7 +1512,8 @@ export default {
     },
     textbookLists() {
       // this.textbookList = this.textbookLists;
-      // this.sortMList();
+      console.log("======textbooklist update");
+
       this.textbookList = this.sortMList;
     },
     studentLists() {
@@ -1594,6 +1594,12 @@ export default {
     },
     sortMList() {
       let sortMaterial = [];
+      let openb = this.textbookLists.filter((item) => {
+        return item.openflag === "true" && item.note === "book";
+      });
+      let openv = this.textbookLists.filter((item) => {
+        return item.openflag === "true" && item.note === "video";
+      });
       if (this.mfilter === "openm") {
         sortMaterial = this.$_sortMaterial(
           this.openedMList,
@@ -1601,14 +1607,24 @@ export default {
           this.selectLevelList
         );
       } else if (this.mfilter === "openb") {
+        // sortMaterial = this.$_sortMaterial(
+        //   this.openedBookList,
+        //   this.selectSortType,
+        //   this.selectLevelList
+        // );
         sortMaterial = this.$_sortMaterial(
-          this.openedBookList,
+          openb,
           this.selectSortType,
           this.selectLevelList
         );
       } else if (this.mfilter === "openv") {
+        // sortMaterial = this.$_sortMaterial(
+        //   this.openedVideoList,
+        //   this.selectSortType,
+        //   this.selectLevelList
+        // );
         sortMaterial = this.$_sortMaterial(
-          this.openedVideoList,
+          openv,
           this.selectSortType,
           this.selectLevelList
         );
@@ -1619,6 +1635,9 @@ export default {
           this.selectLevelList
         );
       }
+      console.log("textbooklist = ");
+      console.log(sortMaterial);
+      // this.textbookList = sortMaterial;
       return sortMaterial;
     },
     openAgt() {
@@ -1767,12 +1786,6 @@ export default {
           ["asc"]
         );
       } else {
-        // console.log("false");
-        // this.copyTextbookList = sortBy(
-        //   this.copyTextbookList,
-        //   [(obj) => parseInt(obj[sortItem], 10)],
-        //   ["asc"]
-        // );
         this.copyTextbookList = this.copyTextbookList.reverse();
       }
       // this.sortStatus = !this.sortStatus;
@@ -1992,11 +2005,11 @@ export default {
     gotoWebsite(obj) {
       if (obj.note === "book") {
         window.open(
-          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${this.courseInfo.courseid}&userid=${this.userid}`
+          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${this.courseInfo.courseid}&userid=${this.userid}&LANG=${this.$i18n.locale}`
         );
       } else {
         window.open(
-          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${this.courseInfo.courseid}&userid=${this.userid}`
+          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${this.courseInfo.pkgid}&colid=${this.courseInfo.colid}&resid=${obj.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${this.courseInfo.courseid}&userid=${this.userid}&LANG=${this.$i18n.locale}`
         );
       }
     },
@@ -2168,6 +2181,7 @@ export default {
           })
           .catch((err) => {});
         if (result) {
+          console.log("update page");
           this.$store.dispatch(
             "courseInfo/updateTextbookList",
             this.$route.params.courseid
@@ -2175,28 +2189,6 @@ export default {
           this.$store.dispatch("common/setLoading", false);
         }
       }
-      // { colid, rid, status });
-      // let result = await ApiGetOpenResource.get(
-      //   colid,
-      //   this.$route.params.courseid,
-      //   rid,
-      //   status
-      // )
-      //   .then((response) => {
-      //     if (response.status === "success") {
-      //       return true;
-      //     }
-      //   })
-      //   .catch((err) => {});
-
-      // if (result) {
-      //   console.log("update info");
-      //   this.$store.dispatch(
-      //     "courseInfo/updateTextbookList",
-      //     this.$route.params.courseid
-      //   );
-      // }
-      // return result;
     },
     gotoSpeakingQuiz(m, rname = "") {
       $("#addSpeakingquiz").modal("hide");

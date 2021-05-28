@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build &  vue-cli-service build --mode app --dest ./dist_app & vue-cli-service build --mode nlt --dest ./dist_nlt ",
+    "build": "vue-cli-service build &  vue-cli-service build --mode app --dest ./dist_app & vue-cli-service build --mode nlt --dest ./dist_nlt & vue-cli-service build --mode japan --dest ./dist_jp ",
     "build-jp": "vue-cli-service build --mode japan --dest ./dist_jp",
     "build-dev": "vue-cli-service build --mode development --dest ./dist_dev",
     "build-nlt": "vue-cli-service build --mode nlt --dest ./dist_nlt"

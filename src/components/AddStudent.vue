@@ -393,9 +393,9 @@
               {{ $t("how-to-make-a-csv-file-to-import-students-list") }}?
             </p>
             <p class="text-center" @click="downloadSample()">
-              <a class="download-text pointer">{{
-                $t("download-sample-files")
-              }}</a>
+              <a class="download-text pointer">
+                {{ $t("download-sample-file") }}
+              </a>
             </p>
             <vue-dropzone
               ref="myVueDropzone"
@@ -636,7 +636,15 @@ export default {
           if (response.status === "success") {
             return true;
           }
-          if (response.status === "failed") {
+          if (
+            response.status === "failed" &&
+            response.record ===
+              "'utf-8' codec can't decode byte 0xa4 in position 23: invalid start byte"
+          ) {
+            this.showErrorMessage = true;
+            this.errorMessage =
+              "CSV file should be encoded in UTF-8 or modify sample file to upload.";
+          } else {
             this.showErrorMessage = true;
             this.errorMessage = response.record;
           }

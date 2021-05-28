@@ -12,11 +12,12 @@ const auth = {
         image:'',
         image_big:'',
         image_small:'',
-        currentsLang:navigator.language
+        currentsLang:''
     },
     mutations: {
         SET_LANG(state, data){
             // this.$i18n.locale = data
+            localStorage.setItem('lang',data)
             state.currentsLang = data
         },
         SET_AUTH(state, data) {

@@ -37,13 +37,24 @@ const i18n = new VueI18n({
   messages: {
     "zh-TW": require("../src/lang/zh-tw"), // 繁體中文語言包
 
-    // "zh-CN": require("../src/lang/zh-cn"), // 簡體中文語言包
+    "ja-JP": require("../src/lang/ja-JP"), // JP
 
     "en-US": require("../src/lang/en.json"), // 英文語言包
   },
 });
 // console.log(store.state.commom)
-i18n.locale = store.state.auth.currentsLang;
+if(localStorage.getItem('lang')!==undefined && localStorage.getItem('lang')!==null){
+  i18n.locale = localStorage.getItem('lang')
+  store.dispatch("auth/setLang", localStorage.getItem('lang'));
+}else if(navigator.language==='en-US' || navigator.language==='ja-JP'){
+
+  i18n.locale = navigator.language
+  store.dispatch("auth/setLang", navigator.language);
+}else{
+  i18n.locale = "en-US"
+  store.dispatch("auth/setLang", "en-US");
+}
+
 
 
 const loadimage = require('./assets/img/images/Spinner-1s-200px (1).svg')

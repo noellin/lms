@@ -360,11 +360,11 @@ export default {
       // });
       if (this.tempNote === "book") {
         window.open(
-          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${course.pkgid}&colid=${course.colid}&resid=${course.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${course.courseid}&userid=${this.userid}`
+          `${process.env.VUE_APP_DOMAIN}/bktchr/?pkgid=${course.pkgid}&colid=${course.colid}&resid=${course.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${course.courseid}&userid=${this.userid}&LANG=${this.$i18n.locale}`
         );
       } else {
         window.open(
-          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${course.pkgid}&colid=${course.colid}&resid=${course.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${course.courseid}&userid=${this.userid}`
+          `${process.env.VUE_APP_DOMAIN}/vptchr/?pkgid=${course.pkgid}&colid=${course.colid}&resid=${course.resourceid}&mid=&lmsd=${process.env.VUE_APP_LMSD}&auth=${this.$store.state.auth.token}&crsid=${course.courseid}&userid=${this.userid}&LANG=${this.$i18n.locale}`
         );
       }
     },

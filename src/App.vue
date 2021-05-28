@@ -75,11 +75,11 @@ export default {
     // },
   },
   created() {
-    if (navigator.language === "zh-TW" || navigator.language === "en-US") {
-      this.$store.dispatch("auth/setLang", navigator.language);
-    } else {
-      this.$store.dispatch("auth/setLang", "en-US");
-    }
+    // if (navigator.language === "zh-TW" || navigator.language === "en-US") {
+    //   this.$store.dispatch("auth/setLang", navigator.language);
+    // } else {
+    //   this.$store.dispatch("auth/setLang", "en-US");
+    // }
   },
   methods: {
     // doAjax() {

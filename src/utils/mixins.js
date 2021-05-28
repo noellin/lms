@@ -20,7 +20,6 @@ Vue.mixin({
         $_sortMaterial(materialArray,sortType,filterLevelList) {
           let ma = [...materialArray]
             let temp = [];
-            // console.log(filterLevelList);
           if(filterLevelList.length!==0){
             filterLevelList.forEach(singleLevel => {
               temp = temp.concat(filter(ma,function(o) {return o.level.includes(singleLevel)}))
@@ -29,20 +28,10 @@ Vue.mixin({
           else{
             temp = [...materialArray];
           }
-          // temp = [...materialArray];
-        //  let temp =  _.filter(ma,function(o) {return o.level.includes(filterLevelList)})
-            // let temp = [...materialArray];
-            // let levelList= []
-            // temp.forEach(element => {
-            //   if(element.level!==undefined && !levelList.includes(element.level)){
-            //     levelList.push(element.level)
-            //   }
-            // });
-            console.log(sortType);
+          console.log('final list = ',temp);
+          console.log(sortType);
             if (sortType === "title_asc") {
               temp = sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
-              // temp = _.sortBy(temp, [(obj) => parseInt(obj.unit, 10)], ["asc"]);
-              // return filter include level 
               return temp
             } else if (sortType === "title_desc") {
               temp = sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
@@ -55,8 +44,11 @@ Vue.mixin({
               let tempUnit = temp.filter(item => {
                 return item.unit!=='' && item.unit!==null && item.unit!==undefined
               })
+              console.log(tempLevel);
+              console.log(tempUnit);
               temp = sortBy(tempLevel, [(obj) => obj.level], ["asc"]).concat(sortBy(tempUnit, [(obj) => obj.unit], ["asc"]));
               // temp = sortBy(temp, [(obj) => obj.level], ["asc"]);
+              // console.log(temp);
               return temp;
             } else if (sortType === "level_desc") {
               temp = sortBy(temp, [(obj) => obj.level], ["asc"]);

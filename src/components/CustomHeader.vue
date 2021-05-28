@@ -66,6 +66,7 @@
               </router-link>
             </li>
             <li
+              v-if="userInfo.permit !== 'admin'"
               class="nav-item nav-text"
               :class="[
                 headerLabel === 'collection' ? 'active' : '',
@@ -110,6 +111,11 @@
           >
             <div class="dropdown-header pb-3">
               <h5 class="mt-0 mb-0">{{ userInfo.username }}</h5>
+              <span class="admin-color" v-if="userInfo.permit === 'admin'"
+                >Administrator</span
+              >
+              <br v-if="userInfo.permit === 'admin'" />
+              <br v-if="userInfo.permit === 'admin'" />
               <span>{{ userInfo.email }}</span>
             </div>
             <a class="dropdown-item pointer" @click="gotoAccount()"
@@ -167,12 +173,19 @@
               >
                 English
               </li>
-              <li
+              <!-- <li
                 class="lang-li mb-3 pointer"
                 @click="settingLang = 'zh-TW'"
                 :class="{ 'text-primary': settingLang === 'zh-TW' }"
               >
                 繁體中文 (Traditional Chinese)
+              </li> -->
+              <li
+                class="lang-li mb-3 pointer"
+                @click="settingLang = 'ja-JP'"
+                :class="{ 'text-primary': settingLang === 'ja-JP' }"
+              >
+                Japanese
               </li>
             </ul>
           </div>
@@ -295,5 +308,9 @@ export default {
 
 .dropdown-menu-width {
   width: 270px !important;
+}
+
+.admin-color {
+  color: #eb7a77;
 }
 </style>

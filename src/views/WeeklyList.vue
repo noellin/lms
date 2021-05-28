@@ -159,7 +159,16 @@
                               >
                               <span v-else>{{ wq.username }}</span>
                             </td>
-                            <td>{{ wq.completed_student }} ／{{ stuQuota }}</td>
+                            <td>
+                              <span v-if="nowTimestamp < wq.start_date">
+                                --/--
+                              </span>
+                              <span v-else
+                                >{{ wq.completed_student }} ／{{
+                                  wq.total_student
+                                }}</span
+                              >
+                            </td>
                             <td>
                               <span>{{
                                 pubStatus(wq.start_date, wq.expiry_date)
@@ -448,6 +457,7 @@ export default {
       tempSentence: "",
       expired: this.$route.params.expired,
       pagaStatus: false,
+      nowTimestamp: "",
     };
   },
   created() {
@@ -457,6 +467,10 @@ export default {
     this.getWeeklyQuiz();
     this.$store.dispatch("common/setLoading", false);
     this.pagaStatus = true;
+
+    const dateTime = Date.now();
+    const timestamp = Math.floor(dateTime / 1000);
+    this.nowTimestamp = timestamp;
   },
   computed: {},
 
@@ -573,6 +587,7 @@ export default {
           // today.setHours(0, 0, 0, 0);
           // console.log(wqList.start_date);
           // console.log(today);
+          console.log("echo vally list = ", response.record);
           this.wqList = response.record;
           this.wqQuota = response.course_info.echovalley_quota;
           this.wqStatus = response.course_info.echovalley_flag;
