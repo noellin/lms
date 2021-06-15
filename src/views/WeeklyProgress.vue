@@ -107,7 +107,13 @@
                         </div>
                         <div
                           v-if="$route.params.expired !== 'expired'"
-                          class="col-sm-12 d-flex justify-content-start px-0 mt-4"
+                          class="
+                            col-sm-12
+                            d-flex
+                            justify-content-start
+                            px-0
+                            mt-4
+                          "
                         >
                           <button
                             v-if="allowEdit"
@@ -146,7 +152,9 @@
                       />
                       <div class="input-group-append">
                         <div
-                          class="btn btn-secondary btn-outline btn-icon btn-rounded"
+                          class="
+                            btn btn-secondary btn-outline btn-icon btn-rounded
+                          "
                           type="button"
                           @click="searchWQStudent()"
                         >
@@ -173,7 +181,7 @@
                           <tbody>
                             <!-- <td>{{wqStudentList}}</td> -->
                             <tr
-                              v-for="wqitem in wqStudentList"
+                              v-for="(wqitem, index) in wqStudentList"
                               :key="wqitem.userid"
                             >
                               <td>{{ wqitem.username }}</td>
@@ -194,18 +202,39 @@
                                   wqitem.stu_info.length > 0
                                 "
                               >
-                                <button class="btn btn-nostyle">
+                                <button
+                                  class="btn btn-nostyle"
+                                  v-if="playIndex !== index"
+                                  @click="
+                                    getVoice(wqitem.stu_info[0]);
+                                    playVoiceStatus = wqitem.stu_info[1];
+                                    playIndex = index;
+                                  "
+                                >
                                   <i
-                                    @click="
-                                      getVoice(wqitem.stu_info[0]);
-                                      playVoiceStatus = wqitem.stu_info[1];
-                                    "
                                     :class="
                                       playVoiceStatus === wqitem.stu_info[1]
                                         ? 'text-success'
                                         : ''
                                     "
-                                    class="zmdi zmdi-volume-up zmdi-hc-fw ml-2 text-primary"
+                                    class="
+                                      zmdi zmdi-volume-up zmdi-hc-fw
+                                      ml-2
+                                      text-primary
+                                    "
+                                  ></i>
+                                </button>
+                                <button class="btn btn-nostyle" v-else>
+                                  <i
+                                    @click="
+                                      stopVoice();
+                                      playIndex = null;
+                                    "
+                                    class="
+                                      zmdi zmdi-stop zmdi-hc-fw
+                                      ml-2
+                                      text-primary
+                                    "
                                   ></i>
                                 </button>
                               </td>
@@ -361,6 +390,8 @@ export default {
       // publishSentence: "",
       publishDay: "",
       playVoiceStatus: "",
+      audio: null,
+      playIndex: null,
     };
   },
   mounted() {
@@ -383,8 +414,17 @@ export default {
     },
   },
   methods: {
+    stopVoice() {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+    },
     getVoice(voiceid) {
       //注意 裡層是用fetch
+      if (this.playIndex !== null) {
+        this.audio.pause();
+        this.audio.currentTime = 0;
+      }
+
       let vm = this;
       ApiGetVoice.get(voiceid)
         .then((response) => {
@@ -399,11 +439,11 @@ export default {
             //會進到這裡\
             // console.log("進入播放");
             var url = URL.createObjectURL(response);
-            const audio = new Audio(url);
+            this.audio = new Audio(url);
             // console.log(audio);
-            audio.play();
-            audio.onended = function () {
-              vm.playVoiceStatus = "";
+            this.audio.play();
+            this.audio.onended = function () {
+              this.playVoiceStatus = "";
             };
             // audio.addEventListener("ended", this.endPlay());
           } else {
