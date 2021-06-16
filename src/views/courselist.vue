@@ -823,13 +823,4 @@ export default {
 #s2_demo3 {
   height: 90px;
 }
-
-// .select2-container--default
-//   .select2-selection--multiple
-//   .select2-selection__choice,
-// .select2-container--default.select2-container--disabled
-//   .select2-selection--single {
-//   border: 1px solid #dfe7f3;
-//   background-color: #f0f6ff;
-// }
 </style>
