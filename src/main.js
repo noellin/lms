@@ -40,13 +40,17 @@ const i18n = new VueI18n({
     "ja-JP": require("../src/lang/ja-JP"), // JP
 
     "en-US": require("../src/lang/en.json"), // 英文語言包
+
+    "th-TH":require("../src/lang/th-TH.json"), // 英文語言包
   },
 });
 // console.log(store.state.commom)
 if(localStorage.getItem('lang')!==undefined && localStorage.getItem('lang')!==null){
   i18n.locale = localStorage.getItem('lang')
   store.dispatch("auth/setLang", localStorage.getItem('lang'));
-}else if(navigator.language==='en-US' || navigator.language==='ja-JP'){
+}else if(navigator.language==='en-US' 
+|| navigator.language==='ja-JP'
+|| navigator.language==='th-TH'){
 
   i18n.locale = navigator.language
   store.dispatch("auth/setLang", navigator.language);

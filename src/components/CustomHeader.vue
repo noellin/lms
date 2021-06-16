@@ -62,7 +62,7 @@
               :class="[headerLabel === 'course' ? 'active' : '']"
             >
               <router-link class="" to="/course">
-                <a> Home </a>
+                <a> {{ $t("home") }} </a>
               </router-link>
             </li>
             <li
@@ -107,7 +107,12 @@
             <!-- <span class="text-white">Amanda</span> -->
           </a>
           <div
-            class="dropdown-menu dropdown-menu-right dropdown-menu-accout dropdown-menu-width"
+            class="
+              dropdown-menu
+              dropdown-menu-right
+              dropdown-menu-accout
+              dropdown-menu-width
+            "
           >
             <div class="dropdown-header pb-3">
               <h5 class="mt-0 mb-0">{{ userInfo.username }}</h5>
@@ -186,6 +191,13 @@
                 :class="{ 'text-primary': settingLang === 'ja-JP' }"
               >
                 Japanese
+              </li>
+              <li
+                class="lang-li mb-3 pointer"
+                @click="settingLang = 'th-TH'"
+                :class="{ 'text-primary': settingLang === 'th-TH' }"
+              >
+                Thai
               </li>
             </ul>
           </div>
