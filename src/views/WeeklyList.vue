@@ -68,7 +68,10 @@
                           <tr>
                             <th v-if="$route.params.expired !== 'expired'">
                               <div
-                                class="custom-control custom-checkbox form-check"
+                                class="
+                                  custom-control custom-checkbox
+                                  form-check
+                                "
                               >
                                 <input
                                   type="checkbox"
@@ -123,7 +126,10 @@
                           <tr v-for="wq in wqList" :key="wq.echovalleyid">
                             <td v-if="$route.params.expired !== 'expired'">
                               <div
-                                class="custom-control custom-checkbox form-check"
+                                class="
+                                  custom-control custom-checkbox
+                                  form-check
+                                "
                                 v-if="!wq.canDelete"
                               >
                                 <input
@@ -476,20 +482,26 @@ export default {
 
   methods: {
     sortTable(sortItem) {
-      if (this.tempSortItem === "") {
-        this.tempSortItem = sortItem;
-        this.sortStatus = false;
-      } else if (this.tempSortItem !== sortItem) {
-        this.tempSortItem = sortItem;
-        this.sortStatus = false;
-      } else {
-      }
-      this.sortStatus = !this.sortStatus;
-      if (this.sortStatus) {
-        this.wqList = sortBy(this.wqList, [sortItem], ["asc"]);
-      } else {
+      if (this.tempSortItem === sortItem) {
         this.wqList = this.wqList.reverse();
+      } else {
+        this.tempSortItem = sortItem;
+        this.wqList = sortBy(this.wqList, [(obj) => obj[sortItem]], ["asc"]);
       }
+      // if (this.tempSortItem === "") {
+      //   this.tempSortItem = sortItem;
+      //   this.sortStatus = false;
+      // } else if (this.tempSortItem !== sortItem) {
+      //   this.tempSortItem = sortItem;
+      //   this.sortStatus = false;
+      // } else {
+      // }
+      // this.sortStatus = !this.sortStatus;
+      // if (this.sortStatus) {
+      //   this.wqList = sortBy(this.wqList, [sortItem], ["asc"]);
+      // } else {
+      //   this.wqList = this.wqList.reverse();
+      // }
 
       // publish_date
     },

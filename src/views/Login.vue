@@ -91,7 +91,10 @@
                   >
                 </div>
                 <button
-                  class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+                  class="
+                    btn btn-primary btn-rounded btn-floating btn-md btn-block
+                    m-t-40 m-b-20
+                  "
                   @click="login()"
                 >
                   {{ $t("log-in") }}
@@ -143,7 +146,10 @@
               }}.
             </p>
             <button
-              class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+              class="
+                btn btn-primary btn-rounded btn-floating btn-md btn-block
+                m-t-40 m-b-20
+              "
               @click="loginShow = 'login'"
             >
               {{ $t("return-to-login") }}
@@ -201,7 +207,10 @@
               </div>
 
               <button
-                class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+                class="
+                  btn btn-primary btn-rounded btn-floating btn-md btn-block
+                  m-t-40 m-b-20
+                "
                 @click="forgotPassword()"
               >
                 {{ $t("send") }}
@@ -287,7 +296,10 @@
                 </div>
               </ValidationProvider>
               <button
-                class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+                class="
+                  btn btn-primary btn-rounded btn-floating btn-md btn-block
+                  m-t-40 m-b-20
+                "
                 @click="resetPassword()"
               >
                 {{ $t("confirm-password") }}
@@ -335,7 +347,10 @@
               }}.
             </p>
             <button
-              class="btn btn-primary btn-rounded btn-floating btn-md btn-block m-t-40 m-b-20"
+              class="
+                btn btn-primary btn-rounded btn-floating btn-md btn-block
+                m-t-40 m-b-20
+              "
               @click="loginShow = 'login'"
             >
               {{ $t("ok") }}
@@ -393,6 +408,7 @@
     s.src = "https://cdn.iubenda.com/iubenda.js";
     tag.parentNode.insertBefore(s, tag);
   };
+  console.log(w.addEventListener);
   if (w.addEventListener) {
     w.addEventListener("load", loader, false);
   } else if (w.attachEvent) {
@@ -561,7 +577,13 @@ export default {
 // .bg-BETA {
 //   background-color: #ff9100;
 // }
-
+.loginbg{
+   background-image: url("../assets/img/avatars/bg-login-s.png")no-repeat center center fixed;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 .beta_div {
   background-color: #f56523;
   border-radius: 5px;
@@ -633,5 +655,12 @@ export default {
 .sign-card {
   margin: 15% auto 0;
 }
+// .loginbg{
+//    background-image: url("../assets/img/avatars/bg-login-s.png")no-repeat center center fixed;
+//     -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+// }
 </style>
 

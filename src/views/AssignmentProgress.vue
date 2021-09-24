@@ -109,7 +109,9 @@
                       />
                       <div class="input-group-append">
                         <div
-                          class="btn btn-secondary btn-outline btn-icon btn-rounded"
+                          class="
+                            btn btn-secondary btn-outline btn-icon btn-rounded
+                          "
                           type="button"
                           @click="searchStudent()"
                         >
@@ -153,7 +155,10 @@
                           <tr>
                             <th v-if="$route.params.expired !== 'expired'">
                               <div
-                                class="custom-control custom-checkbox form-check"
+                                class="
+                                  custom-control custom-checkbox
+                                  form-check
+                                "
                               >
                                 <input
                                   type="checkbox"
@@ -178,7 +183,10 @@
                           <tr v-for="ap in aProgressList" :key="ap.stuid">
                             <td v-if="$route.params.expired !== 'expired'">
                               <div
-                                class="custom-control custom-checkbox form-check"
+                                class="
+                                  custom-control custom-checkbox
+                                  form-check
+                                "
                               >
                                 <input
                                   type="checkbox"
@@ -288,7 +296,14 @@
                     <div class="card-body">
                       <div class="media rounded pb-2">
                         <div
-                          class="align-self-center overlay-wrap mr-4 w-100 h-100 border"
+                          class="
+                            align-self-center
+                            overlay-wrap
+                            mr-4
+                            w-100
+                            h-100
+                            border
+                          "
                         >
                           <img
                             v-lazy="
@@ -373,7 +388,7 @@
                             ><i
                               class="zmdi zmdi-check zmdi-hc-fw text-white"
                             ></i></span
-                          >{{ $t("perfact") }}!
+                          >{{ $t("perfect") }}!
                         </h5>
                         <ul class="d-flex justify-content-start mb-0">
                           <li
@@ -383,7 +398,12 @@
                             :key="index"
                           >
                             <div
-                              class="number-block bg-primary text-white rounded-circle"
+                              class="
+                                number-block
+                                bg-primary
+                                text-white
+                                rounded-circle
+                              "
                             >
                               {{ index }}
                             </div>
@@ -408,7 +428,12 @@
                             {{ se.sentenceContent
                             }}<i
                               v-if="se.voiceID !== ''"
-                              class="zmdi zmdi-volume-up zmdi-hc-fw mx-1 pointer zmdi-hc-2x"
+                              class="
+                                zmdi zmdi-volume-up zmdi-hc-fw
+                                mx-1
+                                pointer
+                                zmdi-hc-2x
+                              "
                               @click="
                                 getVoice(se.voiceID);
                                 playVoiceStatus = se.voiceID;
@@ -424,7 +449,12 @@
                                 playVoiceStatus === se.voiceID &&
                                 se.voiceID !== ''
                               "
-                              class="zmdi zmdi-stop pointer zmdi-hc-2x text-danger"
+                              class="
+                                zmdi zmdi-stop
+                                pointer
+                                zmdi-hc-2x
+                                text-danger
+                              "
                               @click="stopVoice()"
                             ></i>
                           </li>
@@ -514,7 +544,11 @@
                         @click="quickNewComments(qc)"
                         v-for="qc in quickComments"
                         :key="qc"
-                        class="btn btn-secondary btn-outline btn-rounded btn-sm mb-2 mr-2"
+                        class="
+                          btn btn-secondary btn-outline btn-rounded btn-sm
+                          mb-2
+                          mr-2
+                        "
                       >
                         {{ qc }}
                       </button>
@@ -815,7 +849,7 @@ export default {
     async setEvaluate() {
       this.evaluate.score = this.evaluate.score.toString();
       // console.log(this.aid, this.sid, this.evaluate);
-      console.log('setEvaluate');
+      console.log("setEvaluate");
       console.log(this.aid, this.sid, this.evaluate);
       let result = await ApiSetEvaluate.post(this.aid, this.sid, this.evaluate)
         .then((response) => {

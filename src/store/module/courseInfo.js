@@ -21,6 +21,7 @@ const courseInfo = {
         tempAList: {},
         tempAIDList: {},
         courseid: '',
+        colid:'',
         caList: [],
         caidList: [],
         aKeyList: [],
@@ -33,22 +34,23 @@ const courseInfo = {
     },
     mutations: {
         SET_CLASS(state, data){
-            console.log(data);
+       
             if(data.status==='active'){
                 state.ActiveClassList = data.class
-                console.log('set active class = ',data.class);
+          
             }else{
                 state.ExpiredClassList = data.class
-                console.log('set expired class = ',data.class);
+              
             }
         },
         SET_OPENAGT(state, data){
             state.openAgt = data
         },
         SET_COURSEINFO(state, data) {
-            console.log('info =', data); 
+            console.log('course info =', data); 
             state.courseInfo = data
             state.courseid = data.courseid
+            state.colid = data.colid
 
             if (state.aKeyList.includes(data.courseid) === false) {
                 //初始 course KEY
@@ -68,11 +70,7 @@ const courseInfo = {
                     element.unit = ''
                 }
                 element.link = element.information.includes('http')
-                // let temp =  []
-                // temp = response.record
-                // temp.forEach(item => {
-                //     item.link = item.information.includes('http')
-                // })
+
  
             });
             state.openedTextbookList = []
@@ -89,7 +87,8 @@ const courseInfo = {
          state.courseOverview  = data 
         },
         SET_STUDENT(state, data) {
-            console.log(data.info);
+            console.log("student Info");
+            console.log(data);
             state.studentList = []
             state.studentList = data.record
             state.forSelectStudentList = []

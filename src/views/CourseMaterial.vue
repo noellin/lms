@@ -39,7 +39,13 @@
               <div class="col-4 col-md">
                 <div class="card bg-primary" style="height: 150px">
                   <div
-                    class="card-body d-flex align-content-between flex-wrap mfilter-board"
+                    class="
+                      card-body
+                      d-flex
+                      align-content-between
+                      flex-wrap
+                      mfilter-board
+                    "
                     @click="changemfilter('openb')"
                     data-toggle="tooltip"
                     data-placement="bottom"
@@ -76,7 +82,13 @@
               <div class="col-4 col-md">
                 <div class="card bg-secondary" style="height: 150px">
                   <div
-                    class="card-body d-flex align-content-between flex-wrap mfilter-board"
+                    class="
+                      card-body
+                      d-flex
+                      align-content-between
+                      flex-wrap
+                      mfilter-board
+                    "
                     @click="changemfilter('openv')"
                     data-toggle="tooltip"
                     data-placement="bottom"
@@ -199,7 +211,14 @@
                   <div class="card-body">
                     <div class="media">
                       <div
-                        class="align-self-center overlay-wrap mr-4 w-150 h-150 border"
+                        class="
+                          align-self-center
+                          overlay-wrap
+                          mr-4
+                          w-150
+                          h-150
+                          border
+                        "
                       >
                         <span class="overlay-icon">
                           <i
@@ -247,7 +266,13 @@
                               >{{ $t("unit") }} {{ textbook.unit }}</span
                             >
                             <h4
-                              class="mb-0 mt-3 d-flex align-self-center text-primary"
+                              class="
+                                mb-0
+                                mt-3
+                                d-flex
+                                align-self-center
+                                text-primary
+                              "
                             >
                               <div title="">
                                 <!-- <span
@@ -261,7 +286,13 @@
                                   :href="textbook.worksheet"
                                   v-if="textbook.link === true"
                                   ><i
-                                    class="fas fa-file-download pointer fa-1x download-icon"
+                                    class="
+                                      fas
+                                      fa-file-download
+                                      pointer
+                                      fa-1x
+                                      download-icon
+                                    "
                                   ></i
                                 ></a>
                               </div>
@@ -283,9 +314,17 @@
                             {{ $t("start")
                             }}<a
                               @click="gotoWebsite(textbook)"
-                              class="btn-rounded-icon btn-primary rounded ml-2 pointer"
+                              class="
+                                btn-rounded-icon btn-primary
+                                rounded
+                                ml-2
+                                pointer
+                              "
                               ><i
-                                class="zmdi zmdi-arrow-right zmdi-hc-fw text-white"
+                                class="
+                                  zmdi zmdi-arrow-right zmdi-hc-fw
+                                  text-white
+                                "
                               ></i
                             ></a>
                           </div>
@@ -298,7 +337,10 @@
                             <button
                               v-if="textbook.note === 'video'"
                               type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                              class="
+                                btn btn-sm btn-secondary btn-rounded btn-outline
+                                mr-2
+                              "
                               data-toggle="modal"
                               data-target="#addAssignment"
                               @click="
@@ -319,7 +361,10 @@
                               "
                               v-else
                               type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                              class="
+                                btn btn-sm btn-secondary btn-rounded btn-outline
+                                mr-2
+                              "
                               data-toggle="modal"
                               @click="addToAssignmentList(textbook)"
                             >
@@ -334,7 +379,10 @@
                             </button>
                             <button
                               type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                              class="
+                                btn btn-sm btn-secondary btn-rounded btn-outline
+                                mr-2
+                              "
                               data-toggle="modal"
                               data-target="#addSpeakingquiz"
                               v-if="textbook.note === 'video'"
@@ -351,7 +399,10 @@
                             </button>
                             <button
                               type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline mr-2"
+                              class="
+                                btn btn-sm btn-secondary btn-rounded btn-outline
+                                mr-2
+                              "
                               v-else
                               @click="
                                 gotoSpeakingQuiz(
@@ -365,7 +416,9 @@
                             </button>
                             <button
                               type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                              class="
+                                btn btn-sm btn-secondary btn-rounded btn-outline
+                              "
                               data-toggle="modal"
                               @click="
                                 getCollectionList(textbook.resourceid, textbook)
@@ -378,7 +431,12 @@
                           <div>
                             <div
                               v-if="textbook.openflag !== 'true'"
-                              class="badge badge-dark badge-pill fw300 mr-2 font-size-md"
+                              class="
+                                badge badge-dark badge-pill
+                                fw300
+                                mr-2
+                                font-size-md
+                              "
                             >
                               {{ $t("closed") }}
                             </div>
@@ -387,7 +445,12 @@
                                 textbook.openflag === 'true' &&
                                 textbook.note === 'video'
                               "
-                              class="badge badge-success badge-pill fw300 mr-2 font-size-md"
+                              class="
+                                badge badge-success badge-pill
+                                fw300
+                                mr-2
+                                font-size-md
+                              "
                             >
                               {{ $t("opened") }}
                               <i class="fas fa-video"></i>
@@ -397,7 +460,12 @@
                                 textbook.openflag === 'true' &&
                                 textbook.note === 'book'
                               "
-                              class="badge badge-success badge-pill fw300 mr-2 font-size-md"
+                              class="
+                                badge badge-success badge-pill
+                                fw300
+                                mr-2
+                                font-size-md
+                              "
                             >
                               {{ $t("opened") }}
                               <i class="fas fa-book-open"></i>
@@ -405,7 +473,9 @@
                             <button
                               v-if="textbook.openflag !== 'true'"
                               type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                              class="
+                                btn btn-sm btn-secondary btn-rounded btn-outline
+                              "
                               data-toggle="modal"
                               data-target="#OpenMaterial"
                               @click="tempResource = textbook"
@@ -415,7 +485,9 @@
                             <button
                               v-else
                               type="button"
-                              class="btn btn-sm btn-secondary btn-rounded btn-outline"
+                              class="
+                                btn btn-sm btn-secondary btn-rounded btn-outline
+                              "
                               data-toggle="modal"
                               data-target="#OpenMaterial"
                               @click="tempResource = textbook"
@@ -790,40 +862,6 @@
             <div class="mt-4">
               {{ $t("check-which-materials-you-want-to-open") }}
             </div>
-            <!-- <div class="" v-if="courseInfo.cntLevel !== 0">
-              Level filter:
-              <span
-                v-for="(level, i) in levelLists"
-                :key="level + i"
-                class="mr-2"
-              >
-                <span
-                  @click="
-                    tempLevelList[i] = !tempLevelList[i];
-                    filterLevel(level);
-                  "
-                  :class="
-                    tempLevelList[i] === true ? 'text-primary' : 'text-black'
-                  "
-                  >{{ level }}</span
-                >
-              </span>
-            </div>
-            <div class="" v-if="courseInfo.cntUnit !== 0">
-              Unit filter:
-              <span v-for="(unit, i) in unitLists" :key="unit + i" class="mr-2">
-                <span
-                  @click="
-                    tempUnitList[i] = !tempUnitList[i];
-                    filterUnit(unit);
-                  "
-                  :class="
-                    tempUnitList[i] === true ? 'text-primary' : 'text-black'
-                  "
-                  >{{ unit }}</span
-                >
-              </span>
-            </div> -->
             <div class="table-responsive">
               <h2 v-if="textbookList.length === 0">
                 {{ $t("no-relevant-records") }}
@@ -926,7 +964,7 @@
               type="button"
               class="btn btn-primary btn-rounded"
               data-dismiss="modal"
-              @click="materialOpenSetting()"
+              @click="multiOpenSetting()"
             >
               {{ $t("save") }}
             </button>
@@ -945,7 +983,9 @@
       v-if="studentList.length > 0"
     >
       <div
-        class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+        class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        "
       >
         <div class="modal-content">
           <div class="modal-header">
@@ -993,7 +1033,13 @@
                         <li
                           v-for="(ta, index) in tempAList"
                           :key="index"
-                          class="d-flex justify-content-between border bg-white rounded"
+                          class="
+                            d-flex
+                            justify-content-between
+                            border
+                            bg-white
+                            rounded
+                          "
                         >
                           <div class="d-flex justify-content-start">
                             <div class="btn btn-nostyle btn-move">
@@ -1005,7 +1051,11 @@
                               class="row col-sm-12"
                             >
                               <span
-                                class="badge badge-pill badge-primary fix-badge-height mr-1"
+                                class="
+                                  badge badge-pill badge-primary
+                                  fix-badge-height
+                                  mr-1
+                                "
                                 >{{ $t("reading") }}</span
                               >
                               <span class="d-flex align-items-center">{{
@@ -1018,7 +1068,11 @@
                             >
                               <div>
                                 <span
-                                  class="badge badge-pill badge-warning fix-badge-height mr-1"
+                                  class="
+                                    badge badge-pill badge-warning
+                                    fix-badge-height
+                                    mr-1
+                                  "
                                   >{{ $t("watching") }}</span
                                 >
                               </div>
@@ -1030,7 +1084,11 @@
                             </div>
                             <span v-else class="row col-sm-12">
                               <span
-                                class="badge badge-pill badge-accent fix-badge-height mr-1"
+                                class="
+                                  badge badge-pill badge-accent
+                                  fix-badge-height
+                                  mr-1
+                                "
                                 >{{ $t("speaking-quiz") }}</span
                               >
                               <span class="d-flex align-items-center"
@@ -1045,7 +1103,11 @@
 
                           <i
                             @click="removeAssignment(ta.note, ta)"
-                            class="zmdi zmdi-minus-circle zmdi-hc-2x text-secondary pointer"
+                            class="
+                              zmdi zmdi-minus-circle zmdi-hc-2x
+                              text-secondary
+                              pointer
+                            "
                           ></i>
                           <!-- </button> -->
                         </li>
@@ -1349,6 +1411,7 @@ import {
   ApiGetVideoMaterial,
   ApiSetAssignment,
   ApiGetOpenResource,
+  ApiPostMultiOpenSetting
 } from "../http/apis/CourseDetail";
 import {
   ApiGetCollectionList,
@@ -1364,35 +1427,9 @@ import $ from "jquery";
 import draggable from "vuedraggable";
 // import _ from "lodash";
 import sortBy from "lodash/sortBy";
-// import Multiselect from 'vue-multiselect'
-// $("#mySelect2").select2({
-//   dropdownParent: $("#s2_student"),
-// });
-// import SearchGroup from "../components/SearchGroup";
 import { createLogger } from "vuex";
-// shift select
-// $(document).ready(function () {
-//   var $chkboxes = $(".chkbox");
-//   var lastChecked = null;
+import courseInfo from '../store/module/courseInfo';
 
-//   $chkboxes.click(function (e) {
-//     if (!lastChecked) {
-//       lastChecked = this;
-//       return;
-//     }
-
-//     if (e.shiftKey) {
-//       var start = $chkboxes.index(this);
-//       var end = $chkboxes.index(lastChecked);
-
-//       $chkboxes
-//         .slice(Math.min(start, end), Math.max(start, end) + 1)
-//         .prop("checked", lastChecked.checked);
-//     }
-
-//     lastChecked = this;
-//   });
-// });
 export default {
   name: "CourseMaterial",
   components: {
@@ -1577,7 +1614,7 @@ export default {
     },
     unitLists() {
       let vm = this;
-      console.log(this.copyTextbookList);
+ 
       this.copyTextbookList.forEach((element, i) => {
         if (
           element.unit !== undefined &&
@@ -1607,22 +1644,14 @@ export default {
           this.selectLevelList
         );
       } else if (this.mfilter === "openb") {
-        // sortMaterial = this.$_sortMaterial(
-        //   this.openedBookList,
-        //   this.selectSortType,
-        //   this.selectLevelList
-        // );
+
         sortMaterial = this.$_sortMaterial(
           openb,
           this.selectSortType,
           this.selectLevelList
         );
       } else if (this.mfilter === "openv") {
-        // sortMaterial = this.$_sortMaterial(
-        //   this.openedVideoList,
-        //   this.selectSortType,
-        //   this.selectLevelList
-        // );
+
         sortMaterial = this.$_sortMaterial(
           openv,
           this.selectSortType,
@@ -1760,6 +1789,12 @@ export default {
       this.$store.dispatch("common/setLoading", false);
     },
     getFilterInfo(selectLevelList, selectSortType) {
+      console.log("sort type");
+      console.log(selectSortType);
+      let sortType = selectSortType.split("_")[0];
+      if (sortType === "title") {
+        this.tempSortItem = "resource_name";
+      }
       this.selectLevelList = selectLevelList;
       this.selectSortType = selectSortType;
     },
@@ -1771,26 +1806,17 @@ export default {
       }
     },
     sortTable(sortItem) {
-      if (this.tempSortItem === "") {
-        this.tempSortItem = sortItem;
-        this.sortStatus = false;
-      } else if (this.tempSortItem !== sortItem) {
-        this.tempSortItem = sortItem;
-        this.sortStatus = false;
+      if (this.tempSortItem === sortItem) {
+        this.copyTextbookList = this.copyTextbookList.reverse();
       } else {
-      }
-      if (this.sortStatus) {
+        this.tempSortItem = sortItem;
         this.copyTextbookList = sortBy(
           this.copyTextbookList,
-          [(obj) => parseInt(obj[sortItem], 10)],
+          [(obj) => obj[sortItem]],
           ["asc"]
         );
-      } else {
-        this.copyTextbookList = this.copyTextbookList.reverse();
       }
-      // this.sortStatus = !this.sortStatus;
-      console.log("resort");
-      // publish_date
+
     },
     disabledBeforeToday(date) {
       let today = new Date();
@@ -1815,8 +1841,7 @@ export default {
         text: newTag,
         id: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
       };
-      // this.options.push(tag)
-      // this.value.push(tag)
+
     },
     async getCollectionList(rid, obj) {
       let vm = this;
@@ -1868,19 +1893,10 @@ export default {
         })
         .catch((err) => {});
     },
-    // async deleteResource(colid, rid) {
-    //   let result = await ApideleteResource.get(this.userid, this.tempcolid, rid)
-    //     .then((response) => {
-    //       return response.status;
-    //     })
-    //     .catch((err) => {});
-    //   if (result) {
-    //     this.getResource(this.tempcolid);
-    //   }
-    // },
+
     addToAssignmentList(m) {
       // this.clicked.push(m.resourceid);
-      console.log(m);
+   
       this.$store.dispatch("courseInfo/setAssignment", {
         assignment: m,
         id: m.resourceid,
@@ -2048,7 +2064,7 @@ export default {
             );
             return true;
           } else {
-            console.log(response);
+         
             this.$bus.$emit("messsage:push", "Unknown error!!", "danger");
           }
         })
@@ -2073,98 +2089,95 @@ export default {
         this.$bus.$emit("messsage:push", "New assignment success.", "success");
       }
     },
-    async materialOpenSetting() {
-      this.$store.dispatch("common/setLoading", true);
-      let promises = [];
-      let vm = this;
-      vm.setResourceArray = [];
-      // //             如果新增OPEN
-      // // if NEW NOT INCLUEDS OLD
-      for (let i = 0; i < this.openedTextbookList.length; i++) {
-        if (await !vm.openedTextbookLists.includes(vm.openedTextbookList[i])) {
-          this.getOpenResource(
-            vm.openedTextbookList[i].split(";")[0],
-            vm.openedTextbookList[i].split("_")[1],
-            "true"
-          );
+    // 舊的多重開關API (目前未使用)
+    // async materialOpenSetting() {
+    //   this.$store.dispatch("common/setLoading", true);
+    //   let promises = [];
+    //   let vm = this;
+    //   vm.setResourceArray = [];
+    //   // //             如果新增OPEN
+    //   // // if NEW NOT INCLUEDS OLD
+    // openedTextbookList = 現在的ARRAY
+    // openedTextbookLists = 舊設定的ARRAY
+    //   for (let i = 0; i < this.openedTextbookList.length; i++) {
+    //     if (await !vm.openedTextbookLists.includes(vm.openedTextbookList[i])) {
+    //       this.getOpenResource(
+    //         vm.openedTextbookList[i].split(";")[0],
+    //         vm.openedTextbookList[i].split("_")[1],
+    //         "true"
+    //       );
 
-          console.log("push open");
+    //       console.log("push open");
+    //     }
+    //   }
+    //   for (let i = 0; i < this.openedTextbookLists.length; i++) {
+    //     if (await !vm.openedTextbookList.includes(vm.openedTextbookLists[i])) {
+    //       this.getOpenResource(
+    //         vm.openedTextbookLists[i].split(";")[0],
+    //         vm.openedTextbookLists[i].split("_")[1],
+    //         "false"
+    //       );
+    //       console.log("push Close");
+    //     }
+    //   }
+    //   let result = await ApiGetOpenResource.getAll(vm.setResourceArray)
+    //     .then((response) => {
+    //       return true;
+    //     })
+    //     .catch((err) => {});
+    //   if (result) {
+    //     console.log("update info");
+    //     this.$store.dispatch(
+    //       "courseInfo/updateTextbookList",
+    //       this.$route.params.courseid
+    //     );
+    //     this.$store.dispatch("common/setLoading", false);
+    //   }
+    // },
+    async multiOpenSetting(){
+      console.log('multi select')
+      let vm = this
+      let openRes = []
+      let closeRes = []
+            this.$store.dispatch("common/setLoading", true);
+        for (let i = 0; i < this.openedTextbookList.length; i++) {
+        if (await !vm.openedTextbookLists.includes(vm.openedTextbookList[i])) {
+          openRes.push(vm.openedTextbookList[i].split("_")[1])
         }
       }
       for (let i = 0; i < this.openedTextbookLists.length; i++) {
         if (await !vm.openedTextbookList.includes(vm.openedTextbookLists[i])) {
-          this.getOpenResource(
-            vm.openedTextbookLists[i].split(";")[0],
-            vm.openedTextbookLists[i].split("_")[1],
-            "false"
-          );
-          console.log("push Close");
+          closeRes.push(vm.openedTextbookLists[i].split("_")[1])
         }
       }
-      let result = await ApiGetOpenResource.getAll(vm.setResourceArray)
-        .then((response) => {
-          return true;
-          // if (response.status === "success") {
-          //   console.log("update Datail");
-          //   vm.$store.dispatch(
-          //     "courseInfo/updateTextbookList",
-          //     vm.$route.params.courseid
-          //   );
-          // }
-        })
-        .catch((err) => {});
-      if (result) {
-        console.log("update info");
+      openRes = openRes.join('|')
+      let result = await ApiPostMultiOpenSetting.post(this.courseInfo.colid,this.$route.params.courseid,openRes,'true')
+      .then((response) => {
+        console.log(response)
+        if(response.status==='success'){
+          
+          return true
+        }
+      }).catch((err) => {
+        
+      });
+      closeRes = closeRes.join('|')
+      let result2 = await ApiPostMultiOpenSetting.post(this.courseInfo.colid,this.$route.params.courseid,closeRes,'false')
+      .then((response) => {
+              console.log(response)
+        if(response.status==='success'){
+          return true
+        }
+      }).catch((err) => {
+        
+      });
+      if(result && result2){
         this.$store.dispatch(
           "courseInfo/updateTextbookList",
           this.$route.params.courseid
         );
         this.$store.dispatch("common/setLoading", false);
       }
-      // await vm.$store.dispatch(
-      //   "courseInfo/updateTextbookList",
-      //   vm.$route.params.courseid
-      // );
-      //       如果新增OPEN
-      // if NEW NOT INCLUEDS OLD
-      // await this.openedTextbookList.forEach((item, index) => {
-      //   if (!this.openedTextbookLists.includes(item)) {
-      //     promises.push(
-      //       this.getOpenResource(item.split(";")[0], item.split("_")[1], "true")
-      //     );
-      //   }
-      // });
-      // // 如果新增CLOSE
-      // // if OLD NOT INCLUEDS NEW
-      // await this.openedTextbookLists.forEach((item, index) => {
-      //   if (!this.openedTextbookList.includes(item)) {
-      //     promises.push(
-      //       this.getOpenResource(
-      //         item.split(";")[0],
-      //         item.split("_")[1],
-      //         "false"
-      //       )
-      //     );
-      //   }
-      // });
-      // console.log("all ready");
-      // await this.$store.dispatch(
-      //   "courseInfo/updateTextbookList",
-      //   this.$route.params.courseid
-      // );
-      // await this.axios
-      //   .all(promises)
-      //   .then(
-      //     await this.axios.spread((func1) => {
-      //       this.$store.dispatch(
-      //         "courseInfo/updateTextbookList",
-      //         this.$route.params.courseid
-      //       );
-      //     })
-      //   )
-      //   .catch((err) => {});
-
-      // 陣列拆兩半處理 以免太大
     },
     async getOpenResource(colid, rid, status, single = false) {
       console.log(

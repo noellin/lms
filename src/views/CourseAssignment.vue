@@ -43,7 +43,10 @@
                           <tr>
                             <th v-if="$route.params.expired !== 'expired'">
                               <div
-                                class="custom-control custom-checkbox form-check"
+                                class="
+                                  custom-control custom-checkbox
+                                  form-check
+                                "
                               >
                                 <input
                                   type="checkbox"
@@ -64,7 +67,11 @@
                                 class="pointer"
                                 >{{ $t("assignment")
                                 }}<i
-                                  class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                  class="
+                                    zmdi zmdi-swap-vertical
+                                    ml-1
+                                    zmdi-hc-lg
+                                  "
                                 ></i
                               ></span>
                             </th>
@@ -114,7 +121,10 @@
                           <tr v-for="a in aList" :key="a.asgmtid">
                             <td v-if="$route.params.expired !== 'expired'">
                               <div
-                                class="custom-control custom-checkbox form-check"
+                                class="
+                                  custom-control custom-checkbox
+                                  form-check
+                                "
                               >
                                 <input
                                   type="checkbox"
@@ -145,7 +155,7 @@
                                 ><i class="zmdi zmdi-edit ml-1 zmdi-hc-lg"></i
                               ></span>
                             </td>
-                            <td class="">
+                            <td :class="calexpired(a.expiry_date)">
                               {{ a.publish_date | dateConversion }} -
                               {{ a.expiry_date | dateConversion }}
                             </td>
@@ -180,7 +190,10 @@
                             <td>
                               <a
                                 @click="gotoProgress(a.asgmtid, expired)"
-                                class="btn btn-primary btn-sm btn-rounded text-white"
+                                class="
+                                  btn btn-primary btn-sm btn-rounded
+                                  text-white
+                                "
                                 >{{ $t("view") }}</a
                               >
                               <!-- <a
@@ -461,6 +474,20 @@ export default {
     },
   },
   methods: {
+    calexpired(date) {
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+      let yestoday = dayjs(today).subtract(1, "day");
+      if (
+        dayjs(dayjs(yestoday).format("YYYY-MM-DD")).isBefore(
+          dayjs(dayjs.unix(date).format("YYYY-MM-DD"))
+        )
+      ) {
+        return "";
+      } else {
+        return "text-danger";
+      }
+    },
     async ModifyAssignmentName() {
       let obj = { description: this.modifyName };
       console.log(obj);
@@ -479,20 +506,26 @@ export default {
       }
     },
     sortTable(sortItem) {
-      if (this.tempSortItem === "") {
-        this.tempSortItem = sortItem;
-        this.sortStatus = false;
-      } else if (this.tempSortItem !== sortItem) {
-        this.tempSortItem = sortItem;
-        this.sortStatus = false;
-      } else {
-      }
-      this.sortStatus = !this.sortStatus;
-      if (this.sortStatus) {
-        this.aList = sortBy(this.aList, [sortItem], ["asc"]);
-      } else {
+      if (this.tempSortItem === sortItem) {
         this.aList = this.aList.reverse();
+      } else {
+        this.tempSortItem = sortItem;
+        this.aList = sortBy(this.aList, [(obj) => obj[sortItem]], ["asc"]);
       }
+      // if (this.tempSortItem === "") {
+      //   this.tempSortItem = sortItem;
+      //   this.sortStatus = false;
+      // } else if (this.tempSortItem !== sortItem) {
+      //   this.tempSortItem = sortItem;
+      //   this.sortStatus = false;
+      // } else {
+      // }
+      // this.sortStatus = !this.sortStatus;
+      // if (this.sortStatus) {
+      //   this.aList = sortBy(this.aList, [sortItem], ["asc"]);
+      // } else {
+      //   this.aList = this.aList.reverse();
+      // }
 
       // publish_date
     },

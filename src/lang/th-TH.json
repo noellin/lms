@@ -347,5 +347,13 @@
     "my-e-mail": "อีเมลของฉัน",
     "my-status": "สถานะของฉัน",
     "edit-profile": "แก้ไขโปรไฟล์",
-    "language": "ภาษา"
-}
+    "language": "ภาษา",
+    "select-the-class-to-open": "เลือกห้องเรียนที่จะเปิด",
+    "check-in-login": "เข้าสู่ระบบ",
+    "login": "เข้าสู่ระบบ",
+    "class-size-has-reached-the-maximum-number-of-studentss": "จำนวนผู้เรียนได้ถึงขนาดสูงสุดของห้องเรียนแล้ว",
+    "unable-to-add-students": "ไม่สามารถเพิ่มนักเรียนได้",
+    "occupied-seats": "ที่นั่งที่เปิดใช้งาน/ที่นั่งทั้งหมด",
+    "are-you-sure-you-want-to-delete-this-assignment-all-student-progress-will-be-lost": "ผลการเรียนของผู้เรียนจะหายไปทั้งหมด คุณต้องการลบงานที่ได้รับมอบหมายชิ้นนี้ไหม?",
+    "download-sample-file": "ดาวน์โหลดไฟล์ตัวอย่าง"
+    }

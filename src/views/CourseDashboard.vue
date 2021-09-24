@@ -18,7 +18,12 @@
                       <i
                         data-toggle="modal"
                         data-target="#InformationModal"
-                        class="zmdi-hc-lg pointer zmdi zmdi-alert-circle zmdi-hc-fw text-white"
+                        class="
+                          zmdi-hc-lg
+                          pointer
+                          zmdi zmdi-alert-circle zmdi-hc-fw
+                          text-white
+                        "
                       ></i>
                     </h5>
                     <div class="w100 text-right">
@@ -43,7 +48,12 @@
                       <i
                         data-toggle="modal"
                         data-target="#InformationModal"
-                        class="zmdi-hc-lg pointer zmdi zmdi-alert-circle zmdi-hc-fw text-white"
+                        class="
+                          zmdi-hc-lg
+                          pointer
+                          zmdi zmdi-alert-circle zmdi-hc-fw
+                          text-white
+                        "
                       ></i>
                     </h5>
                     <div class="w100 text-right">
@@ -286,7 +296,11 @@
                                 >
                                   {{ $t("student")
                                   }}<i
-                                    class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                    class="
+                                      zmdi zmdi-swap-vertical
+                                      ml-1
+                                      zmdi-hc-lg
+                                    "
                                   ></i>
                                 </th>
                                 <th
@@ -295,7 +309,11 @@
                                 >
                                   {{ $t("login")
                                   }}<i
-                                    class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                    class="
+                                      zmdi zmdi-swap-vertical
+                                      ml-1
+                                      zmdi-hc-lg
+                                    "
                                   ></i>
                                 </th>
                                 <th
@@ -304,7 +322,11 @@
                                 >
                                   {{ $t("completed-assignments")
                                   }}<i
-                                    class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                    class="
+                                      zmdi zmdi-swap-vertical
+                                      ml-1
+                                      zmdi-hc-lg
+                                    "
                                   ></i>
                                 </th>
                                 <th
@@ -313,7 +335,11 @@
                                 >
                                   {{ $t("review")
                                   }}<i
-                                    class="zmdi zmdi-swap-vertical ml-1 zmdi-hc-lg"
+                                    class="
+                                      zmdi zmdi-swap-vertical
+                                      ml-1
+                                      zmdi-hc-lg
+                                    "
                                   ></i>
                                 </th>
                               </tr>
@@ -512,6 +538,9 @@
         </div>
       </div>
     </div>
+    <!-- modal -->
+    <!--  -->
+   
   </div>
 </template>
 <script>
@@ -633,20 +662,26 @@ export default {
   },
   methods: {
     sortTable(sortItem) {
-      if (this.tempSortItem === "") {
-        this.tempSortItem = sortItem;
-        this.sortStatus = false;
-      } else if (this.tempSortItem !== sortItem) {
-        this.tempSortItem = sortItem;
-        this.sortStatus = false;
-      } else {
-      }
-      this.sortStatus = !this.sortStatus;
-      if (this.sortStatus) {
-        this.stdRank = sortBy(this.stdRank, [sortItem], ["asc"]);
-      } else {
+      if (this.tempSortItem === sortItem) {
         this.stdRank = this.stdRank.reverse();
+      } else {
+        this.tempSortItem = sortItem;
+        this.stdRank = sortBy(this.stdRank, [(obj) => obj[sortItem]], ["asc"]);
       }
+      // if (this.tempSortItem === "") {
+      //   this.tempSortItem = sortItem;
+      //   this.sortStatus = false;
+      // } else if (this.tempSortItem !== sortItem) {
+      //   this.tempSortItem = sortItem;
+      //   this.sortStatus = false;
+      // } else {
+      // }
+      // this.sortStatus = !this.sortStatus;
+      // if (this.sortStatus) {
+      //   this.stdRank = sortBy(this.stdRank, [sortItem], ["asc"]);
+      // } else {
+      //   this.stdRank = this.stdRank.reverse();
+      // }
 
       // publish_date
     },

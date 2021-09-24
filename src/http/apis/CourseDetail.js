@@ -50,3 +50,11 @@ export const ApiGetOpenResource = {
         return getPromiseAll(urlArray)
     }
 };
+
+export const ApiPostMultiOpenSetting = {
+    post: (colid, courseid, ridObj, status) => {
+        console.log(`/course/openresourcelist/${colid}/${courseid}/${status}`,ridObj);
+        return post(`/course/openresourcelist/${colid}/${courseid}/${status}`,ridObj)
+    }
+
+}

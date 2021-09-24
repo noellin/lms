@@ -43,7 +43,7 @@
   "speaking-quiz": "Speaking Quiz",
   "complete": "Complete",
   "total-number-of-incorrect-answers": "Total number of incorrect answers",
-  "perfact": "Perfact",
+  "perfect": "Perfact",
   "speaking-quiz-score": "Speaking quiz score",
   "optional": "Optional",
   "teacher-feedback": "Teacher feedback",
@@ -355,5 +355,7 @@
   "unable-to-add-students": "Unable to add students",
   "occupied-seats": "Occupied/Seats",
   "are-you-sure-you-want-to-delete-this-assignment-all-student-progress-will-be-lost": "Are you sure you want to delete this assignment? All student progress will be lost.",
-  "download-sample-file": "Download sample file"
+  "download-sample-file": "Download sample file",
+  "confirm-0": "Confirm",
+  "level-0": "Level"
 }

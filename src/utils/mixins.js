@@ -28,8 +28,8 @@ Vue.mixin({
           else{
             temp = [...materialArray];
           }
-          console.log('final list = ',temp);
-          console.log(sortType);
+          // console.log('final list = ',temp);
+          // console.log(sortType);
             if (sortType === "title_asc") {
               temp = sortBy(temp, [(obj) => obj.resource_name], ["asc"]);
               return temp
@@ -44,8 +44,8 @@ Vue.mixin({
               let tempUnit = temp.filter(item => {
                 return item.unit!=='' && item.unit!==null && item.unit!==undefined
               })
-              console.log(tempLevel);
-              console.log(tempUnit);
+              // console.log(tempLevel);
+              // console.log(tempUnit);
               temp = sortBy(tempLevel, [(obj) => obj.level], ["asc"]).concat(sortBy(tempUnit, [(obj) => obj.unit], ["asc"]));
               // temp = sortBy(temp, [(obj) => obj.level], ["asc"]);
               // console.log(temp);

@@ -568,14 +568,27 @@
               <div class="d-flex">
                 <img
                   src="../assets/img/avatars/teacher_men.png"
-                  class="w-200 rounded-circle img-thumbnail mr-5 pointer bchover-blue"
+                  class="
+                    w-200
+                    rounded-circle
+                    img-thumbnail
+                    mr-5
+                    pointer
+                    bchover-blue
+                  "
                   :class="chooseimg === '1' ? 'bc-blue' : ''"
                   alt="profile-image"
                   @click="chooseimg = '1'"
                 />
                 <img
                   src="../assets/img/avatars/teacher_women.png"
-                  class="w-200 rounded-circle img-thumbnail pointer bchover-blue"
+                  class="
+                    w-200
+                    rounded-circle
+                    img-thumbnail
+                    pointer
+                    bchover-blue
+                  "
                   :class="chooseimg === '2' ? 'bc-blue' : ''"
                   alt="profile-image"
                   @click="chooseimg = '2'"
@@ -746,6 +759,8 @@ export default {
                 "success"
               );
               // $("#InviteEmailSentModal").modal("show");
+            } else {
+              this.$bus.$emit("messsage:push", response.record, "danger");
             }
           })
           .catch((err) => {});

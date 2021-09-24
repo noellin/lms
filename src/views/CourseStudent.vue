@@ -147,6 +147,7 @@
                             <th>{{ $t("student-name") }}</th>
                             <th>{{ $t("parent-account") }}</th>
                             <th>{{ $t("remarks") }}</th>
+                            <th>{{ $t('level-0') }}</th>
                             <th>{{ $t("status") }}</th>
                             <th v-if="$route.params.expired !== 'expired'">
                               {{ $t("edit") }}
@@ -177,6 +178,7 @@
                             </td>
                             <td>{{ s.username }}</td>
                             <td>{{ s.parents }}</td>
+                            <td>{{s.plcmt_lvl}}</td>
                             <td>{{ s.remark }}</td>
                             <td>
                               <span
