@@ -79,3 +79,9 @@ export const ApiDeleteStudent = {
         }))
     }
 }
+
+export const ApiPostRedoLevel = {
+    post: (stdObj) => {
+        return post(`/course/student/redoplacement/true`,stdObj)
+    }  
+}

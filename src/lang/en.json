@@ -357,5 +357,8 @@
   "are-you-sure-you-want-to-delete-this-assignment-all-student-progress-will-be-lost": "Are you sure you want to delete this assignment? All student progress will be lost.",
   "download-sample-file": "Download sample file",
   "confirm-0": "Confirm",
-  "level-0": "Level"
+  "level-0": "Level",
+  "retest-level": "Retest level",
+  "would-you-like-to-have-your-students-take-the-placement-test-again": "Would you like to have your students take the placement test again",
+  "level-test": "Level test"
 }

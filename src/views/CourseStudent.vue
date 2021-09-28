@@ -91,6 +91,15 @@
                 >
                   <i class="la la-print"></i>{{ $t("print-notice") }}
                 </button> -->
+                               <button
+                 type="button"
+                  class="btn btn-primary btn-outline btn-rounded mr-2"
+                  data-toggle="modal"
+                  data-target="#redoModal"
+                >
+                  <i class="zmdi zmdi-redo zmdi-hc-fw"></i
+                  >{{ $t('retest-level') }}
+                </button>
                 <button
                   type="button"
                   class="btn btn-primary btn-outline btn-rounded mr-2"
@@ -148,6 +157,7 @@
                             <th>{{ $t("parent-account") }}</th>
                             <th>{{ $t("remarks") }}</th>
                             <th>{{ $t('level-0') }}</th>
+                            <th>{{ $t('level-test') }}</th>
                             <th>{{ $t("status") }}</th>
                             <th v-if="$route.params.expired !== 'expired'">
                               {{ $t("edit") }}
@@ -178,8 +188,13 @@
                             </td>
                             <td>{{ s.username }}</td>
                             <td>{{ s.parents }}</td>
+                            <td>{{s.remark}}</td>
                             <td>{{s.plcmt_lvl}}</td>
-                            <td>{{ s.remark }}</td>
+                            <td>
+                              <span v-if="!s.plcmt_redo">Done</span>
+                              <span v-else>Undone</span>
+                              </td>
+                            <!-- <td>{{ s.remark }}</td> -->
                             <td>
                               <span
                                 class="text-success"
@@ -480,6 +495,52 @@
         </div>
       </div>
     </div>
+    <!-- redoModal MODAL-->
+        <div
+      class="modal fade"
+      id="redoModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalTitle1">
+              retest level
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="zmdi zmdi-close"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{ $t('would-you-like-to-have-your-students-take-the-placement-test-again') }}?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-outline btn-rounded"
+              data-dismiss="modal"
+            >
+              {{ $t("cancel") }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-rounded"
+              data-dismiss="modal"
+              @click="redoLevel()"
+            >
+              {{ $t("confirm") }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -497,6 +558,7 @@ import {
   ApiExportSList,
   ApiCopySList,
   ApiDeleteStudent,
+  ApiPostRedoLevel
 } from "../http/apis/Student";
 import $ from "jquery";
 export default {
@@ -574,6 +636,21 @@ export default {
   },
   methods: {
     init() {},
+    async redoLevel(){
+      let stdList = this.selectedStudents.join("|")
+      let result  = await ApiPostRedoLevel.post(stdList).then((response) => {
+        console.log(response)
+        if(response.status==='success'){
+          return true
+        }
+      }).catch((err) => {
+        
+      });
+      if(result){
+         this.$bus.$emit("messsage:push", "Submission requirements completed.", "success");
+          this.$store.dispatch("courseInfo/updateStudent", this.courseid);
+      }
+    },
     selectAll(event) {
       const vm = this;
 
