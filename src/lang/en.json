@@ -360,5 +360,7 @@
   "level-0": "Level",
   "retest-level": "Retest level",
   "would-you-like-to-have-your-students-take-the-placement-test-again": "Would you like to have your students take the placement test again",
-  "level-test": "Level test"
+  "level-test": "Level test",
+  "assign-level-check": "Assign level check",
+  "would-you-like-your-students-to-take-the-level-check-again": "Would you like your students to take the level check again"
 }

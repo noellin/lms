@@ -98,7 +98,7 @@
                   data-target="#redoModal"
                 >
                   <i class="zmdi zmdi-redo zmdi-hc-fw"></i
-                  >{{ $t('retest-level') }}
+                  >{{ $t('assign-level-check') }}
                 </button>
                 <button
                   type="button"
@@ -191,7 +191,7 @@
                             <td>{{s.remark}}</td>
                             <td>{{s.plcmt_lvl}}</td>
                             <td>
-                              <span v-if="!s.plcmt_redo">Done</span>
+                              <span v-if="s.plcmt_redo==='false'">Done</span>
                               <span v-else>Undone</span>
                               </td>
                             <!-- <td>{{ s.remark }}</td> -->
@@ -507,7 +507,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalTitle1">
-              retest level
+              Level check
             </h5>
             <button
               type="button"
@@ -519,7 +519,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>{{ $t('would-you-like-to-have-your-students-take-the-placement-test-again') }}?</p>
+            <p>{{ $t('would-you-like-your-students-to-take-the-level-check-again') }}?</p>
           </div>
           <div class="modal-footer">
             <button

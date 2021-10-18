@@ -274,7 +274,8 @@
                                 text-primary
                               "
                             >
-                              <div title="">
+                              <h1 @click="gotoWebsite(textbook)" 
+                              class="text-primary pointer">
                                 <!-- <span
                                   v-if="textbook.unit !== ''"
                                   style="font-size: 18px"
@@ -295,7 +296,7 @@
                                     "
                                   ></i
                                 ></a>
-                              </div>
+                              </h1>
                             </h4>
                             <p class="text-muted mt-1">
                               <span class="fw300 text-xs"
@@ -311,9 +312,11 @@
                             class="text-primary"
                             v-if="$route.params.expired !== 'expired'"
                           >
-                            {{ $t("start")
+                          <h2 @click="gotoWebsite(textbook)"
+                          class="text-primary pointer">
+ {{ $t("start")
                             }}<a
-                              @click="gotoWebsite(textbook)"
+                              
                               class="
                                 btn-rounded-icon btn-primary
                                 rounded
@@ -327,6 +330,8 @@
                                 "
                               ></i
                             ></a>
+                          </h2>
+                           
                           </div>
                         </div>
                         <div

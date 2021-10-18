@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build & vue-cli-service build --mode app --dest ./dist_app & vue-cli-service build --mode nlt --dest ./dist_nlt & vue-cli-service build --mode japan --dest ./dist_jp & vue-cli-service build --mode myanmar --dest ./dist_mm & vue-cli-service build --mode tw --dest ./dist_tw",
+    "serve-honeybearkids":"vue-cli-service serve --mode honeybearkids",
+    "build": "vue-cli-service build & vue-cli-service build --mode app --dest ./dist_app & vue-cli-service build --mode nlt --dest ./dist_nlt & vue-cli-service build --mode japan --dest ./dist_jp & vue-cli-service build --mode myanmar --dest ./dist_mm & vue-cli-service build --mode tw --dest ./dist_tw & vue-cli-service build --mode  honeybearkids  --dest ./dist_honeybearkids",
     "build-jp": "vue-cli-service build --mode japan --dest ./dist_jp",
     "build-dev": "vue-cli-service build --mode development --dest ./dist_dev",
     "build-nlt": "vue-cli-service build --mode nlt --dest ./dist_nlt",

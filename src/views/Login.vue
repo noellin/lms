@@ -1,7 +1,7 @@
 <template>
-  <div class="" id="app">
-    <div class="col-sm-12 row mx-0 loginbg px-0">
-      <div class="sign-card" v-if="loginShow === 'login'">
+  <div class="loginbg pt-5" id="app">
+    <div id="app" class="col-sm-12 row mx-0 pt-5  px-0">
+      <div   class="col-sm-12 d-flex justify-content-center align-items-center" v-if="loginShow === 'login'">
         <div class="card">
           <div class="card-body login-bg-s">
             <a class="brand text-center d-block m-b-20 m-t-20">
@@ -67,23 +67,6 @@
                   </div>
                 </ValidationProvider>
                 <div class="checkbox m-t-20">
-                  <!-- <div
-                      class="custom-control custom-checkbox checkbox-primary"
-                    >
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="stateCheck1"
-                        checked=""
-                        v-model="remember"
-                      />
-                      <label
-                        class="custom-control-label text-white"
-                        for="stateCheck1"
-                      >
-                        {{ $t("remember-me") }}</label
-                      >
-                    </div> -->
                   <a
                     class="float-right blue pointer"
                     @click="loginShow = 'forgetPassword'"
@@ -101,10 +84,10 @@
                 </button>
               </div>
             </ValidationObserver>
-            <div class="d-flex justify-content-center">
+            <div class=" col-sm-12">
               <div
                 data-v-653f1d32=""
-                class="text-white"
+                class="col-sm-12 text-white d-flex justify-content-center"
                 style="
                   text-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px;
                   font-size: 20px;
@@ -113,6 +96,8 @@
               >
                 Teacher
               </div>
+              <div  v-if="specialInfo !== null" 
+              class="  text-white justify-content-center special-text col-sm-12" v-html="specialInfo"></div>
             </div>
           </div>
         </div>
@@ -120,7 +105,7 @@
 
       <!-- login reset pwd -->
 
-      <div class="sign-card" v-if="loginShow === 'resetPasswordSuccess'">
+      <div class="col-sm-12 d-flex justify-content-center align-items-center" v-if="loginShow === 'resetPasswordSuccess'">
         <div class="card">
           <div class="card-body login-bg-s">
             <a class="brand text-center d-block m-b-20 m-t-20">
@@ -166,12 +151,14 @@
               >
                 Teacher
               </div>
+              <div  v-if="specialInfo !== null" 
+              class="  text-white justify-content-center special-text col-sm-12" v-html="specialInfo"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="sign-card" v-if="loginShow === 'forgetPassword'">
+      <div class="col-sm-12 d-flex justify-content-center align-items-center" v-if="loginShow === 'forgetPassword'">
         <div class="card">
           <div class="card-body login-bg-s">
             <a class="brand text-center d-block m-b-20 m-t-20">
@@ -227,13 +214,15 @@
                 >
                   Teacher
                 </div>
+                <div  v-if="specialInfo !== null" 
+              class="  text-white justify-content-center special-text col-sm-12" v-html="specialInfo"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="sign-card" v-if="loginShow === 'resetPassword'">
+      <div class="col-sm-12 d-flex justify-content-center align-items-center" v-if="loginShow === 'resetPassword'">
         <div class="card">
           <div class="card-body login-bg-s">
             <ValidationObserver ref="resetForm">
@@ -317,12 +306,14 @@
               >
                 Teacher
               </div>
+              <div  v-if="specialInfo !== null" 
+              class="  text-white justify-content-center special-text col-sm-12" v-html="specialInfo"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="sign-card" v-if="loginShow === 'sendEmail'">
+      <div class="col-sm-12 d-flex justify-content-center align-items-center" v-if="loginShow === 'sendEmail'">
         <div class="card">
           <div class="card-body login-bg-s">
             <a class="brand text-center d-block m-b-20 m-t-20">
@@ -367,11 +358,13 @@
               >
                 Teacher
               </div>
+              <div  v-if="specialInfo !== null" 
+              class="  text-white justify-content-center special-text col-sm-12" v-html="specialInfo"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="d-flex col-sm-12 justify-content-end">
+      <div style="height:20px" class="d-flex col-sm-12 justify-content-end">
         <a
           href="https://www.iubenda.com/privacy-policy/32601846"
           class="iubenda-nostyle no-brand iubenda-embed mr-4"
@@ -441,6 +434,7 @@ export default {
       },
       userEmail: "",
       ErrorMessage: "Your email or password is incorrect. please try again.",
+      specialInfo:null
     };
   },
   created() {
@@ -475,6 +469,9 @@ export default {
       this.loginShow = "resetPassword";
 
       this.userEmail = this.$route.params.email;
+    }
+    if (process.env.VUE_APP_SpecialInfo !== undefined) {
+      this.specialInfo = process.env.VUE_APP_SpecialInfo
     }
   },
   computed: {
@@ -578,11 +575,15 @@ export default {
 //   background-color: #ff9100;
 // }
 .loginbg{
-   background-image: url("../assets/img/avatars/bg-login-s.png")no-repeat center center fixed;
+
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  min-height:100%;
+    background-image: url("../assets/img/avatars/login page_background-01.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .beta_div {
   background-color: #f56523;
@@ -595,14 +596,15 @@ export default {
 }
 
 .login-bg-s {
+
   background-image: url("../assets/img/avatars/bg-login-s.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 51% 34%;
   background-size: 54%;
   border-radius: 10px;
-  width: 400px;
-  height: 500px;
+  width: 450px;
+  height: 550px;
   box-shadow: 12px 12px 7px rgba(0, 0, 0, 0.5);
 }
 @media (max-width: 1920px) {
@@ -613,7 +615,7 @@ export default {
     background-position: 56% 45%;
     background-size: 52%;
     border-radius: 10px;
-    width: 400px;
+    width: 450px;
   }
 }
 @media (max-width: 1367px) {
@@ -624,7 +626,7 @@ export default {
     background-position: 51% 35%;
     background-size: 55%;
     border-radius: 10px;
-    width: 400px;
+    width: 450px;
   }
 }
 @media (max-width: 1200px) {
@@ -635,14 +637,10 @@ export default {
     background-position: 51% 34%;
     background-size: 62%;
     border-radius: 10px;
-    width: 400px;
+    width: 450px;
   }
 }
-.loginbg {
-  background-image: url("../assets/img/avatars/login page_background-01.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
+
 
 // .msu_logo {
 //   // transform: scale(1.5);
@@ -652,15 +650,18 @@ export default {
 // @media (max-width: 1024px) {}
 // @media (max-width: 860px) {}
 
-.sign-card {
-  margin: 15% auto 0;
+.col-sm-12 d-flex justify-content-center align-items-center {
+  margin: 12% auto 0;
 }
-// .loginbg{
-//    background-image: url("../assets/img/avatars/bg-login-s.png")no-repeat center center fixed;
-//     -webkit-background-size: cover;
-//   -moz-background-size: cover;
-//   -o-background-size: cover;
-//   background-size: cover;
-// }
+.special-text {
+  font-size: 12px;
+}
+.iubenda-embed{
+  height:18px
+}
+.app{
+  height:100%
+}
+
 </style>
 
