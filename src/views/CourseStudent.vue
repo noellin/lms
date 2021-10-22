@@ -157,7 +157,7 @@
                             <th>{{ $t("parent-account") }}</th>
                             <th>{{ $t("remarks") }}</th>
                             <th>{{ $t('level-0') }}</th>
-                            <th>{{ $t('level-test') }}</th>
+                            <th>{{ $t('level-check') }}</th>
                             <th>{{ $t("status") }}</th>
                             <th v-if="$route.params.expired !== 'expired'">
                               {{ $t("edit") }}
@@ -192,7 +192,7 @@
                             <td>{{s.plcmt_lvl}}</td>
                             <td>
                               <span v-if="s.plcmt_redo==='false'">Done</span>
-                              <span v-else>Undone</span>
+                              <span v-else>Ongoing</span>
                               </td>
                             <!-- <td>{{ s.remark }}</td> -->
                             <td>
