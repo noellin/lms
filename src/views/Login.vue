@@ -7,7 +7,7 @@
             <a class="brand text-center d-block m-b-20 m-t-20">
               <img
                 class="msu_logo"
-                :src="require('../assets/msu_temp_logo.png')"
+                :src="logo"
                 alt="Logo"
               />
             </a>
@@ -111,7 +111,7 @@
             <a class="brand text-center d-block m-b-20 m-t-20">
               <img
                 class="msu_logo"
-                :src="require('../assets/msu_temp_logo.png')"
+                :src="logo"
                 alt="Logo"
               />
               <!-- <span class="display-4">School Name</span> -->
@@ -164,7 +164,7 @@
             <a class="brand text-center d-block m-b-20 m-t-20">
               <img
                 class="msu_logo"
-                :src="require('../assets/msu_temp_logo.png')"
+                :src="logo"
                 alt="Logo"
               />
               <!-- <span class="display-4">School Name</span> -->
@@ -229,7 +229,7 @@
               <a class="brand text-center d-block m-b-20 m-t-20">
                 <img
                   class="msu_logo"
-                  :src="require('../assets/msu_temp_logo.png')"
+                  :src="logo"
                   alt="Logo"
                 />
                 <!-- <span class="display-4">School Name</span> -->
@@ -319,7 +319,7 @@
             <a class="brand text-center d-block m-b-20 m-t-20">
               <img
                 class="msu_logo"
-                :src="require('../assets/msu_temp_logo.png')"
+                :src="logo"
                 alt="Logo"
               />
               <!-- <span class="display-4">School Name</span> -->
@@ -478,6 +478,9 @@ export default {
     token() {
       return this.$store.state.auth.token;
     },
+    logo(){
+      return this.$store.state.common.logo
+    }
   },
   methods: {
     async forgotPassword() {

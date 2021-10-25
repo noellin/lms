@@ -40,7 +40,7 @@
                   style="background-col"
                 >
                   <img
-                    :src="require('../assets/msu_temp_logo.png')"
+                    :src="logo"
                     alt=""
                     style="max-height: 100px; max-width: 212px; width: 290px height:100px"
                   />
@@ -261,6 +261,9 @@ export default {
     image_small() {
       return this.$store.state.auth.image_small;
     },
+       logo(){
+      return this.$store.state.common.logo
+    }
   },
   watch: {
     image_small() {

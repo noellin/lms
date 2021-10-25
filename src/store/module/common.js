@@ -12,6 +12,7 @@ const common = {
             { text: "Sort by unit Smallest to Largest", id: "unit_asc" },
             { text: "Sort by unit Largest to Smallest", id: "unit_desc" },
           ],
+          logo:''
     },
     mutations: {
         SET_LOADING(state, data) {
@@ -20,6 +21,9 @@ const common = {
         SET_SORTTYPELIST(state, data){
             state.sortTypeList = data
         },
+        SET_LOGO(state, data){
+            state.logo = data
+        }
     },
     actions: {
         setSortTypeList(context, data){
@@ -28,6 +32,9 @@ const common = {
         setLoading(context, data) {
             context.commit('SET_LOADING', data)
         },
+        setLOGO(context, data){
+            context.commit('SET_LOGO', data)
+        }
 
     },
     // getters: {

@@ -59,7 +59,13 @@ if(localStorage.getItem('lang')!==undefined && localStorage.getItem('lang')!==nu
   store.dispatch("auth/setLang", "en-US");
 }
 
-
+// LOGO
+if (process.env.VUE_APP_LOGO !== undefined) {
+  store.dispatch('common/setLOGO', `https://${process.env.VUE_APP_LOGO}.mangosteems.com/ores/getinslogo`)
+} else {
+  // store.dispatch('common/setLOGO', `https://honeybearkids.mangosteems.com/ores/getinslogo`)
+  store.dispatch('common/setLOGO', `https://app.mangosteems.com/ores/getinslogo`)
+}
 
 const loadimage = require('./assets/img/images/Spinner-1s-200px (1).svg')
 const errorimage = require('./assets/img/images/cross-1.1s-200px.png')
