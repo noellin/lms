@@ -417,7 +417,7 @@
             <div class="modal-body">
               <form>
                 <ValidationProvider
-                  rules="required|min:6"
+                  rules=""
                   v-slot="{ failed, errors }"
                   name="Current password"
                 >
@@ -512,6 +512,7 @@
                 type="submit"
                 class="btn btn-accent btn-rounded"
                 @click="setAccountPWD"
+                data-dismiss="modal"
               >
                 {{ $t("reset") }}
               </button>
@@ -718,14 +719,15 @@ export default {
             .then((response) => {
               console.log(response);
               if (response.status === "success") {
-                this.resetpwStatus = true;
-                $("#ResetPasswordModal").modal("hide");
-                $("#PasswordResetSuccessModal").modal("show");
+                 this.$bus.$emit("messsage:push", "Change password successfully.", "success");
+                // $('#ResetPasswordModal').modal('hide');
+                //  $("#PasswordResetSuccessModal").modal("show");
               } else {
-                this.resetpwStatus = false;
+
                 this.errorMessage = response.record;
-                $("#ResetPasswordModal").modal("hide");
-                $("#PasswordResetSuccessModal").modal("show");
+                this.$bus.$emit("messsage:push", response.record, "danger");
+                //  $("#ResetPasswordModal").modal("hide");
+                //  $("#PasswordResetSuccessModal").modal("show");
               }
             })
             .catch((err) => {});
