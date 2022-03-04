@@ -512,22 +512,7 @@ export default {
         this.tempSortItem = sortItem;
         this.aList = sortBy(this.aList, [(obj) => obj[sortItem]], ["asc"]);
       }
-      // if (this.tempSortItem === "") {
-      //   this.tempSortItem = sortItem;
-      //   this.sortStatus = false;
-      // } else if (this.tempSortItem !== sortItem) {
-      //   this.tempSortItem = sortItem;
-      //   this.sortStatus = false;
-      // } else {
-      // }
-      // this.sortStatus = !this.sortStatus;
-      // if (this.sortStatus) {
-      //   this.aList = sortBy(this.aList, [sortItem], ["asc"]);
-      // } else {
-      //   this.aList = this.aList.reverse();
-      // }
 
-      // publish_date
     },
     calexpired(date) {
       let today = new Date();

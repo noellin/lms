@@ -1,0 +1,83 @@
+.sequence[data-v-22772e1c] {
+  overflow-y: scroll !important;
+}
+.a-sequence[data-v-22772e1c] {
+  overflow-y: scroll !important;
+}
+.bold[data-v-22772e1c] {
+  font-weight: bold;
+}
+.cus-img[data-v-22772e1c] {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.overlay-icon[data-v-22772e1c] {
+  z-index: 99;
+}
+.hover-expand:hover .hover-blue[data-v-22772e1c] {
+  color: #32c1db;
+}
+.custom-control-label.text-xs[data-v-22772e1c] {
+  font-size: 16px !important;
+}
+.text-xs.fw300[data-v-22772e1c] {
+  font-size: 14px !important;
+}
+.download-icon[data-v-22772e1c]:hover {
+  color: #32c1db;
+}
+.download-block:hover > div > span > .download-icon[data-v-22772e1c] {
+  color: #32c1db;
+}
+.mfilter-board .card-title[data-v-22772e1c] {
+  color: #ffffff;
+}
+.mfilter-board .mfilter-icon[data-v-22772e1c] {
+  color: #ffffff;
+}
+.mfilter-board[data-v-22772e1c]:hover {
+  cursor: pointer;
+}
+.mfilter-board:hover .mfilter-icon[data-v-22772e1c] {
+  color: #ffce67;
+}
+.tooltip[data-v-22772e1c] {
+  width: 602px !important;
+  min-width: 602px !important;
+}
+.monospace[data-v-22772e1c] {
+  font-family: "Roboto", monospace;
+}
+.yellow-1[data-v-22772e1c] {
+  color: #fad961;
+}
+.yellow-2[data-v-22772e1c] {
+  color: #f9bc4f;
+}
+.yellow-3[data-v-22772e1c] {
+  color: #f8a03d;
+}
+.yellow-4[data-v-22772e1c] {
+  color: #f78c30;
+}
+.yellow-5[data-v-22772e1c] {
+  color: #f76b1c;
+}
+@media (min-width: 768px) {
+.modal-xl[data-v-22772e1c] {
+    width: 90%;
+    max-width: 1200px;
+}
+}
+.download-border[data-v-22772e1c] {
+  border: solid #f0f6ff;
+  border-width: 2px;
+}

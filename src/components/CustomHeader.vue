@@ -44,12 +44,6 @@
                     alt=""
                     style="max-height: 100px; max-width: 212px; width: 290px height:100px"
                   />
-                  <!-- <img
-                    src="../assets/img/avatars/Group 2.png"
-                    alt=""
-                    style="max-height: 90px; max-width: 200px; width: 240px height:90px"
-                  /> -->
-                  <!-- style="max-height: 35px; max-width: 190px" -->
                 </div>
               </a>
             </li>
@@ -121,7 +115,7 @@
               >
               <br v-if="userInfo.permit === 'admin'" />
               <br v-if="userInfo.permit === 'admin'" />
-              <span>{{ userInfo.email }}</span>
+              <div class="word-break " >{{ userInfo.email }}</div>
             </div>
             <a class="dropdown-item pointer" @click="gotoAccount()"
               ><i class="icon dripicons-user"></i> {{ $t("my-account") }}</a
@@ -171,20 +165,22 @@
           </div>
           <div class="modal-body">
             <ul class="p-0">
-              <li
+                            <li
+                            v-for="lang in langList" :key="lang.key"
+                class="lang-li mb-3 pointer"
+                @click="settingLang = lang.value"
+                :class="{ 'text-primary': settingLang === lang.value }"
+              >
+                {{lang.key}}
+              </li>
+
+              <!-- <li
                 class="lang-li mb-3 pointer"
                 @click="settingLang = 'en-US'"
                 :class="{ 'text-primary': settingLang === 'en-US' }"
               >
                 English
               </li>
-              <!-- <li
-                class="lang-li mb-3 pointer"
-                @click="settingLang = 'zh-TW'"
-                :class="{ 'text-primary': settingLang === 'zh-TW' }"
-              >
-                繁體中文 (Traditional Chinese)
-              </li> -->
               <li
                 class="lang-li mb-3 pointer"
                 @click="settingLang = 'ja-JP'"
@@ -198,7 +194,7 @@
                 :class="{ 'text-primary': settingLang === 'th-TH' }"
               >
                 Thai
-              </li>
+              </li> -->
             </ul>
           </div>
           <div class="modal-footer">
@@ -252,6 +248,9 @@ export default {
     // langs() {
     //   return this.$store.state.commom.currentsLang;
     // },
+    langList(){
+      return this.$store.state.common.langList
+    },
     showPage() {
       return this.$route.name;
     },
@@ -322,10 +321,16 @@ export default {
 }
 
 .dropdown-menu-width {
-  width: 270px !important;
+  width: 320px !important;
 }
 
 .admin-color {
   color: #eb7a77;
+}
+
+.word-break{
+display: inline-block;
+overflow-wrap: anywhere;
+word-break:break-word;
 }
 </style>

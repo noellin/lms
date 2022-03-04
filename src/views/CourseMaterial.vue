@@ -248,20 +248,20 @@
                     ></div> -->
                       </div>
                       <div class="media-body">
-                        <div class="d-flex justify-content-between">
-                          <div>
+                        <div class="col-sm-12 px-0 d-flex justify-content-between">
+                          <div class="px-0 col-sm-8">
                             <!-- <span class="badge badge-pill badge-secondary mt-2 mr-2"
                           >Lavel J</span
                         ><span class="badge badge-pill badge-secondary mt-2"
                           >Topic A</span
                         > -->
                             <span
-                              class="badge badge-pill badge-secondary"
+                              class="badge badge-pill badge-secondary mr-1"
                               v-if="textbook.level !== ''"
                               >{{ $t("level") }} {{ textbook.level }}</span
                             >
                             <span
-                              class="badge badge-pill badge-secondary ml-2"
+                              class="badge badge-pill badge-secondary "
                               v-if="textbook.unit !== ''"
                               >{{ $t("unit") }} {{ textbook.unit }}</span
                             >
@@ -274,17 +274,20 @@
                                 text-primary
                               "
                             >
-                              <h1 @click="gotoWebsite(textbook)" 
+                              <h1 
                               class="text-primary pointer">
                                 <!-- <span
                                   v-if="textbook.unit !== ''"
                                   style="font-size: 18px"
                                   >{{ textbook.unit }} -
                                 </span> -->
-                                {{ textbook.resource_name }}
-                                <a
+                                <span style="fontSize:22px" @click="gotoWebsite(textbook)" 
+                              class="text-primary pointer mr-1">{{ textbook.resource_name }}</span>
+                                
+                                <!-- <a
                                   target="_blank"
-                                  :href="textbook.worksheet"
+                                  @click="downloadFile(textbook.worksheet)"
+                                 
                                   v-if="textbook.link === true"
                                   ><i
                                     class="
@@ -295,10 +298,61 @@
                                       download-icon
                                     "
                                   ></i
-                                ></a>
+                                ></a> -->
                               </h1>
                             </h4>
-                            <p class="text-muted mt-1">
+                            <div class="col-sm-12 row">
+                              <div class="text-secondary   px-0 col-sm-12">Download</div>
+                              <div class=" pointer col-sm-5  pl-0">
+                                <div target="_blank"
+                                  @click="downloadFile(textbook.worksheet)"
+                                 
+                                  v-if="textbook.link === true"
+                                class="download-block download-border  rounded p-5">
+                                    <div class=" d-flex justify-content-center">
+                                  <span
+                        
+                                  ><i
+                                    class="
+                                      fas
+                                      fa-file-download
+                                      pointer
+                                      fa-2x
+                                      download-icon
+                                    "
+                                  ></i
+                                ></span>
+                                </div>
+                                <div style="word-break: break-all;" class="fw300 text-xs d-flex justify-content-center">worksheet</div>
+                                </div>
+                                </div>
+                              
+                               <div class=" pointer col-sm-5  ">
+                                 <div target="_blank"
+                                  @click="downloadFile(textbook.worksheet_teacher)"
+                                 
+                                  v-if="textbook.link === true" class="download-block download-border  rounded p-5">
+                                   <div class="d-flex justify-content-center">
+                                  <span
+                                  
+                                  ><i
+                                    class="
+                                      fas
+                                      fa-file-download
+                                      pointer
+                                      fa-2x
+                                      download-icon
+                                    "
+                                  ></i
+                                ></span>
+                                </div>
+                                <!-- style="word-break: break-all;" -->
+                                <div style="word-break: break-all;" class="fw300 text-xs d-flex justify-content-center">worksheet_teacher</div>
+                                </div>
+                                 </div>
+                                
+                            </div>
+                            <p class="text-muted mt-1 mb-0">
                               <span class="fw300 text-xs"
                                 >{{ $t("last-played") }}
                                 <span v-if="textbook.last_access !== '0'">{{
@@ -309,14 +363,13 @@
                             </p>
                           </div>
                           <div
-                            class="text-primary"
+                            class="px-0 d-flex justify-content-end col-sm-4 text-primary"
                             v-if="$route.params.expired !== 'expired'"
                           >
                           <h2 @click="gotoWebsite(textbook)"
                           class="text-primary pointer">
  {{ $t("start")
                             }}<a
-                              
                               class="
                                 btn-rounded-icon btn-primary
                                 rounded
@@ -329,7 +382,8 @@
                                   text-white
                                 "
                               ></i
-                            ></a>
+                            >
+                            </a>
                           </h2>
                            
                           </div>
@@ -1432,7 +1486,6 @@ import $ from "jquery";
 import draggable from "vuedraggable";
 // import _ from "lodash";
 import sortBy from "lodash/sortBy";
-import { createLogger } from "vuex";
 import courseInfo from '../store/module/courseInfo';
 
 export default {
@@ -1767,6 +1820,9 @@ export default {
     },
   },
   methods: {
+    downloadFile(link){
+setTimeout(() => window.open(link), 500);
+    },
     // select by shift end
     filterLevel(level) {
       if (this.codeNumber !== level) {
@@ -2287,7 +2343,11 @@ export default {
 .download-icon:hover {
   color: #32c1db;
 }
+.download-block:hover >div>span> .download-icon{
 
+    color: #32c1db;
+
+}
 .mfilter-board {
   .card-title {
     color: #ffffff;
@@ -2333,5 +2393,10 @@ export default {
     width: 90%;
     max-width: 1200px;
   }
+}
+
+.download-border{
+border: solid #f0f6ff;
+border-width: 2px;
 }
 </style>

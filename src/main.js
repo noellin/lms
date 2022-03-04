@@ -41,7 +41,8 @@ const i18n = new VueI18n({
 
     "en-US": require("../src/lang/en.json"), // 英文語言包
 
-    "th-TH":require("../src/lang/th-TH.json"), // 英文語言包
+    "th-TH":require("../src/lang/th-TH.json"), // 泰文語言包
+    'ko-KR': require('../src/lang/ko-KR.json'), //韓
   },
 });
 // console.log(store.state.commom)
@@ -50,7 +51,8 @@ if(localStorage.getItem('lang')!==undefined && localStorage.getItem('lang')!==nu
   store.dispatch("auth/setLang", localStorage.getItem('lang'));
 }else if(navigator.language==='en-US' 
 || navigator.language==='ja-JP'
-|| navigator.language==='th-TH'){
+|| navigator.language==='th-TH'||
+navigator.language === 'ko-KR'){
 
   i18n.locale = navigator.language
   store.dispatch("auth/setLang", navigator.language);

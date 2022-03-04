@@ -12,7 +12,13 @@ const common = {
             { text: "Sort by unit Smallest to Largest", id: "unit_asc" },
             { text: "Sort by unit Largest to Smallest", id: "unit_desc" },
           ],
-          logo:''
+          logo:'',
+          langList: [
+            { key: 'English', value: 'en-US' },
+            { key: 'Japanese', value: 'ja-JP' },
+            { key: 'Korean', value: 'ko-KR' },
+            { key: 'Thai', value: 'th-TH' },
+          ],
     },
     mutations: {
         SET_LOADING(state, data) {

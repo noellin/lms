@@ -23,23 +23,5 @@ export default new Vuex.Store({
             // }
         })
     ],
-    // state: {
-    //     token: '99988',
-    //     isLogin: false
-    // },
-    // mutations: {
-    //     SET_AUTH(state, data) {
-    //         state.token = data.token;
-    //         state.isLogin = data.isLogin
-    //         console.log('log save')
-    //     }
-    // },
-    // actions: {
-    //     setAuth(context, data) {
-    //         context.commit('SET_AUTH', {
-    //             token: data.token,
-    //             isLogin: data.isLogin
-    //         })
-    //     }
-    // },
+
 })

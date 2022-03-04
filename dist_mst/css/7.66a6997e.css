@@ -1,0 +1,87 @@
+#exampleFormControlTextarea1[data-v-5a30e2d4] {
+  height: 100px;
+}
+.modal-dialog[data-v-5a30e2d4] {
+  min-width: 99.9%;
+  margin: 0;
+  top: 0;
+  bottom: 0;
+  min-height: 99vh;
+  display: flex;
+  position: fixed;
+  z-index: 100000;
+}
+.modal[data-modal=scroll] .modal-body[data-v-5a30e2d4] {
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.modal-footer[data-v-5a30e2d4] {
+  background: #fff;
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
+.slidecontainer[data-v-5a30e2d4] {
+  width: 100%;
+  /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider[data-v-5a30e2d4] {
+  width: 60%;
+  /* Full-width */
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  /* Grey background */
+  outline: none;
+  /* Remove outline */
+  opacity: 0.7;
+  /* Set transparency (for mouse-over effects on hover) */
+  /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider[data-v-5a30e2d4]:hover {
+  opacity: 1;
+  /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider[data-v-5a30e2d4]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Override default look */
+  appearance: none;
+  width: 25px;
+  /* Set a specific slider handle width */
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+}
+.slider[data-v-5a30e2d4]::-moz-range-thumb {
+  width: 25px;
+  /* Set a specific slider handle width */
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+}
+.cus-img[data-v-5a30e2d4] {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}

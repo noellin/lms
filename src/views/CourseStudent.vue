@@ -93,7 +93,7 @@
                 </button> -->
                                <button
                  type="button"
-                  class="btn btn-primary btn-outline btn-rounded mr-2"
+                  class=" btn btn-primary btn-outline btn-rounded mr-2"
                   data-toggle="modal"
                   data-target="#redoModal"
                 >
@@ -158,6 +158,15 @@
                             <th>{{ $t("remarks") }}</th>
                             <th>{{ $t('level-0') }}</th>
                             <th>{{ $t('level-check') }}</th>
+                            <th class="pointer"
+                            @click="sortTable('firstlogin')">{{ $t('starting-date') }}<i
+                                  class="
+                                    zmdi zmdi-swap-vertical
+                                    ml-1
+                                    zmdi-hc-lg
+                                  "
+                                ></i
+                              ></th>
                             <th>{{ $t("status") }}</th>
                             <th v-if="$route.params.expired !== 'expired'">
                               {{ $t("edit") }}
@@ -194,6 +203,7 @@
                               <span v-if="s.plcmt_redo==='false'">Done</span>
                               <span v-else>Ongoing</span>
                               </td>
+                              <td>{{s.firstlogin | dateConversion}}</td>
                             <!-- <td>{{ s.remark }}</td> -->
                             <td>
                               <span
@@ -560,6 +570,7 @@ import {
   ApiDeleteStudent,
   ApiPostRedoLevel
 } from "../http/apis/Student";
+import sortBy from "lodash/sortBy";
 import $ from "jquery";
 export default {
   name: "CourseStudent",
@@ -608,6 +619,7 @@ export default {
       courseStudentInfo: {},
       selectAllS: "",
       selectedStudents: [],
+      tempSortItem: "",
     };
   },
   created() {
@@ -636,6 +648,15 @@ export default {
   },
   methods: {
     init() {},
+        sortTable(sortItem) {
+      if (this.tempSortItem === sortItem) {
+        this.studentList = this.studentList.reverse();
+      } else {
+        this.tempSortItem = sortItem;
+        this.studentList = sortBy(this.studentList, [(obj) => obj[sortItem]], ["asc"]);
+      }
+
+    },
     async redoLevel(){
       let stdList = this.selectedStudents.join("|")
       let result  = await ApiPostRedoLevel.post(stdList).then((response) => {

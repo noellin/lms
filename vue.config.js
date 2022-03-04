@@ -11,21 +11,21 @@ module.exports = {
  css: {
   extract: true
 },
-  configureWebpack: {
-    // devServer: {
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*"
-    //   }
-    // },
-    // plugins: [
-    //   new webpack.ProvidePlugin({
-    //     $: "jquery",
-    //     jQuery: "jquery",
-    //     "window.jQuery": "jquery",
-    //     Popper: ["popper.js", "default"],
-    //   }),
-    // ],
-  },
+  // configureWebpack: {
+  //   devServer: {
+  //     headers: {
+  //       "Access-Control-Allow-Origin": "*"
+  //     }
+  //   },
+  //   plugins: [
+  //     new webpack.ProvidePlugin({
+  //       $: "jquery",
+  //       jQuery: "jquery",
+  //       "window.jQuery": "jquery",
+  //       Popper: ["popper.js", "default"],
+  //     }),
+  //   ],
+  // },
   chainWebpack: (config) => {
 
     /* 
